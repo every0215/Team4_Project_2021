@@ -31,6 +31,6 @@ public class HomeController {
 	public String layoutHeader() {
 		return "layout/header";     //
 	}
-
+	
 
 }

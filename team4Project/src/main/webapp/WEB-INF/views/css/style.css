@@ -803,7 +803,7 @@ img {
 ====================*/
 
 #aa-slider {
-  float: left;
+/*   float: left; */
   display: inline;
   width: 100%;
 }
