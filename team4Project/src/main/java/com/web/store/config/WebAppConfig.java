@@ -14,10 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.web.store.controller"
-			  , "com.web.store.dao.impl"
-			  , "com.web.store.service.impl"
-})
+@ComponentScan({"com.web.store"})
 public class WebAppConfig implements WebMvcConfigurer {
 	@Bean
 	public ViewResolver  resolver() {
