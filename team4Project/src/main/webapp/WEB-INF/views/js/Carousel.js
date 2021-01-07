@@ -4,12 +4,16 @@ $(function(){
     let slideCount=$(".slides li").length;
     let lastIndex=slideCount-1;
     let intervalID;
-    let widthPerPic=1500; //一張圖片寬度
+    let widthPerPic=$("ul.slides li").width(); //一張圖片寬度
     let playInterval=5000; //輪播間隔 毫秒
 
     show();
     autoPlay();
       
+   	$(window).resize(function(){
+   		widthPerPic=$("ul.slides li").width();
+   		show();
+   	});
 
      $(".dot li").eq(0).css("background-color","#fff");
      $(".dot li").mouseenter(function(){

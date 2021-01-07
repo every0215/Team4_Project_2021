@@ -3,14 +3,12 @@
         } */
 
         :root {
-            --picContainerLength:7500px;
-            --perPicWidth:1500px;
             --perPicHeight:400px;
         }
 
         .wrapper{
             position: relative;
-            width:var(--perPicWidth);
+            width:100%;
             height:var(--perPicHeight);
             overflow: hidden;
             margin:150px auto 30px;
@@ -28,12 +26,12 @@
             list-style: none;
         }
         ul.slides{
-            width: var(--picContainerLength);
+            width: 500%;
             left: 0px;
             transition: all .5s;
         }
         ul.slides li{
-            width:var(--perPicWidth);
+            width:calc(100%/5);
             height:var(--perPicHeight);
             overflow: hidden;
             float: left;
