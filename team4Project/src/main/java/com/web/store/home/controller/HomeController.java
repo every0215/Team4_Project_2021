@@ -32,5 +32,10 @@ public class HomeController {
 		return "layout/header";     //
 	}
 	
+	@RequestMapping("/bo")
+	public String boIndex() {
+		return "crm/backOffice";
+	}
+	
 
 }
