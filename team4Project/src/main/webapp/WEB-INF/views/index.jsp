@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-<%@ page import="com.web.store.account.javabean.MemberBean"%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,7 +43,9 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  
+  	
+<!-- 引入的自定義css -->
+  	<link href="css/carousel.css" rel="stylesheet">
 
   </head>
   <body> 
@@ -61,78 +63,28 @@
 <c:import url="/layout/header" /> 
   <!-- Start slider -->
   <section id="aa-slider">
-    <div class="aa-slider-area">
-      <div id="sequence" class="seq">
-        <div class="seq-screen">
-          <ul class="seq-canvas">
-            <!-- single slide item -->
-            <li>
-              <div class="seq-model">
-                <img data-seq src="img/slider/1.jpg" alt="Men slide img" />
-              </div>
-              <div class="seq-title">
-               <span data-seq>Save Up to 75% Off</span>                
-                <h2 data-seq>Men Collection</h2>                
-                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-              </div>
-            </li>
-            <!-- single slide item -->
-            <li>
-              <div class="seq-model">
-                <img data-seq src="img/slider/2.jpg" alt="Wristwatch slide img" />
-              </div>
-              <div class="seq-title">
-                <span data-seq>Save Up to 40% Off</span>                
-                <h2 data-seq>Wristwatch Collection</h2>                
-                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-              </div>
-            </li>
-            <!-- single slide item -->
-            <li>
-              <div class="seq-model">
-                <img data-seq src="img/slider/3.jpg" alt="Women Jeans slide img" />
-              </div>
-              <div class="seq-title">
-                <span data-seq>Save Up to 75% Off</span>                
-                <h2 data-seq>Jeans Collection</h2>                
-                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-              </div>
-            </li>
-            <!-- single slide item -->           
-            <li>
-              <div class="seq-model">
-                <img data-seq src="img/slider/4.jpg" alt="Shoes slide img" />
-              </div>
-              <div class="seq-title">
-                <span data-seq>Save Up to 75% Off</span>                
-                <h2 data-seq>Exclusive Shoes</h2>                
-                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-              </div>
-            </li>
-            <!-- single slide item -->  
-             <li>
-              <div class="seq-model">
-                <img data-seq src="img/slider/5.jpg" alt="Male Female slide img" />
-              </div>
-              <div class="seq-title">
-                <span data-seq>Save Up to 50% Off</span>                
-                <h2 data-seq>Best Collection</h2>                
-                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-              </div>
-            </li>                   
-          </ul>
+    <div class="wrapper">
+        <ul class="slides">
+            
+            <li><a href="1"><img src="img\slider\1.jpg" alt=""></a></li>
+            <li><a href="2"><img src="img\slider\2.jpg" alt=""></a></li>
+            <li><a href="3"><img src="img\slider\3.jpg" alt=""></a></li>
+            <li><a href="4"><img src="img\slider\4.jpg" alt=""></a></li>
+            <li><a href=""><img src="img\slider\5.jpg" alt=""></a></li>
+        </ul>
+        <ul class="dot">
+            <li id="1"></li>
+            <li id="2"></li>
+            <li id="3"></li>
+            <li id="4"></li>
+            <li id="5"></li>
+        </ul>
+        <div id="prevSlide" class="slide_btn">
+            <i class="fa fa-caret-left"></i>
         </div>
-        <!-- slider navigation btn -->
-        <fieldset class="seq-nav" aria-controls="sequence" aria-label="Slider buttons">
-          <a type="button" class="seq-prev" aria-label="Previous"><span class="fa fa-angle-left"></span></a>
-          <a type="button" class="seq-next" aria-label="Next"><span class="fa fa-angle-right"></span></a>
-        </fieldset>
-      </div>
+        <div  id="nextSlide" class="slide_btn">
+            <i class="fa fa-caret-right"></i>
+        </div>
     </div>
   </section>
   <!-- / slider -->
@@ -1716,6 +1668,9 @@
   <script type="text/javascript" src="js/nouislider.js"></script>
   <!-- Custom js -->
   <script src="js/custom.js"></script> 
+  
+<!--   自定義js -->
+  <script type="text/javascript" src="js/Carousel.js"></script>
 
   </body>
 </html>
