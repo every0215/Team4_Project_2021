@@ -75,7 +75,7 @@
                 <!-- Text based logo -->
                 <a href="index.html" >
                   <img src="img/luckycat.png" width="60" style="vertical-align: middle;  float:left;" />
-                  <div style="float:left; vertical-align: middle;"><p>大<strong>滿滿</strong> <span>火速購買!!</span></p></div>
+                  <div style="float:left; vertical-align: middle;"><p><strong>滿滿</strong>大 <span>火速購買!!</span></p></div>
                 </a>
                 <!-- img based logo -->
                 <!-- <a href="index.html"><img src="img/logo.jpg" alt="logo img"></a> -->
