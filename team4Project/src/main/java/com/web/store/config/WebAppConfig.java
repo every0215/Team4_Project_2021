@@ -32,7 +32,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 //		resource.setBasename("messages");
 //		return resource;
 //	}
-
+//
 //	//可用內建的
 //	@Override
 //	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configuer) {
