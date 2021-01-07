@@ -26,18 +26,18 @@ public class WebAppConfig implements WebMvcConfigurer {
 		vr.setSuffix(".jsp");
 		return vr;
 	}
-	@Bean
-	public MessageSource messageSource() {
-		ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
-		resource.setBasename("messages");
-		return resource;
-	}
-
-	//可用內建的
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configuer) {
-		configuer.enable();
-	}
+//	@Bean
+//	public MessageSource messageSource() {
+//		ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
+//		resource.setBasename("messages");
+//		return resource;
+//	}
+//
+//	//可用內建的
+//	@Override
+//	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configuer) {
+//		configuer.enable();
+//	}
 
 	@Override
 	// 應用系統必須透過ResourceHandlerRegistry的輔助，以便處理靜態檔案：

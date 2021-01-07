@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.web.store.account.javabean.MemberBean;
-import com.web.store.account.service.impl.AccountServiceImpl;
 
 //import mvc.examples.model.Cat;
 
@@ -32,5 +30,6 @@ public class HomeController {
 	public String layoutHeader() {
 		return "layout/header";     // 
 	}
+	
 
 }
