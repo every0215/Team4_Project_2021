@@ -1,0 +1,68 @@
+@charset "UTF-8";
+/*   首頁活動類別 */
+     .indexclass {
+            margin: 30px 120px 0px 100px;
+            height: 400px;
+/*             display:inline; */
+            
+        }
+        
+        .indexclassspan{
+        display:inline;
+/*         float:left; */
+        }
+        
+        .indexclassaa1 {
+            column-count: 6;
+            height: 200px;
+            padding-top: 20px;
+            text-align: center;
+            column-rule: 0px solid rgb(41, 21, 21);
+            position: relative;
+        }
+        
+        .indexclassaa2 {
+            column-count: 6;
+            height: 200px;
+            padding-top: 20px;
+            text-align: center;
+            column-rule: 0px solid rgb(41, 21, 21);
+            position: relative;
+        }
+        
+        .indexclassbb:hover {
+            width: 50%;
+            height: 60%;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 20px 20px 20px 20px;
+        }
+        
+        .indexclassbb {
+            width: 100px;
+        }
+                
+        .indexclassa:hover {
+            color: white;
+            font-weight: bolder;
+            background-color: orange;
+            border-radius: 10px 10px 10px 10px;
+            padding: 5px;
+        }
+        
+        .indexclassaa1 span {
+            color: white;
+            border: 1px solid red;
+            padding: 4px;
+            background-color: red;
+            position: absolute;
+            top: 0%;
+        }
+        
+        .indexclassaa2 span {
+            color: white;
+            border: 1px solid red;
+            padding: 4px;
+            background-color: red;
+            position: absolute;
+            top: 0%;
+        }
