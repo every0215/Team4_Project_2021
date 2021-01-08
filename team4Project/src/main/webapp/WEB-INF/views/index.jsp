@@ -66,7 +66,7 @@
 	<!-- END SCROLL TOP BUTTON -->
 
 	<c:import url="/layout/header" />
-
+<!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
 <<<<<<< Updated upstream
   <!-- Start slider -->
   <section id="aa-slider">
