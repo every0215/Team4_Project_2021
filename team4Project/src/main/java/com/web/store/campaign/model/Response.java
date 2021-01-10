@@ -1,5 +1,6 @@
 package com.web.store.campaign.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -15,8 +16,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="response")
-public class Response {
+public class Response implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id @Column(name="id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
