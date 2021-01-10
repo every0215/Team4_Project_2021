@@ -54,7 +54,7 @@ public class Company {
 	@Column(name= "Status")
 	private boolean Status;//企業的上下架狀態，只有1或0
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "company")
+	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Campaign> campaigns;
 	
 	@Transient
