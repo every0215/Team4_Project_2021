@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.web.store.company.model.Company;
+
 @Entity
 @Table(name="campaign")
 public class Campaign implements Serializable{
@@ -50,10 +52,10 @@ public class Campaign implements Serializable{
 
 	private Timestamp updateTime;
 	
-//	//之後補上
-//	@JoinColumn(name="companyId")
-//	@ManyToOne(cascade = CascadeType.ALL)
-//	private Company company;
+
+	@JoinColumn(name="companyId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Company company;
 	
 	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "campaign")
 	private DiscountParams discountParams;

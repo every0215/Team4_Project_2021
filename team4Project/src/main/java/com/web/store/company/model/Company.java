@@ -18,8 +18,11 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.GeneratorType;
 
 import com.web.store.ticket.model.Event;
+import com.web.store.campaign.model.Campaign;
+
+
 @Entity
-@Table(name="Company")
+@Table(name="company")
 public class Company {
 	
 	@Id
@@ -50,6 +53,9 @@ public class Company {
 	private String Profile;
 	@Column(name= "Status")
 	private boolean Status;//企業的上下架狀態，只有1或0
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "company")
+	private Set<Campaign> campaigns;
 	
 	@Transient
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="COMPANY", cascade=CascadeType.ALL)
