@@ -1,48 +1,71 @@
 package com.web.store.campaign.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="campaign")
-public class Campaign {
+public class Campaign implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id @Column(name="id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private String title;
+	private String name;
 
 	private String picturePath;
 
 	private String description;
 
-	private String Content;
+	private String content;
 
 	private Timestamp startTime;
 
 	private Timestamp endTime;
-	
-//	@JoinColumn(name = "type")
-//	@ManyToOne
-//	private DiscountType type;
+
+	private Boolean launchStatus;
 
 	private Boolean status;
 
 	private Timestamp addTime;
 
 	private Timestamp updateTime;
-//  與Company Bean連動，之後要記得加上getter、setter
+	
+//	//之後補上
 //	@JoinColumn(name="companyId")
-//	@ManyToOne
-//	Company company;
-//	int companyId;  //測試用之後刪掉
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	private Company company;
+	
+	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "campaign")
+	private DiscountParams discountParams;
+	
+//	//商品活動多對多映射，之後補上
+//	@ManyToMany(cascade=CascadeType.ALL,mappedBy = "campaign",fetch = FetchType.LAZY)
+//    @JoinTable(
+//        name="product_campaign",
+//        joinColumns={@JoinColumn(name="campaignId")},
+//        inverseJoinColumns={@JoinColumn(name="productId")}
+//    )
+//	private set<Product> products;
 
 	public Integer getId() {
 		return id;
@@ -52,12 +75,12 @@ public class Campaign {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPicturePath() {
@@ -77,27 +100,35 @@ public class Campaign {
 	}
 
 	public String getContent() {
-		return Content;
+		return content;
 	}
 
 	public void setContent(String content) {
-		Content = content;
+		this.content = content;
 	}
 
-	public Timestamp getstartTime() {
+	public Timestamp getStartTime() {
 		return startTime;
 	}
 
-	public void setstartTime(Timestamp startTime) {
+	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
 
-	public Timestamp getendTime() {
+	public Timestamp getEndTime() {
 		return endTime;
 	}
 
-	public void setendTime(Timestamp endTime) {
+	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
+	}
+
+	public Boolean getLaunchStatus() {
+		return launchStatus;
+	}
+
+	public void setLaunchStatus(Boolean launchStatus) {
+		this.launchStatus = launchStatus;
 	}
 
 	public Boolean getStatus() {
@@ -123,6 +154,23 @@ public class Campaign {
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
+
+	public DiscountParams getDiscountParams() {
+		return discountParams;
+	}
+
+	public void setDiscountParams(DiscountParams discountParams) {
+		this.discountParams = discountParams;
+	}
+
+//	public Company getCompany() {
+//		return company;
+//	}
+//
+//	public void setCompany(Company company) {
+//		this.company = company;
+//	}
+
 	
 	
 }

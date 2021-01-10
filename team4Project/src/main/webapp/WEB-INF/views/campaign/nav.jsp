@@ -18,7 +18,7 @@
 	<ul class="navbar-nav">
 
 		<li class="nav-item"><a class="nav-link"
-			href="<c:url value="/CampaignShow"/>">查看活動</a></li>
+			href="<c:url value="/bo/campaign/show"/>">查看活動</a></li>
 		<li class="nav-item"><a class="nav-link"
 			href="<c:url value="/CampaignAdd"/>">新增活動</a></li>
 	</ul>	
