@@ -25,6 +25,7 @@ public class DiscountParams implements Serializable{
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name="property", value = "campaign"))
 	@GeneratedValue(generator = "generator")
 	private Integer id;
+	private Integer type;
 	private Double offParam;
 	private Integer amountOffParam;
 	private Integer	amountUpTo;
@@ -61,6 +62,12 @@ public class DiscountParams implements Serializable{
 	}
 	public void setCampaign(Campaign campaign) {
 		this.campaign = campaign;
+	}
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
 	}
 	
 	

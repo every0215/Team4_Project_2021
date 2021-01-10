@@ -17,17 +17,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.store.company.model.Company;
 
 @Entity
 @Table(name="campaign")
 public class Campaign implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id @Column(name="id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -51,15 +49,16 @@ public class Campaign implements Serializable{
 	private Timestamp addTime;
 
 	private Timestamp updateTime;
-	
-
+		
 	@JoinColumn(name="companyId")
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Company company;
 	
 	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "campaign")
+	@JsonIgnore
 	private DiscountParams discountParams;
-	
+		
 //	//商品活動多對多映射，之後補上
 //	@ManyToMany(cascade=CascadeType.ALL,mappedBy = "campaign",fetch = FetchType.LAZY)
 //    @JoinTable(
@@ -69,8 +68,33 @@ public class Campaign implements Serializable{
 //    )
 //	private set<Product> products;
 
+	
+	
 	public Integer getId() {
 		return id;
+	}
+
+
+	public Campaign(String name, String picturePath, String description, String content, Timestamp startTime,
+		Timestamp endTime, Boolean launchStatus, Boolean status, Timestamp addTime, Timestamp updateTime,
+		Company company, DiscountParams discountParams) {
+		super();
+		this.name = name;
+		this.picturePath = picturePath;
+		this.description = description;
+		this.content = content;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.launchStatus = launchStatus;
+		this.status = status;
+		this.addTime = addTime;
+		this.updateTime = updateTime;
+		this.company = company;
+		this.discountParams = discountParams;
+	}
+
+	public Campaign() {
+		
 	}
 
 	public void setId(Integer id) {
@@ -163,6 +187,14 @@ public class Campaign implements Serializable{
 
 	public void setDiscountParams(DiscountParams discountParams) {
 		this.discountParams = discountParams;
+	}
+	
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 //	public Company getCompany() {

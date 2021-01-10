@@ -32,14 +32,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.store.campaign.model.Campaign;
+import com.web.store.campaign.model.DiscountParams;
 import com.web.store.campaign.service.CampaignService;
 
 
 
 @Controller
+//@SessionAttributes(names = {"company"}) ////存取session屬性
 public class CampaignController {
 	
 	@Autowired
@@ -64,12 +67,13 @@ public class CampaignController {
 	public String addCamp(@RequestParam String title,
 			@RequestParam String startDate,
 			@RequestParam String startTime,
+			@RequestParam Integer type,
 			@RequestParam(required = false) Double offParam,
-			@RequestParam(required = false) int amountUpTo,
-			@RequestParam int amountOffParam,
+			@RequestParam(required = false) Integer amountUpTo,
+			@RequestParam(required = false) Integer amountOffParam,
 			@RequestParam String endDate,
 			@RequestParam String endTime,
-			@RequestParam Boolean status,
+			@RequestParam Boolean launchStatus,
 			@RequestParam String description,
 			@RequestParam String content,
 			@RequestParam MultipartFile picture,Model model) {
@@ -80,11 +84,7 @@ public class CampaignController {
 		
 		boolean isOk = true;//flag
 		
-		Date date = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String dateStr = dateFormat.format(date);
-		model.addAttribute("date",dateStr);//將當前日期傳給前端date表單
-		
+		Date date = new Date();//獲取當前時間
 		
 		if(StartDateTimeStamp.compareTo(date)<0) {
 			model.addAttribute("timeAfterCurrentErr","開始時間不得小於當前時間");
@@ -94,16 +94,12 @@ public class CampaignController {
 			model.addAttribute("startAfterEndErr","結束時間必須大於開始時間");
 			isOk = false;
 		}
-		if(picture.isEmpty()) {
-			model.addAttribute("noFileErr","沒有上傳檔案");
-			isOk = false;
-		}
 		
 		if(!isOk) {
 			return "CampaignAdd";
 		}
 		
-		Timestamp currentTime = new Timestamp(date.getTime());
+		Timestamp currentTime = new Timestamp(date.getTime());//獲取當前時間的TimeStamp物件
 		
 		String rootPath = context.getRealPath("/");//取得應用程式檔案系統目錄
 		String uploadFileName = picture.getOriginalFilename();
@@ -111,16 +107,33 @@ public class CampaignController {
 		String storeFileName = title+"_"+(int)(2147483647*Math.random())+uploadFileName.substring(uploadFileName.lastIndexOf("."));
 		String picDir = "campaign_Img"; //存放圖片的資料夾
 		String picPath = rootPath + "/" + picDir + "/" + storeFileName;//圖片儲存路徑
-		Campaign camp = new Campaign();
+		
+		//如果為1，是折扣塞入折扣參數
+		//為2是滿額塞入滿額參數
+		DiscountParams discountParams = new DiscountParams();
+		discountParams.setType(type);
+		if(type==1) {
+			discountParams.setOffParam(offParam);
+		}else if(type==2) {		
+			discountParams.setAmountUpTo(amountUpTo);
+			discountParams.setAmountOffParam(amountOffParam);
+		}
+		
+		Campaign camp = new Campaign();		
 		
 		camp.setName(title);
 		camp.setStartTime(StartDateTimeStamp);
 		camp.setEndTime(endDateTimeStamp);
-		camp.setStatus(status);
+		camp.setLaunchStatus(launchStatus);
+		camp.setStatus(true);
 		camp.setDescription(description);
+		camp.setContent(content);
 		camp.setAddTime(currentTime);
 		camp.setUpdateTime(currentTime);
 		camp.setPicturePath(picPath);
+		camp.setDiscountParams(discountParams);		
+		
+//		camp.setCompany(company); ////之後會從session獲得company物件
 		
 		
 		//寫入圖片檔案部分
