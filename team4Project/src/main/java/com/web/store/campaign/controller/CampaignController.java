@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,11 +47,11 @@ public class CampaignController {
 	@Autowired
 	ServletContext context;
 	
-	@GetMapping("/CampaignShow")
+	@GetMapping("/bo/campaign/show")
 	public String showAllCamp(Model model) {
 		List<Campaign> list = campService.getAllCampaign();
 		model.addAttribute("camps", list);
-		return "CampaignShow";
+		return "campaign/CampaignShow";
 	}
 	
 	@GetMapping("/CampaignDel/{campId}")
@@ -63,10 +64,14 @@ public class CampaignController {
 	public String addCamp(@RequestParam String title,
 			@RequestParam String startDate,
 			@RequestParam String startTime,
+			@RequestParam(required = false) Double offParam,
+			@RequestParam(required = false) int amountUpTo,
+			@RequestParam int amountOffParam,
 			@RequestParam String endDate,
 			@RequestParam String endTime,
 			@RequestParam Boolean status,
 			@RequestParam String description,
+			@RequestParam String content,
 			@RequestParam MultipartFile picture,Model model) {
 		
 		Timestamp StartDateTimeStamp = Timestamp.valueOf(startDate+" "+startTime+":00");
@@ -108,9 +113,9 @@ public class CampaignController {
 		String picPath = rootPath + "/" + picDir + "/" + storeFileName;//圖片儲存路徑
 		Campaign camp = new Campaign();
 		
-		camp.setTitle(title);
-		camp.setstartTime(StartDateTimeStamp);
-		camp.setendTime(endDateTimeStamp);
+		camp.setName(title);
+		camp.setStartTime(StartDateTimeStamp);
+		camp.setEndTime(endDateTimeStamp);
 		camp.setStatus(status);
 		camp.setDescription(description);
 		camp.setAddTime(currentTime);
@@ -163,7 +168,7 @@ public class CampaignController {
 	}
 	
 	//傳送圖片
-	@RequestMapping("/camaign/pic/{id}")
+	@RequestMapping(value="/camaign/pic/{id}",method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getPic(@PathVariable int id){
 		ResponseEntity<byte[]> re = null;
 		Campaign camp = campService.getCampaignById(id);
