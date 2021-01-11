@@ -42,7 +42,7 @@ import com.web.store.campaign.service.CampaignService;
 
 
 @Controller
-//@SessionAttributes(names = {"company"}) ////存取session屬性
+@SessionAttributes(names = {"company"}) ////存取session屬性
 public class CampaignController {
 	
 	@Autowired
@@ -63,8 +63,8 @@ public class CampaignController {
 		return "redirect:/CampaignShow";
 	}
 	
-	@RequestMapping("/CampaignAdd/add")
-	public String addCamp(@RequestParam String title,
+	@RequestMapping(value="/CampaignAdd/add")
+	public String addCamp(@RequestParam String name,
 			@RequestParam String startDate,
 			@RequestParam String startTime,
 			@RequestParam Integer type,
@@ -104,7 +104,7 @@ public class CampaignController {
 		String rootPath = context.getRealPath("/");//取得應用程式檔案系統目錄
 		String uploadFileName = picture.getOriginalFilename();
 		//活動名稱+亂數取得檔案名稱
-		String storeFileName = title+"_"+(int)(2147483647*Math.random())+uploadFileName.substring(uploadFileName.lastIndexOf("."));
+		String storeFileName = name+"_"+(int)(2147483647*Math.random())+uploadFileName.substring(uploadFileName.lastIndexOf("."));
 		String picDir = "campaign_Img"; //存放圖片的資料夾
 		String picPath = rootPath + "/" + picDir + "/" + storeFileName;//圖片儲存路徑
 		
@@ -121,20 +121,19 @@ public class CampaignController {
 		
 		Campaign camp = new Campaign();		
 		
-		camp.setName(title);
+		camp.setName(name);
 		camp.setStartTime(StartDateTimeStamp);
 		camp.setEndTime(endDateTimeStamp);
 		camp.setLaunchStatus(launchStatus);
-		camp.setStatus(true);
+		camp.setStatus(true); // 預設狀態正常
 		camp.setDescription(description);
 		camp.setContent(content);
 		camp.setAddTime(currentTime);
 		camp.setUpdateTime(currentTime);
-		camp.setPicturePath(picPath);
-		camp.setDiscountParams(discountParams);		
-		
+		camp.setPicturePath(picPath);	
 //		camp.setCompany(company); ////之後會從session獲得company物件
-		
+		camp.setDiscountParams(discountParams);		
+		discountParams.setCampaign(camp);
 		
 		//寫入圖片檔案部分
 		File dir = new File(rootPath+"/"+picDir);//存在應用程式跟目錄webapp底下
