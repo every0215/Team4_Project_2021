@@ -2,6 +2,7 @@ package com.web.store.campaign.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -95,6 +96,22 @@ public class Campaign implements Serializable{
 
 	public Campaign() {
 		
+	}
+	
+	//判斷活動狀態、時間內
+	public Boolean isActive() {
+		Date date = new Date();
+		Timestamp currentTime = new Timestamp(date.getTime());
+		
+		if(!status) {
+			return false;
+		}
+		
+		if(currentTime.compareTo(startTime)>0 && currentTime.compareTo(endTime)<0) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	public void setId(Integer id) {

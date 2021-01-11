@@ -17,9 +17,6 @@ import org.hibernate.annotations.Parameter;
 @Table(name="discountParams")
 public class DiscountParams implements Serializable{	
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name="property", value = "campaign"))
