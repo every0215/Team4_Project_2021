@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.web.store.campaign.dao.CampaignDao;
 import com.web.store.campaign.model.Campaign;
+import com.web.store.company.model.Company;
 
 
 
@@ -25,7 +26,7 @@ public class CampaignDaoImpl implements CampaignDao {
 	int resultPerPage = 6;//每頁的數量
 	
 	@Override
-	public int add(Campaign camp) {
+	public int insert(Campaign camp) {
 	//成功回傳1，失敗回傳0	
 		
 		Session session = sessionFactory.getCurrentSession();
@@ -61,7 +62,7 @@ public class CampaignDaoImpl implements CampaignDao {
 	}
 
 	@Override
-	public List<Campaign> getCampaignByCompany(int companyId) {
+	public List<Campaign> getCampaignByCompanyId(int companyId) {
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "from Campaign where companyId=:companyId";
 		Query<Campaign> queryObj = session.createQuery(hqlstr,Campaign.class);
@@ -69,11 +70,11 @@ public class CampaignDaoImpl implements CampaignDao {
 	}
 
 	@Override
-	public List<Campaign> getCampaignByStatus(boolean status) {
+	public List<Campaign> getCampaignByLaunchStatus(boolean launchStatus) {
 		Session session = sessionFactory.getCurrentSession();
-		String hqlstr = "from Campaign where status=:status";
+		String hqlstr = "from Campaign where launchStatus=:launchStatus";
 		Query<Campaign> queryObj = session.createQuery(hqlstr,Campaign.class);	
-		return queryObj.setParameter("companyId", status).list();
+		return queryObj.setParameter("companyId", launchStatus).list();
 	}
 
 	@Override
@@ -126,6 +127,24 @@ public class CampaignDaoImpl implements CampaignDao {
 		Session session = sessionFactory.getCurrentSession();
 		int page = (int)Math.ceil((long)session.createQuery(hql).uniqueResult()/(double)resultPerPage);
 		return page;
+	}
+
+	@Override
+	public int getTotalPageByCompanyId(int id) {
+		String hql = "SELECT COUNT(*) FROM Campaign WHERE companyId=:companyId";
+		Session session = sessionFactory.getCurrentSession();
+		int pageCount = (int)Math.ceil((long)session.createQuery(hql).uniqueResult()/(double)resultPerPage);
+		return pageCount;
+	}
+
+	@Override
+	public List<Campaign> getSinglePageResultByCompanyId(int page, int compayId) {
+		String hql = "FROM Campaign where companyId=:companyId";
+		Session session = sessionFactory.getCurrentSession();
+		Query<Campaign> query = session.createQuery(hql,Campaign.class).setMaxResults(resultPerPage).setFirstResult((page-1)*resultPerPage);
+		List<Campaign> list = query.list();
+
+		return list;
 	}
 
 

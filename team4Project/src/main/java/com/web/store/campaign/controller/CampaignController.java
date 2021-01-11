@@ -119,21 +119,9 @@ public class CampaignController {
 			discountParams.setAmountOffParam(amountOffParam);
 		}
 		
-		Campaign camp = new Campaign();		
-		
-		camp.setName(name);
-		camp.setStartTime(StartDateTimeStamp);
-		camp.setEndTime(endDateTimeStamp);
-		camp.setLaunchStatus(launchStatus);
-		camp.setStatus(true); // 預設狀態正常
-		camp.setDescription(description);
-		camp.setContent(content);
-		camp.setAddTime(currentTime);
-		camp.setUpdateTime(currentTime);
-		camp.setPicturePath(picPath);	
-//		camp.setCompany(company); ////之後會從session獲得company物件
-		camp.setDiscountParams(discountParams);		
-		discountParams.setCampaign(camp);
+		//Company目前是null，之後會從session抓取塞入
+		Campaign camp = new Campaign(name, picPath, description, content, StartDateTimeStamp, endDateTimeStamp, launchStatus, true, currentTime, currentTime, null, discountParams);		
+
 		
 		//寫入圖片檔案部分
 		File dir = new File(rootPath+"/"+picDir);//存在應用程式跟目錄webapp底下
@@ -156,7 +144,7 @@ public class CampaignController {
 		}
 		
 		try {
-			campService.add(camp);
+			campService.insert(camp);
 		}catch(Exception e){
 			throw new RuntimeException("新增到資料庫失敗\n"+e.toString());
 		}
@@ -172,7 +160,7 @@ public class CampaignController {
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		int totalPage = campService.getTotalPage();
-		List<Campaign> camps = campService.getPageCampaign(page);
+		List<Campaign> camps = campService.getSinglePageResult(page);
 		map.put("totalPage",totalPage);
 		map.put("page", camps);
 		return map;
