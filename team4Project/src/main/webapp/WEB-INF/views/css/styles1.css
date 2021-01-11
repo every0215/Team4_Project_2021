@@ -66,3 +66,62 @@
             position: absolute;
             top: 0%;
         }
+        
+.rep_reportarea {
+	background-color: transparent;
+
+/* 	display: inline-block; */
+	position: absolute;
+	width:calc(100vw - 15px);
+	height: calc(100vh - 80px);
+	bottom: 0px;
+	right:0px;
+}
+.content-wrapper{
+	margin-left: 200px;
+}
+
+#rep_tabs ul li{
+	display: inline;
+}
+
+#rep_tabs ul li a{
+	color: black;
+}
+.rep_tabs_photo {
+	min-width: 1000px;
+/* 	height: 120px; */
+	background-color: rgba(230, 228, 141, 0.3);
+}
+
+.rep_tabs_db {
+	min-width: 1000px;
+/* 	height: 280px; */
+	background-color: rgba(123, 207, 112, 0.3);
+	overflow: auto;
+}
+
+.rep_table_font {
+	text-align: center;
+	font-size: 12px;
+}
+
+.rep_downloadbutton {
+	float: right;
+}
+
+.col-md-8{
+	width: 100%;
+}
+
+.col-md-9 {
+    width: 100%;
+}
+
+.col-md-3 {
+    width: 40%;
+}
+.col-md-6 {
+    width: 100%;
+}
+
