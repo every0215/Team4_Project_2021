@@ -68,7 +68,7 @@
 						<div class="small-box bg-red">
 							<div class="inner">
 								<h3>10</h3>
-								<p>目前門市</p>
+								<p>目前門市數量</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-pie-graph"></i>
@@ -110,7 +110,7 @@
 									<a href="#tab_3" data-toggle="tab">年度活動銷售</a>
 								</li>
 								<li>
-									<a href="#tab_4" data-toggle="tab">商品前十名排行</a>
+									<a href="#tab_4" data-toggle="tab">商品前十名排行(廣告)</a>
 								</li>
 								<li class="dropdown">
 									<a class="dropdown-toggle" data-toggle="dropdown" href="#">

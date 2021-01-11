@@ -20,7 +20,7 @@ public class Report {
 	private String storearea;
 	private String storename;
 	private String productclass;
-	private int Productid;
+	private int productid;
 	private String productname;
 	private String salesdate;
 	private int productprice;
@@ -32,9 +32,56 @@ public class Report {
 	private String productstatus;
 
 	public Report() {
-		// TODO Auto-generated constructor stub
+
 	}
 
+	//---------------------------------------------------建構子-----------------------------------------------
+	// 全部
+	public Report(int reportid,String companyid, int storeid, String storearea, String storename, String productclass, int productid,
+			String productname, String salesdate, int productprice, int productdiscountprice, int salesamount,
+			int stockamount, String payment, String activeitem, String productstatus) {
+		this.reportid=reportid;
+		this.companyid=companyid;
+		this.storeid=storeid;
+		this.storearea=storearea;
+		this.storename=storename;
+		this.productclass=productclass;
+		this.productid=productid;
+		this.productname=productname;
+		this.salesdate=salesdate;
+		this.productprice=productprice;
+		this.productdiscountprice=productdiscountprice;
+		this.salesamount=salesamount;
+		this.stockamount=stockamount;
+		this.payment=payment;
+		this.activeitem=activeitem;
+		this.productstatus=productstatus;	
+	}
+	
+	//全部不含reportid
+	public Report(String companyid, int storeid, String storearea, String storename, String productclass, int productid,
+			String productname, String salesdate, int productprice, int productdiscountprice, int salesamount,
+			int stockamount, String payment, String activeitem, String productstatus) {
+		this.companyid=companyid;
+		this.storeid=storeid;
+		this.storearea=storearea;
+		this.storename=storename;
+		this.productclass=productclass;
+		this.productid=productid;
+		this.productname=productname;
+		this.salesdate=salesdate;
+		this.productprice=productprice;
+		this.productdiscountprice=productdiscountprice;
+		this.salesamount=salesamount;
+		this.stockamount=stockamount;
+		this.payment=payment;
+		this.activeitem=activeitem;
+		this.productstatus=productstatus;	
+	}
+	
+	
+	
+//----------------------------------------get,set-------------------------------------------------------
 	public int getReportid() {
 		return reportid;
 	}
@@ -84,11 +131,11 @@ public class Report {
 	}
 
 	public int getProductid() {
-		return Productid;
+		return productid;
 	}
 
 	public void setProductid(int productid) {
-		Productid = productid;
+		this.productid = productid;
 	}
 
 	public String getProductname() {
