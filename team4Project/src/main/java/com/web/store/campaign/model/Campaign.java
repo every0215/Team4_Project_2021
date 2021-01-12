@@ -17,17 +17,18 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.store.company.model.Company;
 
 @Entity
-@Table(name="campaign")
+@Table(name="Campaign")
 public class Campaign implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id @Column(name="id")
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
@@ -38,10 +39,19 @@ public class Campaign implements Serializable{
 	private String description;
 
 	private String content;
+	
+//	@Transient
+//	private String startDate;
+//	@Transient
+//	private String startTime;
+//	@Transient
+//	private String endDate;
+//	@Transient
+//	private String endTime;
+	
+	private Timestamp startDateTime;
 
-	private Timestamp startTime;
-
-	private Timestamp endTime;
+	private Timestamp endDateTime;
 
 	private Boolean launchStatus;
 
@@ -52,12 +62,10 @@ public class Campaign implements Serializable{
 	private Timestamp updateTime;
 		
 	@JoinColumn(name="companyId")
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Company company;
 	
 	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "campaign")
-	@JsonIgnore
 	private DiscountParams discountParams;
 		
 //	//商品活動多對多映射，之後補上
@@ -76,16 +84,16 @@ public class Campaign implements Serializable{
 	}
 
 
-	public Campaign(String name, String picturePath, String description, String content, Timestamp startTime,
-		Timestamp endTime, Boolean launchStatus, Boolean status, Timestamp addTime, Timestamp updateTime,
+	public Campaign(String name, String picturePath, String description, String content, Timestamp startDateTime,
+		Timestamp endDateTime, Boolean launchStatus, Boolean status, Timestamp addTime, Timestamp updateTime,
 		Company company, DiscountParams discountParams) {
 		super();
 		this.name = name;
 		this.picturePath = picturePath;
 		this.description = description;
 		this.content = content;
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.startDateTime = startDateTime;
+		this.endDateTime = endDateTime;
 		this.launchStatus = launchStatus;
 		this.status = status;
 		this.addTime = addTime;
@@ -105,7 +113,7 @@ public class Campaign implements Serializable{
 		if(!(launchStatus && status)) {
 			return false;
 		}else {
-			if(currentStamp.compareTo(startTime)>0 && currentStamp.compareTo(endTime)>0) {
+			if(currentStamp.compareTo(startDateTime)>0 && currentStamp.compareTo(endDateTime)<0) {
 				return true;
 			}
 		}	
@@ -148,21 +156,27 @@ public class Campaign implements Serializable{
 		this.content = content;
 	}
 
-	public Timestamp getStartTime() {
-		return startTime;
+	
+
+	public Timestamp getStartDateTime() {
+		return startDateTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
+
+	public void setStartDateTime(Timestamp startDateTime) {
+		this.startDateTime = startDateTime;
 	}
 
-	public Timestamp getEndTime() {
-		return endTime;
+
+	public Timestamp getEndDateTime() {
+		return endDateTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
-		this.endTime = endTime;
+
+	public void setEndDateTime(Timestamp endDateTime) {
+		this.endDateTime = endDateTime;
 	}
+
 
 	public Boolean getLaunchStatus() {
 		return launchStatus;

@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ViewControllet {
+@RequestMapping("/campaign/")
+public class ViewController {
 	
-	@RequestMapping("/bo/campaign")
+	@RequestMapping("/insertPage")
 	public String CampaignBoIndex() {
-		return "campaign/CampaignWelcomePage";
+		return "campaign/CampaignInsertPage";
 	}
 	
 	@GetMapping("/CampaignAdd")

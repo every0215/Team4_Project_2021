@@ -2,6 +2,7 @@ package com.web.store.campaign.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,15 +15,14 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
-@Table(name="discountParams")
+@Table(name="DiscountParams")
 public class DiscountParams implements Serializable{	
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	@Id
+	
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name="property", value = "campaign"))
+	@Id@Column(name = "ID")
 	@GeneratedValue(generator = "generator")
 	private Integer id;
 	private Integer type;
