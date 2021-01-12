@@ -22,9 +22,9 @@ import com.web.store.campaign.model.Campaign;
 
 
 @Entity
-@Table(name="company")
+@Table(name="Company")
 public class Company {
-	
+	//123
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name= "Id")
