@@ -17,17 +17,18 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.store.company.model.Company;
 
 @Entity
-@Table(name="campaign")
+@Table(name="Campaign")
 public class Campaign implements Serializable{
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	@Id @Column(name="id")
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
@@ -39,9 +40,18 @@ public class Campaign implements Serializable{
 
 	private String content;
 
-	private Timestamp startTime;
+//	@Transient
+//	private String startDate;
+//	@Transient
+//	private String startTime;
+//	@Transient
+//	private String endDate;
+//	@Transient
+//	private String endTime;
 
-	private Timestamp endTime;
+	private Timestamp startDateTime;
+
+	private Timestamp endDateTime;
 
 	private Boolean launchStatus;
 
@@ -50,16 +60,14 @@ public class Campaign implements Serializable{
 	private Timestamp addTime;
 
 	private Timestamp updateTime;
-		
+
 	@JoinColumn(name="companyId")
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Company company;
-	
+
 	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "campaign")
-	@JsonIgnore
 	private DiscountParams discountParams;
-		
+
 //	//商品活動多對多映射，之後補上
 //	@ManyToMany(cascade=CascadeType.ALL,mappedBy = "campaign",fetch = FetchType.LAZY)
 //    @JoinTable(
@@ -69,23 +77,23 @@ public class Campaign implements Serializable{
 //    )
 //	private set<Product> products;
 
-	
-	
+
+
 	public Integer getId() {
 		return id;
 	}
 
 
-	public Campaign(String name, String picturePath, String description, String content, Timestamp startTime,
-		Timestamp endTime, Boolean launchStatus, Boolean status, Timestamp addTime, Timestamp updateTime,
+	public Campaign(String name, String picturePath, String description, String content, Timestamp startDateTime,
+		Timestamp endDateTime, Boolean launchStatus, Boolean status, Timestamp addTime, Timestamp updateTime,
 		Company company, DiscountParams discountParams) {
 		super();
 		this.name = name;
 		this.picturePath = picturePath;
 		this.description = description;
 		this.content = content;
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.startDateTime = startDateTime;
+		this.endDateTime = endDateTime;
 		this.launchStatus = launchStatus;
 		this.status = status;
 		this.addTime = addTime;
@@ -95,22 +103,22 @@ public class Campaign implements Serializable{
 	}
 
 	public Campaign() {
-		
+
 	}
-	
+
 	//判斷活動狀態、時間內
 	public Boolean isActive() {
 		Date date = new Date();
 		Timestamp currentTime = new Timestamp(date.getTime());
-		
+
 		if(!status) {
 			return false;
 		}
-		
+
 		if(currentTime.compareTo(startTime)>0 && currentTime.compareTo(endTime)<0) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -150,21 +158,27 @@ public class Campaign implements Serializable{
 		this.content = content;
 	}
 
-	public Timestamp getStartTime() {
-		return startTime;
+
+
+	public Timestamp getStartDateTime() {
+		return startDateTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
+
+	public void setStartDateTime(Timestamp startDateTime) {
+		this.startDateTime = startDateTime;
 	}
 
-	public Timestamp getEndTime() {
-		return endTime;
+
+	public Timestamp getEndDateTime() {
+		return endDateTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
-		this.endTime = endTime;
+
+	public void setEndDateTime(Timestamp endDateTime) {
+		this.endDateTime = endDateTime;
 	}
+
 
 	public Boolean getLaunchStatus() {
 		return launchStatus;
@@ -205,7 +219,7 @@ public class Campaign implements Serializable{
 	public void setDiscountParams(DiscountParams discountParams) {
 		this.discountParams = discountParams;
 	}
-	
+
 	public Company getCompany() {
 		return company;
 	}
@@ -222,6 +236,6 @@ public class Campaign implements Serializable{
 //		this.company = company;
 //	}
 
-	
-	
+
+
 }

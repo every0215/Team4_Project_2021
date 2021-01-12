@@ -22,7 +22,7 @@ import com.web.store.campaign.model.Campaign;
 
 
 @Entity
-@Table(name="company")
+@Table(name="Company")
 public class Company {
 	
 	@Id

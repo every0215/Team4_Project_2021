@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,7 @@ import com.web.store.campaign.service.CampaignService;
 
 
 @Controller
+@RequestMapping("/campaign/")
 @SessionAttributes(names = {"company"}) ////存取session屬性
 public class CampaignController {
 	
@@ -50,21 +52,21 @@ public class CampaignController {
 	@Autowired
 	ServletContext context;
 	
-	@GetMapping("/bo/campaign/show")
+	@GetMapping("/show")
 	public String showAllCamp(Model model) {
 		List<Campaign> list = campService.getAllCampaign();
 		model.addAttribute("camps", list);
 		return "campaign/CampaignShow";
 	}
 	
-	@GetMapping("/CampaignDel/{campId}")
+	@GetMapping("/delete/{campId}")
 	public String deleteCamp(@PathVariable int campId) {
 		campService.deleteById(campId);
 		return "redirect:/CampaignShow";
 	}
 	
-	@RequestMapping(value="/CampaignAdd/add")
-	public String addCamp(@RequestParam String name,
+	@PostMapping("/insert")
+	public String insertCamp(@RequestParam String name,
 			@RequestParam String startDate,
 			@RequestParam String startTime,
 			@RequestParam Integer type,
@@ -86,14 +88,14 @@ public class CampaignController {
 		
 		Date date = new Date();//獲取當前時間
 		
-		if(StartDateTimeStamp.compareTo(date)<0) {
-			model.addAttribute("timeAfterCurrentErr","開始時間不得小於當前時間");
-			isOk = false;
-		}
-		if(StartDateTimeStamp.compareTo(endDateTimeStamp)>0) {
-			model.addAttribute("startAfterEndErr","結束時間必須大於開始時間");
-			isOk = false;
-		}
+//		if(StartDateTimeStamp.compareTo(date)<0) {
+//			model.addAttribute("timeAfterCurrentErr","開始時間不得小於當前時間");
+//			isOk = false;
+//		}
+//		if(StartDateTimeStamp.compareTo(endDateTimeStamp)>0) {
+//			model.addAttribute("startAfterEndErr","結束時間必須大於開始時間");
+//			isOk = false;
+//		}
 		
 		if(!isOk) {
 			return "CampaignAdd";
@@ -106,7 +108,7 @@ public class CampaignController {
 		//活動名稱+亂數取得檔案名稱
 		String storeFileName = name+"_"+(int)(2147483647*Math.random())+uploadFileName.substring(uploadFileName.lastIndexOf("."));
 		String picDir = "campaign_Img"; //存放圖片的資料夾
-		String picPath = rootPath + "/" + picDir + "/" + storeFileName;//圖片儲存路徑
+		String picPath = rootPath + picDir + "/" + storeFileName;//圖片儲存路徑
 		
 		//如果為1，是折扣塞入折扣參數
 		//為2是滿額塞入滿額參數
@@ -119,20 +121,8 @@ public class CampaignController {
 			discountParams.setAmountOffParam(amountOffParam);
 		}
 		
-		Campaign camp = new Campaign();		
-		
-		camp.setName(name);
-		camp.setStartTime(StartDateTimeStamp);
-		camp.setEndTime(endDateTimeStamp);
-		camp.setLaunchStatus(launchStatus);
-		camp.setStatus(true); // 預設狀態正常
-		camp.setDescription(description);
-		camp.setContent(content);
-		camp.setAddTime(currentTime);
-		camp.setUpdateTime(currentTime);
-		camp.setPicturePath(picPath);	
-//		camp.setCompany(company); ////之後會從session獲得company物件
-		camp.setDiscountParams(discountParams);		
+		//Company目前是null，之後會從session抓取塞入
+		Campaign camp = new Campaign(name, picPath, description, content, StartDateTimeStamp, endDateTimeStamp, launchStatus, true, currentTime, currentTime, null, discountParams);		
 		discountParams.setCampaign(camp);
 		
 		//寫入圖片檔案部分
@@ -156,7 +146,7 @@ public class CampaignController {
 		}
 		
 		try {
-			campService.add(camp);
+			campService.insert(camp);
 		}catch(Exception e){
 			throw new RuntimeException("新增到資料庫失敗\n"+e.toString());
 		}
@@ -166,13 +156,13 @@ public class CampaignController {
 		
 	}
 	
-	//取得單獨頁面資料
-	@RequestMapping(value="/camaign/getPage", produces = {"application/json; charset=UTF-8"})
-	public @ResponseBody Map<String,Object> getPageCampaign(@RequestParam(defaultValue="1") Integer page) {
-		
+	//取得公司活動單獨頁面資料
+	@GetMapping(value="/getPage/{companyId}/{page}", produces = {"application/json; charset=UTF-8"})
+	public @ResponseBody Map<String,Object> getPageResultByCompany(@RequestParam(defaultValue="1") Integer page,
+																   @PathVariable Integer companyId) {		
 		Map<String,Object> map = new HashMap<String,Object>();
-		int totalPage = campService.getTotalPage();
-		List<Campaign> camps = campService.getPageCampaign(page);
+		int totalPage = campService.getTotalPageByCompanyId(companyId);
+		List<Campaign> camps = campService.getSinglePageResultByCompayId(page, companyId);
 		map.put("totalPage",totalPage);
 		map.put("page", camps);
 		return map;
@@ -180,7 +170,7 @@ public class CampaignController {
 	}
 	
 	//傳送圖片
-	@RequestMapping(value="/camaign/pic/{id}",method = RequestMethod.GET)
+	@GetMapping(value="/pic/{id}")
 	public ResponseEntity<byte[]> getPic(@PathVariable int id){
 		ResponseEntity<byte[]> re = null;
 		Campaign camp = campService.getCampaignById(id);
@@ -219,6 +209,41 @@ public class CampaignController {
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		re = new ResponseEntity<byte[]>(fileBytes,headers,HttpStatus.OK);
 		return re;
+	}
+	
+	@GetMapping(value="/pic64/{id}",produces="text/plain")
+	public @ResponseBody String getPictureBase64(@PathVariable int id) {
+		
+		Campaign camp = campService.getCampaignById(id);
+		
+		if(camp == null) {
+			return null;
+		}
+		
+		String filePath = camp.getPicturePath();
+		
+		StringBuffer responseMsg = new StringBuffer();
+		
+		String mimeType = context.getMimeType(filePath);
+		try (
+				InputStream is = new FileInputStream(filePath);
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			){
+				byte[] b = new byte[819200];
+				int len = 0;
+				while ((len= is.read(b)) != -1) {
+					baos.write(b, 0, len);
+				}
+				byte[] bytes = baos.toByteArray();
+				String prefix = "data:" + mimeType + ";base64,";
+				// 由於java.io.OutputStream類別無法寫出字串，因此將字串轉為位元組陣列寫出
+				responseMsg.append(prefix);
+				Base64.Encoder be = Base64.getEncoder();	
+				responseMsg.append(new String(be.encode(bytes)));
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		return responseMsg.toString();
 	}
 	
 
