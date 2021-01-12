@@ -38,21 +38,20 @@ public class Company {
 	@Column(name= "Categories")
 	private String categories;
 	@Column(name= "Account")
-	private String Account;
+	private String account;
 	@Column(name= "Password")
-	private String Password;
+	private String password;
 	@Column(name= "Email")
 	private String email;
 	@Column(name= "Phone")
 	private String phone;
 	@Column(name= "BusRC")
 	private Blob busRC;
-	@Column(name= "BankId")
-	private int bankId;
-	@Column(name= "Profile")
-	private String Profile;
+
+	@Column(name= "Profiles")
+	private String Profiles;
 	@Column(name= "Status")
-	private boolean Status;//企業的上下架狀態，只有1或0
+	private boolean Status =true;//企業的上下架狀態，只有1或0
 	
 	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Campaign> campaigns;
@@ -180,16 +179,16 @@ public class Company {
 		this.categories = categories;
 	}
 	public String getAccount() {
-		return Account;
+		return account;
 	}
 	public void setAccount(String account) {
-		Account = account;
+		this.account = account;
 	}
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 	public String getEmail() {
 		return email;
@@ -209,17 +208,12 @@ public class Company {
 	public void setBusRC(Blob busRC) {
 		this.busRC = busRC;
 	}
-	public int getBankId() {
-		return bankId;
+
+	public String getProfiles() {
+		return Profiles;
 	}
-	public void setBankId(int bankId) {
-		this.bankId = bankId;
-	}
-	public String getProfile() {
-		return Profile;
-	}
-	public void setProfile(String profile) {
-		Profile = profile;
+	public void setProfiles(String profiles) {
+		Profiles = profiles;
 	}
 	public boolean isStatus() {
 		return Status;

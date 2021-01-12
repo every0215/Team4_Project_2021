@@ -37,5 +37,8 @@ public class HomeController {
 		return "crm/backOffice";
 	}
 	
-
+	@RequestMapping("/CmpRegi")
+	public String companyRegister() {
+		return "company/CompanyRegister";
+	}
 }
