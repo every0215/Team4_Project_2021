@@ -130,10 +130,10 @@ public class CampaignDaoImpl implements CampaignDao {
 	}
 
 	@Override
-	public int getTotalPageByCompanyId(int id) {
+	public int getTotalPageByCompanyId(int compayId) {
 		String hql = "SELECT COUNT(*) FROM Campaign WHERE companyId=:companyId";
 		Session session = sessionFactory.getCurrentSession();
-		int pageCount = (int)Math.ceil((long)session.createQuery(hql).uniqueResult()/(double)resultPerPage);
+		int pageCount = (int)Math.ceil((long)session.createQuery(hql).setParameter("companyId", compayId).uniqueResult()/(double)resultPerPage);
 		return pageCount;
 	}
 
@@ -141,7 +141,7 @@ public class CampaignDaoImpl implements CampaignDao {
 	public List<Campaign> getSinglePageResultByCompanyId(int page, int compayId) {
 		String hql = "FROM Campaign where companyId=:companyId";
 		Session session = sessionFactory.getCurrentSession();
-		Query<Campaign> query = session.createQuery(hql,Campaign.class).setMaxResults(resultPerPage).setFirstResult((page-1)*resultPerPage);
+		Query<Campaign> query = session.createQuery(hql,Campaign.class).setParameter("companyId", compayId).setMaxResults(resultPerPage).setFirstResult((page-1)*resultPerPage);
 		List<Campaign> list = query.list();
 
 		return list;

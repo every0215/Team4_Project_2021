@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.DiscountParams;
@@ -78,7 +79,9 @@ public class CampaignController {
 			@RequestParam Boolean launchStatus,
 			@RequestParam String description,
 			@RequestParam String content,
-			@RequestParam MultipartFile picture,Model model) {
+			@RequestParam MultipartFile picture,
+			Model model,
+			RedirectAttributes redirectAttributes ) {
 		
 		Timestamp StartDateTimeStamp = Timestamp.valueOf(startDate+" "+startTime+":00");
 
@@ -86,7 +89,7 @@ public class CampaignController {
 		
 		boolean isOk = true;//flag
 		
-		Date date = new Date();//獲取當前時間
+		
 		
 //		if(StartDateTimeStamp.compareTo(date)<0) {
 //			model.addAttribute("timeAfterCurrentErr","開始時間不得小於當前時間");
@@ -101,6 +104,7 @@ public class CampaignController {
 			return "CampaignAdd";
 		}
 		
+		Date date = new Date();
 		Timestamp currentTime = new Timestamp(date.getTime());//獲取當前時間的TimeStamp物件
 		
 		String rootPath = context.getRealPath("/");//取得應用程式檔案系統目錄
@@ -151,15 +155,16 @@ public class CampaignController {
 			throw new RuntimeException("新增到資料庫失敗\n"+e.toString());
 		}
 		
+		redirectAttributes.addFlashAttribute("camp", camp);
 		
-		return "redirect:/CampaignShow";
+		return "redirect:/campaign/campaignAddComfirm";
 		
 	}
 	
 	//取得公司活動單獨頁面資料
-	@GetMapping(value="/getPage/{companyId}/{page}", produces = {"application/json; charset=UTF-8"})
-	public @ResponseBody Map<String,Object> getPageResultByCompany(@RequestParam(defaultValue="1") Integer page,
-																   @PathVariable Integer companyId) {		
+	@GetMapping(value="/getPageByCompany/{companyId}/{page}", produces = {"application/json; charset=UTF-8"})
+	public @ResponseBody Map<String,Object> getPageByCompany(@PathVariable int page,
+																	@PathVariable int companyId) {		
 		Map<String,Object> map = new HashMap<String,Object>();
 		int totalPage = campService.getTotalPageByCompanyId(companyId);
 		List<Campaign> camps = campService.getSinglePageResultByCompayId(page, companyId);
@@ -246,5 +251,17 @@ public class CampaignController {
 		return responseMsg.toString();
 	}
 	
+	
+	@GetMapping("/getFirstPageByCompany/{companyId}")
+	public String getFirstPage(@PathVariable int companyId,Model model) {
+		List<Campaign> camps= campService.getSinglePageResultByCompayId(1,companyId);
+		
+		for(Campaign camp:camps) {
+			System.out.println(camp.getName());
+		}
+		
+		model.addAttribute("camps", camps);
+		return "campaign/CampaignShowPage";
+	}
 
 }

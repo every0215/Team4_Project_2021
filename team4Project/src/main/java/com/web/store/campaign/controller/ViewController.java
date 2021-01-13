@@ -18,10 +18,16 @@ public class ViewController {
 		return "campaign/CampaignInsertPage";
 	}
 	
-	@GetMapping("/CampaignAdd")
-	public String CampaignAdd() {
-		return "campaign/CampaignAdd";
+	@GetMapping("/campaignAddComfirm")
+	public String CampaignAddComfirm() {
+		return "campaign/CampaignAddComfirmPage";
 	}
+	
+	@GetMapping("/campaignShow")
+	public String CampaigShow() {
+		return "campaign/CampaignShowPage";
+	}
+	
 	
 	@ModelAttribute
 	public void getDate(Model model) {
