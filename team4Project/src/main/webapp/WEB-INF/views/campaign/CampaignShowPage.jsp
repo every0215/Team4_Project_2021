@@ -76,12 +76,12 @@
 
 		<li>
 			<label for="">開始時間：</label>
-			<input type="date">
+			<input id="strDate" type="date">
 		</li>
 
 		<li>
 			<label for="">結束時間：</label>
-			<input type="date">
+			<input id="endDate" type="date">
 		</li>
 
 		
@@ -114,8 +114,8 @@
 					<c:if test="${!camp.launchStatus}"><td>下架</td></c:if>
 					<td>${camp.description}</td>
 					<td style="font-size:0;">
+						<input type="hidden value='${camp.id}'"/>
 						<button class="btn btn-success">編輯</button>
-						<button class="btn btn-success">下架</button>
 						<button class="btn btn-success">套用</button>
 					</td>
 				</tr>
@@ -136,6 +136,8 @@
 		
 		
 		$(function(){
+			
+			setDate();
 			
 			$("#addBtn").click(function(){
 				location.href = "<c:url value='/campaign/insertPage'/>"
@@ -167,7 +169,7 @@
 						console.log(data)
 						var camps = data.page;
 						var properties = ["name","startDateTime","endDateTime","launchStatus","description"];
-						var btns = ["編輯","下架","套用"];
+						var btns = ["編輯","套用"];
 						$("#CampContainer").html("")
 						for(var i=0;i<camps.length;i++){
 							var tr = document.createElement("tr")
@@ -194,6 +196,17 @@
 					},
 				})
 			})
+			
+			function setDate () {
+                var strDate = document.querySelector("#strDate");
+                var endDate = document.querySelector("#endDate");                 
+                var today = new Date();
+                console.log(today.toISOString());
+                today.setDate(today.getDate()+1);
+                strDate.value = today.toISOString().substr(0, 10);
+                today.setDate(today.getDate()+1);
+                endDate.value = today.toISOString().substr(0, 10);
+            }
 			
 		})
 		

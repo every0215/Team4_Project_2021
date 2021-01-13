@@ -2,6 +2,7 @@ package com.web.store.campaign.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -22,6 +23,10 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.store.company.model.Company;
 
+/**
+ * @author kingw
+ *
+ */
 @Entity
 @Table(name="Campaign")
 public class Campaign implements Serializable{
@@ -40,15 +45,15 @@ public class Campaign implements Serializable{
 
 	private String content;
 
-//	@Transient
-//	private String startDate;
-//	@Transient
-//	private String startTime;
-//	@Transient
-//	private String endDate;
-//	@Transient
-//	private String endTime;
-
+	@Transient
+	private String startDate;
+	@Transient
+	private String startTime;
+	@Transient
+	private String endDate;
+	@Transient
+	private String endTime;
+	
 	private Timestamp startDateTime;
 
 	private Timestamp endDateTime;
@@ -66,7 +71,7 @@ public class Campaign implements Serializable{
 	@JsonIgnore
 	private Company company;
 
-	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "campaign")
+	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "campaign")
 	@JsonIgnore
 	private DiscountParams discountParams;
 
@@ -85,6 +90,24 @@ public class Campaign implements Serializable{
 		return id;
 	}
 
+	
+	public Campaign(Integer id, String name, String picturePath, String description, String content,
+			Timestamp startDateTime, Timestamp endDateTime, Boolean launchStatus, Boolean status, Timestamp updateTime,
+			Company company, DiscountParams discountParams) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.picturePath = picturePath;
+		this.description = description;
+		this.content = content;
+		this.startDateTime = startDateTime;
+		this.endDateTime = endDateTime;
+		this.launchStatus = launchStatus;
+		this.status = status;
+		this.updateTime = updateTime;
+		this.company = company;
+		this.discountParams = discountParams;
+	}
 
 	public Campaign(String name, String picturePath, String description, String content, Timestamp startDateTime,
 		Timestamp endDateTime, Boolean launchStatus, Boolean status, Timestamp addTime, Timestamp updateTime,
@@ -106,6 +129,17 @@ public class Campaign implements Serializable{
 
 	public Campaign() {
 
+	}
+	
+	//將timestamp物件猜分為yyyy-MM-dd 和 HH:mm:ss型式的字串
+	public void convertTimestampToString() {
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		this.startDate = sdf1.format(startDateTime.getTime());
+		this.endDate = sdf1.format(endDateTime.getTime());
+		
+		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+		this.startTime = sdf2.format(startDateTime.getTime());
+		this.endTime = sdf2.format(endDateTime.getTime());
 	}
 
 	//判斷活動狀態、時間內
@@ -230,13 +264,48 @@ public class Campaign implements Serializable{
 		this.company = company;
 	}
 
-//	public Company getCompany() {
-//		return company;
-//	}
-//
-//	public void setCompany(Company company) {
-//		this.company = company;
-//	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+	
+	
+	
 
 
 

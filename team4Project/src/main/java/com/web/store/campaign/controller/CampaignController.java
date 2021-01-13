@@ -66,6 +66,8 @@ public class CampaignController {
 		return "redirect:/CampaignShow";
 	}
 	
+	
+	
 	@PostMapping("/insert")
 	public String insertCamp(@RequestParam String name,
 			@RequestParam String startDate,
@@ -87,10 +89,12 @@ public class CampaignController {
 
 		Timestamp endDateTimeStamp = Timestamp.valueOf(endDate+" "+endTime+":00");
 		
-		boolean isOk = true;//flag
 		
-		
-		
+		Date date = new Date();
+//		後端驗證區塊↓		
+//		boolean isOk = true;
+//		
+//		
 //		if(StartDateTimeStamp.compareTo(date)<0) {
 //			model.addAttribute("timeAfterCurrentErr","開始時間不得小於當前時間");
 //			isOk = false;
@@ -99,12 +103,16 @@ public class CampaignController {
 //			model.addAttribute("startAfterEndErr","結束時間必須大於開始時間");
 //			isOk = false;
 //		}
+//		
+//		if(!isOk) {
+//			return "campaign/CampaignInsertPage";
+//		}
 		
-		if(!isOk) {
-			return "CampaignAdd";
-		}
+//		後端驗證區塊↑	
 		
-		Date date = new Date();
+		
+		
+		
 		Timestamp currentTime = new Timestamp(date.getTime());//獲取當前時間的TimeStamp物件
 		
 		String rootPath = context.getRealPath("/");//取得應用程式檔案系統目錄
@@ -153,6 +161,112 @@ public class CampaignController {
 			campService.insert(camp);
 		}catch(Exception e){
 			throw new RuntimeException("新增到資料庫失敗\n"+e.toString());
+		}
+		
+		redirectAttributes.addFlashAttribute("camp", camp);
+		
+		return "redirect:/campaign/campaignAddComfirm";
+		
+	}
+	
+	
+	@PostMapping("/upadte/{campaignId}")
+	public String UpdateCamp(@RequestParam String name,
+			@RequestParam String startDate,
+			@RequestParam String startTime,
+			@RequestParam Integer type,
+			@RequestParam(required = false) Double offParam,
+			@RequestParam(required = false) Integer amountUpTo,
+			@RequestParam(required = false) Integer amountOffParam,
+			@RequestParam String endDate,
+			@RequestParam String endTime,
+			@RequestParam Boolean launchStatus,
+			@RequestParam String description,
+			@RequestParam String content,
+			@RequestParam(required = false) MultipartFile picture,
+			@PathVariable Integer campaignId,
+			Model model,
+			RedirectAttributes redirectAttributes ) {
+		
+		Timestamp StartDateTimeStamp = Timestamp.valueOf(startDate+" "+startTime+":00");
+
+		Timestamp endDateTimeStamp = Timestamp.valueOf(endDate+" "+endTime+":00");
+		
+		
+		Date date = new Date();
+//		後端驗證區塊↓		
+//		boolean isOk = true;
+//		
+//		
+//		if(StartDateTimeStamp.compareTo(date)<0) {
+//			model.addAttribute("timeAfterCurrentErr","開始時間不得小於當前時間");
+//			isOk = false;
+//		}
+//		if(StartDateTimeStamp.compareTo(endDateTimeStamp)>0) {
+//			model.addAttribute("startAfterEndErr","結束時間必須大於開始時間");
+//			isOk = false;
+//		}
+//		
+//		if(!isOk) {
+//			return "campaign/CampaignInsertPage";
+//		}
+		
+//		後端驗證區塊↑	
+		
+		
+		
+		
+		Timestamp currentTime = new Timestamp(date.getTime());//獲取當前時間的TimeStamp物件
+		
+		if(!picture.isEmpty()) {
+			
+		}
+		String rootPath = context.getRealPath("/");//取得應用程式檔案系統目錄
+		String uploadFileName = picture.getOriginalFilename();
+		//活動名稱+亂數取得檔案名稱
+		String storeFileName = name+"_"+(int)(2147483647*Math.random())+uploadFileName.substring(uploadFileName.lastIndexOf("."));
+		String picDir = "campaign_Img"; //存放圖片的資料夾
+		String picPath = rootPath + picDir + "\\" + storeFileName;//圖片儲存路徑
+		
+		//如果為1，是折扣塞入折扣參數
+		//為2是滿額塞入滿額參數
+		DiscountParams discountParams = new DiscountParams();
+		discountParams.setType(type);
+		if(type==1) {
+			discountParams.setOffParam(offParam);
+		}else if(type==2) {		
+			discountParams.setAmountUpTo(amountUpTo);
+			discountParams.setAmountOffParam(amountOffParam);
+		}
+		
+		//Company目前是null，之後會從session抓取塞入
+		Campaign camp = new Campaign(campaignId,name, picPath, description, content, StartDateTimeStamp, endDateTimeStamp, launchStatus, true, currentTime, null, discountParams);		
+		discountParams.setCampaign(camp);
+		
+		//寫入圖片檔案部分
+		File dir = new File(rootPath+"/"+picDir);//存在應用程式跟目錄webapp底下
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
+		File pic = new File(dir,storeFileName);
+		try (OutputStream os = new FileOutputStream(pic); 
+				InputStream is = picture.getInputStream()){
+			byte[] buff = new byte[81920];
+			int len = 0;
+			while( (len = is.read(buff))!=-1) {
+				os.write(buff, 0, len);
+			}
+			
+			System.out.println("寫入成功");
+			
+		} catch (IOException e) {
+			throw new RuntimeException("寫入Server失敗"+e.toString());
+		}
+		
+		try {
+			campService.update(camp);
+		}catch(Exception e){
+			throw new RuntimeException("更新到資料庫失敗\n"+e.toString());
 		}
 		
 		redirectAttributes.addFlashAttribute("camp", camp);
@@ -256,12 +370,15 @@ public class CampaignController {
 	public String getFirstPage(@PathVariable int companyId,Model model) {
 		List<Campaign> camps= campService.getSinglePageResultByCompayId(1,companyId);
 		
-		for(Campaign camp:camps) {
-			System.out.println(camp.getName());
-		}
-		
 		model.addAttribute("camps", camps);
 		return "campaign/CampaignShowPage";
 	}
-
+	
+	@GetMapping("/ShowUpdatePage/{campaignId}")
+	public String showUpdatePage(@PathVariable int campaignId,Model model) {
+		Campaign camp= campService.getCampaignById(campaignId);
+		camp.convertTimestampToString();
+		model.addAttribute("camp", camp);
+		return "campaign/CampaignUpdatePage";
+	}
 }
