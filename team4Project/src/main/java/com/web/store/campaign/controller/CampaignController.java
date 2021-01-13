@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
@@ -170,7 +171,7 @@ public class CampaignController {
 	}
 	
 	
-	@PostMapping("/upadte/{campaignId}")
+	@PostMapping("/update/{campaignId}")
 	public String UpdateCamp(@RequestParam String name,
 			@RequestParam String startDate,
 			@RequestParam String startTime,
@@ -187,12 +188,12 @@ public class CampaignController {
 			@PathVariable Integer campaignId,
 			Model model,
 			RedirectAttributes redirectAttributes ) {
-		
+		System.out.println(startTime);
 		Timestamp StartDateTimeStamp = Timestamp.valueOf(startDate+" "+startTime+":00");
-
+		System.out.println(endTime);
 		Timestamp endDateTimeStamp = Timestamp.valueOf(endDate+" "+endTime+":00");
 		
-		
+		Campaign campOrigin = campService.getCampaignById(campaignId);
 		Date date = new Date();
 //		後端驗證區塊↓		
 //		boolean isOk = true;
@@ -213,58 +214,65 @@ public class CampaignController {
 		
 //		後端驗證區塊↑	
 		
-		
-		
-		
-		Timestamp currentTime = new Timestamp(date.getTime());//獲取當前時間的TimeStamp物件
-		
-		if(!picture.isEmpty()) {
-			
-		}
-		String rootPath = context.getRealPath("/");//取得應用程式檔案系統目錄
-		String uploadFileName = picture.getOriginalFilename();
-		//活動名稱+亂數取得檔案名稱
-		String storeFileName = name+"_"+(int)(2147483647*Math.random())+uploadFileName.substring(uploadFileName.lastIndexOf("."));
-		String picDir = "campaign_Img"; //存放圖片的資料夾
-		String picPath = rootPath + picDir + "\\" + storeFileName;//圖片儲存路徑
-		
 		//如果為1，是折扣塞入折扣參數
-		//為2是滿額塞入滿額參數
-		DiscountParams discountParams = new DiscountParams();
+				//為2是滿額塞入滿額參數
+		
+		campOrigin.setName(name);
+		campOrigin.setStartDateTime(StartDateTimeStamp);
+		campOrigin.setEndDateTime(endDateTimeStamp);
+		campOrigin.setDescription(description);
+		campOrigin.setLaunchStatus(launchStatus);
+		campOrigin.setContent(content);
+		campOrigin.setUpdateTime(new Timestamp(date.getTime()));
+		
+		DiscountParams discountParams = campOrigin.getDiscountParams();
 		discountParams.setType(type);
-		if(type==1) {
+		if (type == 1) {
 			discountParams.setOffParam(offParam);
-		}else if(type==2) {		
+		} else if (type == 2) {
 			discountParams.setAmountUpTo(amountUpTo);
 			discountParams.setAmountOffParam(amountOffParam);
 		}
+		campOrigin.setDiscountParams(discountParams);
 		
-		//Company目前是null，之後會從session抓取塞入
-		Campaign camp = new Campaign(campaignId,name, picPath, description, content, StartDateTimeStamp, endDateTimeStamp, launchStatus, true, currentTime, null, discountParams);		
-		discountParams.setCampaign(camp);
-		
-		//寫入圖片檔案部分
-		File dir = new File(rootPath+"/"+picDir);//存在應用程式跟目錄webapp底下
-		if(!dir.exists()) {
-			dir.mkdir();
-		}
-		File pic = new File(dir,storeFileName);
-		try (OutputStream os = new FileOutputStream(pic); 
-				InputStream is = picture.getInputStream()){
-			byte[] buff = new byte[81920];
-			int len = 0;
-			while( (len = is.read(buff))!=-1) {
-				os.write(buff, 0, len);
+		Timestamp currentTime = new Timestamp(date.getTime());//獲取當前時間的TimeStamp物件
+		Campaign camp = null;
+		if (picture.isEmpty()) {
+			String rootPath = context.getRealPath("/");// 取得應用程式檔案系統目錄
+			String uploadFileName = picture.getOriginalFilename();
+			// 活動名稱+亂數取得檔案名稱
+			String storeFileName = name + "_" + (int) (2147483647 * Math.random())
+					+ uploadFileName.substring(uploadFileName.lastIndexOf("."));
+			String picDir = "campaign_Img"; // 存放圖片的資料夾
+			String picPath = rootPath + picDir + "\\" + storeFileName;// 圖片儲存路徑
+
+			
+			campOrigin.setPicturePath(picPath);
+
+			// 寫入圖片檔案部分
+			File dir = new File(rootPath + "/" + picDir);// 存在應用程式跟目錄webapp底下
+			if (!dir.exists()) {
+				dir.mkdir();
 			}
-			
-			System.out.println("寫入成功");
-			
-		} catch (IOException e) {
-			throw new RuntimeException("寫入Server失敗"+e.toString());
+			File pic = new File(dir, storeFileName);
+			try (OutputStream os = new FileOutputStream(pic); InputStream is = picture.getInputStream()) {
+				byte[] buff = new byte[81920];
+				int len = 0;
+				while ((len = is.read(buff)) != -1) {
+					os.write(buff, 0, len);
+				}
+
+				System.out.println("寫入成功");
+
+			} catch (IOException e) {
+				throw new RuntimeException("寫入Server失敗" + e.toString());
+			}
+
 		}
+		
 		
 		try {
-			campService.update(camp);
+			campService.update(campOrigin);
 		}catch(Exception e){
 			throw new RuntimeException("更新到資料庫失敗\n"+e.toString());
 		}
