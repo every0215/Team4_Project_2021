@@ -63,9 +63,11 @@ public class Campaign implements Serializable{
 
 	@JoinColumn(name="companyId")
 	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Company company;
 
 	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "campaign")
+	@JsonIgnore
 	private DiscountParams discountParams;
 
 //	//商品活動多對多映射，之後補上
@@ -115,7 +117,7 @@ public class Campaign implements Serializable{
 			return false;
 		}
 
-		if(currentTime.compareTo(startTime)>0 && currentTime.compareTo(endTime)<0) {
+		if(currentTime.compareTo(startDateTime)>0 && currentTime.compareTo(endDateTime)<0) {
 			return true;
 		}
 
