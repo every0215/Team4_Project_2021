@@ -13,11 +13,7 @@
 <link href="css/styles1.css" rel="stylesheet">
 
 <!-- Table連動 -->
-<script>
-	$(function() {
-		$("#rep_tabs").rep_tabs();
-	});
-</script>
+
 
 </head>
 <body>
