@@ -114,8 +114,8 @@
 					<c:if test="${!camp.launchStatus}"><td>下架</td></c:if>
 					<td>${camp.description}</td>
 					<td style="font-size:0;">
-						<input type="hidden value='${camp.id}'"/>
-						<button class="btn btn-success">編輯</button>
+						<input type="hidden" value='${camp.id}'/>
+						<button class="btn btn-success" onclick="location.href='<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>'">編輯</button>
 						<button class="btn btn-success">套用</button>
 					</td>
 				</tr>
@@ -188,7 +188,11 @@
 							for(btn of btns){
 								var button = document.createElement("button");
 								$(button).addClass("btn btn-success").text(btn);
-								btnTd.append(button);		
+								btnTd.append(button);
+								var campid = camps[i].id;
+								if(btn=="編輯"){
+									btnTd.onclick =function(){location.href='<c:url value="/campaign/ShowUpdatePage/" />'+campid};
+								}
 							}
 							tr.append(btnTd);
 							$("#CampContainer").append(tr);				

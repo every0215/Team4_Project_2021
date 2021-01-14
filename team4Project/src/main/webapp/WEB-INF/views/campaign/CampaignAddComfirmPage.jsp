@@ -66,7 +66,12 @@
     <div id="container" class="container">
     
         <div class="row head">
-            <h3>新增成功</h3>
+        	<c:if test="${empty isUpdate}">
+        		<h3>新增成功</h3>
+        	</c:if>
+            <c:if test="${!empty isUpdate}">
+        		<h3>修改成功</h3>
+        	</c:if>
         </div>
         
         <div class="row">
@@ -83,6 +88,38 @@
             <div class="col-4">活動結束時間:</div>
             <div class="col-8"><fmt:formatDate value="${camp.endDateTime}" pattern='yyyy-MM-dd HH:mm:ss'/></div>
         </div>
+        
+        <div class="row">
+            <div class="col-4">折扣類型:</div>
+            <c:choose>
+            	<c:when test="${camp.discountParams.type==1}">
+            		<div class="col-8">折扣</div>
+            	</c:when>
+            	<c:when test="${camp.discountParams.type==2}">
+            		<div class="col-8">滿額折</div>
+            	</c:when>
+            	<c:otherwise>
+            		<div class="col-8">無類型</div>
+            	</c:otherwise>           	
+            </c:choose>
+            
+        </div>
+        
+        <c:if test="${camp.discountParams.type == 1}">
+        	<div class="row">
+	        	<div class="col-4">折扣參數:</div>
+	            <div class="col-8">${camp.discountParams.offParam}</div>
+            </div>
+        </c:if>
+        
+        <c:if test="${camp.discountParams.type == 2}">
+        	<div class="row">
+	        	<div class="col-4">滿額:</div>
+	            <div class="col-8">${camp.discountParams.amountUpTo}</div>
+	        	<div class="col-4">折扣金額:</div>
+	            <div class="col-8">${camp.discountParams.amountOffParam}</div>
+       		</div>
+		</c:if>
         
         <div class="row">
             <div class="col-4">活動描述:</div>
@@ -106,11 +143,11 @@
         
         <div class="row picturdField">
             <div class="col-4">活動圖片:</div>
-            <div class="col-8" ><img src="${pageContext.request.contextPath}/campaign/pic/${camp.id}"/></div>
-        </div>
+            <div class="col-8" ><a href="${pageContext.request.contextPath}/campaign/pic/${camp.id}"><img src="${pageContext.request.contextPath}/campaign/pic/${camp.id}"/></a></div>
+        </div> 
         
         <div class="functionBar">
-            <button class="btn btn-primary">返回</button>
+            <button class="btn btn-primary" onclick="location.href='<c:url value="/campaign/getFirstPageByCompany/${camp.company.id}"/>'">返回</button>
         </div>
     </div>
 </body>

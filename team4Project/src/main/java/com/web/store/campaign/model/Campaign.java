@@ -23,10 +23,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.store.company.model.Company;
 
-/**
- * @author kingw
- *
- */
+
 @Entity
 @Table(name="Campaign")
 public class Campaign implements Serializable{
@@ -84,8 +81,6 @@ public class Campaign implements Serializable{
 //    )
 //	private set<Product> products;
 
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -131,13 +126,13 @@ public class Campaign implements Serializable{
 
 	}
 	
-	//將timestamp物件猜分為yyyy-MM-dd 和 HH:mm:ss型式的字串
+	//將timestamp物件猜分為yyyy-MM-dd 和 HH:mm型式的字串
 	public void convertTimestampToString() {
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		this.startDate = sdf1.format(startDateTime.getTime());
 		this.endDate = sdf1.format(endDateTime.getTime());
 		
-		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 		this.startTime = sdf2.format(startDateTime.getTime());
 		this.endTime = sdf2.format(endDateTime.getTime());
 	}

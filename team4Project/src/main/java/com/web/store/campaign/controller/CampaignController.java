@@ -93,25 +93,21 @@ public class CampaignController {
 		
 		Date date = new Date();
 //		後端驗證區塊↓		
-//		boolean isOk = true;
-//		
-//		
-//		if(StartDateTimeStamp.compareTo(date)<0) {
-//			model.addAttribute("timeAfterCurrentErr","開始時間不得小於當前時間");
-//			isOk = false;
-//		}
-//		if(StartDateTimeStamp.compareTo(endDateTimeStamp)>0) {
-//			model.addAttribute("startAfterEndErr","結束時間必須大於開始時間");
-//			isOk = false;
-//		}
-//		
-//		if(!isOk) {
-//			return "campaign/CampaignInsertPage";
-//		}
-		
-//		後端驗證區塊↑	
+		boolean isOk = true;
 		
 		
+		if(StartDateTimeStamp.compareTo(date)<0) {
+			model.addAttribute("startAfterCurrentErr","開始時間不得小於當前時間");
+			isOk = false;
+		}
+		if(StartDateTimeStamp.compareTo(endDateTimeStamp)>0) {
+			model.addAttribute("startAfterEndErr","結束時間必須大於開始時間");
+			isOk = false;
+		}
+		
+		
+		
+//		後端驗證區塊↑		
 		
 		
 		Timestamp currentTime = new Timestamp(date.getTime());//獲取當前時間的TimeStamp物件
@@ -164,7 +160,12 @@ public class CampaignController {
 			throw new RuntimeException("新增到資料庫失敗\n"+e.toString());
 		}
 		
+		camp.convertTimestampToString();
 		redirectAttributes.addFlashAttribute("camp", camp);
+		
+		if(!isOk) {
+			return "redirect:/campaign/insertPage";
+		}
 		
 		return "redirect:/campaign/campaignAddComfirm";
 		
@@ -235,9 +236,8 @@ public class CampaignController {
 		}
 		campOrigin.setDiscountParams(discountParams);
 		
-		Timestamp currentTime = new Timestamp(date.getTime());//獲取當前時間的TimeStamp物件
-		Campaign camp = null;
-		if (picture.isEmpty()) {
+
+		if (!picture.isEmpty()) {
 			String rootPath = context.getRealPath("/");// 取得應用程式檔案系統目錄
 			String uploadFileName = picture.getOriginalFilename();
 			// 活動名稱+亂數取得檔案名稱
@@ -277,7 +277,8 @@ public class CampaignController {
 			throw new RuntimeException("更新到資料庫失敗\n"+e.toString());
 		}
 		
-		redirectAttributes.addFlashAttribute("camp", camp);
+		redirectAttributes.addFlashAttribute("camp", campOrigin);
+		redirectAttributes.addFlashAttribute("isUpdate", true);
 		
 		return "redirect:/campaign/campaignAddComfirm";
 		

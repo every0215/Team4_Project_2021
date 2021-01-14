@@ -173,7 +173,7 @@
             <div class="form-group">
             	<img style="width:300px;height:150px" src="${pageContext.request.contextPath}/campaign/pic/${camp.id}"/><br>
                 <label for="fileUpload">活動圖檔:</label>
-                <input class="form-control need" id="fileUpload" name="picture" type="file">
+                <input class="form-control" id="fileUpload" name="picture" type="file">
 
             </div>
 
@@ -235,12 +235,12 @@
                         confirmButtonText: '确定',
                     }).then(function () {
                         swal(
-                            '成功新增!',
-                            '您的活動已成功新增',
+                            '修改成功!',
+                            '請至確認頁面確認',
                             'success'
                         );
                         
-                        setTimeout(()=>{$("#campForm").submit()},2000) 
+                        setTimeout(()=>{$("#campForm").submit()},1000) 
                         
                     })
 
