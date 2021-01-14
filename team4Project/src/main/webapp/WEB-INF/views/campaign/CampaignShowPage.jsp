@@ -29,10 +29,14 @@
 		list-style: none;
 		display: flex;
 		justify-content: center;
+		margin-top:20px;
+		
 	}
 
 	ul.functionBar li{
-		padding: 0 20px;
+		padding: 0px 20px;
+		vertical-align: bottom;
+		line-height:1.7;
 	}
 
 	#pageSelector{
@@ -60,7 +64,7 @@
 	<input id="companyId" type="hidden" value="1">  
 
 	<ul class="functionBar">
-
+		
 		<li><button id="addBtn" class="btn btn-success" type="button">新增活動</button></li>
 
 		<li><span>查詢活動:</span><input type="text" name=""></li>

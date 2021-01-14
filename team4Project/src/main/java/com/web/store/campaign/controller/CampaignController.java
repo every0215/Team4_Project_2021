@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +41,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.DiscountParams;
+import com.web.store.campaign.model.Page;
+import com.web.store.campaign.model.SearchBean;
 import com.web.store.campaign.service.CampaignService;
 
 
@@ -390,4 +393,16 @@ public class CampaignController {
 		model.addAttribute("camp", camp);
 		return "campaign/CampaignUpdatePage";
 	}
+	
+	@PostMapping(value="/search/{companyId}/{page}",produces = "application/json; charset=UTF-8")
+	public @ResponseBody Page<Campaign> searchCampaign(@RequestBody SearchBean search, 
+			@PathVariable int companyId,
+			@PathVariable int page) {
+		Page<Campaign> pageResult = new Page<Campaign>();
+		pageResult.setCurrentPage(page);
+		pageResult = campService.searchCampaignOfCompany(companyId, search, pageResult);
+		return pageResult;
+	}
+	
+	
 }

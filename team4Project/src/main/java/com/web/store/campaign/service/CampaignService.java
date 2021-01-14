@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.web.store.campaign.model.Campaign;
+import com.web.store.campaign.model.Page;
+import com.web.store.campaign.model.SearchBean;
 
 public interface CampaignService {
 
 	int insert(Campaign camp);
-
+	
+	Page<Campaign> searchCampaignOfCompany(int companyId,SearchBean search,Page<Campaign> page);
+	
 	Campaign getCampaignById(int campId);
 
 	List<Campaign> getAllCampaign();

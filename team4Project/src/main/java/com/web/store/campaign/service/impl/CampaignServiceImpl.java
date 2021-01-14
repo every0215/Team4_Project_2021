@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.web.store.campaign.dao.CampaignDao;
 import com.web.store.campaign.model.Campaign;
+import com.web.store.campaign.model.Page;
+import com.web.store.campaign.model.SearchBean;
 import com.web.store.campaign.service.CampaignService;
 
 
@@ -97,6 +99,12 @@ public class CampaignServiceImpl implements CampaignService {
 	public List<Campaign> getActiveCampaignByCompanyId(int companyId) {
 		List<Campaign> resultList = getActiveCampaign(getCampaignByCompanyId(companyId));
 		return resultList;
+	}
+
+	@Override
+	public Page<Campaign> searchCampaignOfCompany(int companyId, SearchBean search, Page<Campaign> page) {
+		
+		return campDao.serchCampaignOfCompany(companyId, search, page);
 	}
 		
 }
