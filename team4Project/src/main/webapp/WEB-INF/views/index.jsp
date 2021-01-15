@@ -195,8 +195,8 @@
 		</div>
 	</div>
 	<!-- / Promo section -->
-<%-- 	<a href="<c:url value='/CmpRegi' />">企業註冊</a> --%>
-<%-- 	<c:url value='/CmpRegi' /> --%>
+	<a href="<c:url value='/CmpRegi' />">企業註冊</a>
+
   <!-- Products section -->
  <section id="aa-product">
     <div class="container">

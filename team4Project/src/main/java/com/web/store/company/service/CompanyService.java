@@ -11,4 +11,7 @@ public interface CompanyService {
 	Company getCompany(String Account);
 	//平台顯示合作企業
 	List<Company> getAllCompany();
+	//
+	
+	
 }
