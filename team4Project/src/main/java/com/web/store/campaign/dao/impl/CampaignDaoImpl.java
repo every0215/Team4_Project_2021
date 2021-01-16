@@ -113,18 +113,6 @@ public class CampaignDaoImpl implements CampaignDao {
 		
 		return 0;
 	}
-
-
-	@Override
-	public List<Campaign> getSinglePageResult(int page) {
-		
-		String hql = "FROM Campaign";
-		Session session = sessionFactory.getCurrentSession();
-		Query<Campaign> query = session.createQuery(hql,Campaign.class).setMaxResults(RESULT_PER_PAGE).setFirstResult((page-1)*RESULT_PER_PAGE);
-		List<Campaign> list = query.list();
-
-		return list;
-	}
 	
 	@Override
 	public int getTotalPage() {
@@ -160,13 +148,16 @@ public class CampaignDaoImpl implements CampaignDao {
 		Session session = sessionFactory.getCurrentSession();
 		
 		String hql = "FROM Campaign where companyId=:companyId "
-				+ "and startDateTime<:startDateTime "
+				+ "and startDateTime>:startDateTime "
 				+ "and endDateTime<:endDateTime ";
 		
 		if(searchStr.trim().equals("")) {
-			
 			switch(search.getStatus()) {
+				case 0:
+					query = session.createQuery(hql,Campaign.class);
+					break;
 				case 1:
+					
 					hql += "and launchStatus=:launchStatus ";
 					query = session.createQuery(hql,Campaign.class);
 					query.setParameter("launchStatus", true);
@@ -186,25 +177,27 @@ public class CampaignDaoImpl implements CampaignDao {
 		}else {
 			hql += "and name like :searchStr ";
 			switch(search.getStatus()) {
+				case 0:
+					query = session.createQuery(hql,Campaign.class);
+					break;
 				case 1:
 					hql += "and launchStatus=:launchStatus ";
 					query = session.createQuery(hql,Campaign.class);
-					query.setParameter("launchStatus", true);
-					query.setParameter("searchStr", "%"+searchStr+"%");
+					query.setParameter("launchStatus", true);				
 					break;
 				case 2:
+					System.out.println("2222222222");
 					hql += "and launchStatus=:launchStatus ";
 					query = session.createQuery(hql,Campaign.class);
 					query.setParameter("launchStatus", false);
-					query.setParameter("searchStr", "%"+searchStr+"%");
 					break;
 				case 3:
 					hql += "and startDateTime<:current and endDateTime>:current ";
 					query = session.createQuery(hql,Campaign.class);
 					query.setParameter("current", new Date());
-					query.setParameter("searchStr", "%"+searchStr+"%");
 					break;
 			}
+			query.setParameter("searchStr", "%"+searchStr+"%");
 		}
 		
 		query.setParameter("startDateTime", search.getStrDate());
@@ -216,10 +209,34 @@ public class CampaignDaoImpl implements CampaignDao {
 		int pageSize = page.getPageSize();
 		int totalPage = (int)Math.ceil((double)totalResult/pageSize);
 		System.out.println(totalPage);
-		List<Campaign> camps = query.setMaxResults(page.getPageSize()).setFirstResult((page.getCurrentPage()-1)*page.getPageSize()).list();
-
 		
-		return new Page<Campaign>(totalPage,page.getCurrentPage()+1,camps);
+		List<Campaign> camps = query.setMaxResults(page.getPageSize()).setFirstResult((page.getCurrentPage()-1)*page.getPageSize()).list();
+		
+		page.setContent(camps);
+		page.setTotalpage(totalPage);
+		page.setTotalResultCount(totalResult);
+		
+		return page;
+	}
+
+	@Override
+	public Long getTotalCampCountOfCompany(int companyId) {
+		String hql = "SELECT COUNT(*) FROM Campaign WHERE companyId=: companyId";
+		Session session = sessionFactory.getCurrentSession();
+		return (Long) session.createQuery(hql).setParameter("companyId", companyId).uniqueResult();
+	}
+
+	@Override
+	public Page<Campaign> getPageByCompanyId(Page<Campaign> page,int companyId) {
+		String hql = "SELECT COUNT(*) FROM Campaign WHERE companyId=:companyId";
+		String hql2 = "FROM Campaign WHERE companyId=:companyId";
+		Session session = sessionFactory.getCurrentSession();
+		int totalPage = (int)Math.ceil((long)session.createQuery(hql).setParameter("companyId", companyId).uniqueResult()/(double)page.getPageSize());
+		List<Campaign> camps = session.createQuery(hql2,Campaign.class).setParameter("companyId", companyId).setMaxResults(page.getPageSize()).setFirstResult((page.getCurrentPage()-1)*page.getPageSize()).list();
+		page.setContent(camps);
+		page.setTotalpage(totalPage);
+		page.setTotalResultCount((int)(long)getTotalCampCountOfCompany(companyId));
+		return page;
 	}
 
 	

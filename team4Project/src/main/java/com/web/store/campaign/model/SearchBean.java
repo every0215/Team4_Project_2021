@@ -12,9 +12,17 @@ import javax.persistence.Table;
 public class SearchBean {
 	
 	private String searchStr;
-	private int status;
+	private Integer status;
+	private String strDateStr;
+	private String endDateStr;
 	private Timestamp strDate;
 	private Timestamp endDate;
+	
+	
+	public void convertStringToTimestamp() {
+		this.strDate = Timestamp.valueOf(strDateStr+" 00:00:00");
+		this.endDate = Timestamp.valueOf(endDateStr+" 00:00:00");
+	}
 	
 	public int getStatus() {
 		return status;
@@ -40,6 +48,17 @@ public class SearchBean {
 	public void setSearchStr(String searchStr) {
 		this.searchStr = searchStr;
 	}
-	
+	public String getStrDateStr() {
+		return strDateStr;
+	}
+	public void setStrDateStr(String strDateStr) {
+		this.strDateStr = strDateStr;
+	}
+	public String getEndDateStr() {
+		return endDateStr;
+	}
+	public void setEndDateStr(String endDateStr) {
+		this.endDateStr = endDateStr;
+	}
 	
 }

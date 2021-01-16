@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 
 <html>
@@ -62,39 +61,35 @@
 
 <body>
 <!-- 	存放companyId -->
-	<form:form modelAttribute="searchBean" action="${pageContext.request.contextPath}/campaign/search/${1}/firstPage" method="GET">
-		<input id="companyId" type="hidden" value="1">  
-		<ul class="functionBar">
-			
-			<li><button id="addBtn" class="btn btn-success" type="button">新增活動</button></li>
-			
-			<li><label>查詢活動:</label><form:input type="text" path="searchStr"/></li>
-			
-			
-			<li>
-				<form:select class="form-control" path="status">
-					<form:option value="0">狀態</form:option>
-					<form:option value="1">上架</form:option>
-					<form:option value="2">下架</form:option>
-					<form:option value="3">進行中</form:option>
-				</form:select>
-			</li>
-	
-			<li>
-				<label for="">開始時間：</label>
-				<form:input id="strDate" type="date" path="strDateStr"/>
-			</li>
-	
-			<li>
-				<label for="">結束時間：</label>
-				<form:input id="endDate" type="date" path="endDateStr"/>
-			</li>
-	
-			
-			<li><button id="queryBtn" class="btn btn-success" type="submit">查詢</button></li>
-			
-		</ul>
-	</form:form>
+	<input id="companyId" type="hidden" value="1">  
+	<ul class="functionBar">
+		
+		<li><button id="addBtn" class="btn btn-success" type="button">新增活動</button></li>
+		
+		<li><span>查詢活動:</span><input type="text" name=""></li>
+
+		<li>
+			<select class="form-control" name="queryType">
+				<option value="">狀態</option>
+				<option value="">上架</option>
+				<option value="">下架</option>
+				<option value="">進行中</option>
+			</select>
+		</li>
+
+		<li>
+			<label for="">開始時間：</label>
+			<input id="strDate" type="date">
+		</li>
+
+		<li>
+			<label for="">結束時間：</label>
+			<input id="endDate" type="date">
+		</li>
+
+		
+		<li><button id="queryBtn" class="btn btn-success" type="submit">查詢</button></li>
+	</ul>
 	<div id="container" class="container">
 		
 		<h2 class="title">活動總覽</h2>
@@ -132,45 +127,51 @@
 			</tbody>
 		</table>
 		<select name=page id="pageSelector">
-		<c:if test="${page.totalpage==0}"><option value="1">1</option></c:if>
-		<c:forEach var="count" begin="1" end="${page.totalpage}">
-			<option value="${count}">${count}</option>
-		</c:forEach>
+			<c:forEach var="pageCount" begin="1" end="${page.totalpage}">
+				<option value="${pageCount}">${pageCount}</option>
+			</c:forEach>
 		</select>
-		<h4>共${page.totalResultCount}筆資料</h4>
+		<h4>共x筆資料</h4>
 
 	</div>
+
 	<script>
 	
 		
 		
 		$(function(){
 			
-// 			setDate();
+			setDate();
 			
 			$("#addBtn").click(function(){
 				location.href = "<c:url value='/campaign/insertPage'/>"
 			})
 			
-
+			$.ajax({
+				url : "<c:url value='/campaign/getPageByCompany/"+${1}+"/1' />",
+				dataType : "json", 
+				type : "GET",
+				success : function(data) {
+					console.log(data);
+					console.log(data.totalPage)
+					var selectionTemp = "";
+					for(var i=1;i<=data.totalPage;i++){
+						var optionTemp = "<option value="+i+">"+i+"</option>"
+						selectionTemp += optionTemp;
+					}
+					$("select[name='page']").html(selectionTemp);
+				}
+			})
+			
 			$("select[name='page']").change(function(){
 				var page = $(this).children(":selected").val();		
 				$.ajax({
-					<c:if test="${empty isSearch}">
 					url : "<c:url value='/campaign/getPageByCompany/"+ ${1} +"/"+page+"' />",
-					</c:if>
-					<c:if test="${!empty isSearch}">
-					url : "<c:url value='/campaign/search/"+ ${1} +"/"+page+"'/>"
-							+"?searchStr="+ "${search.searchStr}"
-							+"&status="+ "${search.status}"
-							+"&strDateStr="+"${search.strDateStr}"
-							+"&endDateStr="+"${search.endDateStr}",
-					</c:if>	
 					dataType : "json", 
 					type : "GET",
 					success : function(data) {
 						console.log(data)
-						var camps = data.content;
+						var camps = data.page;
 						var properties = ["name","startDateTime","endDateTime","launchStatus","description"];
 						var btns = ["編輯","套用"];
 						$("#CampContainer").html("")
@@ -204,6 +205,8 @@
 				})
 			})
 			
+			
+			$()
 			function setDate () {
                 var strDate = document.querySelector("#strDate");
                 var endDate = document.querySelector("#endDate");                 
@@ -216,72 +219,7 @@
             }
 			
 		})
-		
-		// window.onload = function () {
-		// 	var xhr = new XMLHttpRequest();
-		// 	xhr.open("GET", "/proj/camaign/getPage", true);
-		// 	xhr.send();
-		// 	xhr.onreadystatechange = function () {
-		// 		if (xhr.readyState == 4 && xhr.status == 200) {
-		// 			var pageSelectObj = document.getElementById("pageSelect");
-		// 			var responseData = xhr.responseText;
-		// 			var mapData = JSON.parse(responseData);
-		// 			var totalPage = mapData.totalPage;
-		// 			var options = "";
-		// 			for (var i = 1; i <= totalPage; i++) {
-		// 				options += "<option value=" + i + ">" + i + "</option>"
-		// 			}
-		// 			pageSelectObj.innerHTML += options;
-		// 		}
-		// 	}
 
-
-
-		// 	var pageSelectObj = document.getElementById("pageSelect");
-
-		// 	pageSelectObj.onchange = function () {
-		// 		var xhr2 = new XMLHttpRequest();
-		// 		var pageNum = this.value;
-		// 		console.log(pageNum);
-		// 		xhr2.open("GET", "/proj/camaign/getPage" + "?page=" + pageNum, true);
-		// 		xhr2.send();
-		// 		xhr2.onreadystatechange = function () {
-		// 			if (xhr2.readyState == 4 && xhr2.status == 200) {
-		// 				var reponseData = xhr2.responseText;
-		// 				var mapData = JSON.parse(reponseData);
-		// 				display(mapData)
-		// 			}
-		// 		}
-
-		// 	}
-
-// 			function display(map) {
-// 				var camps = map.page;
-// 				console.log(camps)
-// 				var campsRows = "";
-// 				for (let camp of camps) {
-// 					console.log(camp)
-// 					var row = "<tr>";
-
-// 					row += "<td>" + camp.title + "</td>";
-// 					var startTime = new Date(camp.startTime);
-// 					row += "<td>" + startTime.getFullYear() + "年" + (startTime.getMonth() + 1) + "月" + startTime.getDate() + "日" + "</td>";
-// 					row += "<td>" + new Date(camp.endTime) + "</td>";
-
-// 					if (camp.status)
-// 						row += "<td>上架</td>";
-// 					else
-// 						row += "<td>下架</td>";
-
-// 					row += "<td>" + camp.description + "</td>";
-// 					row += "</tr>"
-// 					campsRows += row;
-// 				}
-// 				document.getElementById("CampContainer").innerHTML = campsRows;
-
-// 			}
-
-// 		}
 	</script>
 
 </body>
