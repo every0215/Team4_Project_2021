@@ -70,11 +70,6 @@ public class CampaignServiceImpl implements CampaignService {
 	}
 
 	@Override
-	public List<Campaign> getSinglePageResult(int page) {
-		return campDao.getSinglePageResult(page);		
-	}
-
-	@Override
 	public int getTotalPageByCompanyId(int id) {
 		return campDao.getTotalPageByCompanyId(id);
 	}
@@ -105,6 +100,17 @@ public class CampaignServiceImpl implements CampaignService {
 	public Page<Campaign> searchCampaignOfCompany(int companyId, SearchBean search, Page<Campaign> page) {
 		
 		return campDao.serchCampaignOfCompany(companyId, search, page);
+	}
+
+	@Override
+	public Long getTotalCampCountOfCompany(int companyId) {	
+		return campDao.getTotalCampCountOfCompany(companyId);
+	}
+
+	@Override
+	public Page<Campaign> getCampaignPageOfCompany(Page<Campaign> page,int companyId) {
+
+		return campDao.getPageByCompanyId(page, companyId);
 	}
 		
 }

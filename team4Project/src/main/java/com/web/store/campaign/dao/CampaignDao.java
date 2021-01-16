@@ -26,9 +26,11 @@ public interface CampaignDao {
 	
 	List<Campaign> getCampaignByLaunchStatus(boolean launchStatus);
 	
-	List<Campaign> getSinglePageResult(int page);
+	List<Campaign> getSinglePageResultByCompanyId(int page,int compayId);
 	
-	List<Campaign> getSinglePageResultByCompanyId(int page,int compayId);	
+	Page<Campaign> getPageByCompanyId(Page<Campaign> page,int companyId);
+	
+	Long getTotalCampCountOfCompany(int companyId);
 	
 	int getTotalPage();
 	

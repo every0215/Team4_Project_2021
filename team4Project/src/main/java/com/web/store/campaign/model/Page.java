@@ -7,6 +7,7 @@ public class Page <E>{
 	private Integer totalpage;
 	private Integer currentPage;
 	private Integer pageSize=6;
+	private Integer TotalResultCount;
 	private List<E> content;
 	
 	
@@ -45,6 +46,14 @@ public class Page <E>{
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public Integer getTotalResultCount() {
+		return TotalResultCount;
+	}
+
+	public void setTotalResultCount(Integer totalResultCount) {
+		TotalResultCount = totalResultCount;
 	}
 	
 	

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -292,10 +293,8 @@ public class CampaignController {
 	public @ResponseBody Map<String,Object> getPageByCompany(@PathVariable int page,
 																	@PathVariable int companyId) {		
 		Map<String,Object> map = new HashMap<String,Object>();
-		int totalPage = campService.getTotalPageByCompanyId(companyId);
-		List<Campaign> camps = campService.getSinglePageResultByCompayId(page, companyId);
-		map.put("totalPage",totalPage);
-		map.put("page", camps);
+		map.put("totalPage",campService.getTotalPageByCompanyId(companyId));
+		map.put("content", campService.getSinglePageResultByCompayId(page, companyId));
 		return map;
 		
 	}
@@ -379,10 +378,12 @@ public class CampaignController {
 	
 	
 	@GetMapping("/getFirstPageByCompany/{companyId}")
-	public String getFirstPage(@PathVariable int companyId,Model model) {
-		List<Campaign> camps= campService.getSinglePageResultByCompayId(1,companyId);
-		
-		model.addAttribute("camps", camps);
+	public String getFirstPage(@PathVariable int companyId,Model model) {	
+		Page<Campaign> page = new Page<Campaign>();
+		page.setCurrentPage(1);
+		campService.getCampaignPageOfCompany(page, companyId);
+		model.addAttribute("page", page);
+		model.addAttribute("test", "2021-01-02");
 		return "campaign/CampaignShowPage";
 	}
 	
@@ -394,15 +395,38 @@ public class CampaignController {
 		return "campaign/CampaignUpdatePage";
 	}
 	
-	@PostMapping(value="/search/{companyId}/{page}",produces = "application/json; charset=UTF-8")
-	public @ResponseBody Page<Campaign> searchCampaign(@RequestBody SearchBean search, 
+	@GetMapping(value="/search/{companyId}/{page}",produces = "application/json; charset=UTF-8")
+	public @ResponseBody Page<Campaign> searchCampaign(@ModelAttribute SearchBean search, 
 			@PathVariable int companyId,
 			@PathVariable int page) {
+		System.out.println(search.getStrDateStr());
 		Page<Campaign> pageResult = new Page<Campaign>();
+		search.convertStringToTimestamp();
 		pageResult.setCurrentPage(page);
 		pageResult = campService.searchCampaignOfCompany(companyId, search, pageResult);
 		return pageResult;
 	}
 	
+	@GetMapping(value="/search/{companyId}/firstPage")
+	public String getSearchFirstPage(@ModelAttribute SearchBean searchBean	,
+											 @PathVariable Integer companyId,
+											 Model model
+			) {
+		Page<Campaign> page = new Page<Campaign>();
+		searchBean.convertStringToTimestamp();
+		page.setCurrentPage(1);
+		page = campService.searchCampaignOfCompany(companyId, searchBean, page);
+		model.addAttribute("page", page);
+		model.addAttribute("search",searchBean);
+		model.addAttribute("isSearch",true);
+		return "campaign/CampaignShowPage";
+	}
+	
+	@ModelAttribute(name = "searchBean")
+	public SearchBean getSearchbean() {
+		SearchBean searchbean = new SearchBean();
+		searchbean.setStatus(1);
+		return searchbean;
+	}
 	
 }
