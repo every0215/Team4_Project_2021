@@ -131,9 +131,31 @@ public class CompanyDaoImpl implements CompanyDao {
 	}
 
 	@Override
-	public boolean verifyLogin(String account, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public Company verifyLogin(String account, String password) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Company where Account = :Account and Password = :Password"; 
+		Query<Company> queryObj = session.createQuery(hqlstr,Company.class);
+		queryObj.setParameter("Account", account);
+		queryObj.setParameter("Password", password);
+		Company cmp = queryObj.uniqueResult();
+		
+		
+		//確認上架狀態
+		if(cmp!=null) {
+			if(cmp.getStatus()) {
+				return cmp;
+			}else {
+				return null;
+			}
+		}else  {
+			return null;
+		}
+		
+		
+	
+		
+		
+		
 	}
 	
 	

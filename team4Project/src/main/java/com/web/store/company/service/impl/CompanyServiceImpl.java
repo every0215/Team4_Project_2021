@@ -43,4 +43,10 @@ public class CompanyServiceImpl implements CompanyService {
 		return cmpDao.getAllCompany();
 	}
 
+	@Override
+	public Company verifyLogin(String account, String password) {
+		
+		return cmpDao.verifyLogin(account, password);
+	}
+
 }

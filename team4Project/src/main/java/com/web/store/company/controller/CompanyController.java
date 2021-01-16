@@ -23,17 +23,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.store.company.model.Company;
 import com.web.store.company.service.CompanyService;
 
 @Controller
+@SessionAttributes("company") 
 public class CompanyController {
 	
 	@Autowired
@@ -41,7 +44,7 @@ public class CompanyController {
 	
 	@Autowired
 	ServletContext context;
-	
+	///////////////////////////////////////企業新增///////////////////////////////////////////
 	//註冊企業資料包含文字 圖片
 	@PostMapping(value="/CompanyRegister")
 	public String companyRegister(
@@ -52,19 +55,13 @@ public class CompanyController {
 			@RequestParam String password,
 			@RequestParam String phone,
 			@RequestParam String email,
-			
 			@RequestParam(value="logo",required=false)MultipartFile logo,
 			@RequestParam(value="busRC",required=false)MultipartFile busRC
-			
 //			HttpServletResponse response
-			
 			) throws IOException {
 		
 		/////////////////存圖片轉成Byte陣列////////////////////
-//		System.out.println("====================Logo"+logo);
-//		System.out.println("====================busRC"+busRC);
-//		System.out.println("====================Logo"+companyName);
-//		System.out.println("====================Logo");
+
 		//用getBytes方法把上傳的MultipartFile logo 轉成 byte[]
 		byte[] logoB = logo.getBytes();
 		byte[] busRCB = busRC.getBytes();
@@ -80,10 +77,7 @@ public class CompanyController {
 		   Company cmp = new Company(companyName,logoblob,logoName,uniformNumbers,categories,account,password,email,phone,busRCblob,busRCName);
 		   //呼叫Service新增到資料庫
 		   cmpService.addCompany(cmp);
-//		   response.setContentType("text/html;charset=utf-8");
-//	       PrintWriter out = response.getWriter();
-//	       out.print("<script type='text/javascript'>alert('新增成功!');</script>");
-		   
+	   
 		  } catch (SerialException e) {
 		   // TODO Auto-generated catch block
 		   e.printStackTrace();
@@ -168,5 +162,25 @@ public class CompanyController {
 		}
 		return b;
 	}
-
+	///////////////////////////////////////企業新增///////////////////////////////////////////
+	@PostMapping(value="/CompanyLogin")
+	public String Login(
+			@RequestParam String account,
+			@RequestParam String password
+			) {
+		Company cmp = cmpService.verifyLogin(account, password);
+		
+		if(cmp!= null) {
+			setCompany(cmp);
+			
+			return "/crm/backOffice";
+		}else {
+			return "/company/CompanyLogin";
+		}	
+	}
+	 @ModelAttribute("Company")
+	    public Company setCompany(Company cmp) {
+	        return cmp;
+	    }
+	
 }

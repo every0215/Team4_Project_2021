@@ -32,7 +32,7 @@ public class Store {
 		@Column(name= "Fex")
 		private String fex;
 		@Column(name= "BusinessHour")
-		private boolean businessHour;//true是24hr false是要填時間
+		private Boolean businessHour;//true是24hr false是要填時間
 		@Column(name= "Openhour")
 		private Date openhour;
 		@Column(name= "Closehour")
@@ -40,15 +40,15 @@ public class Store {
 		//寫company的關聯
 		@Transient
 		@Column(name= "CompanyId")
-		private int companyId;
+		private Integer companyId;
 		//寫bank關聯
 		@Transient
 		@Column(name= "BankId")
-		private int bankId;
+		private Integer bankId;
 		
 		
 		@Column(name= "Profiles")
 		private String Profiles;
 		@Column(name= "Status")
-		private boolean Status=true;
+		private Boolean Status=true;
 }

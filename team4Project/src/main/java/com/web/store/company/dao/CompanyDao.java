@@ -18,7 +18,7 @@ public interface CompanyDao {
 	
 	/////////////////////登入功能////////////////////////
 	//驗證登入帳號
-	boolean verifyLogin(String account , String password);
+	Company verifyLogin(String account , String password);
 	
 	//update驗證碼進(驗證碼By email)
 	
@@ -33,6 +33,7 @@ public interface CompanyDao {
 	boolean delete(Company cmp);
 	//顯示合作企業
 	List<Company> getAllCompany();
+	//登出
 	/////////////////////後台功能////////////////////////
 	
 	

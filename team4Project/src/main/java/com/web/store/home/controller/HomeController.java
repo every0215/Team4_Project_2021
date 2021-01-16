@@ -41,4 +41,8 @@ public class HomeController {
 	public String companyRegister() {
 		return "company/CompanyRegister";
 	}
+	@RequestMapping("/CmpLog")
+	public String companyLogin() {
+		return "company/CompanyLogin";
+	}
 }

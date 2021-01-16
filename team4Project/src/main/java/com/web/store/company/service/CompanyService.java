@@ -11,7 +11,8 @@ public interface CompanyService {
 	Company getCompany(String Account);
 	//平台顯示合作企業
 	List<Company> getAllCompany();
-	//
+	//登入功能驗證帳號密碼
+	Company verifyLogin(String account, String password);
 	
 	
 }

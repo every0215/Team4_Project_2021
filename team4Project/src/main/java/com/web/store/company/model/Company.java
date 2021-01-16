@@ -132,6 +132,13 @@ public class Company {
 		this.profiles = profiles;
 		this.status = status;
 	}
+	public Company(	String account, String password) {
+		super();
+		
+		this.account = account;
+		this.password = password;
+		
+	}
 
 	public int getId() {
 		return id;
@@ -200,7 +207,7 @@ public class Company {
 	public void setProfiles(String profiles) {
 		this.profiles = profiles;
 	}
-	public boolean isStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 	public void setStatus(Boolean status) {
