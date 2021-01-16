@@ -45,6 +45,7 @@ import com.web.store.campaign.model.DiscountParams;
 import com.web.store.campaign.model.Page;
 import com.web.store.campaign.model.SearchBean;
 import com.web.store.campaign.service.CampaignService;
+import com.web.store.company.model.Company;
 
 
 
@@ -378,7 +379,14 @@ public class CampaignController {
 	
 	
 	@GetMapping("/getFirstPageByCompany/{companyId}")
-	public String getFirstPage(@PathVariable int companyId,Model model) {	
+	public String getFirstPage(@PathVariable int companyId,Model model) {
+		Company company = (Company)model.getAttribute("company");
+		System.out.println(company);
+		if(company!=null){
+			System.out.println(company.getId());
+			System.out.println(company.getCompanyName());
+		}
+
 		Page<Campaign> page = new Page<Campaign>();
 		page.setCurrentPage(1);
 		campService.getCampaignPageOfCompany(page, companyId);

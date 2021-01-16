@@ -166,21 +166,25 @@ public class CompanyController {
 	@PostMapping(value="/CompanyLogin")
 	public String Login(
 			@RequestParam String account,
-			@RequestParam String password
+			@RequestParam String password,
+			Model model
 			) {
 		Company cmp = cmpService.verifyLogin(account, password);
 		
 		if(cmp!= null) {
-			setCompany(cmp);
-			
+//			setCompany(cmp);
+			model.addAttribute("company", cmp);//直接這樣子就可以
 			return "/crm/backOffice";
 		}else {
 			return "/company/CompanyLogin";
 		}	
 	}
-	 @ModelAttribute("Company")
-	    public Company setCompany(Company cmp) {
-	        return cmp;
-	    }
+//	當@ModelAttribute標註在方法前，表示這個方法回傳的值會以model.addAttribute()攜帶，並且
+//	優先於所有這個controller的方法前執行
+//	所以當進入到登錄的映射方法前就會呼叫這個方法，此時cmp裡面還是空的，所以session接到的是一個空的Company
+//	 @ModelAttribute("company")
+//	    public Company setCompany(Company cmp) {
+//	        return cmp;
+//	    }
 	
 }
