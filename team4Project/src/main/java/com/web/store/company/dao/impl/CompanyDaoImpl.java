@@ -42,12 +42,12 @@ public class CompanyDaoImpl implements CompanyDao {
 
 	//驗證企業名稱是否重複(才可新增)
 	@Override
-	public boolean getCompanyByName(String company) {
+	public boolean getCompanyByName(String companyName) {
 		
 		Session session = sessionFactory.getCurrentSession();
-		String hqlstr = "from Company where Company = :Company";
+		String hqlstr = "from Company where CompanyName = :companyName";
 		Query<Company> queryObj = session.createQuery(hqlstr,Company.class);
-		queryObj.setParameter("Company", company);
+		queryObj.setParameter("companyName", companyName);
 		if(queryObj.uniqueResult()!=null) {
 			return false;			
 		}else {
@@ -128,6 +128,34 @@ public class CompanyDaoImpl implements CompanyDao {
 		String hqlstr = "from Company";
 		Query<Company> queryObj = session.createQuery(hqlstr,Company.class); 			
 		return queryObj.list();	
+	}
+
+	@Override
+	public Company verifyLogin(String account, String password) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Company where Account = :Account and Password = :Password"; 
+		Query<Company> queryObj = session.createQuery(hqlstr,Company.class);
+		queryObj.setParameter("Account", account);
+		queryObj.setParameter("Password", password);
+		Company cmp = queryObj.uniqueResult();
+		
+		
+		//確認上架狀態
+		if(cmp!=null) {
+			if(cmp.getStatus()) {
+				return cmp;
+			}else {
+				return null;
+			}
+		}else  {
+			return null;
+		}
+		
+		
+	
+		
+		
+		
 	}
 	
 	

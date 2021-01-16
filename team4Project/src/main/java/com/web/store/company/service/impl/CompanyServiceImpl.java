@@ -20,20 +20,12 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Override
 	public boolean addCompany(Company cmp) {
-		String cmpName = cmp.getCompany();
+		String cmpName = cmp.getCompanyName();
 		String uniN = cmp.getUniformNumbers();
 		String cmpAcc = cmp.getAccount();
-		if(cmpDao.getCompanyByName(cmpName)) {
-			if(cmpDao.getCompanyByUniformNum(uniN)) {
-				if(cmpDao.getCompanyByAccount(cmpAcc)==null) {
+		if(cmpDao.getCompanyByName(cmpName)&&cmpDao.getCompanyByUniformNum(uniN)&&(cmpDao.getCompanyByAccount(cmpAcc)==null)) {
 					cmpDao.addcompany(cmp);
 					return true;
-				}else {
-					return false;
-				}
-			}else {
-				return false;
-			}
 		}else {
 			return false;
 		}
@@ -49,6 +41,12 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public List<Company> getAllCompany() {
 		return cmpDao.getAllCompany();
+	}
+
+	@Override
+	public Company verifyLogin(String account, String password) {
+		
+		return cmpDao.verifyLogin(account, password);
 	}
 
 }
