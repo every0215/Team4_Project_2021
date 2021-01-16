@@ -146,7 +146,7 @@
 		
 		$(function(){
 			
-// 			setDate();
+			setDate();
 			
 			$("#addBtn").click(function(){
 				location.href = "<c:url value='/campaign/insertPage'/>"
@@ -206,13 +206,15 @@
 			
 			function setDate () {
                 var strDate = document.querySelector("#strDate");
-                var endDate = document.querySelector("#endDate");                 
-                var today = new Date();
-                console.log(today.toISOString());
-                today.setDate(today.getDate()+1);
-                strDate.value = today.toISOString().substr(0, 10);
-                today.setDate(today.getDate()+1);
-                endDate.value = today.toISOString().substr(0, 10);
+                var endDate = document.querySelector("#endDate");
+                if(strDate.value=="" || endDate.value==""){
+                	var today = new Date();
+                    console.log(today.toISOString());
+                    today.setDate(today.getDate()+1);
+                    strDate.value = today.toISOString().substr(0, 10);
+                    today.setDate(today.getDate()+30);
+                    endDate.value = today.toISOString().substr(0, 10);          	
+                }         
             }
 			
 		})
