@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.http.HttpResponse;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -32,8 +33,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.store.campaign.model.Campaign;
 import com.web.store.company.model.Company;
 import com.web.store.company.service.CompanyService;
+
 
 @Controller
 @SessionAttributes("company") 
@@ -163,6 +166,7 @@ public class CompanyController {
 		return b;
 	}
 	///////////////////////////////////////企業新增///////////////////////////////////////////
+	///////////////////////////////////////企業登入///////////////////////////////////////////
 	@PostMapping(value="/CompanyLogin")
 	public String Login(
 			@RequestParam String account,
@@ -186,5 +190,25 @@ public class CompanyController {
 //	    public Company setCompany(Company cmp) {
 //	        return cmp;
 //	    }
+	//設為sessionAttribute
+	@ModelAttribute("Company")
+	    public Company setCompany(Company cmp) {
+	        return cmp;
+	}
+	 
+	///////////////////////////////////////企業登入///////////////////////////////////////////
+	///////////////////////////////////////秀合作企業///////////////////////////////////////////
+	//未實作
+	@RequestMapping("/showCompany")
+	public String list(Model model) {
+
+		List<Company> list = cmpService.getAllCompany();
+		for(Company cmp:list) {
+			System.out.println(cmp.getCompanyName());
+		}
+		model.addAttribute("CompanyList", list);
+		return "/company/ShowCompany";
+	}
+	///////////////////////////////////////秀合作企業///////////////////////////////////////////
 	
 }

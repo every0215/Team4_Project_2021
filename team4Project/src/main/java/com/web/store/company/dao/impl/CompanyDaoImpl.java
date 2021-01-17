@@ -138,8 +138,6 @@ public class CompanyDaoImpl implements CompanyDao {
 		queryObj.setParameter("Account", account);
 		queryObj.setParameter("Password", password);
 		Company cmp = queryObj.uniqueResult();
-		
-		
 		//確認上架狀態
 		if(cmp!=null) {
 			if(cmp.getStatus()) {
@@ -150,14 +148,6 @@ public class CompanyDaoImpl implements CompanyDao {
 		}else  {
 			return null;
 		}
-		
-		
-	
-		
-		
-		
 	}
 	
-	
-
 }
