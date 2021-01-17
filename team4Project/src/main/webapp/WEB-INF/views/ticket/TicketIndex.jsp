@@ -57,7 +57,7 @@
 <td>${event.typeId}</td>
 <td>${event.eventName}</td>
 <td>${event.eventLocation}</td>
-<td><img height="150px" src="<c:url value='/getimage/${event.id}'/>" /></td>
+<td><img height="150px" src="<c:url value='/geteventimage/${event.id}'/>" /></td>
 <td>
 	<input type="hidden" name="typeId" value="${event.typeId}"/>
 	<input type="hidden" name="companyId" value="1"/>

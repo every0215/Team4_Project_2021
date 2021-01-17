@@ -696,7 +696,7 @@ public class EventController {
 		
 	}
 	
-	@GetMapping(value = "/getimage/{id}")
+	@GetMapping(value = "/geteventimage/{id}")
 	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer id) {
 		String filePath = "/images/NoImage.jpg";
 
