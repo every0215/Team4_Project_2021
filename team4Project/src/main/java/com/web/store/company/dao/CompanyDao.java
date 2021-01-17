@@ -34,6 +34,7 @@ public interface CompanyDao {
 	//顯示合作企業
 	List<Company> getAllCompany();
 	//登出
+	
 	/////////////////////後台功能////////////////////////
 	
 	
