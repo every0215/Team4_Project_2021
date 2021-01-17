@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+.ll-err-msg{
+	color: red;
+	
+}
+
+
+ul.ll-err-list-msg {
+  list-style-position: inside;
+  list-style-type: square;
+}
+
+.ll-center {
+	margin-left: 50%;
+	margin-right: 50%;
+}
+
+#userbox {
+	cursor: pointer;
+	
+}
+/* Header-個人帳號Menu */
+.usermenu_usermenu>li>a, .usermenu_usermenu>li>button {
+    /* font-family: Lato,Lucida Grande,Lucida Sans Unicode,Tahoma,Sans-Serif; */
+    border: solid 0.5px #e0e0e0;
+    width: 100%;
+    color: rgb(29, 29, 29);
+/*     font-weight: 700; */
+    text-align: left;
+    background: none;
+    font-size: 16px;
+    padding: .55rem 1rem;
+    display: flex;
+    align-items: center;
+    line-height: inherit;
+}
+
+.usermenu_usermenu>li>a:hover, .usermenu_usermenu>li>button:hover {
+    border-bottom: solid 0.5px #ff9203;
+    background-color: #fff7dd;
+}
+
+.usermenu_usermenu {
+    overflow-y: auto;
+    position: absolute;
+    z-index: 10000;
+    right: 15px;
+    top: 31px;
+    width: 225px;
+    list-style: none;
+/*     max-height: 80vh; */
+/*     max-height: calc(100vh - 71px); */
+    white-space: nowrap;
+    /* opacity: 0; 
+    visibility: hidden; */
+    padding: .5rem 0;
+    background: #ffffff;
+    border-radius: 6px 0 6px 6px;
+    /* box-shadow: 0 0.5rem 2rem #fff6f3; */
+    transform: scale(.9);
+    transform-origin: top right;
+    transition: all .2s ease-in-out,visibility 0s linear .2s;
+    overflow: visible; /* Hide scrollbars */
+}

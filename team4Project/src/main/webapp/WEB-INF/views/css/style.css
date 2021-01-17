@@ -2595,11 +2595,13 @@ img {
   display: inline;
   float: left;
   width: 100%;
+
 }
 #aa-myaccount .aa-myaccount-area .aa-myaccount-register {
   display: inline;
   float: left;
   width: 100%;
+
 }
 
 /*---- Login form ----*/
@@ -2609,7 +2611,7 @@ img {
   border: 1px solid #ccc;
   font-size: 16px;
   height: 40px;
-  margin-bottom: 15px;
+  margin-bottom: 3px;
   padding: 10px;
   width: 100%;
 }
