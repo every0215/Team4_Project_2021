@@ -202,7 +202,7 @@
 	</div>
 	<!-- / Promo section -->
 	<a href="<c:url value='/CmpRegi' />">企業註冊</a>
-
+	<a href="<c:url value='/showCompany' />">秀合作企業 </a>
   <!-- Products section -->
  <section id="aa-product">
     <div class="container">

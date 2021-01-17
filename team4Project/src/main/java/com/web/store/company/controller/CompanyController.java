@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.store.campaign.model.Campaign;
 import com.web.store.company.model.Company;
 import com.web.store.company.service.CompanyService;
 
@@ -194,8 +195,11 @@ public class CompanyController {
 	public String list(Model model) {
 
 		List<Company> list = cmpService.getAllCompany();
-		model.addAttribute("Company", list);
-		return "products";
+		for(Company cmp:list) {
+			System.out.println(cmp.getCompanyName());
+		}
+		model.addAttribute("CompanyList", list);
+		return "/company/ShowCompany";
 	}
 	///////////////////////////////////////秀合作企業///////////////////////////////////////////
 	
