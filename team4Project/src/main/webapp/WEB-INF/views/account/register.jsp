@@ -43,8 +43,8 @@
       <div class="col-md-12">
        <div class="aa-myaccount-area">         
            <div class="row">
-             <div class="col-md-6">
-               <div class="aa-myaccount-register ll-center">                 
+             <div class="col-md-12">
+               <div class="aa-myaccount-register">                 
                 <h4>會員註冊</h4>
                 <form:form id="RegisterForm" method="POST" class="aa-login-form" action="${pageContext.request.contextPath}/account/register" modelAttribute="member" enctype='multipart/form-data'>
                 	<div class="form-group">

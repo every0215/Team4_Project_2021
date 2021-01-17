@@ -43,8 +43,8 @@
        <div class="col-md-12">
         <div class="aa-myaccount-area">         
             <div class="row">
-              <div class="col-md-6">
-                <div class="aa-myaccount-login ll-center">
+              <div class="col-md-12">
+                <div class="aa-myaccount-login ">
                 <h4>登入</h4>
                 <form:form id="LoginForm" method="POST" class="aa-login-form" action="${pageContext.request.contextPath}/account/login" modelAttribute="member" enctype='multipart/form-data'>
 <!--                  <form action="" class="aa-login-form"> -->
