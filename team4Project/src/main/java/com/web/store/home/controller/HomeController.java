@@ -27,12 +27,15 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.web.store.account.javabean.MemberBean;
 
+
 //import mvc.examples.model.Cat;
 
 @Controller
 public class HomeController {
+
 	@Autowired
 	ServletContext servletContext;
+
 
 	@RequestMapping("/")
 	public String index() {
@@ -43,6 +46,7 @@ public class HomeController {
 	public String layoutHead() {
 		return "layout/head"; //
 	}
+
 	
 	@RequestMapping("/layout/accountMenu")
 	public String accountMenu() {
@@ -78,6 +82,26 @@ public class HomeController {
 			}
 		}
 		return "layout/header"; //
+	}
+
+
+	@RequestMapping("/layout/header")
+	public String layoutHeader() {
+		return "layout/header";     //
+	}
+	
+	@RequestMapping("/bo")
+	public String boIndex() {
+		return "crm/backOffice";
+	}
+	
+	@RequestMapping("/CmpRegi")
+	public String companyRegister() {
+		return "company/CompanyRegister";
+	}
+	@RequestMapping("/CmpLog")
+	public String companyLogin() {
+		return "company/CompanyLogin";
 	}
 
 }

@@ -77,9 +77,16 @@ h2 {
   margin: 0;
   padding-bottom: 10px;
 }
-
+/* 修改 */
+/* 修改 */
+/* 修改 */
+/* 修改 */
 img {
   border: none;
+  
+}
+.imga{
+	height:200px;
 }
 
 .aa-primary-btn {
@@ -803,7 +810,7 @@ img {
 ====================*/
 
 #aa-slider {
-  float: left;
+/*   float: left; */
   display: inline;
   width: 100%;
 }
@@ -1102,18 +1109,29 @@ img {
 .aa-product-catg {
   margin-left: -54px;
 }
+
+/* 修改 */
+/* 修改 */
+/* 修改 */
+/* 修改 */
+/* 修改 */
+/* 修改 */
+/* 修改 */
+/* 圖片格子 */
 .aa-product-catg li {
   display: block;
   float: left;
-  height: 380px;
+  height: 300px;
   text-align: center;
-  margin: 0 0 20px 55px;
-  width: 20.5%;
+  margin: 0 0 20px 44px;
+  width: 200px;
   position: relative;
   overflow: hidden;
 }
+/* 放圖片框框 */
 .aa-product-catg li:hover figure .aa-product-img {
   background-color: rgba(0, 0, 0, 0.5);
+  
 }
 .aa-product-catg li:hover figure .aa-add-card-btn {
   -moz-transform: scale(1);
@@ -1129,10 +1147,12 @@ img {
   -webkit-transform: translateX(0%);
   transform: translateX(0%);
 }
+/* 加入購物車 */
 .aa-product-catg li figure {
   position: relative;
   height: 300px;
 }
+/* 價錢高度 */
 .aa-product-catg li figure .aa-product-img {
   background-color: #f9f9fb;
   display: block;
@@ -1141,7 +1161,11 @@ img {
   -ms-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
+  
+/*   height:200px; */
+  
 }
+/* 加入購物車 */
 .aa-product-catg li figure .aa-add-card-btn {
   background: #000 none repeat scroll 0 0;
   bottom: 0;
@@ -1163,6 +1187,10 @@ img {
   -ms-transform: scale(0);
   -webkit-transform: scale(0);
   transform: scale(0);
+}
+
+.aa-product-catg li figure .aa-add-card-btn.cc{
+	bottom: 100px;
 }
 .aa-product-catg li figure .aa-add-card-btn span {
   margin-right: 5px;
@@ -1187,12 +1215,19 @@ img {
 .aa-product-catg li .aa-product-price del {
   margin-left: 5px;
 }
+/* 愛心 搜尋 */
+/* 愛心 搜尋 */
+/* 愛心 搜尋 */
+/* 愛心 搜尋 */
+/* 愛心 搜尋 */
+/* 愛心 搜尋 */
 .aa-product-catg li .aa-product-hvr-content {
   left: 0;
   position: absolute;
   right: 0;
+  
   text-align: center;
-  top: 50%;
+  top: 60%;
   width: 100%;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
@@ -1205,6 +1240,16 @@ img {
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
 }
+/* 商品更改 */
+.aa-product-catg li .aa-product-hvr-content.ii{
+	top: 40%;
+}
+/* 修改 */
+/* 修改 */
+/* 修改 */
+/* 修改 */
+/* 修改 */
+/* 修改 */
 .aa-product-catg li .aa-product-hvr-content a {
   background: #fff none repeat scroll 0 0;
   display: inline-block;
@@ -4184,5 +4229,9 @@ img {
   #aa-header .aa-header-top .aa-header-top-right .aa-head-top-nav-right li a {   
     padding: 5px 2px;
   }
+  
+
+
+  
 }
 

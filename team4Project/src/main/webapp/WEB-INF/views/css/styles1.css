@@ -1,0 +1,127 @@
+@charset "UTF-8";
+/*   首頁活動類別 */
+.indexclass {
+	margin: 30px 120px 0px 100px;
+	height: 400px;
+	/*             display:inline; */
+}
+
+.indexclassspan {
+	display: inline;
+	/*         float:left; */
+}
+
+.indexclassaa1 {
+	column-count: 6;
+	height: 200px;
+	padding-top: 20px;
+	text-align: center;
+	column-rule: 0px solid rgb(41, 21, 21);
+	position: relative;
+}
+
+.indexclassaa2 {
+	column-count: 6;
+	height: 200px;
+	padding-top: 20px;
+	text-align: center;
+	column-rule: 0px solid rgb(41, 21, 21);
+	position: relative;
+}
+
+.indexclassbb:hover {
+	width: 50%;
+	height: 60%;
+	background: rgba(255, 255, 255, 0.6);
+	border-radius: 20px 20px 20px 20px;
+}
+
+.indexclassbb {
+	width: 100px;
+}
+
+.indexclassa:hover {
+	color: white;
+	font-weight: bolder;
+	background-color: orange;
+	border-radius: 10px 10px 10px 10px;
+	padding: 5px;
+}
+
+.indexclassaa1 span {
+	color: white;
+	border: 1px solid red;
+	padding: 4px;
+	background-color: red;
+	position: absolute;
+	top: 0%;
+}
+
+.indexclassaa2 span {
+	color: white;
+	border: 1px solid red;
+	padding: 4px;
+	background-color: red;
+	position: absolute;
+	top: 0%;
+}
+
+.rep_reportarea {
+	background-color: transparent;
+	/* 	display: inline-block; */
+	position: absolute;
+	width: calc(100vw - 15px);
+	height: calc(100vh - 80px);
+	bottom: 0px;
+	right: 0px;
+}
+
+.content-wrapper {
+	margin-left: 200px;
+}
+
+#rep_tabs ul li {
+	display: inline;
+}
+
+#rep_tabs ul li a {
+	color: black;
+}
+
+.rep_tabs_photo {
+	min-width: 1000px;
+	/* 	height: 120px; */
+	background-color: rgba(230, 228, 141, 0.3);
+}
+
+.rep_tabs_db {
+	min-width: 1000px;
+	/* 	height: 280px; */
+	background-color: rgba(123, 207, 112, 0.3);
+	overflow: auto;
+}
+
+.rep_table_font {
+	text-align: center;
+	font-size: 12px;
+}
+
+.rep_downloadbutton {
+	float: right;
+}
+
+.col-md-8 {
+	width: 100%;
+}
+
+.col-md-9 {
+	width: 100%;
+}
+
+.col-md-3 {
+	width: 40%;
+}
+
+.col-md-6 {
+	width: 100%;
+}
