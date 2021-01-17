@@ -20,17 +20,18 @@ public class ProductBean implements Serializable{
 	private String productName;
 	private String productType;
 	private String productDescript;
-
+	private String companyName;
 	private int productstuck;
 	private int productPrice;
 	private int storeID;
 	private int discount;
 	private Blob productPic;
+	
 	public  ProductBean(){
 		
 	}
 	public  ProductBean(int productId,String productName,String productType,String productDescript,
-			int productstuck,int productPrice,int storeID,int discount,Blob productPic
+			String companyName,int productstuck,int productPrice,int storeID,int discount,Blob productPic
 			){
 		this.productId = productId;
 		this.productName =productName;
@@ -41,7 +42,7 @@ public class ProductBean implements Serializable{
 		this.storeID=storeID;
 		this.discount=discount; 
 		this.productPic=productPic; 
-	
+		this.companyName=companyName;
 	}
 	public int getproductId() {
 		return productId;
@@ -66,6 +67,12 @@ public class ProductBean implements Serializable{
 	}
 	public void setproductDescript(String productDescript) {
 		this.productDescript = productDescript;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 	public int getproductstuck() {
 		return productstuck;
