@@ -83,12 +83,6 @@ public class HomeController {
 		}
 		return "layout/header"; //
 	}
-
-
-	@RequestMapping("/layout/header")
-	public String layoutHeader() {
-		return "layout/header";     //
-	}
 	
 	@RequestMapping("/bo")
 	public String boIndex() {
