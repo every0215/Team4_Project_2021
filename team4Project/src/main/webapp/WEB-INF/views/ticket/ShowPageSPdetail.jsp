@@ -18,7 +18,6 @@
 
 <h2>您輸入的資訊:</h2><br>
 
-<input type="hidden" name="typeId" value="${event.typeId}"/>
 <table style="margin: auto;width: 800px;border:3px #cccccc solid;" cellpadding="10" border='1'>
 <tr><td>序號</td> <td>${event.id}</td></tr>
 <tr><td>種類</td> <td>${eventType.typeName}</td></tr>
@@ -32,11 +31,10 @@
 <br>
 <img height="300px" src="<c:url value='/getimage/${event.id}'/>" style="display:block; margin:auto;"/>
 <br>
-
-
+	<c:forEach var="sessionSeat" items="${sessionSeatList}">
 		<table style="margin: auto;width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>
 			<thead>
-				<tr><th colspan="5">票價與座位表:</th></tr>
+				<tr><th colspan="5">場次時間:${sessionSeat[0].kickOfTime}</th></tr>
 				<tr><th rowspan="2"><th colspan="2">內野區</th><th colspan="2">外野區</th></tr>
 				<tr><th>A區</th><th>B區</th><th>A區</th><th>B區</th></tr>
 			</thead>
@@ -46,17 +44,15 @@
 				<c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach>
 			</tr>
 			<tr>
-				<td>座位數</td>
-				<c:forEach var="seat" items="${seatList}"><td>${seat.seatNo}</td></c:forEach>
+				<td>剩餘座位數</td>
+				<c:forEach var="seat" items="${sessionSeat[1]}"><td>${seat.seatNo}</td></c:forEach>
 			</tr>
 			</tbody>
 		</table>
+		<br/>
+	</c:forEach>
 
 <br><br>
-<table style="margin: auto;width: 800px;border:3px #cccccc solid;" cellpadding="10" border='1'>
-<tr><td>場次表</td> <c:forEach var="session" items="${sessionList}"><td>${session.kickOfTime}</td></c:forEach></tr>
-</table>
-
 
 <a href="../EventUpdate/${event.id}" class="btn btn-success" role="button">修改</a>	
 <a href="../EventDel/${event.id}" class="btn btn-success" role="button">刪除</a>	

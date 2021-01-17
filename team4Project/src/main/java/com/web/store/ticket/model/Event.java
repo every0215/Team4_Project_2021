@@ -18,69 +18,78 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.web.store.company.model.Company;
 
 @Entity
-@Table(name="Event")
+@Table(name = "event")
 public class Event {
-	@Id @Column(name="Id")
+	@Id
+	@Column(name = "Id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name="typeId")
+	@Column(name = "typeId")
 	private Integer typeId;
-	@Column(name="eventName")
+	@Column(name = "eventName")
 	private String eventName;
-	@Column(name="eventLocation")
+	@Column(name = "eventLocation")
 	private String eventLocation;
-	@Column(name="eventImage")
+	@Column(name = "eventImage")
 	private Blob eventImage;
+	@Column(name = "imageName")
+	private String imageName;
+
+	@Transient
+	MultipartFile eMultipartFile;
 	
-	@Column(name="companyId")
+	@Column(name = "companyId")
 	private Integer companyId;
-	
+
 	@Transient
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="companyId")
+	@JoinColumn(name = "companyId")
 	private Company company;
-	
+
 	@Transient
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="Event", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "Event", cascade = CascadeType.ALL)
 	private Set<Price> prices = new LinkedHashSet<Price>();
-	
+
 	@Transient
-	@OneToOne(fetch = FetchType.LAZY,mappedBy="Event")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "Event")
 	private Attraction attraction;
-	
+
 	@Transient
-	@OneToOne(fetch = FetchType.LAZY,mappedBy="Event")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "Event")
 	private Exhibition exhibition;
-	
+
 	@Transient
-	@OneToOne(fetch = FetchType.LAZY,mappedBy="Event")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "Event")
 	private Sport sport;
-	
+
 	public Event() {
 	}
-	
-	public Event(Integer id,Integer typeId, String eventName,String eventLocation,
-			Blob eventImage, Integer companyId) {
-		this.id=id;
-		this.typeId=typeId;
-		this.eventName=eventName;
-		this.eventLocation=eventLocation;
-		this.eventImage=eventImage;
-		this.companyId=companyId;
-			
+
+	public Event(Integer id, Integer typeId, String eventName, String eventLocation, Blob eventImage, String imageName,
+			Integer companyId) {
+		this.id = id;
+		this.typeId = typeId;
+		this.eventName = eventName;
+		this.eventLocation = eventLocation;
+		this.eventImage = eventImage;
+		this.imageName=imageName;
+		this.companyId = companyId;
+
 	}
-	
-	public Event(Integer typeId, String eventName,String eventLocation,
-			Blob eventImage, Integer companyId) {
-		this.typeId=typeId;
-		this.eventName=eventName;
-		this.eventLocation=eventLocation;
-		this.eventImage=eventImage;
-		this.companyId=companyId;
-		
+
+	public Event(Integer typeId, String eventName, String eventLocation, Blob eventImage, String imageName,Integer companyId) {
+		this.typeId = typeId;
+		this.eventName = eventName;
+		this.eventLocation = eventLocation;
+		this.eventImage = eventImage;
+		this.imageName=imageName;
+		this.companyId = companyId;
+
 	}
 
 	public Integer getId() {
@@ -123,7 +132,6 @@ public class Event {
 		this.eventImage = eventImage;
 	}
 
-
 	public Integer getCompanyId() {
 		return companyId;
 	}
@@ -147,4 +155,22 @@ public class Event {
 	public void setAttraction(Attraction attraction) {
 		this.attraction = attraction;
 	}
+	
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+
+	public MultipartFile geteMultipartFile() {
+		return eMultipartFile;
+	}
+
+	public void seteMultipartFile(MultipartFile eMultipartFile) {
+		this.eMultipartFile = eMultipartFile;
+	}
+
+
 }

@@ -41,45 +41,53 @@ select option[value="0"] {
 	<a href="InputPageSP">運動賽事</a>
 
 	<h3>Event Input Page-樂園與景點</h3>
-	<form name="myForm" action="<c:url value='/ticket/InputPageAT'/>" method="post" enctype="multipart/form-data">
+	<form name="myForm" action="<c:url value='/ticket/InputPageAT'/>"
+		method="post" enctype="multipart/form-data">
 		<hr />
-			<input type="hidden" name="typeId" value="2" /> 
+		<input type="hidden" name="typeId" value="2" />
 		<label class="t1" for="">景點名稱:</label>
-			<input type="text" name="eventName" required="required"><br> <br>
-		<label class="t1" for="">景點地點:</label>
-			<input type="text" name="eventLocation" required="required"><br> <br>
-			<input type="hidden" name="companyId" value="1" />
-		<label class="t1" for="">景點宣傳圖片:</label>
-			<input id="image_input" type="file" name="eventImage"><br><br>
+		<input type="text" name="eventName"
+			required="required"><br> <br> <label class="t1"
+			for="">景點地點:</label> <input type="text" name="eventLocation"
+			required="required"><br> <br> <input type="hidden"
+			name="companyId" value="1" /> <label class="t1" for="">景點宣傳圖片:</label>
+		<input id="image_input" type="file" name="eventImage"><br>
+		<br>
 
-		<%-- 以上為eventBean 以下為exhibitionBean --%>
+		<%-- 以上為eventBean 以下為attractionBean --%>
 
-		<label class="t1" for="">起始售票時間:</label>
-			<input type="text" id="dateTime1" name="onSaleDate" placeholder="ex:2021-01-01 9:00:01" required="required">
-				<span id="datetimesp1"></span><br><br>
-				<span>時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
-		<label class="t1" for="">結束售票時間:</label>
-			<input type="text" id="dateTime2" name="offSaleDate" placeholder="ex:2021-01-31 21:00:01" required="required">
-				<span id="datetimesp2"></span><br><br>
-				<span>時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
-		<label class="t1" for="">展覽起始日:</label>
-			<input type="text" id="date1" name="commDate" placeholder="ex:2021-01-01" required="required">
-				<span id="datesp1"></span><br><br>
-				<span>時間格式:yyyy-MM-dd</span> <br><br>
-		<label class="t1" for="">展覽終止日:</label>
-			<input type="text" id="date2" name="dueDate" placeholder="ex:2021-01-31" required="required">
-				<span id="datesp2"></span><br><br>
-				<span>時間格式:yyyy-MM-dd</span><br><br>
-		<label class="t1" for="">描述:</label>
-				<textarea style="resize: none; width: 600px; height: 200px;" name="description"></textarea><br><br>
+		<label class="t1" for="">起始售票時間:</label> <input type="text"
+			id="dateTime1" name="onSaleDate" placeholder="ex:2021-01-01 9:00:01"
+			required="required"> <span id="datetimesp1"></span><br>
+		<br> <span>時間格式:yyyy-MM-dd HH:mm:ss</span><br>
+		<br> <label class="t1" for="">結束售票時間:</label> <input type="text"
+			id="dateTime2" name="offSaleDate"
+			placeholder="ex:2021-01-31 21:00:01" required="required"> <span
+			id="datetimesp2"></span><br>
+		<br> <span>時間格式:yyyy-MM-dd HH:mm:ss</span><br>
+		<br> <label class="t1" for="">展覽起始日:</label> <input type="text"
+			id="date1" name="commDate" placeholder="ex:2021-01-01"
+			required="required"> <span id="datesp1"></span><br>
+		<br> <span>時間格式:yyyy-MM-dd</span> <br>
+		<br> <label class="t1" for="">展覽終止日:</label> <input type="text"
+			id="date2" name="dueDate" placeholder="ex:2021-01-31"
+			required="required"> <span id="datesp2"></span><br>
+		<br> <span>時間格式:yyyy-MM-dd</span><br>
+		<br> <label class="t1" for="">描述:</label>
+		<textarea style="resize: none; width: 600px; height: 200px;"
+			name="description"></textarea>
+		<br>
+		<br>
 
-		<%-- 以上為exhibitionBean 以下為priceBean --%>
+		<%-- 以上為attractionBean 以下為priceBean --%>
 		<div id="price">
 			<div>
-				<label class="t1" for="">票券名稱:</label>
-					<input type="text" name="priceName" required="required"><br><br>
-				<label class="t1" for="">票券價格:</label>
-					<input type="text" name="priceCost" required="required"><br><br><br>
+				<label class="t1" for="">票券名稱:</label> <input type="text"
+					name="priceName" required="required"><br>
+				<br> <label class="t1" for="">票券價格:</label> <input type="text"
+					name="priceCost" required="required"><br>
+				<br>
+				<br>
 			</div>
 		</div>
 
@@ -92,7 +100,7 @@ select option[value="0"] {
 					'<label class="t1" for="">票券名稱:</label>'+
 					'<input type="text" name="priceName" required="required"><br><br>'+
 					'<label class="t1" for="">票券價格:</label>'+
-					'<input type="text" name="priceCost" required="required"><a href="#" class="btn btn-danger">刪除</a><br><br><br></div>');
+					'<input type="text" name="priceCost" required="required">&nbsp;<a href="#" class="btn btn-danger">刪除</a><br><br><br></div>');
 			console.log($("#price").html());
 		})
 		
@@ -114,12 +122,8 @@ select option[value="0"] {
 			}
 		</script>
 
-
-		
-		<a href="../TicketIndex">回主頁</a>
-		<input type="submit" name="sumbmit" id="s1"> 
-		<a href="XXX" class="btn btn-success"
-			role="button">查詢所有票券</a>
+		<input type="submit" name="sumbmit" id="s1">
 	</form>
+	<a href="../TicketIndex">回主頁</a>
 </body>
 </html>

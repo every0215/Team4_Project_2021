@@ -11,6 +11,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!--   =============TSET============= -->
+
 
 </head>
 
@@ -22,8 +24,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-<a href="testevents" rel="external nofollow" >test</a>
 
 <table style="margin: auto;width: 800px;border:3px #cccccc solid;" cellpadding="10" border='1'>
 <th colspan='6' style="text-align:center;">票券一覽表</th>
@@ -57,18 +57,19 @@
 <td>${event.typeId}</td>
 <td>${event.eventName}</td>
 <td>${event.eventLocation}</td>
-<td>${event.eventImage}</td>
+<td><img height="150px" src="<c:url value='/getimage/${event.id}'/>" /></td>
 <td>
 	<input type="hidden" name="typeId" value="${event.typeId}"/>
 	<input type="hidden" name="companyId" value="1"/>
 	<input type="hidden" name="eventId" value="${event.id}"/>
-       	<button class="deleteBtn btn btn-success del-btn" onclick="location.href = '<c:url value="/EventDel/${event.id}"/>'">刪除</button>
-       	<button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/ticket/ShowPage/${event.id}"/>'">See More</button>
+<%--        	<button class="deleteBtn btn btn-success del-btn" onclick="location.href = '<c:url value="/EventDel/${event.id}"/>'">刪除</button> --%>
+       	<button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventShow/${event.id}"/>'">See More</button>
 
 </td>
 </tr>
 </c:forEach>
 </table>
+
 <a href="ticket/InputPageEX" class="btn btn-success" role="button">新增票券</a>
 </body>
 </html>

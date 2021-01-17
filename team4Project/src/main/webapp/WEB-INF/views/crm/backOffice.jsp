@@ -131,7 +131,7 @@
                         </a>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a href="TicketIndex">
                             <i class="fa fa-ticket"></i>
                             <span>票券管理</span>
                         </a>
