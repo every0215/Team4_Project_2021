@@ -19,6 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.service.AccountService;
 import com.web.store.account.service.impl.AccountServiceImpl;
 
 //import mvc.examples.model.Cat;
@@ -27,7 +28,7 @@ import com.web.store.account.service.impl.AccountServiceImpl;
 @RequestMapping("/member/")
 public class MemberController {
 	@Autowired
-	AccountServiceImpl accountServiceImpl;
+	AccountService accountService;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -39,7 +40,7 @@ public class MemberController {
 	
 	@GetMapping("/getMemberList")
 	public @ResponseBody List<MemberBean> getMemberList() throws Exception{
-		List<MemberBean> members = accountServiceImpl.selectAllMembers();
+		List<MemberBean> members = accountService.selectAllMembers();
 		
 		return members;
 	}

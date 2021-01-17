@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.store.account.common.HibernateUtil;
+import com.web.store.account.common.Utility;
 import com.web.store.account.javabean.MemberBean;
 
 @Repository
@@ -43,14 +44,29 @@ public class MemberDaoImpl implements MemberDao {
 		return member;	
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public MemberBean selectByLoginInfo(String email, String pwd) throws SQLException {
+		Session session = factory.getCurrentSession();
+		byte[] aa = Utility.encryptUsingSHA512(pwd);
+		List<MemberBean> memberList = (List<MemberBean>) session.createQuery("From MemberBean m WHERE m.email = :email AND m.password = :password")
+				.setParameter("email", email)
+				.setParameter("password", Utility.encryptUsingSHA512(pwd))
+				.getResultList();
+		if(memberList == null|| memberList.size() == 0)  {
+			return null;
+		}
+		return memberList.get(0);	
+	}
+	
 	@Override
 	public void insert(MemberBean m) throws SQLException {
 		Session session = factory.getCurrentSession();
-
-		
+		m.setPassword(Utility.encryptUsingSHA512(m.getPwd()));
+		m.setActive(false);
+		m.setVerified(false);
 		//....
 		session.save(m);
-		session.getTransaction().commit();
 
 	}
 	
@@ -61,8 +77,6 @@ public class MemberDaoImpl implements MemberDao {
 		MemberBean member = (MemberBean)session.get(MemberBean.class, id);
 		if(member!=null) {
 			session.delete(member);
-			session.getTransaction().commit();
-
 			
 			return 1;
 		}
@@ -80,10 +94,33 @@ public class MemberDaoImpl implements MemberDao {
 				.setParameter("Nickname", m.getNickname());
 		
 			query.executeUpdate();
-			session.getTransaction().commit();
 
 		return 1;
 		
+	}
+	
+	@Override
+	public int updateVerified(MemberBean m) throws SQLException {
+		Session session = factory.getCurrentSession();
+
+		Query query = session.createQuery("update MemberBean m SET m.verified = :Verified, m.active = :Active where m.id = :Id")
+				.setParameter("Id", m.getId())
+				.setParameter("Verified", m.isVerified())
+				.setParameter("Active", m.isActive());
+			query.executeUpdate();
+		return 1;
+	}
+	
+	@Override
+	public int updateActive(MemberBean m) throws SQLException {
+		Session session = factory.getCurrentSession();
+
+		Query query = session.createQuery("update MemberBean m SET m.Active = :Active where m.id = :Id")
+				.setParameter("Id", m.getId())
+				.setParameter("Active", m.isActive());
+		
+			query.executeUpdate();
+		return 1;
 	}
 	
 	@Override
@@ -95,7 +132,6 @@ public class MemberDaoImpl implements MemberDao {
 				.setParameter("ProfileImage1", m.getProfileImage1());
 		
 			query.executeUpdate();
-			session.getTransaction().commit();
 
 		return 1;
 	}
