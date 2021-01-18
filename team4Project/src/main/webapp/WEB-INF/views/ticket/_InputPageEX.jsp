@@ -92,10 +92,36 @@ select option[value="0"] {
 			</select><br> <br>
 		<label class="t1" for="">信用卡優惠折扣:</label>
 			<input type="text" name="discountRatio" required="required" placeholder="ex 0.8 表8折"><br><br>
-
+		<table id="test"></table>
+		<button ID='CREATE'>新增</button>
+		<button >修改</button>
+		<button >刪除</button>
 		<script>
-		
-		$(function(){	
+		//$(function)裡面的東西 會在window.onload時出現
+		$(function(){
+// 			function refreshData(){
+// 				$.ajax({
+// 				    type: 'GET',
+// 				    url: "/proj/test2",
+// 				    success: function(datas){
+// 				    	console.log(datas)
+// 				    	let str = '';
+// 				    	for(let data of datas){
+// 				    		console.log(data);
+// 				    		str += "<tr>"+
+// 					    			"<td>"+data.id+"</td>"+
+// 					    			"<td>"+data.eventName+"</td>"+
+// 					    			"<td>"+data.eventLocation+"</td>"+
+// 					    			"<td>"+data.companyId+"</td>"+
+// 				    			"</tr>";
+// 				    		console.log(str);
+// 				    	}
+				    	
+// 				    	$("#test").html(str);
+// 				    }
+// 				});
+// 			}
+			
 			$.ajax({
 			    type: 'GET',
 			    url: "/proj/combobox",
@@ -107,6 +133,34 @@ select option[value="0"] {
 			});
 			
 			refreshData();
+// 			$("button#CREATE").click(function(){
+// 				$.ajax({
+// 					//get or post mapping的東西
+// 				    type: 'POST',
+// 				    //controller mapping的路徑
+// 				    url: "/proj/createEvent",
+// 				    data: {
+// 				    	//方法()內的參數
+// 				    	eventName:"ajaxexample1",
+// 				    	eventOwner:"owner",
+// 				    }, 
+// 				    success: function(data){
+// 				    	refreshData();
+// 				    }
+// 				});
+// 			})
+// 			$("button#DELETE").click(function(){
+// 				$.ajax({
+// 				    type: 'POST',
+// 				    url: "/proj/DELETEEVENT",
+// 				    data: {
+// 				    	id:"1"
+// 				    }, 
+// 				    success: function(data){
+// 				    	refreshData();
+// 				    }
+// 				});
+// 			})
 		});
 
 	

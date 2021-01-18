@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.web.store.ticket.model.Attraction;
+import com.web.store.ticket.model.Bank;
 import com.web.store.ticket.model.CreditCard;
 import com.web.store.ticket.model.Event;
 import com.web.store.ticket.model.EventType;
 import com.web.store.ticket.model.Exhibition;
 import com.web.store.ticket.model.Price;
 import com.web.store.ticket.model.Sport;
-import com.web.store.ticket.model.SportSession;
 import com.web.store.ticket.model.SportSeat;
+import com.web.store.ticket.model.SportSession;
 
 public interface BackendService {
 	
@@ -19,7 +20,7 @@ public interface BackendService {
 	public ArrayList<Integer> updateEvent(Event event,Exhibition exhibition,Attraction attraction,Sport sport, List<Price> priceList);
 	public Event queryOneEvent(int id);
 	public ArrayList<Event> getEventsBytypeId(int typeId);
-	public ArrayList<Event> queryAll();
+	public ArrayList<Event> queryAll(int companyId);
 	public void delete(int id);
 //	public void addAttraction(Attraction attraction);
 	public void updateAttraction(Attraction attraction);
@@ -42,4 +43,5 @@ public interface BackendService {
 	public EventType queryEventType(int eventTypeId);
 	public void deleteSessionList(int sportId);
 	public void deleteSeatList(int sessionId);
+	public ArrayList<Bank> queryAllBank();
 }
