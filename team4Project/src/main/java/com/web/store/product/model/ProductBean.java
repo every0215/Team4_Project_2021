@@ -1,8 +1,9 @@
-package com.web.store.product.controller;
+package com.web.store.product.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,15 +17,25 @@ public class ProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name= "ProductId")
 	private int productId;
+	@Column(name= "ProductName")
 	private String productName;
+	@Column(name= "ProductType")
 	private String productType;
+	@Column(name= "ProductDescript")
 	private String productDescript;
+	@Column(name= "CompanyName")
 	private String companyName;
+	@Column(name= "Productstuck")
 	private int productstuck;
+	@Column(name= "ProductPrice")
 	private int productPrice;
+	@Column(name= "StoreID")
 	private int storeID;
+	@Column(name= "Discount")
 	private int discount;
+	@Column(name= "ProductPic")
 	private Blob productPic;
 	
 	public  ProductBean(){
@@ -34,6 +45,20 @@ public class ProductBean implements Serializable{
 			String companyName,int productstuck,int productPrice,int storeID,int discount,Blob productPic
 			){
 		this.productId = productId;
+		this.productName =productName;
+		this.productType = productType;
+		this.productDescript = productDescript;
+		this.productstuck= productstuck;
+		this.productPrice =productPrice;
+		this.storeID=storeID;
+		this.discount=discount; 
+		this.productPic=productPic; 
+		this.companyName=companyName;
+	}
+	public  ProductBean(String productName,String productType,String productDescript,
+			String companyName,int productstuck,int productPrice,int storeID,int discount,Blob productPic
+			){
+		
 		this.productName =productName;
 		this.productType = productType;
 		this.productDescript = productDescript;

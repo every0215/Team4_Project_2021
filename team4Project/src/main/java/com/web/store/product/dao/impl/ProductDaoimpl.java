@@ -6,12 +6,13 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 
-
-import com.web.store.product.controller.ProductBean;
 import com.web.store.product.dao.ProductDao;
+import com.web.store.product.model.ProductBean;
 
 public class ProductDaoimpl implements ProductDao {
+	@Autowired
 	SessionFactory sessionFactory;
 	
 	public List<ProductBean> selectAll(){

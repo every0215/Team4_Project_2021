@@ -3,7 +3,7 @@ package com.web.store.product.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.web.store.product.controller.ProductBean;
+import com.web.store.product.model.ProductBean;
 
 public interface ProductDao {
 	List<ProductBean> selectAll();
