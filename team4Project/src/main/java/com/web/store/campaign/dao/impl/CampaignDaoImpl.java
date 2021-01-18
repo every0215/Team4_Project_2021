@@ -1,5 +1,7 @@
 package com.web.store.campaign.dao.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Repository;
 
 import com.web.store.campaign.dao.CampaignDao;
 import com.web.store.campaign.model.Campaign;
+import com.web.store.campaign.model.Page;
+import com.web.store.campaign.model.SearchBean;
 import com.web.store.company.model.Company;
 
 
@@ -23,7 +27,8 @@ public class CampaignDaoImpl implements CampaignDao {
 	@Autowired
 	SessionFactory sessionFactory;
 	
-	int resultPerPage = 6;//每頁的數量
+	//每頁的數量
+	final static int RESULT_PER_PAGE = 6;
 	
 	@Override
 	public int insert(Campaign camp) {
@@ -108,24 +113,12 @@ public class CampaignDaoImpl implements CampaignDao {
 		
 		return 0;
 	}
-
-
-	@Override
-	public List<Campaign> getSinglePageResult(int page) {
-		
-		String hql = "FROM Campaign";
-		Session session = sessionFactory.getCurrentSession();
-		Query<Campaign> query = session.createQuery(hql,Campaign.class).setMaxResults(resultPerPage).setFirstResult((page-1)*resultPerPage);
-		List<Campaign> list = query.list();
-
-		return list;
-	}
 	
 	@Override
 	public int getTotalPage() {
 		String hql = "SELECT COUNT(*) FROM Campaign";
 		Session session = sessionFactory.getCurrentSession();
-		int page = (int)Math.ceil((long)session.createQuery(hql).uniqueResult()/(double)resultPerPage);
+		int page = (int)Math.ceil((long)session.createQuery(hql).uniqueResult()/(double)RESULT_PER_PAGE);
 		return page;
 	}
 
@@ -133,7 +126,7 @@ public class CampaignDaoImpl implements CampaignDao {
 	public int getTotalPageByCompanyId(int compayId) {
 		String hql = "SELECT COUNT(*) FROM Campaign WHERE companyId=:companyId";
 		Session session = sessionFactory.getCurrentSession();
-		int pageCount = (int)Math.ceil((long)session.createQuery(hql).setParameter("companyId", compayId).uniqueResult()/(double)resultPerPage);
+		int pageCount = (int)Math.ceil((long)session.createQuery(hql).setParameter("companyId", compayId).uniqueResult()/(double)RESULT_PER_PAGE);
 		return pageCount;
 	}
 
@@ -141,11 +134,111 @@ public class CampaignDaoImpl implements CampaignDao {
 	public List<Campaign> getSinglePageResultByCompanyId(int page, int compayId) {
 		String hql = "FROM Campaign where companyId=:companyId";
 		Session session = sessionFactory.getCurrentSession();
-		Query<Campaign> query = session.createQuery(hql,Campaign.class).setParameter("companyId", compayId).setMaxResults(resultPerPage).setFirstResult((page-1)*resultPerPage);
+		Query<Campaign> query = session.createQuery(hql,Campaign.class).setParameter("companyId", compayId).setMaxResults(RESULT_PER_PAGE).setFirstResult((page-1)*RESULT_PER_PAGE);
 		List<Campaign> list = query.list();
 
 		return list;
 	}
 
+	@Override
+	public Page<Campaign> serchCampaignOfCompany(int companyId, SearchBean search, Page<Campaign> page) {
+		
+		String searchStr = search.getSearchStr();
+		Query<Campaign> query = null;
+		Session session = sessionFactory.getCurrentSession();
+		
+		String hql = "FROM Campaign where companyId=:companyId "
+				+ "and startDateTime>:startDateTime "
+				+ "and endDateTime<:endDateTime ";
+		
+		if(searchStr.trim().equals("")) {
+			switch(search.getStatus()) {
+				case 0:
+					query = session.createQuery(hql,Campaign.class);
+					break;
+				case 1:
+					
+					hql += "and launchStatus=:launchStatus ";
+					query = session.createQuery(hql,Campaign.class);
+					query.setParameter("launchStatus", true);
+					break;
+				case 2:
+					hql += "and launchStatus=:launchStatus ";
+					query = session.createQuery(hql,Campaign.class);
+					query.setParameter("launchStatus", false);
+					break;
+				case 3:
+					hql += "and startDateTime<:current and endDateTime>:current ";
+					query = session.createQuery(hql,Campaign.class);
+					query.setParameter("current", new Date());
+					break;
+			}
+			
+		}else {
+			hql += "and name like :searchStr ";
+			switch(search.getStatus()) {
+				case 0:
+					query = session.createQuery(hql,Campaign.class);
+					break;
+				case 1:
+					hql += "and launchStatus=:launchStatus ";
+					query = session.createQuery(hql,Campaign.class);
+					query.setParameter("launchStatus", true);				
+					break;
+				case 2:
+					System.out.println("2222222222");
+					hql += "and launchStatus=:launchStatus ";
+					query = session.createQuery(hql,Campaign.class);
+					query.setParameter("launchStatus", false);
+					break;
+				case 3:
+					hql += "and startDateTime<:current and endDateTime>:current ";
+					query = session.createQuery(hql,Campaign.class);
+					query.setParameter("current", new Date());
+					break;
+			}
+			query.setParameter("searchStr", "%"+searchStr+"%");
+		}
+		
+		query.setParameter("startDateTime", search.getStrDate());
+		query.setParameter("endDateTime", search.getEndDate());
+		query.setParameter("companyId", companyId);
+		
+		int totalResult = query.list().size();
+		System.out.println(totalResult);
+		int pageSize = page.getPageSize();
+		int totalPage = (int)Math.ceil((double)totalResult/pageSize);
+		System.out.println(totalPage);
+		
+		List<Campaign> camps = query.setMaxResults(page.getPageSize()).setFirstResult((page.getCurrentPage()-1)*page.getPageSize()).list();
+		
+		page.setContent(camps);
+		page.setTotalpage(totalPage);
+		page.setTotalResultCount(totalResult);
+		
+		return page;
+	}
 
+	@Override
+	public Long getTotalCampCountOfCompany(int companyId) {
+		String hql = "SELECT COUNT(*) FROM Campaign WHERE companyId=: companyId";
+		Session session = sessionFactory.getCurrentSession();
+		return (Long) session.createQuery(hql).setParameter("companyId", companyId).uniqueResult();
+	}
+
+	@Override
+	public Page<Campaign> getPageByCompanyId(Page<Campaign> page,int companyId) {
+		String hql = "SELECT COUNT(*) FROM Campaign WHERE companyId=:companyId";
+		String hql2 = "FROM Campaign WHERE companyId=:companyId";
+		Session session = sessionFactory.getCurrentSession();
+		int totalPage = (int)Math.ceil((long)session.createQuery(hql).setParameter("companyId", companyId).uniqueResult()/(double)page.getPageSize());
+		List<Campaign> camps = session.createQuery(hql2,Campaign.class).setParameter("companyId", companyId).setMaxResults(page.getPageSize()).setFirstResult((page.getCurrentPage()-1)*page.getPageSize()).list();
+		page.setContent(camps);
+		page.setTotalpage(totalPage);
+		page.setTotalResultCount((int)(long)getTotalCampCountOfCompany(companyId));
+		return page;
+	}
+
+	
+	
 }

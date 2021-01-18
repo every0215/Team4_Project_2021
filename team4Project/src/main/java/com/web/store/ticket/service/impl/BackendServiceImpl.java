@@ -8,14 +8,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.web.store.ticket.dao.impl.AttractionDao;
+import com.web.store.ticket.dao.impl.CreditCardDao;
 import com.web.store.ticket.dao.impl.EventDao;
+import com.web.store.ticket.dao.impl.EventTypeDao;
 import com.web.store.ticket.dao.impl.ExhibitionDao;
 import com.web.store.ticket.dao.impl.PriceDao;
 import com.web.store.ticket.dao.impl.SportDao;
 import com.web.store.ticket.dao.impl.SportSeatDao;
 import com.web.store.ticket.dao.impl.SportSessionDao;
 import com.web.store.ticket.model.Attraction;
+import com.web.store.ticket.model.CreditCard;
 import com.web.store.ticket.model.Event;
+import com.web.store.ticket.model.EventType;
 import com.web.store.ticket.model.Exhibition;
 import com.web.store.ticket.model.Price;
 import com.web.store.ticket.model.Sport;
@@ -41,6 +45,10 @@ public class BackendServiceImpl implements BackendService {
 	SportSessionDao sportSessionDao;
 	@Autowired
 	SportSeatDao sportSeatDao;
+	@Autowired
+	CreditCardDao creditCardDao;
+	@Autowired
+	EventTypeDao eventTypeDao;
 	
 	
 	@SuppressWarnings("null")
@@ -71,7 +79,8 @@ public class BackendServiceImpl implements BackendService {
 	}
 
 	@Override
-	public void updateEvent(Event event,Exhibition exhibition,Attraction attraction,Sport sport, List<Price> priceList) {
+	public ArrayList<Integer> updateEvent(Event event,Exhibition exhibition,Attraction attraction,Sport sport, List<Price> priceList) {
+		ArrayList<Integer> priceIdList =new ArrayList<Integer>();
 		eventDao.updateEvent(event);
 		int typeId=event.getTypeId();
 		int eventId=event.getId();
@@ -83,6 +92,7 @@ public class BackendServiceImpl implements BackendService {
 		for(Price price:priceList) {
 			price.setEventId(eventId);
 			priceDao.addPrice(price);
+			priceIdList.add(price.getId());
 		}
 		if(typeId==1) {
 			exhibitionDao.updateExhibition(exhibition);
@@ -91,6 +101,7 @@ public class BackendServiceImpl implements BackendService {
 		}else if(typeId==3) {
 			sportDao.updateSport(sport);
 		}
+		return priceIdList;
 	}
 	
 	public ArrayList<Event> getEventsBytypeId(int typeId){
@@ -218,6 +229,48 @@ public class BackendServiceImpl implements BackendService {
 	@Override
 	public void addSportSeat(SportSeat sportSeat) {
 		sportSeatDao.addSportSeat(sportSeat);
+		
+	}
+
+	@Override
+	public void add(Event event) {
+		eventDao.addEvent(event);
+	}
+
+	@Override
+	public Sport selectSportByEvent(int eventId) {
+		return sportDao.selectByEvent(eventId);
+	}
+
+	@Override
+	public List<SportSeat> selectSportSeatBySession(int sessionId) {
+		return sportSeatDao.selectBySession(sessionId);
+	}
+
+	@Override
+	public CreditCard queryCreditCard(int creditCardId) {
+		return creditCardDao.queryCreditCard(creditCardId);
+	}
+
+	@Override
+	public EventType queryEventType(int eventTypeId) {
+		return eventTypeDao.queryEventType(eventTypeId);
+	}
+
+	@Override
+	public void deleteSessionList(int sportId) {
+		ArrayList<SportSession> sessionList = sportSessionDao.selectBySport(sportId);
+		for(SportSession session:sessionList) {
+			sportSessionDao.delete(session.getId());
+		}
+	}
+
+	@Override
+	public void deleteSeatList(int sessionId) {
+		ArrayList<SportSeat> seatList = sportSeatDao.selectBySession(sessionId);
+		for(SportSeat seat: seatList) {
+			sportSeatDao.delete(seat.getId());
+		}
 		
 	}
 	

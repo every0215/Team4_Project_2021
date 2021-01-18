@@ -38,43 +38,42 @@ select option[value="0"] {
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
-	<a href="InputPageEX">展覽</a>
-	<a href="InputPageAT">樂園與景點</a>
-	<a href="InputPageSP">運動賽事</a>
 
-	<h3>Event Input Page-展覽</h3>
+
+	<h3>Event Update Page-展覽</h3>
 	<form name="myForm" action="<c:url value='/ticket/InputPageEX'/>" method="post" enctype="multipart/form-data">
 		<hr />
+			<input type="hidden" name="id" value='${event.id}'/>
 			<input type="hidden" name="typeId" value="1" />
 		<label class="t1" for="">展覽名稱:</label>
-			<input type="text" name="eventName" required="required"><br><br>
+			<input type="text" name="eventName" required="required" value='${event.eventName}'><br><br>
 		<label class="t1" for="">展覽地點:</label>
-			<input type="text" name="eventLocation" required="required"><br><br>
+			<input type="text" name="eventLocation" required="required" value='${event.eventLocation}'><br><br>
 			<input type="hidden" name="companyId" value="1" />
 
 		<label class="t1" for="">展覽宣傳圖片:</label>
 			<input id="image_input" type="file" name="eventImage"><br><br>
 
 		<%-- 以上為eventBean 以下為exhibitionBean --%>
-
+		<input type="hidden" name="exhibitionId" value='${exhibition.id}'/>
 		<label class="t1" for="">起始售票時間:</label>
-			<input type="text" id="dateTime1" name="onSaleDate" placeholder="ex:2021-01-01 9:00:01" required="required">
+			<input type="text" id="dateTime1" name="onSaleDate" placeholder="ex:2021-01-01 9:00:01" required="required" value='${exhibition.onSaleDate.toString().substring(0, 19)}'>
 				<span id="datetimesp1"></span><br><br>
 				<span>時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
 		<label class="t1" for="">結束售票時間:</label>
-			<input type="text" id="dateTime2" name="offSaleDate" placeholder="ex:2021-01-31 21:00:01" required="required">
+			<input type="text" id="dateTime2" name="offSaleDate" placeholder="ex:2021-01-31 21:00:01" required="required" value='${exhibition.offSaleDate.toString().substring(0, 19)}'>
 				<span id="datetimesp2"></span><br><br>
 				<span>時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
 		<label class="t1" for="">展覽起始日:</label>
-			<input type="text" id="date1" name="commDate" placeholder="ex:2021-01-01" required="required">
+			<input type="text" id="date1" name="commDate" placeholder="ex:2021-01-01" required="required" value='${exhibition.commDate}'>
 				<span id="datesp1"></span><br><br>
 				<span>時間格式:yyyy-MM-dd</span><br><br>
 		<label class="t1" for="">展覽終止日:</label>
-			<input type="text" id="date2" name="dueDate" placeholder="ex:2021-01-31" required="required">
+			<input type="text" id="date2" name="dueDate" placeholder="ex:2021-01-31" required="required" value='${exhibition.dueDate}'>
 				<span id="datesp2"></span><br><br>
 				<span>時間格式:yyyy-MM-dd</span><br><br>
 		<label class="t1" for="">描述:</label>
-			<textarea style="resize: none; width: 600px; height: 200px;" name="description"></textarea>
+			<textarea style="resize: none; width: 600px; height: 200px;" name="description">${exhibition.description}</textarea>
 		<br> <br>
 
 		<label class="t1" for="">優惠銀行:</label>
@@ -91,71 +90,27 @@ select option[value="0"] {
 			<select name="cardId" id="card" required>
 			</select><br> <br>
 		<label class="t1" for="">信用卡優惠折扣:</label>
-			<input type="text" name="discountRatio" required="required" placeholder="ex 0.8 表8折"><br><br>
-
-		<script>
-		let bankInfo = [
-			  {
-			   name: '中國信託商業銀行',
-			   id: 1,
-			   cardInfo: [{name: 'LINE PAY信用卡',cardId: 1},
-			    		  {name: '中油聯名卡',		cardId: 2},
-			   			  {name: '中信兄弟聯名卡',	cardId: 3},
-			    		  {name: '酷玩卡',			cardId: 4}]
-			  },
-			  {
-			   name: '玉山商業銀行',
-			   id: 2,
-			   cardInfo: [{name: '統一時代悠遊聯名卡',cardId: 5},
-			    		  {name: '臺北南山廣場聯名卡',cardId: 6},
-			    		  {name: '玉山 Pi 拍錢包信用卡',cardId: 7}]
-			  },
-			  {
-				name: '台北富邦商業銀行',
-				id: 3,
-				cardInfo: [{name: '富邦數位生活卡',cardId: 8},
-				 		   {name: 'momo卡',		  cardId: 9},
-				 		   {name: '富邦悍將悠遊聯名卡',cardId: 10},
-				 			{name: '富邦J卡',cardId: 11}]
-				},
-				{
-				name: '國泰世華商業銀行',
-				id: 4,
-				cardInfo: [{name: 'KOKO COMBO icash聯名卡',cardId: 12},
-					       {name: '長榮航空聯名卡',cardId: 13},
-					   	   {name: 'Costco聯名卡',cardId: 14}]
-				},
-				{
-				name: '台新國際商業銀行',
-				id: 6,
-				cardInfo: [{name: '@GOGO卡', cardId: 15},
-							{name: 'FlyGo卡',cardId: 16},
-							{name: '玫瑰卡',cardId: 17},
-							{name: '街口聯名卡',cardId: 18}]
-				}
-		]
-	
-	 function renew(index){
-		  const selectedBnak = bankInfo.find(bank => bank.id == index)
-		  const creditCardInfo = selectedBnak.cardInfo
-
-		  for (let i = 0; i < creditCardInfo.length; i++)
-		   document.myForm.cardId.options[i] = new Option(creditCardInfo[i].name, creditCardInfo[i].cardId) // 設定新選項
-
-		  document.myForm.cardId.length = creditCardInfo.length // 刪除多餘的選項
-
-		 }
-	</script>
+			<input type="text" name="discountRatio" required="required" placeholder="ex 0.8 表8折" value='${exhibition.discountRatio}'><br><br>
 
 		<%-- 以上為exhibitionBean 以下為priceBean --%>
-		<div id="price">
-			<div>
-				<label class="t1" for="">票券名稱:</label>
-					<input type="text" name="priceName" required="required"><br><br>
-				<label class="t1" for="">票券價格:</label>
-					<input type="text" name="priceCost" required="required"><br> <br> <br>
-			</div>
-		</div>
+						<div id="price">
+							<c:forEach var="price" items="${priceList}" varStatus="status">
+								<div>
+									<label class="t1" for="">票券名稱:</label>
+									<input type="text" name="priceName" required="required"
+										value='${price.name}'><br><br>
+									<label class="t1" for="">票券價格:</label>
+									<input type="text" name="priceCost" required="required"
+										value='${price.cost}'>&nbsp;
+
+									<c:if test="${status.index!=0}">
+
+										<a href="#" class="btn btn-danger">刪除</a>
+
+									</c:if><br><br><br>
+								</div>
+							</c:forEach>
+						</div>
 
 		<input id="Button1" type="button" value="新增價位與名稱" />
 		<script>
@@ -183,12 +138,71 @@ select option[value="0"] {
         	document.getElementById("dateTime2").onblur= () => { checkDateTime('dateTime2', 'datetimesp2') }
         	document.getElementById("date1").onblur= () => { checkDate('date1', 'datesp1') }
         	document.getElementById("date2").onblur= () => { checkDate('date2', 'datesp2') }
+        	
+        	
+        	
+        	let bankInfo = [
+      		  {
+      		   name: '中國信託商業銀行',
+      		   id: 1,
+      		   cardInfo: [{name: 'LINE PAY信用卡',cardId: 1},
+      		    		  {name: '中油聯名卡',		cardId: 2},
+      		   			  {name: '中信兄弟聯名卡',	cardId: 3},
+      		    		  {name: '酷玩卡',			cardId: 4}]
+      		  },
+      		  {
+      		   name: '玉山商業銀行',
+      		   id: 2,
+      		   cardInfo: [{name: '統一時代悠遊聯名卡',cardId: 5},
+      		    		  {name: '臺北南山廣場聯名卡',cardId: 6},
+      		    		  {name: '玉山 Pi 拍錢包信用卡',cardId: 7}]
+      		  },
+      		  {
+      			name: '台北富邦商業銀行',
+      			id: 3,
+      			cardInfo: [{name: '富邦數位生活卡',cardId: 8},
+      			 		   {name: 'momo卡',		  cardId: 9},
+      			 		   {name: '富邦悍將悠遊聯名卡',cardId: 10},
+      			 			{name: '富邦J卡',cardId: 11}]
+      			},
+      			{
+      			name: '國泰世華商業銀行',
+      			id: 4,
+      			cardInfo: [{name: 'KOKO COMBO icash聯名卡',cardId: 12},
+      				       {name: '長榮航空聯名卡',cardId: 13},
+      				   	   {name: 'Costco聯名卡',cardId: 14}]
+      			},
+      			{
+      			name: '台新國際商業銀行',
+      			id: 6,
+      			cardInfo: [{name: '@GOGO卡', cardId: 15},
+      						{name: 'FlyGo卡',cardId: 16},
+      						{name: '玫瑰卡',cardId: 17},
+      						{name: '街口聯名卡',cardId: 18}]
+      			}
+      	]
+  	
+  	 function renew(index){
+  		  const selectedBnak = bankInfo.find(bank => bank.id == index)
+  		  const creditCardInfo = selectedBnak.cardInfo
+
+  		  for (let i = 0; i < creditCardInfo.length; i++)
+  		   document.myForm.cardId.options[i] = new Option(creditCardInfo[i].name, creditCardInfo[i].cardId) // 設定新選項
+
+  		  document.myForm.cardId.length = creditCardInfo.length // 刪除多餘的選項
+
+  		 }
+        	window.onload = function () {
+        		document.getElementById('bank').value='${creditCard.bankId}';
+				renew('${creditCard.bankId}');
+				document.getElementById('card').value='${exhibition.cardId}';
+			}
 		</script>
 
 
 		
-		<input type="submit" name="sumbmit" id="s1"> 
-	</form>
-	<a href="../TicketIndex" class="btn btn-success" role="button">回主頁</a>
+		<input type="submit" name="sumbmit" id="s1">
+			</form>
+			<a href="../TicketIndex" class="btn btn-success" role="button">回主頁</a>
 </body>
 </html>

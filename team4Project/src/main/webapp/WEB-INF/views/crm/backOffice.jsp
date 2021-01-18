@@ -131,7 +131,7 @@
                         </a>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a href="TicketIndex">
                             <i class="fa fa-ticket"></i>
                             <span>票券管理</span>
                         </a>
@@ -152,7 +152,9 @@
             </section>
             <!-- /.sidebar -->
         </aside>
-
+		<div>
+		<a href="<c:url value='/' />">企業資訊 </a>
+		</div>
         <!-- Right side column. Contains the navbar and content of the page -->
 
         <!-- /.content-wrapper -->

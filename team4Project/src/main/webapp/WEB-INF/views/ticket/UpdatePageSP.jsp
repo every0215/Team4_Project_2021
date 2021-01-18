@@ -38,35 +38,33 @@ select option[value="0"] {
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
-	<a href="InputPageEX">展覽</a>
-	<a href="InputPageAT">樂園與景點</a>
-	<a href="InputPageSP">運動賽事</a>
 
-	<h3>Event Input Page-運動賽事</h3>
+	<h3>Event Update Page-運動賽事</h3>
 	<form name="myForm" action="<c:url value='/ticket/InputPageSP'/>" method="post" enctype="multipart/form-data">
 		<hr />
+			<input type="hidden" name="id" value='${event.id}'/>
 			<input type="hidden" name="typeId" value="3" />
 		<label class="t1" for="">賽事名稱:</label>
-			<input type="text" name="eventName" required="required"><br> <br>
+			<input type="text" name="eventName" required="required" value='${event.eventName}'><br> <br>
 		<label class="t1" for="">賽事地點:</label>
-			<input type="text" name="eventLocation" required="required"><br> <br>
+			<input type="text" name="eventLocation" required="required" value='${event.eventLocation}'><br> <br>
 			<input type="hidden" name="companyId" value="1" />
 		<label class="t1" for="">賽事宣傳圖片:</label>
 			<input id="image_input" type="file" name="eventImage"><br><br>
 
-		<%-- 以上為eventBean 以下為exhibitionBean --%>
-
+		<%-- 以上為eventBean 以下為SportBean --%>
+			<input type="hidden" name="sportId" value='${sport.id}'/>
 		<label class="t1" for="">起始售票時間:</label>
-			<input type="text" id="dateTime1" name="onSaleDate" placeholder="ex:2021-01-01 9:00:01" required="required">
+			<input type="text" id="dateTime1" name="onSaleDate" placeholder="ex:2021-01-01 9:00:01" required="required" value='${sport.onSaleDate.toString().substring(0, 19)}'>
 				<span id="datetimesp1"></span><br><br>
 				<span>時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
 		<label class="t1" for="">結束售票時間:</label>
-			<input type="text" id="dateTime2" name="offSaleDate" placeholder="ex:2021-01-31 21:00:01" required="required">
+			<input type="text" id="dateTime2" name="offSaleDate" placeholder="ex:2021-01-31 21:00:01" required="required" value='${sport.offSaleDate.toString().substring(0, 19)}'>
 				<span id="datetimesp2"></span><br><br>
 				<span>時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
 		
 		<label class="t1" for="">描述:</label>
-			<textarea style="resize: none; width: 600px; height: 200px;" name="description"></textarea><br><br>
+			<textarea style="resize: none; width: 600px; height: 200px;" name="description">${sport.description}</textarea><br><br>
 
 		<label class="t1" for="">優惠銀行:</label>
 		<select name="bankId" id="bank" onChange="renew(this.selectedIndex)" required>
@@ -77,53 +75,53 @@ select option[value="0"] {
 			<option value="4">國泰世華商業銀行</option>
 			<option value="5">花旗（台灣）商業銀行</option>
 			<option value="6">台新國際商業銀行</option>
-		</select><br> <br> <label class="t1" for="">優惠信用卡:</label> <select
-			name="cardId" id="card" required>
-		</select><br> <br> <label class="t1" for="">信用卡優惠折扣:</label> <input
-			type="text" name="discountRatio" required="required" placeholder="ex 0.8 表8折"><br> <br>
+		</select><br> <br>
+		<label class="t1" for="">優惠信用卡:</label>
+		<select name="cardId" id="card" required></select><br><br>
+		<label class="t1" for="">信用卡優惠折扣:</label>
+			<input type="text" name="discountRatio" required="required" placeholder="ex 0.8 表8折" value='${sport.discountRatio}'><br> <br>
 
 		<script>
-
-		let bankInfo = [
-				  {
-				   name: '中國信託商業銀行',
-				   id: 1,
-				   cardInfo: [{name: 'LINE PAY信用卡',cardId: 1},
-				    		  {name: '中油聯名卡',		cardId: 2},
-				   			  {name: '中信兄弟聯名卡',	cardId: 3},
-				    		  {name: '酷玩卡',			cardId: 4}]
-				  },
-				  {
-				   name: '玉山商業銀行',
-				   id: 2,
-				   cardInfo: [{name: '統一時代悠遊聯名卡',cardId: 5},
-				    		  {name: '臺北南山廣場聯名卡',cardId: 6},
-				    		  {name: '玉山 Pi 拍錢包信用卡',cardId: 7}]
-				  },
-				  {
-					name: '台北富邦商業銀行',
-					id: 3,
-					cardInfo: [{name: '富邦數位生活卡',cardId: 8},
-					 		   {name: 'momo卡',		  cardId: 9},
-					 		   {name: '富邦悍將悠遊聯名卡',cardId: 10},
-					 			{name: '富邦J卡',cardId: 11}]
-					},
-					{
-					name: '國泰世華商業銀行',
-					id: 4,
-					cardInfo: [{name: 'KOKO COMBO icash聯名卡',cardId: 12},
-						       {name: '長榮航空聯名卡',cardId: 13},
-						   	   {name: 'Costco聯名卡',cardId: 14}]
-					},
-					{
-					name: '台新國際商業銀行',
-					id: 6,
-					cardInfo: [{name: '@GOGO卡', cardId: 15},
-								{name: 'FlyGo卡',cardId: 16},
-								{name: '玫瑰卡',cardId: 17},
-								{name: '街口聯名卡',cardId: 18}]
-					}
-			]
+	let bankInfo = [
+		  {
+		   name: '中國信託商業銀行',
+		   id: 1,
+		   cardInfo: [{name: 'LINE PAY信用卡',cardId: 1},
+		    		  {name: '中油聯名卡',		cardId: 2},
+		   			  {name: '中信兄弟聯名卡',	cardId: 3},
+		    		  {name: '酷玩卡',			cardId: 4}]
+		  },
+		  {
+		   name: '玉山商業銀行',
+		   id: 2,
+		   cardInfo: [{name: '統一時代悠遊聯名卡',cardId: 5},
+		    		  {name: '臺北南山廣場聯名卡',cardId: 6},
+		    		  {name: '玉山 Pi 拍錢包信用卡',cardId: 7}]
+		  },
+		  {
+			name: '台北富邦商業銀行',
+			id: 3,
+			cardInfo: [{name: '富邦數位生活卡',cardId: 8},
+			 		   {name: 'momo卡',		  cardId: 9},
+			 		   {name: '富邦悍將悠遊聯名卡',cardId: 10},
+			 			{name: '富邦J卡',cardId: 11}]
+			},
+			{
+			name: '國泰世華商業銀行',
+			id: 4,
+			cardInfo: [{name: 'KOKO COMBO icash聯名卡',cardId: 12},
+				       {name: '長榮航空聯名卡',cardId: 13},
+				   	   {name: 'Costco聯名卡',cardId: 14}]
+			},
+			{
+			name: '台新國際商業銀行',
+			id: 6,
+			cardInfo: [{name: '@GOGO卡', cardId: 15},
+						{name: 'FlyGo卡',cardId: 16},
+						{name: '玫瑰卡',cardId: 17},
+						{name: '街口聯名卡',cardId: 18}]
+			}
+	]
 	
 	 function renew(index){
 		  const selectedBnak = bankInfo.find(bank => bank.id == index)
@@ -137,7 +135,7 @@ select option[value="0"] {
 		 }
 	</script>
 
-		<%-- 以上為exhibitionBean 以下為priceBean --%>
+		<%-- 以上為sportBean 以下為priceBean --%>
 		<label class="t1" for="">票價與座位表:</label>
 		<table style="width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>
 			<thead>
@@ -147,29 +145,36 @@ select option[value="0"] {
 			<tbody>
 			<tr>
 				<td>票價</td>
-				<td><input type="hidden" name="priceName" value="內野A區票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="內野B區票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="外野A區票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="外野B區票" /><input type="text" name="priceCost" required="required"></td>
+		
+				<c:forEach var="price" items="${priceList}"><td><input type="hidden" name="priceName" value='${price.name}' /><input type="text" name="priceCost" required="required" value='${price.cost}'></td></c:forEach>
 			</tr>
 			<tr>
 				<td>座位數</td>
-				<td><input type="text" name="seatNo" required="required"></td>
-				<td><input type="text" name="seatNo" required="required"></td>
-				<td><input type="text" name="seatNo" required="required"></td>
-				<td><input type="text" name="seatNo" required="required"></td>
+				<c:forEach var="seat" items="${seatList}"><td><input type="text" name="seatNo" required="required" value='${seat.seatNo}'></td></c:forEach>
 			</tr>
 			</tbody>
 		</table>
 		<br/><br/>
 		<%-- 以上為priceBean 以下為sessionBean --%>
+		
 		<div id="sportSession">
-			<div>
-			<label class="t1" for="">開賽時間:</label>
-			<input type="text" name="kickOfTime" placeholder="ex:2021-01-01 9:00" required="required"><br>
-				<span>時間格式:yyyy-MM-dd HH:mm</span><br><br>
-			</div>
-		</div>
+							<c:forEach var="session" items="${sessionList}" varStatus="status">
+								<div>
+									<label class="t1" for="">開賽時間:</label>
+									<input type="text" name="kickOfTime" required="required" value='${session.kickOfTime.toString().substring(0, 16)}'><br>
+									<span>時間格式:yyyy-MM-dd HH:mm</span>
+
+
+									<c:if test="${status.index!=0}">
+
+										<a href="#" class="btn btn-danger">刪除</a>
+
+									</c:if>
+									<br><br>
+								</div>
+							</c:forEach>
+						</div>
+		
 		
 		<input id="Button1" type="button" value="新增場次" />
 		<script>
@@ -195,12 +200,17 @@ select option[value="0"] {
             //當dateTime1 onblur時 他會進行一個箭頭函數 箭頭函數內包含checkDateTime函式
             document.getElementById("dateTime1").onblur= () => { checkDateTime('dateTime1', 'datetimesp1') }
         	document.getElementById("dateTime2").onblur= () => { checkDateTime('dateTime2', 'datetimesp2') }
+        	window.onload = function () {
+        		document.getElementById('bank').value='${creditCard.bankId}';
+				renew('${creditCard.bankId}');
+				document.getElementById('card').value='${sport.cardId}';
+			}
 		</script>
 
 		
-		
 		<input type="submit" name="sumbmit" id="s1"> 
+		
 	</form>
-	<a href="../TicketIndex" class="btn btn-success" role="button">回主頁</a>
+	<a href="../TicketIndex" class="btn btn-success" role="button">回主頁</a>	
 </body>
 </html>

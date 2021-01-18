@@ -6,6 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BaseController {
 	
+	@GetMapping("/")
+	public String index() {
+		return "index";
+	}
+	
+	@GetMapping("/ticket/InputPageAT(Form)")
+	public String InputPageATForm() {
+		return "/ticket/InputPageAT(Form)";
+	}
 	
 	@GetMapping("/ticket/InputPageEX")
 	public String InputPageEX() {
