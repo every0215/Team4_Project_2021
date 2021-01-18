@@ -96,9 +96,8 @@
 
 .rep_tabs_db {
 	min-width: 1000px;
-	/* 	height: 280px; */
 	background-color: rgba(123, 207, 112, 0.3);
-	overflow: auto;
+/* 	overflow: scroll; */
 }
 
 .rep_table_font {
@@ -125,3 +124,10 @@
 .col-md-6 {
 	width: 100%;
 }
+
+th{
+	text-align: center;
+}
+.main-header .navbar-custom-menu, .main-header .navbar-right {
+	height:500px;
+	}

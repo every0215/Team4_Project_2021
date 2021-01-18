@@ -143,7 +143,7 @@
                     </li>
 
                     <li class="treeview">
-                        <a href="#">
+                        <a href="reportindex">
                             <i class="fa fa-files-o"></i>
                             <span>報表管理</span>
                         </a>

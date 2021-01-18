@@ -97,5 +97,11 @@ public class HomeController {
 	public String companyLogin() {
 		return "company/CompanyLogin";
 	}
+	
+	//Report.Jsp頁面連結
+	@RequestMapping("/reportindex")
+	public String reportindex() {
+		return "report/Report";
+	}
 
 }

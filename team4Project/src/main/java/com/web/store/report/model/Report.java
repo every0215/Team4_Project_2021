@@ -15,7 +15,7 @@ public class Report {
 	@Column(name = "reportid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reportid;
-	private String companyid;
+	private int companyid;
 	private int storeid;
 	private String storearea;
 	private String storename;
@@ -30,14 +30,19 @@ public class Report {
 	private String payment;
 	private String activeitem;
 	private String productstatus;
-
-	public Report() {
-
-	}
+	
+	
+//	@JoinColumn(name="companyId")
+//	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//	@JsonIgnore
+//	private Company company;
 
 	//---------------------------------------------------建構子-----------------------------------------------
+	public Report() {
+	}
+	
 	// 全部
-	public Report(int reportid,String companyid, int storeid, String storearea, String storename, String productclass, int productid,
+	public Report(int reportid,int companyid, int storeid, String storearea, String storename, String productclass, int productid,
 			String productname, String salesdate, int productprice, int productdiscountprice, int salesamount,
 			int stockamount, String payment, String activeitem, String productstatus) {
 		this.reportid=reportid;
@@ -59,7 +64,7 @@ public class Report {
 	}
 	
 	//全部不含reportid
-	public Report(String companyid, int storeid, String storearea, String storename, String productclass, int productid,
+	public Report(int companyid, int storeid, String storearea, String storename, String productclass, int productid,
 			String productname, String salesdate, int productprice, int productdiscountprice, int salesamount,
 			int stockamount, String payment, String activeitem, String productstatus) {
 		this.companyid=companyid;
@@ -79,7 +84,13 @@ public class Report {
 		this.productstatus=productstatus;	
 	}
 	
-	
+	// 廣告商品
+	public Report(int reportid,int companyid, String productclass, String productname) {
+		this.reportid=reportid;
+		this.companyid=companyid;
+		this.productclass=productclass;
+		this.productname=productname;
+	}
 	
 //----------------------------------------get,set-------------------------------------------------------
 	public int getReportid() {
@@ -90,11 +101,11 @@ public class Report {
 		this.reportid = reportid;
 	}
 
-	public String getCompanyid() {
+	public int getCompanyid() {
 		return companyid;
 	}
 
-	public void setCompanyid(String companyid) {
+	public void setCompanyid(int companyid) {
 		this.companyid = companyid;
 	}
 
