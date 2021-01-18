@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="CreditCard")
 public class CreditCard {
@@ -27,19 +29,23 @@ public class CreditCard {
 	
 	private String cardName;
 	
+	@JsonIgnore
 	private Integer bankId;
 	
+	@JsonIgnore
 	@Transient
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="bankId")
 	private Bank bank;
-	
+	@JsonIgnore
 	private Blob cardImage;
 	
+	@JsonIgnore
 	@Transient
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="CreditCard", cascade=CascadeType.ALL)
 	private Set<Exhibition> exhibitions = new LinkedHashSet<Exhibition>();
 	
+	@JsonIgnore
 	@Transient
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="CreditCard", cascade=CascadeType.ALL)
 	private Set<Sport> sports = new LinkedHashSet<Sport>();

@@ -11,11 +11,6 @@ public class BaseController {
 		return "index";
 	}
 	
-	@GetMapping("/ticket/InputPageAT(Form)")
-	public String InputPageATForm() {
-		return "/ticket/InputPageAT(Form)";
-	}
-	
 	@GetMapping("/ticket/InputPageEX")
 	public String InputPageEX() {
 		return "ticket/InputPageEX";

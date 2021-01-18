@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.web.store.ticket.dao.impl.AttractionDao;
+import com.web.store.ticket.dao.impl.BankDao;
 import com.web.store.ticket.dao.impl.CreditCardDao;
 import com.web.store.ticket.dao.impl.EventDao;
 import com.web.store.ticket.dao.impl.EventTypeDao;
@@ -17,6 +18,7 @@ import com.web.store.ticket.dao.impl.SportDao;
 import com.web.store.ticket.dao.impl.SportSeatDao;
 import com.web.store.ticket.dao.impl.SportSessionDao;
 import com.web.store.ticket.model.Attraction;
+import com.web.store.ticket.model.Bank;
 import com.web.store.ticket.model.CreditCard;
 import com.web.store.ticket.model.Event;
 import com.web.store.ticket.model.EventType;
@@ -49,6 +51,8 @@ public class BackendServiceImpl implements BackendService {
 	CreditCardDao creditCardDao;
 	@Autowired
 	EventTypeDao eventTypeDao;
+	@Autowired
+	BankDao bankDao;
 	
 	
 	@SuppressWarnings("null")
@@ -114,8 +118,8 @@ public class BackendServiceImpl implements BackendService {
 	}
 
 	@Override
-	public ArrayList<Event> queryAll() {
-		return eventDao.queryAll();
+	public ArrayList<Event> queryAll(int companyId) {
+		return eventDao.queryAll(companyId);
 	}
 
 	@Override
@@ -272,6 +276,20 @@ public class BackendServiceImpl implements BackendService {
 			sportSeatDao.delete(seat.getId());
 		}
 		
+	}
+
+	@Override
+	public ArrayList<Bank> queryAllBank() {
+		ArrayList<Bank> bankList = bankDao.queryAllBank();
+		 ArrayList<Bank> creditCardList = new ArrayList<>();
+		for(Bank bank:bankList) {
+			Integer bankId = bank.getId();
+			
+			ArrayList<CreditCard> creditCardListbyBank = creditCardDao.queryCreditCardByBank(bankId);
+			bank.setCards(creditCardListbyBank);
+			creditCardList.add(bank);
+		}
+		return creditCardList;
 	}
 	
 	

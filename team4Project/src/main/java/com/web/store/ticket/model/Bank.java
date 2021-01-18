@@ -1,6 +1,7 @@
 package com.web.store.ticket.model;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -15,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="Bank")
 public class Bank {
@@ -24,12 +27,12 @@ public class Bank {
 	private Integer id;
 	
 	private String bankName;
-	
+	@JsonIgnore
 	private Blob bankImage;
 	
 	@Transient
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="Bank", cascade=CascadeType.ALL)
-	private Set<CreditCard> cards = new LinkedHashSet<CreditCard>();
+	private ArrayList<CreditCard> cards = new ArrayList<CreditCard>();
 	
 	public Bank() {
 	}
@@ -67,11 +70,13 @@ public class Bank {
 		this.bankImage = bankImage;
 	}
 
-	public Set<CreditCard> getCards() {
+	public ArrayList<CreditCard> getCards() {
 		return cards;
 	}
 
-	public void setCards(Set<CreditCard> cards) {
+	public void setCards(ArrayList<CreditCard> cards) {
 		this.cards = cards;
 	}
+
+	
 }
