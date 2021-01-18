@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.http.HttpResponse;
 import java.sql.Blob;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +48,7 @@ import com.web.store.campaign.model.DiscountParams;
 import com.web.store.campaign.model.Page;
 import com.web.store.campaign.model.SearchBean;
 import com.web.store.campaign.service.CampaignService;
+import com.web.store.campaign.validator.SearchValidator;
 import com.web.store.company.model.Company;
 
 
@@ -97,21 +101,22 @@ public class CampaignController {
 		
 		
 		Date date = new Date();
-//		後端驗證區塊↓		
+//		後端驗證區塊↓	
+		HashMap<String,String> errMsg = new HashMap<String,String>();
 		boolean isOk = true;
 		
 		
 		if(StartDateTimeStamp.compareTo(date)<0) {
-			model.addAttribute("startAfterCurrentErr","開始時間不得小於當前時間");
+			errMsg.put("startAfterCurrentErr","開始時間不得小於當前時間");
 			isOk = false;
 		}
+		
 		if(StartDateTimeStamp.compareTo(endDateTimeStamp)>0) {
-			model.addAttribute("startAfterEndErr","結束時間必須大於開始時間");
+			errMsg.put("startAfterEndErr","結束時間必須大於開始時間");
 			isOk = false;
 		}
 		
-		
-		
+				
 //		後端驗證區塊↑		
 		
 		
@@ -136,7 +141,8 @@ public class CampaignController {
 		}
 		
 		//Company目前是null，之後會從session抓取塞入
-		Campaign camp = new Campaign(name, picPath, description, content, StartDateTimeStamp, endDateTimeStamp, launchStatus, true, currentTime, currentTime, null, discountParams);		
+		Company company = (Company)model.getAttribute("company");
+		Campaign camp = new Campaign(name, picPath, description, content, StartDateTimeStamp, endDateTimeStamp, launchStatus, true, currentTime, currentTime, company, discountParams);
 		discountParams.setCampaign(camp);
 		
 		//寫入圖片檔案部分
@@ -380,18 +386,11 @@ public class CampaignController {
 	
 	@GetMapping("/getFirstPageByCompany/{companyId}")
 	public String getFirstPage(@PathVariable int companyId,Model model) {
-		Company company = (Company)model.getAttribute("company");
-		System.out.println(company);
-		if(company!=null){
-			System.out.println(company.getId());
-			System.out.println(company.getCompanyName());
-		}
 
 		Page<Campaign> page = new Page<Campaign>();
 		page.setCurrentPage(1);
 		campService.getCampaignPageOfCompany(page, companyId);
 		model.addAttribute("page", page);
-		model.addAttribute("test", "2021-01-02");
 		return "campaign/CampaignShowPage";
 	}
 	
@@ -406,7 +405,9 @@ public class CampaignController {
 	@GetMapping(value="/search/{companyId}/{page}",produces = "application/json; charset=UTF-8")
 	public @ResponseBody Page<Campaign> searchCampaign(@ModelAttribute SearchBean search, 
 			@PathVariable int companyId,
-			@PathVariable int page) {
+			@PathVariable int page,
+			HttpServletResponse response) {
+//		response.setHeader("Access-Control-Allow-Origin", "*");
 		System.out.println(search.getStrDateStr());
 		Page<Campaign> pageResult = new Page<Campaign>();
 		search.convertStringToTimestamp();
@@ -417,9 +418,16 @@ public class CampaignController {
 	
 	@GetMapping(value="/search/{companyId}/firstPage")
 	public String getSearchFirstPage(@ModelAttribute SearchBean searchBean	,
-											 @PathVariable Integer companyId,
-											 Model model
+									@PathVariable Integer companyId,
+									Model model,
+									BindingResult result
 			) {
+		
+		SearchValidator validator = new SearchValidator();
+		validator.validate(searchBean, result);
+		if(result.hasErrors()) {
+			return "campaign/CampaignShowPage";
+		}
 		Page<Campaign> page = new Page<Campaign>();
 		searchBean.convertStringToTimestamp();
 		page.setCurrentPage(1);
@@ -437,4 +445,14 @@ public class CampaignController {
 		return searchbean;
 	}
 	
+	@GetMapping(value="/test/{companyId}",produces = "application/json; charset=UTF-8")
+	public @ResponseBody Map<String,Object> getCamp( 
+			@PathVariable int companyId,
+			HttpServletResponse response) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		List<Campaign> camps = campService.getCampaignByCompanyId(companyId);
+		map.put("data",camps);
+		return map;
+	}
 }
