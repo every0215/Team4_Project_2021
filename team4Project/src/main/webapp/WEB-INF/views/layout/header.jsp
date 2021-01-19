@@ -221,7 +221,7 @@
                   <li><a href="blog-single.html">Blog Single</a></li>                
                 </ul>
               </li>
-              <li><a href="#">合作企業</a></li>      
+              <li><a href="<c:url value='/showCompany' />">合作企業</a></li>      
               <li><a href="contact.html">聯絡我們</a></li>
               <li><a href="#">票劵購買 <span class="caret"></span></a>
                 <ul class="dropdown-menu">                

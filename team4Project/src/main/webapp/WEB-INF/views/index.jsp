@@ -55,7 +55,7 @@
 <!--   企業登入連結 -->
 <!--   企業登入連結 -->
   <a href="<c:url value='/CmpLog' />">企業登入 </a><br>
-  <p>id=1 企業:全家便利商店 帳號:familymart  密碼:123<p>
+  
    <!-- wpf loader Two -->
     <div id="wpf-loader-two">
       <div class="wpf-loader-two-inner">
@@ -202,7 +202,6 @@
 	</div>
 	<!-- / Promo section -->
 	<a href="<c:url value='/CmpRegi' />">企業註冊</a>
-	<a href="<c:url value='/showCompany' />">秀合作企業 </a>
   <!-- Products section -->
  <section id="aa-product">
     <div class="container">
