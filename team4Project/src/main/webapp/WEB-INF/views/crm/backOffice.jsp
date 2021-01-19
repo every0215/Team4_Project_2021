@@ -1,29 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
+    
+    
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
-    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<%--     <link href="<c:url value='${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css" /> --%>
+    <link href="<c:url value='/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="<c:url value='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'/>" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
-    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<c:url value='http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css'/>" rel="stylesheet" type="text/css" />
     <!-- Morris chart -->
-    <link href="${pageContext.request.contextPath}/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+<%--     <link href="<c:url value='${pageContext.request.contextPath}/plugins/morris/morris.css'/>" rel="stylesheet" type="text/css" /> --%>
+    <link href="<c:url value='/plugins/morris/morris.css'/>" rel="stylesheet" type="text/css" />
     <!-- jvectormap -->
-    <link href="${pageContext.request.contextPath}/plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+<%--     <link href="<c:url value='${pageContext.request.contextPath}/plugins/jvectormap/jquery-jvectormap-1.2.2.css'/>" rel="stylesheet" type="text/css" /> --%>
+    <link href="<c:url value='/plugins/jvectormap/jquery-jvectormap-1.2.2.css'/>" rel="stylesheet" type="text/css" />
     <!-- Daterange picker -->
-    <link href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+<%--     <link href="<c:url value='${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker-bs3.css'/>" rel="stylesheet" type="text/css" /> --%>
+    <link href="<c:url value='/plugins/daterangepicker/daterangepicker-bs3.css'/>" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+<%--     <link href="<c:url value='${pageContext.request.contextPath}/dist/css/AdminLTE.min.css'/>" rel="stylesheet" type="text/css" /> --%>
+    <link href="<c:url value='/dist/css/AdminLTE.min.css'/>" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins 
          folder instead of downloading all of them to reduce the load. -->
-    <link href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+<%--     <link href="<c:url value='${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css'/>" rel="stylesheet" type="text/css" /> --%>
+    <link href="<c:url value='/dist/css/skins/_all-skins.min.css'/>" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -33,7 +42,7 @@
         <header class="main-header" style="color:orange;height:80px">
             <!-- Logo -->
 
-            <a href="#" class="logo" style="width: 240px; height: 80px;margin:0px;padding:0px"><img src="dist/img/luckycat.png" class="img-circle" alt="logo" /><b>  滿滿大</b>廠商系統</a>
+            <a href="#" class="logo" style="width: 240px; height: 80px;margin:0px;padding:0px"><img src="<c:url value='/dist/img/luckycat.png'/>" class="img-circle" alt="logo" /><b>  滿滿大</b>廠商系統</a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" style="margin-left: 240px;height: 80px;" role="navigation">
                 <!-- Sidebar toggle button-->
@@ -152,8 +161,31 @@
             </section>
             <!-- /.sidebar -->
         </aside>
-		<div>
-		<a href="<c:url value='/' />">企業資訊 </a>
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+<!--         測試用記得刪 -->
+		<div  style="top:500px;left:600px;background-color:yellow">
+		<a href="<c:url value='/CompanyInfo' />">修改企業資訊 </a>
+		</div>
+		<div  style="top:500px;left:600px;background-color:yellow">
+		<a href="<c:url value='/Logout' />">登出 </a>
 		</div>
         <!-- Right side column. Contains the navbar and content of the page -->
 
@@ -163,34 +195,34 @@
     <!-- ./wrapper -->
 
     <!-- jQuery 2.1.3 -->
-    <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="<c:url value='/plugins/jQuery/jQuery-2.1.3.min.js'/>"></script>
     <!-- Bootstrap 3.3.2 JS -->
-    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="<c:url value='/bootstrap/js/bootstrap.min.js'/>" type="text/javascript"></script>
     <!-- FastClick -->
-    <script src='plugins/fastclick/fastclick.min.js'></script>
+    <script src='<c:url value='/plugins/fastclick/fastclick.min.js'/>'></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/app.min.js" type="text/javascript"></script>
+    <script src="<c:url value='/dist/js/app.min.js'/>" type="text/javascript"></script>
     <!-- Sparkline -->
-    <script src="plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
+    <script src="<c:url value='/plugins/sparkline/jquery.sparkline.min.js'/>" type="text/javascript"></script>
     <!-- jvectormap -->
-    <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
-    <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
+    <script src="<c:url value='/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'/>" type="text/javascript"></script>
     <!-- daterangepicker -->
-    <script src="plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+    <script src="<c:url value='/plugins/daterangepicker/daterangepicker.js'/>" type="text/javascript"></script>
     <!-- datepicker -->
-    <script src="plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="<c:url value='/plugins/datepicker/bootstrap-datepicker.js'/>" type="text/javascript"></script>
     <!-- iCheck -->
-    <script src="plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+    <script src="<c:url value='/plugins/iCheck/icheck.min.js'/>" type="text/javascript"></script>
     <!-- SlimScroll 1.3.0 -->
-    <script src="plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="<c:url value='/plugins/slimScroll/jquery.slimscroll.min.js'/>" type="text/javascript"></script>
     <!-- ChartJS 1.0.1 -->
-    <script src="plugins/chartjs/Chart.min.js" type="text/javascript"></script>
+    <script src="<c:url value='/plugins/chartjs/Chart.min.js'/>" type="text/javascript"></script>
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="dist/js/pages/dashboard2.js" type="text/javascript"></script>
+    <script src="<c:url value='dist/js/pages/dashboard2.js'/>" type="text/javascript"></script>
 
     <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js" type="text/javascript"></script>
+    <script src="<c:url value='dist/js/demo.js'/>" type="text/javascript"></script>
 </body>
 
 </html>
