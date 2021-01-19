@@ -18,41 +18,41 @@ import com.web.store.product.service.ProductService;
 @Transactional
 public class ProductServiceimpl implements ProductService {
 	@Autowired
-	ProductDao ProductDao;
+	ProductDao productDao;
 
 	@Override
 	public List<ProductBean> selectAll() {
 
-		return ProductDao.selectAll();
+		return productDao.selectAll();
 	}
 
 	@Override
 	public List<ProductBean> selectbyid(int ProductId) {
-		return ProductDao.selectbyid(ProductId);
+		return productDao.selectbyid(ProductId);
 
 	};
 
 	@Override
 	public List<ProductBean> selectbystoreid(int storeId) {
 
-		return ProductDao.selectbystoreid(storeId);
+		return productDao.selectbystoreid(storeId);
 	}
 
 	@Override
 	public int insert(ProductBean pb) throws SQLException {
 
-		return ProductDao.insert(pb);
+		return productDao.insert(pb);
 	}
 
 	@Override
 	public int deletebyid(int id) throws SQLException {
-		return ProductDao.deletebyid(id);
+		return productDao.deletebyid(id);
 
 	}
 
 	@Override
-	public int alterbyid(int id) throws SQLException {
-		return ProductDao.alterbyid(id);
+	public int alterbyid(ProductBean pb) throws SQLException {
+		return productDao.alterbyid(pb);
 
 	}
 }

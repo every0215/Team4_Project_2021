@@ -17,6 +17,6 @@ public interface ProductService {
 
 	int deletebyid(int id) throws SQLException;
 
-	int alterbyid(int id) throws SQLException;
+	int alterbyid(ProductBean pb) throws SQLException;
 
 }

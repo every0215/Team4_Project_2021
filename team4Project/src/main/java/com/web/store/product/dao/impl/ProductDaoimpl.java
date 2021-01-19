@@ -7,10 +7,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import com.web.store.campaign.model.Campaign;
+import com.web.store.company.model.Company;
 import com.web.store.product.dao.ProductDao;
 import com.web.store.product.model.ProductBean;
-
+@Repository
 public class ProductDaoimpl implements ProductDao {
 	@Autowired
 	SessionFactory sessionFactory;
@@ -38,15 +41,38 @@ public class ProductDaoimpl implements ProductDao {
 		
 	}
 	public int insert(ProductBean pb) throws SQLException{
-		
+		Session session = sessionFactory.getCurrentSession();
+		session.save(pb);
 		return 1;
 	}
 	public int deletebyid(int id) throws SQLException{
-		return 1;
+		Session session = sessionFactory.getCurrentSession();
+		ProductBean pb = session.get(ProductBean.class, id);
+		if(pb!=null) {
+			session.delete(pb);
+			return 1;
+		}
+		else return 0;
 		
 	}
-	public int alterbyid(int id) throws SQLException{
-		return 1;
+	public int alterbyid(ProductBean pb) throws SQLException{
+		Session session = sessionFactory.getCurrentSession();
+		
+	
+		ProductBean pbg = session.get(ProductBean.class, pb.getproductId());
+		if(pbg!=null) {
+			session.update(pbg);
+			System.out.println("11111");
+			return 1;
+		}else {
+			System.out.println("00000");
+			return 0;
+		}
+	
 		
 	}
+
+
+
+
 }

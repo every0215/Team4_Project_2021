@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.web.store.product.model.ProductBean;
 
+
 public interface ProductDao {
 	List<ProductBean> selectAll();
 	List<ProductBean> selectbyid(int id);
@@ -12,6 +13,6 @@ public interface ProductDao {
 	
 	int insert(ProductBean pb) throws SQLException;
 	int deletebyid(int id) throws SQLException;
-	int alterbyid(int id) throws SQLException;
+	int alterbyid(ProductBean pb) throws SQLException;
 	
 }

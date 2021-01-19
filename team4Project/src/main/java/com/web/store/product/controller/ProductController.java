@@ -27,8 +27,7 @@ import com.web.store.product.service.ProductService;
 
 
 @Controller
-@RequestMapping("/product")
-@SessionAttributes("ProductBeans")
+@SessionAttributes("product")
 public class ProductController {
 	@Autowired
 	ProductService pService;
@@ -42,7 +41,7 @@ public class ProductController {
 			System.out.println(pb.getproductName());
 		}
 		model.addAttribute("ProductList", list);
-		return "ProductView";
+		return "/product/ProductView";
 	}
 
 	@ModelAttribute("ProductBeans")
