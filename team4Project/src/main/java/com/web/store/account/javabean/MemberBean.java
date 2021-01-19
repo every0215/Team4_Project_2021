@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,7 +43,14 @@ public class MemberBean implements Serializable {
 	@Column(name="Email")
 	private String email;
 	@Column(name="Password")
-	private String password;
+	private byte[] password;
+	
+	@Transient
+	private String pwd;
+	
+	@Transient
+	private String pwd2;
+
 	@Column(name="MobileVerifCode")
 	private String mobileVerifCode;
 	@Column(name="EmailVerifCode")
@@ -60,8 +68,21 @@ public class MemberBean implements Serializable {
 	@JsonIgnore
 	private byte[] profileImage3;
 	
-	@Column(name="Active")
-	private boolean active;
+	@Transient
+	private String profileImage1Base64;
+	
+	@Transient
+	private String profileImage2Base64;
+
+	@Transient
+	private String profileImage3Base64;
+	
+	@Column(name="Verified", nullable = false, columnDefinition = "BIT", length = 1)
+	private Boolean verified;
+
+	@Column(name="Active", nullable = false, columnDefinition = "BIT", length = 1)
+	private Boolean active;
+	
 	@Column(name="CreatedDate")
 	private Timestamp createdDate;
 	@Column(name="ModifiedDate")
@@ -70,7 +91,7 @@ public class MemberBean implements Serializable {
 	private List<MemberLoginHistory> memberLoginHistory;
 	
 
-	public MemberBean(String fullname, String nickname,String qid, String email,String password) {
+	public MemberBean(String fullname, String nickname,String qid, String email,byte[] password) {
 		this.fullname = fullname;
 		this.nickname = nickname;
 		this.qid = qid;
@@ -174,15 +195,30 @@ public class MemberBean implements Serializable {
 	}
 
 
-	public String getPassword() {
+	public byte[] getPassword() {
 		return password;
 	}
 
 
-	public void setPassword(String password) {
+	public void setPassword(byte[] password) {
 		this.password = password;
 	}
 
+	public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+	
+	public String getPwd2() {
+		return pwd2;
+	}
+
+	public void setPwd2(String pwd2) {
+		this.pwd2 = pwd2;
+	}
 
 	public String getMobileVerifCode() {
 		return mobileVerifCode;
@@ -233,14 +269,49 @@ public class MemberBean implements Serializable {
 		this.profileImage3 = profileImage3;
 	}
 
-
-	public boolean isActive() {
-		return active;
+	public String getProfileImage1Base64() {
+		return profileImage1Base64;
 	}
 
+	public void setProfileImage1Base64(String profileImage1Base64) {
+		this.profileImage1Base64 = profileImage1Base64;
+	}
 
-	public void setActive(boolean active) {
+	public String getProfileImage2Base64() {
+		return profileImage2Base64;
+	}
+
+	public void setProfileImage2Base64(String profileImage2Base64) {
+		this.profileImage2Base64 = profileImage2Base64;
+	}
+
+	public String getProfileImage3Base64() {
+		return profileImage3Base64;
+	}
+
+	public void setProfileImage3Base64(String profileImage3Base64) {
+		this.profileImage3Base64 = profileImage3Base64;
+	}
+
+	
+	public Boolean isVerified() {
+		if(verified == null) verified = false;
+		return this.verified;
+	}
+
+	public void setVerified(Boolean verified) {
+		this.verified = verified;
+		if(verified == null) this.verified = false;
+	}
+	
+	public Boolean isActive() {
+		if(active == null) active = false;
+		return this.active;
+	}
+
+	public void setActive(Boolean active) {
 		this.active = active;
+		if(active == null) this.active = false;
 	}
 
 

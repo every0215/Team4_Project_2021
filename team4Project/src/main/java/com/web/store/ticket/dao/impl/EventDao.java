@@ -49,9 +49,10 @@ public class EventDao implements IEventDao {
 	}
 
 	@Override
-	public ArrayList<Event> queryAll() {
+	public ArrayList<Event> queryAll(int companyId) {
+		System.out.println("run it ");
 		Session session = factory.getCurrentSession();
-		String hqlstr = "FROM Event E ";
+		String hqlstr = "FROM Event E where E.companyId="+companyId;
 		Query<Event> query = session.createQuery(hqlstr,Event.class);
 		return (ArrayList<Event>) query.list();
 	}

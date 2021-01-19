@@ -49,4 +49,10 @@ public class CompanyServiceImpl implements CompanyService {
 		return cmpDao.verifyLogin(account, password);
 	}
 
+	@Override
+	public boolean updateCompany(Company cmp) {
+		
+		return cmpDao.update(cmp);
+	}
+
 }

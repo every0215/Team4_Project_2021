@@ -34,7 +34,7 @@
 
             <div class="d1">
             <label for="">帳號:</label>
-            <input type="text" name="account" placeholder="請輸入帳號" id="checkn" autocomplete="off">
+            <input type="text" name="account" placeholder="請輸入帳號" id="checkn" autocomplete="off" value="familymart">
             <span id="namecheck"></span>
             <br>
 <!--             <span class="sp3">(1.不可空白，2.至少兩個字以上，3.必須全部為中文字)</span> -->
@@ -42,7 +42,7 @@
         
             <div class="d1">
             <label for="">密碼:</label>
-            <input type="text" name="password" placeholder="請輸入密碼" id="checkp" autocomplete="off">
+            <input type="password" name="password" placeholder="請輸入密碼" id="checkp" autocomplete="off" value="123">
             <span id="pwdcheck"></span>
             <br>
 <!--             <span class="sp3">(1.不可空白，2.至少6個字且必須包含英文字母、數字、特殊字元[!@#$%^&*])</span> -->

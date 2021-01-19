@@ -14,7 +14,7 @@ public interface IEventDao {
 	
 	Event queryLatestEvent();
 	
-	ArrayList<Event> queryAll();
+	ArrayList<Event> queryAll(int companyId);
 	
 	ArrayList<Event> queryByTypeId(int typeId);
 	

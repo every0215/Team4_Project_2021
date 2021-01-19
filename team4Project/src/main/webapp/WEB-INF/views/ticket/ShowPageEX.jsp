@@ -30,7 +30,7 @@
 <tr><td>優惠信用卡折扣</td> <td>${exhibition.discountRatio}</td></tr>
 </table>
 <br>
-<img height="300px" src="<c:url value='/getimage/${event.id}'/>" style="display:block; margin:auto;"/>
+<img height="300px" src="<c:url value='/geteventimage/${event.id}'/>" style="display:block; margin:auto;"/>
 <br>
 <table style="margin: auto;width: 800px;border:3px #cccccc solid;" cellpadding="10" border='1'>
 <tr><td>票券名稱</td> <c:forEach var="price" items="${priceList}"><td>${price.name}</td></c:forEach></tr>

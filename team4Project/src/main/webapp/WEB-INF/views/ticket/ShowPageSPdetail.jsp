@@ -29,7 +29,7 @@
 <tr><td>優惠信用卡折扣</td> <td>${sport.discountRatio}</td></tr>
 </table>
 <br>
-<img height="300px" src="<c:url value='/getimage/${event.id}'/>" style="display:block; margin:auto;"/>
+<img height="300px" src="<c:url value='/geteventimage/${event.id}'/>" style="display:block; margin:auto;"/>
 <br>
 	<c:forEach var="sessionSeat" items="${sessionSeatList}">
 		<table style="margin: auto;width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>

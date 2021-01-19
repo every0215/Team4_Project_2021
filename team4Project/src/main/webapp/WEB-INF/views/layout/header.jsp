@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <!-- Start header section -->
   <header id="aa-header">
     <!-- start header top  -->
@@ -16,7 +15,7 @@
                 <div class="aa-language">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      <img src="img/flag/english.jpg" alt="english flag">ENGLISH
+                      <img src="<c:url value='/img/flag/english.jpg' />" alt="english flag">ENGLISH
                       <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -50,11 +49,33 @@
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="account.html">我的帳號</a></li>
+                  <li><a href="<c:url value='/account/dashboard' />">我的帳號</a></li>
                   <li class="hidden-xs"><a href="wishlist.html">通知</a></li>
                   <li class="hidden-xs"><a href="cart.html">購物車</a></li>
-                  <li class="hidden-xs"><a href="checkout.html">註冊</a></li>
-                  <li><a href="" data-toggle="modal" data-target="#login-modal">登入</a></li>
+                  <c:choose>
+                  	<c:when test="${ user == null }" >
+                  		<li class="hidden-xs"><a href="<c:url value='/account/register' />">註冊</a></li>
+                  		<li class="hidden-xs"><a href="<c:url value='/account/login' />">登入</a></li>
+	                </c:when>
+	                <c:otherwise>
+                  		<li id="userbox" style="width:30px;" ><img alt="img" style="margin-left:10px;margin-right:10px; " width="20" src="data:image/jpeg;base64,${user.profileImage1Base64}"/></li>
+					</c:otherwise>
+				  </c:choose>
+				  <%-- <li><a href="" data-toggle="modal" data-target="#login-modal">登出<c:out value="${sessionScope.LoggedInUser.fullname}"/>${user.fullname}</a></li> --%>
+
+                </ul>
+                <ul id="user-menu" class="usermenu_usermenu" >
+                  <li><a href="/your-work/">Dashboard</a></li>
+                  <li><a href="/lukelin311">個人資訊</a></li>
+                  <li class="UserMenuLinks_sepBefore-2dqSV"><a href="/pen/">訂單一覽</a></li>
+                  <li><a href="/project/">變更密碼</a></li>
+                  <li class="UserMenuLinks_sepAfter-yFrww"><button>New Collection</button></li>
+                  <li><a href="/assets/">Asset Manager</a></li>
+                  <li class="UserMenuLinks_sepAfter-yFrww"><a href="/embed-theme-builder">Embed Theme Builder</a></li>
+                  <li><a href="/accounts/signup">Upgrade to <span class="badge-pro svg BadgePro_svg-3Hmbx badge" data-test-id="pro-badge"><img src="https://cpwebassets.codepen.io/assets/packs/badge-pro-4d863f9a634627f269bdc611cb477b9f.svg" alt="PRO"></span></a></li>
+                  <li><a href="https://blog.codepen.io/documentation/">Documentation</a></li><li class="UserMenuLinks_sepAfter-yFrww"><a href="/support/">Support</a></li>
+                  <li><a href="/settings/"><svg width="20" height="20" class="icon icon-gear"><use xlink:href="/svgs/compiled/svgs.40016ff2.svg#gear"></use></svg>Settings</a></li>
+                  <li><a id="logout" href="<c:url value='/account/logout' />"><svg width="20" height="20" class="icon icon-log-out"><use xlink:href="/svgs/compiled/svgs.40016ff2.svg#log-out"></use></svg>Log Out</a></li>
                 </ul>
               </div>
             </div>
@@ -73,8 +94,8 @@
               <!-- logo  -->
               <div class="aa-logo" >
                 <!-- Text based logo -->
-                <a href="index.html" >
-                  <img src="img/luckycat.png" width="60" style="vertical-align: middle;  float:left;" />
+                <a href="<c:url value='/' />" >
+                  <img src="<c:url value='/img/luckycat.png' />" width="60" style="vertical-align: middle;  float:left;" />
                   <div style="float:left; vertical-align: middle;"><p><strong>滿滿</strong>大 <span>火速購買!!</span></p></div>
                 </a>
                 <!-- img based logo -->
@@ -91,7 +112,7 @@
                 <div class="aa-cartbox-summary">
                   <ul>
                     <li>
-                      <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
+                      <a class="aa-cartbox-img" href="#"><img src="<c:url value='/img/woman-small-2.jpg' />" alt="img"></a>
                       <div class="aa-cartbox-info">
                         <h4><a href="#">Product Name</a></h4>
                         <p>1 x $250</p>
@@ -99,7 +120,7 @@
                       <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
                     </li>
                     <li>
-                      <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg" alt="img"></a>
+                      <a class="aa-cartbox-img" href="#"><img src="<c:url value='/img/woman-small-1.jpg' />" alt="img"></a>
                       <div class="aa-cartbox-info">
                         <h4><a href="#">Product Name</a></h4>
                         <p>1 x $250</p>
@@ -221,7 +242,7 @@
                   <li><a href="blog-single.html">Blog Single</a></li>                
                 </ul>
               </li>
-              <li><a href="#">合作企業</a></li>      
+              <li><a href="<c:url value='/showCompany' />">合作企業</a></li>      
               <li><a href="contact.html">聯絡我們</a></li>
               <li><a href="#">票劵購買 <span class="caret"></span></a>
                 <ul class="dropdown-menu">                

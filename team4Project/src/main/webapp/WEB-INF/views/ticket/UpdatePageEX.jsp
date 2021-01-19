@@ -141,57 +141,30 @@ select option[value="0"] {
         	
         	
         	
-        	let bankInfo = [
-      		  {
-      		   name: '中國信託商業銀行',
-      		   id: 1,
-      		   cardInfo: [{name: 'LINE PAY信用卡',cardId: 1},
-      		    		  {name: '中油聯名卡',		cardId: 2},
-      		   			  {name: '中信兄弟聯名卡',	cardId: 3},
-      		    		  {name: '酷玩卡',			cardId: 4}]
-      		  },
-      		  {
-      		   name: '玉山商業銀行',
-      		   id: 2,
-      		   cardInfo: [{name: '統一時代悠遊聯名卡',cardId: 5},
-      		    		  {name: '臺北南山廣場聯名卡',cardId: 6},
-      		    		  {name: '玉山 Pi 拍錢包信用卡',cardId: 7}]
-      		  },
-      		  {
-      			name: '台北富邦商業銀行',
-      			id: 3,
-      			cardInfo: [{name: '富邦數位生活卡',cardId: 8},
-      			 		   {name: 'momo卡',		  cardId: 9},
-      			 		   {name: '富邦悍將悠遊聯名卡',cardId: 10},
-      			 			{name: '富邦J卡',cardId: 11}]
-      			},
-      			{
-      			name: '國泰世華商業銀行',
-      			id: 4,
-      			cardInfo: [{name: 'KOKO COMBO icash聯名卡',cardId: 12},
-      				       {name: '長榮航空聯名卡',cardId: 13},
-      				   	   {name: 'Costco聯名卡',cardId: 14}]
-      			},
-      			{
-      			name: '台新國際商業銀行',
-      			id: 6,
-      			cardInfo: [{name: '@GOGO卡', cardId: 15},
-      						{name: 'FlyGo卡',cardId: 16},
-      						{name: '玫瑰卡',cardId: 17},
-      						{name: '街口聯名卡',cardId: 18}]
-      			}
-      	]
+        	$(function(){	
+    			$.ajax({
+    			    type: 'GET',
+    			    url: "/proj/combobox",
+    			    data: {todo:"ajaxexample1"}, 
+    			    success: function(data){
+    			    	bankInfo = data;
+    			    	console.log(bankInfo)
+    			    }
+    			});
+    			
+    			refreshData();
+    		});
   	
-  	 function renew(index){
-  		  const selectedBnak = bankInfo.find(bank => bank.id == index)
-  		  const creditCardInfo = selectedBnak.cardInfo
+        	 function renew(index){
+       		  const selectedBank = bankInfo.find(bank => bank.id == index)
+       		  const creditCardInfo = selectedBank.cards
 
-  		  for (let i = 0; i < creditCardInfo.length; i++)
-  		   document.myForm.cardId.options[i] = new Option(creditCardInfo[i].name, creditCardInfo[i].cardId) // 設定新選項
+       		  for (let i = 0; i < creditCardInfo.length; i++)
+       		   document.myForm.cardId.options[i] = new Option(creditCardInfo[i].cardName, creditCardInfo[i].id) // 設定新選項
 
-  		  document.myForm.cardId.length = creditCardInfo.length // 刪除多餘的選項
+       		  document.myForm.cardId.length = creditCardInfo.length // 刪除多餘的選項
 
-  		 }
+       		 }
         	window.onload = function () {
         		document.getElementById('bank').value='${creditCard.bankId}';
 				renew('${creditCard.bankId}');

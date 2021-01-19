@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.store.company.model.Company;
 
 @Entity
@@ -35,6 +36,7 @@ public class Event {
 	private String eventName;
 	@Column(name = "eventLocation")
 	private String eventLocation;
+	@JsonIgnore
 	@Column(name = "eventImage")
 	private Blob eventImage;
 	@Column(name = "imageName")

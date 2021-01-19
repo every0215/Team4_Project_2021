@@ -31,7 +31,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -39,6 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.store.ticket.model.Attraction;
+import com.web.store.ticket.model.Bank;
 import com.web.store.ticket.model.CreditCard;
 import com.web.store.ticket.model.Event;
 import com.web.store.ticket.model.EventType;
@@ -60,6 +60,11 @@ public class EventController {
 	
 	final static String DATE_FORMAT = "yyyy-MM-dd";
 	final static String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	
+	@GetMapping(value="/combobox",produces = {"application/json; charset=UTF-8"})
+	public @ResponseBody ArrayList<Bank> combobox() {
+		return backendService.queryAllBank();
+	}
 	
 	//刪除票券 應該改為上下架
 	@GetMapping("/EventDel/{eventId}")
@@ -164,9 +169,10 @@ public class EventController {
 	
 	@GetMapping(value="TicketIndex")
 	public String showAllEvent(
+//			@PathVariable int companyId,
 			Model model
 			) {
-		ArrayList<Event> events = backendService.queryAll();
+		ArrayList<Event> events = backendService.queryAll(1);
 		model.addAttribute("events", events);
 		return "/ticket/TicketIndex";
 	}

@@ -18,40 +18,83 @@
 
 <title>活動查詢</title>
 <style>
-	.title {
-		text-align: center;
-	}
+body{
+	font-family:微軟正黑體;
+	font-weight:900
+}
+.title {
+	text-align: center;
+}
 
-	.btnForm {
-		display: inline-block;
-	}
+.btnForm {
+	display: inline-block;
+}
 
-	ul.functionBar{
-		list-style: none;
-		display: flex;
-		justify-content: center;
-		margin-top:20px;
-		
-	}
+ul.functionBar {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+	padding: 0;
+}
 
-	ul.functionBar li{
-		padding: 0px 20px;
-		vertical-align: bottom;
-		line-height:1.7;
-	}
+ul.functionBar li {
+	padding: 0px 20px;
+	vertical-align: bottom;
+	line-height: 1.7;
+}
 
-	#pageSelector{
-		width: 50px;
-		font-size: 18px;
-	}
+#pageSelector {
+	width: 50px;
+	font-size: 18px;
+}
 
-	#container{
-		width: 1400px;
-	}
-	
-	tr>td>button{
-		margin:0 3px;
-	}
+#container {
+	width: 1400px;
+	text-align:center
+}
+
+tr>td>button {
+	margin: 0 3px;
+	padding: 0.1rem;
+}
+
+.table td, .table th {
+	padding: .5rem;
+	vertical-align: middle;
+}
+
+.btn-self {
+	color: #eaf1ff;
+	background-color: #54959f;
+	border-color: #ffffff00;
+}
+
+.btn-self:hover{
+	color: #fff;
+    background-color: #3473b7;
+    border-color: #eff6f100;
+}
+
+.btn-self:active{
+	color: #fff;
+    background-color: #3473b7;
+    border-color: #eff6f100;
+}
+
+.pageTotalShow{
+	font-size:1.3rem;
+}
+
+.pageBar{
+	display:flex;
+	justify-content:center;
+}
+
+.pageActive{
+	background-color: #e9ecef;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -66,9 +109,9 @@
 		<input id="companyId" type="hidden" value="1">  
 		<ul class="functionBar">
 			
-			<li><button id="addBtn" class="btn btn-success" type="button">新增活動</button></li>
+			<li><button id="addBtn" class="btn btn-self" type="button">新增活動</button></li>
 			
-			<li><label>查詢活動:</label><form:input type="text" path="searchStr"/></li>
+			<li><label>查詢活動:</label><form:input type="text" path="searchStr" placeholder="Search.."/></li>
 			
 			
 			<li>
@@ -91,13 +134,13 @@
 			</li>
 	
 			
-			<li><button id="queryBtn" class="btn btn-success" type="submit">查詢</button></li>
+			<li><button id="queryBtn" class="btn btn-self" type="submit">查詢</button></li>
 			
 		</ul>
 	</form:form>
 	<div id="container" class="container">
 		
-		<h2 class="title">活動總覽</h2>
+<!-- 		<h2 class="title">活動總覽</h2> -->
 		<table id="CampTable" class="table table-dark table-striped">
 			<thead>
 				<tr>
@@ -122,29 +165,34 @@
 					<td>${camp.description}</td>
 					<td style="font-size:0;">
 						<input type="hidden" value='${camp.id}'/>
-						<button class="btn btn-success" onclick="location.href='<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>'">編輯</button>
-						<button class="btn btn-success">套用</button>
+						<button class="btn btn-self" onclick="location.href='<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>'">編輯</button>
+						<button class="btn btn-self">套用</button>
 					</td>
 				</tr>
 			</c:forEach>
-
-
+			
 			</tbody>
 		</table>
-		<select name=page id="pageSelector">
-		<c:if test="${page.totalpage==0}"><option value="1">1</option></c:if>
-		<c:forEach var="count" begin="1" end="${page.totalpage}">
-			<option value="${count}">${count}</option>
-		</c:forEach>
-		</select>
-		<h4>共${page.totalResultCount}筆資料</h4>
-
+		<div class="container pageBar" >
+			<input type="hidden" name="page" value="1"/>
+			<ul class="pagination">
+				<li class="page-item"><a id="preBtn" class="page-link" href="#">上一頁</a></li>
+				<c:forEach var="count" begin="1" end="${page.totalpage}">
+					<li class="page-item"><a class="page-link pageNum" href="#">${count}</a></li>
+				</c:forEach>
+				<li class="page-item"><a id="nextBtn"class="page-link" href="#">下一頁</a></li>
+			</ul>
+		</div>
+		<div class="pageTotalShow">共${page.totalResultCount}筆資料</div>
+		
 	</div>
 	<script>
 	
 		
 		
 		$(function(){
+			
+			$(".pageNum").eq(0).addClass("pageActive");
 			
 			setDate();
 			
@@ -155,6 +203,56 @@
 
 			$("select[name='page']").change(function(){
 				var page = $(this).children(":selected").val();		
+				pageAjax(page);
+			})
+			
+			$(".pageNum").click(function(){
+				var page = $(this).text();
+				$("input[name='page']").val(page);
+				$(".pageNum").removeClass("pageActive");
+				$(".pageNum").eq(page-1).addClass("pageActive");
+				pageAjax(page);
+			})
+			
+			$("#preBtn").click(function(){
+				var page = $("input[name='page']").val();
+				page = Number(page);
+				
+				if(page<=1){
+					return null;
+				}
+				
+				$("input[name='page']").val(page-1);
+				
+				page = $("input[name='page']").val();
+				
+				$(".pageNum").removeClass("pageActive");
+				$(".pageNum").eq(page-1).addClass("pageActive");
+					
+				pageAjax(page);
+			})
+			
+			$("#nextBtn").click(function(){
+				var page = $("input[name='page']").val();
+				var totolPage = $(".pageNum").length;
+				page = Number(page);
+				
+				if(page>=totolPage){
+					return null;
+				}
+				
+				
+				$("input[name='page']").val(page+1);
+				
+				page = $("input[name='page']").val();
+				
+				$(".pageNum").removeClass("pageActive");
+				$(".pageNum").eq(page-1).addClass("pageActive");
+				pageAjax(page);
+			})
+			
+			
+			function pageAjax(page){
 				$.ajax({
 					<c:if test="${empty isSearch}">
 					url : "<c:url value='/campaign/getPageByCompany/"+ ${1} +"/"+page+"' />",
@@ -190,7 +288,7 @@
 							var btnTd = document.createElement("td");
 							for(btn of btns){
 								var button = document.createElement("button");
-								$(button).addClass("btn btn-success").text(btn);
+								$(button).addClass("btn btn-self").text(btn);
 								btnTd.append(button);
 								var campid = camps[i].id;
 								if(btn=="編輯"){
@@ -202,7 +300,7 @@
 						}
 					},
 				})
-			})
+			}
 			
 			function setDate () {
                 var strDate = document.querySelector("#strDate");

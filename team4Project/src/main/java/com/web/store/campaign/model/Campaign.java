@@ -60,7 +60,7 @@ public class Campaign implements Serializable {
 	private Timestamp updateTime;
 
 	@JoinColumn(name = "companyId")
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Company company;
 
@@ -130,6 +130,11 @@ public class Campaign implements Serializable {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 		this.startTime = sdf2.format(startDateTime.getTime());
 		this.endTime = sdf2.format(endDateTime.getTime());
+	}
+	
+	public void convertStringToTimestamp() {
+		this.startDateTime = Timestamp.valueOf(this.startDate+" "+this.startTime+":00");
+		this.endDateTime = Timestamp.valueOf(this.endDate+" "+this.endTime+":00");
 	}
 
 	// 判斷活動狀態、時間內

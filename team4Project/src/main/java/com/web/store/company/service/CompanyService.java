@@ -13,6 +13,7 @@ public interface CompanyService {
 	List<Company> getAllCompany();
 	//登入功能驗證帳號密碼
 	Company verifyLogin(String account, String password);
-	
+	//更新企業資料
+	boolean updateCompany(Company cmp);
 	
 }
