@@ -54,7 +54,9 @@ public class Campaign implements Serializable {
 	private Boolean launchStatus;
 
 	private Boolean status;
-
+	
+	private Boolean expired = false;
+	
 	private Timestamp addTime;
 
 	private Timestamp updateTime;
@@ -139,17 +141,26 @@ public class Campaign implements Serializable {
 
 	// 判斷活動狀態、時間內
 	public Boolean isActive() {
-		Date date = new Date();
-		Timestamp currentTime = new Timestamp(date.getTime());
+		
+		Timestamp currentTime = new Timestamp(new Date().getTime());
 
-		if (!status) {
-			return false;
-		}
-
-		if (currentTime.compareTo(startDateTime) > 0 && currentTime.compareTo(endDateTime) < 0) {
+		if ((currentTime.compareTo(startDateTime) > 0 
+				&& currentTime.compareTo(endDateTime) < 0)
+				&& launchStatus) {
+			this.status = true;
 			return true;
 		}
-
+		return false;
+	}
+	
+	public Boolean isExpired() {
+		if(status) {
+			Timestamp currentTime = new Timestamp(new Date().getTime());
+			if(currentTime.compareTo(endDateTime) > 0){
+				this.expired = true;
+				return true;
+			}		
+		}
 		return false;
 	}
 
@@ -285,4 +296,12 @@ public class Campaign implements Serializable {
 		this.endTime = endTime;
 	}
 
+	public Boolean getExpired() {
+		return expired;
+	}
+
+	public void setExpired(Boolean expired) {
+		this.expired = expired;
+	}
+	
 }

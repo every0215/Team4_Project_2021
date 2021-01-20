@@ -232,13 +232,29 @@ public class CampaignDaoImpl implements CampaignDao {
 		String hql2 = "FROM Campaign WHERE companyId=:companyId";
 		Session session = sessionFactory.getCurrentSession();
 		int totalPage = (int)Math.ceil((long)session.createQuery(hql).setParameter("companyId", companyId).uniqueResult()/(double)page.getPageSize());
-		List<Campaign> camps = session.createQuery(hql2,Campaign.class).setParameter("companyId", companyId).setMaxResults(page.getPageSize()).setFirstResult((page.getCurrentPage()-1)*page.getPageSize()).list();
+		List<Campaign> camps = session.createQuery(hql2,Campaign.class)
+									  .setParameter("companyId", companyId)
+									  .setMaxResults(page.getPageSize())
+									  .setFirstResult((page.getCurrentPage()-1)*page.getPageSize())
+									  .list();
 		page.setContent(camps);
 		page.setTotalpage(totalPage);
 		page.setTotalResultCount((int)(long)getTotalCampCountOfCompany(companyId));
 		return page;
 	}
 
-	
+	@Override
+	public List<Campaign> getRandomCampaignbyCompany(int companyId, int count) {
+		String hql = "Select TOP :count * From Table Where status=true "
+				+ "and expired=false "
+				+ "and companyId=:companyId"
+				+ "and ORDER BY NEWID()";
+		Session session = sessionFactory.getCurrentSession();
+		Query<Campaign> query = session.createQuery(hql,Campaign.class);
+		query.setParameter("count", count)
+		.setParameter("companyId", companyId);
+		return query.list();
+	}
+
 	
 }

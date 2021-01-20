@@ -1,5 +1,6 @@
 package com.web.store.campaign.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,8 +15,10 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +53,8 @@ import com.web.store.campaign.model.SearchBean;
 import com.web.store.campaign.service.CampaignService;
 import com.web.store.campaign.validator.SearchValidator;
 import com.web.store.company.model.Company;
+import com.web.store.company.service.CompanyService;
+import com.web.store.utils.ImgurAPI;
 
 
 
@@ -62,6 +67,8 @@ public class CampaignController {
 	CampaignService campService;
 	@Autowired
 	ServletContext context;
+	@Autowired
+	CompanyService companyService;
 	
 	@GetMapping("/show")
 	public String showAllCamp(Model model) {
@@ -99,7 +106,6 @@ public class CampaignController {
 
 		Timestamp endDateTimeStamp = Timestamp.valueOf(endDate+" "+endTime+":00");
 		
-		
 		Date date = new Date();
 //		後端驗證區塊↓	
 		HashMap<String,String> errMsg = new HashMap<String,String>();
@@ -121,14 +127,7 @@ public class CampaignController {
 		
 		
 		Timestamp currentTime = new Timestamp(date.getTime());//獲取當前時間的TimeStamp物件
-		
-		String rootPath = context.getRealPath("/");//取得應用程式檔案系統目錄
-		String uploadFileName = picture.getOriginalFilename();
-		//活動名稱+亂數取得檔案名稱
-		String storeFileName = name+"_"+(int)(2147483647*Math.random())+uploadFileName.substring(uploadFileName.lastIndexOf("."));
-		String picDir = "campaign_Img"; //存放圖片的資料夾
-		String picPath = rootPath + picDir + "/" + storeFileName;//圖片儲存路徑
-		
+			
 		//如果為1，是折扣塞入折扣參數
 		//為2是滿額塞入滿額參數
 		DiscountParams discountParams = new DiscountParams();
@@ -140,30 +139,25 @@ public class CampaignController {
 			discountParams.setAmountOffParam(amountOffParam);
 		}
 		
-		//Company目前是null，之後會從session抓取塞入
+		String picUrl="";
+		if (!picture.isEmpty()) {
+			String originFileName = picture.getOriginalFilename();
+			try {
+				byte[] picBytes = picture.getBytes();
+				picUrl = ImgurAPI.upload(picBytes, originFileName);
+				System.out.println(picUrl);
+			} catch (IOException e) {
+				System.out.println("圖片存取失敗----------------");
+				e.printStackTrace();
+			}
+		}
+
 		Company company = (Company)model.getAttribute("company");
-		Campaign camp = new Campaign(name, picPath, description, content, StartDateTimeStamp, endDateTimeStamp, launchStatus, true, currentTime, currentTime, company, discountParams);
+		Campaign camp = new Campaign(name, picUrl, description, content, StartDateTimeStamp, endDateTimeStamp, launchStatus, false, currentTime, currentTime, company, discountParams);
 		discountParams.setCampaign(camp);
 		
 		//寫入圖片檔案部分
-		File dir = new File(rootPath+"/"+picDir);//存在應用程式跟目錄webapp底下
-		if(!dir.exists()) {
-			dir.mkdir();
-		}
-		File pic = new File(dir,storeFileName);
-		try (OutputStream os = new FileOutputStream(pic); 
-				InputStream is = picture.getInputStream()){
-			byte[] buff = new byte[81920];
-			int len = 0;
-			while( (len = is.read(buff))!=-1) {
-				os.write(buff, 0, len);
-			}
-			
-			System.out.println("寫入成功");
-			
-		} catch (IOException e) {
-			throw new RuntimeException("寫入Server失敗"+e.toString());
-		}
+
 		
 		try {
 			campService.insert(camp);
@@ -184,7 +178,7 @@ public class CampaignController {
 	
 	
 	@PostMapping("/update/{campaignId}")
-	public String UpdateCamp(@RequestParam String name,
+	public String updateCamp(@RequestParam String name,
 			@RequestParam String startDate,
 			@RequestParam String startTime,
 			@RequestParam Integer type,
@@ -200,9 +194,8 @@ public class CampaignController {
 			@PathVariable Integer campaignId,
 			Model model,
 			RedirectAttributes redirectAttributes ) {
-		System.out.println(startTime);
+
 		Timestamp StartDateTimeStamp = Timestamp.valueOf(startDate+" "+startTime+":00");
-		System.out.println(endTime);
 		Timestamp endDateTimeStamp = Timestamp.valueOf(endDate+" "+endTime+":00");
 		
 		Campaign campOrigin = campService.getCampaignById(campaignId);
@@ -226,8 +219,7 @@ public class CampaignController {
 		
 //		後端驗證區塊↑	
 		
-		//如果為1，是折扣塞入折扣參數
-				//為2是滿額塞入滿額參數
+		
 		
 		campOrigin.setName(name);
 		campOrigin.setStartDateTime(StartDateTimeStamp);
@@ -237,6 +229,8 @@ public class CampaignController {
 		campOrigin.setContent(content);
 		campOrigin.setUpdateTime(new Timestamp(date.getTime()));
 		
+		//如果為1，是折扣塞入折扣參數
+		//為2是滿額塞入滿額參數
 		DiscountParams discountParams = campOrigin.getDiscountParams();
 		discountParams.setType(type);
 		if (type == 1) {
@@ -245,40 +239,18 @@ public class CampaignController {
 			discountParams.setAmountUpTo(amountUpTo);
 			discountParams.setAmountOffParam(amountOffParam);
 		}
+		
 		campOrigin.setDiscountParams(discountParams);
 		
-
 		if (!picture.isEmpty()) {
-			String rootPath = context.getRealPath("/");// 取得應用程式檔案系統目錄
-			String uploadFileName = picture.getOriginalFilename();
-			// 活動名稱+亂數取得檔案名稱
-			String storeFileName = name + "_" + (int) (2147483647 * Math.random())
-					+ uploadFileName.substring(uploadFileName.lastIndexOf("."));
-			String picDir = "campaign_Img"; // 存放圖片的資料夾
-			String picPath = rootPath + picDir + "\\" + storeFileName;// 圖片儲存路徑
-
-			
-			campOrigin.setPicturePath(picPath);
-
-			// 寫入圖片檔案部分
-			File dir = new File(rootPath + "/" + picDir);// 存在應用程式跟目錄webapp底下
-			if (!dir.exists()) {
-				dir.mkdir();
-			}
-			File pic = new File(dir, storeFileName);
-			try (OutputStream os = new FileOutputStream(pic); InputStream is = picture.getInputStream()) {
-				byte[] buff = new byte[81920];
-				int len = 0;
-				while ((len = is.read(buff)) != -1) {
-					os.write(buff, 0, len);
-				}
-
-				System.out.println("寫入成功");
-
+			String originFileName = picture.getOriginalFilename();
+			try {
+				String picUrl = ImgurAPI.upload(picture.getBytes(), originFileName);
+				campOrigin.setPicturePath(picUrl);
 			} catch (IOException e) {
-				throw new RuntimeException("寫入Server失敗" + e.toString());
+				System.out.println("圖片存取失敗----------------");
+				e.printStackTrace();
 			}
-
 		}
 		
 		
@@ -297,11 +269,15 @@ public class CampaignController {
 	
 	//取得公司活動單獨頁面資料
 	@GetMapping(value="/getPageByCompany/{companyId}/{page}", produces = {"application/json; charset=UTF-8"})
-	public @ResponseBody Map<String,Object> getPageByCompany(@PathVariable int page,
+	public @ResponseBody Map<String,Object> getPageByCompanyAjax(@PathVariable int page,
 																	@PathVariable int companyId) {		
 		Map<String,Object> map = new HashMap<String,Object>();
+		List<Campaign> camps = campService.getSinglePageResultByCompayId(page, companyId);
+		for(Campaign camp:camps) {			
+			camp.isActive();
+		}
 		map.put("totalPage",campService.getTotalPageByCompanyId(companyId));
-		map.put("content", campService.getSinglePageResultByCompayId(page, companyId));
+		map.put("content", camps);
 		return map;
 		
 	}
@@ -384,12 +360,18 @@ public class CampaignController {
 	}
 	
 	
-	@GetMapping("/getFirstPageByCompany/{companyId}")
-	public String getFirstPage(@PathVariable int companyId,Model model) {
+	@GetMapping("/showCampaign/{companyId}/{pageNum}")
+	public String showCampaignPage(@PathVariable int companyId,
+			Model model,
+			@PathVariable int pageNum) {
 
 		Page<Campaign> page = new Page<Campaign>();
-		page.setCurrentPage(1);
+		page.setCurrentPage(pageNum);
 		campService.getCampaignPageOfCompany(page, companyId);
+		List<Campaign> camps = page.getContent();
+		for(Campaign camp:camps) {			
+			camp.isActive();
+		}
 		model.addAttribute("page", page);
 		return "campaign/CampaignShowPage";
 	}
@@ -402,13 +384,12 @@ public class CampaignController {
 		return "campaign/CampaignUpdatePage";
 	}
 	
-	@GetMapping(value="/search/{companyId}/{page}",produces = "application/json; charset=UTF-8")
-	public @ResponseBody Page<Campaign> searchCampaign(@ModelAttribute SearchBean search, 
+	@GetMapping(value="/searchAjax/{companyId}/{page}",produces = "application/json; charset=UTF-8")
+	public @ResponseBody Page<Campaign> searchCampaignAjax(@ModelAttribute SearchBean search, 
 			@PathVariable int companyId,
 			@PathVariable int page,
 			HttpServletResponse response) {
 //		response.setHeader("Access-Control-Allow-Origin", "*");
-		System.out.println(search.getStrDateStr());
 		Page<Campaign> pageResult = new Page<Campaign>();
 		search.convertStringToTimestamp();
 		pageResult.setCurrentPage(page);
@@ -416,9 +397,10 @@ public class CampaignController {
 		return pageResult;
 	}
 	
-	@GetMapping(value="/search/{companyId}/firstPage")
-	public String getSearchFirstPage(@ModelAttribute SearchBean searchBean	,
+	@GetMapping(value="/search/{companyId}/{pageNum}")
+	public String searchCampaign(@ModelAttribute SearchBean searchBean	,
 									@PathVariable Integer companyId,
+									@PathVariable Integer pageNum,
 									Model model,
 									BindingResult result
 			) {
@@ -430,29 +412,33 @@ public class CampaignController {
 		}
 		Page<Campaign> page = new Page<Campaign>();
 		searchBean.convertStringToTimestamp();
-		page.setCurrentPage(1);
+		page.setCurrentPage(pageNum);
 		page = campService.searchCampaignOfCompany(companyId, searchBean, page);
+		List<Campaign> camps = page.getContent();
+		for(Campaign camp:camps) {			
+			camp.isActive();
+		}
 		model.addAttribute("page", page);
 		model.addAttribute("search",searchBean);
 		model.addAttribute("isSearch",true);
 		return "campaign/CampaignShowPage";
 	}
 	
+	@GetMapping("/index")
+	public String campaignUserIndex() {
+		List<Company> companys = companyService.getAllCompany();
+		for(Company company:companys) {
+			List<Campaign> camps = campService.getRandomCampaignbyCompany(company.getId(), 3);
+			Set<Campaign> campsSet = new HashSet<Campaign>(camps);
+		}
+		return null;
+	}
+	
 	@ModelAttribute(name = "searchBean")
 	public SearchBean getSearchbean() {
 		SearchBean searchbean = new SearchBean();
-		searchbean.setStatus(1);
+		searchbean.setStatus(0);
 		return searchbean;
 	}
 	
-	@GetMapping(value="/test/{companyId}",produces = "application/json; charset=UTF-8")
-	public @ResponseBody Map<String,Object> getCamp( 
-			@PathVariable int companyId,
-			HttpServletResponse response) {
-		HashMap<String,Object> map = new HashMap<String,Object>();
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		List<Campaign> camps = campService.getCampaignByCompanyId(companyId);
-		map.put("data",camps);
-		return map;
-	}
 }

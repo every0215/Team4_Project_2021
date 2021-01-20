@@ -112,5 +112,19 @@ public class CampaignServiceImpl implements CampaignService {
 
 		return campDao.getPageByCompanyId(page, companyId);
 	}
+
+	@Override
+	public void checkCampaignStatus() {
+		List<Campaign> camps = campDao.getAllCampaign();
+		for(Campaign camp:camps) {
+			camp.isActive();
+			camp.isExpired();
+		}
+	}
+
+	@Override
+	public List<Campaign> getRandomCampaignbyCompany(int companyId, int count) {
+		return campDao.getRandomCampaignbyCompany(companyId, count);
+	}
 		
 }

@@ -105,7 +105,7 @@ tr>td>button {
 
 <body>
 <!-- 	存放companyId -->
-	<form:form modelAttribute="searchBean" action="${pageContext.request.contextPath}/campaign/search/${1}/firstPage" method="GET">
+	<form:form modelAttribute="searchBean" action="${pageContext.request.contextPath}/campaign/search/${1}/1" method="GET">
 		<input id="companyId" type="hidden" value="1">  
 		<ul class="functionBar">
 			
@@ -160,8 +160,12 @@ tr>td>button {
 					<td>${camp.name}</td>
 					<td><fmt:formatDate value="${camp.startDateTime}" pattern='yyyy-MM-dd HH:mm:ss'/></td>
 					<td><fmt:formatDate value="${camp.endDateTime}" pattern='yyyy-MM-dd HH:mm:ss'/></td>
-					<c:if test="${camp.launchStatus}"><td>上架</td></c:if>
-					<c:if test="${!camp.launchStatus}"><td>下架</td></c:if>
+					<c:if test="${camp.status && !camp.expired}"><td>進行中</td></c:if>
+					<c:if test="${camp.status && camp.expired}"><td>已過期</td></c:if>
+					<c:if test="${!camp.status}">				
+						<c:if test="${camp.launchStatus}"><td>上架</td></c:if>
+						<c:if test="${!camp.launchStatus}"><td>下架</td></c:if>
+					</c:if>				
 					<td>${camp.description}</td>
 					<td style="font-size:0;">
 						<input type="hidden" value='${camp.id}'/>
@@ -174,12 +178,17 @@ tr>td>button {
 			</tbody>
 		</table>
 		<div class="container pageBar" >
-			<input type="hidden" name="page" value="1"/>
+			<input type="hidden" name="page" value="${page.currentPage}"/>
 			<ul class="pagination">
 				<li class="page-item"><a id="preBtn" class="page-link" href="#">上一頁</a></li>
 				<c:forEach var="count" begin="1" end="${page.totalpage}">
-					<li class="page-item"><a class="page-link pageNum" href="#">${count}</a></li>
-				</c:forEach>
+					<c:if test="${empty isSearch}">
+						<li class="page-item"><a class="page-link pageNum" href="<c:url value='/campaign/showCampaign/'/>${1}/${count}">${count}</a></li>
+					</c:if>
+					<c:if test="${!empty isSearch}">
+						<li class="page-item"><a class="page-link pageNum" href="<c:url value='/campaign/search/'/>${1}/${count}?${pageContext.request.queryString}">${count}</a></li>
+					</c:if>
+				</c:forEach> 
 				<li class="page-item"><a id="nextBtn"class="page-link" href="#">下一頁</a></li>
 			</ul>
 		</div>
@@ -192,7 +201,10 @@ tr>td>button {
 		
 		$(function(){
 			
-			$(".pageNum").eq(0).addClass("pageActive");
+// 			$(".pageNum").eq(0).addClass("pageActive");
+			var currentPage = $("input[name='page']").val();
+			$(".pageNum").removeClass("pageActive");
+			$(".pageNum").eq(currentPage-1).addClass("pageActive");
 			
 			setDate();
 			
@@ -211,7 +223,7 @@ tr>td>button {
 				$("input[name='page']").val(page);
 				$(".pageNum").removeClass("pageActive");
 				$(".pageNum").eq(page-1).addClass("pageActive");
-				pageAjax(page);
+// 				pageAjax(page);
 			})
 			
 			$("#preBtn").click(function(){
@@ -228,8 +240,9 @@ tr>td>button {
 				
 				$(".pageNum").removeClass("pageActive");
 				$(".pageNum").eq(page-1).addClass("pageActive");
-					
-				pageAjax(page);
+				
+				window.location.href = $(".pageNum").eq(page-1).attr("href");
+// 				pageAjax(page);
 			})
 			
 			$("#nextBtn").click(function(){
@@ -240,15 +253,15 @@ tr>td>button {
 				if(page>=totolPage){
 					return null;
 				}
-				
-				
+						
 				$("input[name='page']").val(page+1);
 				
 				page = $("input[name='page']").val();
 				
 				$(".pageNum").removeClass("pageActive");
 				$(".pageNum").eq(page-1).addClass("pageActive");
-				pageAjax(page);
+				
+				window.location.href = $(".pageNum").eq(page-1).attr("href");
 			})
 			
 			
