@@ -211,7 +211,7 @@
                             'success'
                         );
                         
-                        setTimeout(()=>{$("#campForm").submit()},2000) 
+                        setTimeout(()=>{$("#campForm").submit()},1000) 
                         
                     })
 

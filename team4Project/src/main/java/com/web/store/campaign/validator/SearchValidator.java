@@ -21,7 +21,6 @@ public class SearchValidator implements Validator {
 		if(search.getStrDate().compareTo(search.getEndDate())>0) {
 			errors.rejectValue("endDateStr","","開始時間不得大於結束時間");
 		}
-
 	}
 
 }
