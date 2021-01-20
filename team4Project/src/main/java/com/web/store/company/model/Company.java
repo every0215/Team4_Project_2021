@@ -256,8 +256,13 @@ public class Company {
 	public void setBusRCName(String busRCName) {
 		this.busRCName = busRCName;
 	}
-	
-	
-	
+
+	public Set<Campaign> getCampaigns() {
+		return campaigns;
+	}
+
+	public void setCampaigns(Set<Campaign> campaigns) {
+		this.campaigns = campaigns;
+	}
 	
 }
