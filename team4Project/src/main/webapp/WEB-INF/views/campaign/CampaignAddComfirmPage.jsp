@@ -143,11 +143,11 @@
         
         <div class="row picturdField">
             <div class="col-4">活動圖片:</div>
-            <div class="col-8" ><a href="${pageContext.request.contextPath}/campaign/pic/${camp.id}"><img src="${pageContext.request.contextPath}/campaign/pic/${camp.id}"/></a></div>
+            <div class="col-8" ><a href="${camp.picturePath}"><img src="${camp.picturePath}"/></a></div>
         </div> 
         
         <div class="functionBar">
-            <button class="btn btn-primary" onclick="location.href='<c:url value="/campaign/getFirstPageByCompany/${camp.company.id}"/>'">返回</button>
+            <button class="btn btn-primary" onclick="location.href='<c:url value="/campaign/showCampaign/${1}/1"/>'">返回</button>
         </div>
     </div>
 </body>

@@ -76,6 +76,25 @@ public class Company {
 	public Company() {
 		
 	}
+	
+	public Company( Integer id,String companyName, Blob logo, String logoName, String uniformNumbers, Integer categories,
+			String account, String password, String email, String phone, Blob busRC, String busRCName
+			) {
+		super();
+		this.id = id;
+		this.companyName = companyName;
+		this.logo = logo;
+		this.logoName = logoName;
+		this.uniformNumbers = uniformNumbers;
+		this.categories = categories;
+		this.account = account;
+		this.password = password;
+		this.email = email;
+		this.phone = phone;
+		this.busRC = busRC;
+		this.busRCName = busRCName;
+		
+	}
 	public Company( String companyName, Blob logo, String logoName, String uniformNumbers, Integer categories,
 			String account, String password, String email, String phone, Blob busRC, String busRCName
 			) {
@@ -237,8 +256,13 @@ public class Company {
 	public void setBusRCName(String busRCName) {
 		this.busRCName = busRCName;
 	}
-	
-	
-	
+
+	public Set<Campaign> getCampaigns() {
+		return campaigns;
+	}
+
+	public void setCampaigns(Set<Campaign> campaigns) {
+		this.campaigns = campaigns;
+	}
 	
 }

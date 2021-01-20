@@ -40,5 +40,9 @@ public interface CampaignService {
 	Long getTotalCampCountOfCompany(int companyId);
 	
 	Page<Campaign> getCampaignPageOfCompany(Page<Campaign> page,int companyId);
+	
+	void checkCampaignStatus();
+	
+	List<Campaign> getRandomCampaignbyCompany(int companyId, int count);
 
 }

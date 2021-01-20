@@ -89,18 +89,43 @@ public class CompanyDaoImpl implements CompanyDao {
 	//更新企業資訊(要多寫一個用來更改企業狀態上下架)
 	@Override
 	public boolean update(Company cmp) {
-		
+		System.out.println("1");
 		Session session = sessionFactory.getCurrentSession();
-
-		Company comp = session.get(Company.class, cmp.getId());
-		if(comp!=null) {
-			session.update(cmp);
-			System.out.println("update success");
-			return true;
-		}else {
-			System.out.println("No data can be update");
-			return false;
-		}
+		
+		System.out.println("2");
+//		String hqlstr = "UPDATE Company SET id = :newId , companyName = :newName , logo = :newLogo , logoName = :newLogoName , uniformNumbers = :newUniformNum ,categories = :newCategories , email = :newEmail ,phone = :newPhone ,busRC = :newBusRC ,busRCName = :newBusRCName WHERE id = :Cid";
+		
+		System.out.println("3");
+		Query queryObj = session.createQuery("UPDATE Company SET  companyName = :newName , logo = :newLogo , logoName = :newLogoName , uniformNumbers = :newUniformNum ,categories = :newCategories , email = :newEmail ,phone = :newPhone ,busRC = :newBusRC ,busRCName = :newBusRCName WHERE id = :Cid")
+		.setParameter("Cid", cmp.getId())
+		.setParameter("newName", cmp.getCompanyName())
+		.setParameter("newLogo", cmp.getLogo())
+		.setParameter("newLogoName", cmp.getLogoName())
+		.setParameter("newUniformNum", cmp.getUniformNumbers())
+		.setParameter("newCategories", cmp.getCategories())
+		.setParameter("newEmail", cmp.getEmail())
+		.setParameter("newPhone", cmp.getPhone())
+		.setParameter("newBusRC", cmp.getBusRC())
+		.setParameter("newBusRCName", cmp.getBusRCName());
+		
+		queryObj.executeUpdate();
+		return true;
+		
+		
+		////////////////////////////////////////////////////////
+//		Company comp = session.get(Company.class, cmp.getId());
+//		System.out.println(cmp.getId());
+//		
+//		
+//		if(comp!=null) {
+//			System.out.println("近來沒update");
+//			session.update(cmp);
+//			System.out.println("update success");
+//			return true;
+//		}else {
+//			System.out.println("No data can be update");
+//			return false;
+//		}
 	}
 
 	//刪除企業資料

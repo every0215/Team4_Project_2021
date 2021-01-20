@@ -54,13 +54,15 @@ public class Campaign implements Serializable {
 	private Boolean launchStatus;
 
 	private Boolean status;
-
+	
+	private Boolean expired = false;
+	
 	private Timestamp addTime;
 
 	private Timestamp updateTime;
 
 	@JoinColumn(name = "companyId")
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Company company;
 
@@ -131,20 +133,34 @@ public class Campaign implements Serializable {
 		this.startTime = sdf2.format(startDateTime.getTime());
 		this.endTime = sdf2.format(endDateTime.getTime());
 	}
+	
+	public void convertStringToTimestamp() {
+		this.startDateTime = Timestamp.valueOf(this.startDate+" "+this.startTime+":00");
+		this.endDateTime = Timestamp.valueOf(this.endDate+" "+this.endTime+":00");
+	}
 
 	// 判斷活動狀態、時間內
 	public Boolean isActive() {
-		Date date = new Date();
-		Timestamp currentTime = new Timestamp(date.getTime());
+		
+		Timestamp currentTime = new Timestamp(new Date().getTime());
 
-		if (!status) {
-			return false;
-		}
-
-		if (currentTime.compareTo(startDateTime) > 0 && currentTime.compareTo(endDateTime) < 0) {
+		if ((currentTime.compareTo(startDateTime) > 0 
+				&& currentTime.compareTo(endDateTime) < 0)
+				&& launchStatus) {
+			this.status = true;
 			return true;
 		}
-
+		return false;
+	}
+	
+	public Boolean isExpired() {
+		if(status) {
+			Timestamp currentTime = new Timestamp(new Date().getTime());
+			if(currentTime.compareTo(endDateTime) > 0){
+				this.expired = true;
+				return true;
+			}		
+		}
 		return false;
 	}
 
@@ -280,4 +296,12 @@ public class Campaign implements Serializable {
 		this.endTime = endTime;
 	}
 
+	public Boolean getExpired() {
+		return expired;
+	}
+
+	public void setExpired(Boolean expired) {
+		this.expired = expired;
+	}
+	
 }

@@ -76,7 +76,7 @@
         <form id="campForm" action="${pageContext.request.contextPath}/campaign/insert" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">活動名稱:</label>
-                <input type="text" class="form-control need" id="name" name="name" value="" >
+                <input type="text" class="form-control need" id="name" name="name" value="${camp.name}" >
             </div>
 
             <div class="form-group">
@@ -108,14 +108,14 @@
             
             <div class="form-group">
                 <label for="strdate">開始時間:</label>
-                <input type="date" name="startDate" id="strDate" class="form-control" > 
+                <input type="date" name="startDate" id="strDate" class="form-control"> 
                 <input type="time" name="startTime" class="form-control need" value="00:00">
 
             </div>
 
             <div class="form-group">
                 <label for="usr">結束時間:</label>
-                <input type="date"  id="endDate" name="endDate" class="form-control" value=""> 
+                <input type="date"  id="endDate" name="endDate" class="form-control"> 
                 <input type="time" name="endTime" class="form-control need" value="00:00">
 
             </div>
@@ -211,7 +211,7 @@
                             'success'
                         );
                         
-                        setTimeout(()=>{$("#campForm").submit()},2000) 
+                        setTimeout(()=>{$("#campForm").submit()},1000) 
                         
                     })
 
@@ -269,13 +269,16 @@
             //獲取當前日期
             function setDate () {
                 var strDate = document.querySelector("#strDate");
-                var endDate = document.querySelector("#endDate");                 
-                var today = new Date();
-                console.log(today.toISOString());
-                today.setDate(today.getDate()+1);
-                strDate.value = today.toISOString().substr(0, 10);
-                today.setDate(today.getDate()+1);
-                endDate.value = today.toISOString().substr(0, 10);
+                var endDate = document.querySelector("#endDate"); 
+                if(strDate.value == "" && endDate.value == ""){
+                	console.log(111)
+                	var today = new Date();
+                    console.log(today.toISOString());
+                    today.setDate(today.getDate()+1);
+                    strDate.value = today.toISOString().substr(0, 10);
+                    today.setDate(today.getDate()+1);
+                    endDate.value = today.toISOString().substr(0, 10);
+                }          
             }
 
             
