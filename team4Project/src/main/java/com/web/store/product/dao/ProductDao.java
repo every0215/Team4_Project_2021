@@ -3,16 +3,17 @@ package com.web.store.product.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.web.store.product.model.ProductBean;
+import com.web.store.product.model.Product;
+
 
 
 public interface ProductDao {
-	List<ProductBean> selectAll();
-	List<ProductBean> selectbyid(int id);
-	List<ProductBean> selectbystoreid(int storeId);	
+	List<Product> selectAll();
+	List<Product> selectbyid(int id);
+	List<Product> selectbystoreid(int storeId);	
 	
-	int insert(ProductBean pb) throws SQLException;
+	int insert(Product pb) throws SQLException;
 	int deletebyid(int id) throws SQLException;
-	int alterbyid(ProductBean pb) throws SQLException;
+	int alterbyid(Product pb) throws SQLException;
 	
 }

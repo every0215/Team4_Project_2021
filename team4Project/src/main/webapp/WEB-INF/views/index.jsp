@@ -11,7 +11,7 @@
 <!--   企業登入連結 -->
 <!--   企業登入連結 -->
 <!--   企業登入連結 -->
-<a href="<c:url value='/ProductView' />">商品 </a><br>
+
   <a href="<c:url value='/CmpLog' />">企業登入 </a><br>
   
    <!-- wpf loader Two -->

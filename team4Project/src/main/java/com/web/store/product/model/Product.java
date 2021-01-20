@@ -12,8 +12,8 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "product")
-public class ProductBean implements Serializable{
+@Table(name = "Product")
+public class Product implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -27,8 +27,8 @@ public class ProductBean implements Serializable{
 	private String productDescript;
 	@Column(name= "CompanyName")
 	private String companyName;
-	@Column(name= "Productstuck")
-	private int productstuck;
+	@Column(name= "productStuck")
+	private int productStuck;
 	@Column(name= "ProductPrice")
 	private int productPrice;
 	@Column(name= "StoreID")
@@ -38,31 +38,31 @@ public class ProductBean implements Serializable{
 	@Column(name= "ProductPic")
 	private Blob productPic;
 	
-	public  ProductBean(){
+	public  Product(){
 		
 	}
-	public  ProductBean(int productId,String productName,String productType,String productDescript,
-			String companyName,int productstuck,int productPrice,int storeID,int discount,Blob productPic
+	public  Product(int productId,String productName,String productType,String productDescript,
+			String companyName,int productStuck,int productPrice,int storeID,int discount,Blob productPic
 			){
 		this.productId = productId;
 		this.productName =productName;
 		this.productType = productType;
 		this.productDescript = productDescript;
-		this.productstuck= productstuck;
+		this.productStuck= productStuck;
 		this.productPrice =productPrice;
 		this.storeID=storeID;
 		this.discount=discount; 
 		this.productPic=productPic; 
 		this.companyName=companyName;
 	}
-	public  ProductBean(String productName,String productType,String productDescript,
-			String companyName,int productstuck,int productPrice,int storeID,int discount,Blob productPic
+	public  Product(String productName,String productType,String productDescript,
+			String companyName,int productStuck,int productPrice,int storeID,int discount,Blob productPic
 			){
 		
 		this.productName =productName;
 		this.productType = productType;
 		this.productDescript = productDescript;
-		this.productstuck= productstuck;
+		this.productStuck= productStuck;
 		this.productPrice =productPrice;
 		this.storeID=storeID;
 		this.discount=discount; 
@@ -99,11 +99,11 @@ public class ProductBean implements Serializable{
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	public int getproductstuck() {
-		return productstuck;
+	public int getproductStuck() {
+		return productStuck;
 	}
-	public void setproductstuck(int productstuck) {
-		this.productstuck = productstuck;
+	public void setproductStuck(int productStuck) {
+		this.productStuck = productStuck;
 	}
 	public int getproductPrice() {
 		return productPrice;

@@ -12,42 +12,43 @@ import org.springframework.stereotype.Repository;
 import com.web.store.campaign.model.Campaign;
 import com.web.store.company.model.Company;
 import com.web.store.product.dao.ProductDao;
-import com.web.store.product.model.ProductBean;
+import com.web.store.product.model.Product;
 @Repository
 public class ProductDaoimpl implements ProductDao {
 	@Autowired
 	SessionFactory sessionFactory;
 	
-	public List<ProductBean> selectAll(){
+	public List<Product> selectAll(){
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "from Product";
-		Query<ProductBean> queryObj = session.createQuery(hqlstr,ProductBean.class); 			
+		Query<Product> queryObj = session.createQuery(hqlstr,Product.class); 			
 		return queryObj.list();	
 	}
 		
 	
-	public List<ProductBean> selectbyid(int ProductId){
+	public List<Product> selectbyid(int ProductId){
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "from Product where ProductId=:ProductId";
-		Query<ProductBean> queryObj = session.createQuery(hqlstr,ProductBean.class);
+		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
 		return queryObj.setParameter("ProductId", ProductId).list();
 		
 	};
-	public List<ProductBean> selectbystoreid(int storeId){
+	public List<Product> selectbystoreid(int storeId){
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "from Product where storeId=:storeId";
-		Query<ProductBean> queryObj = session.createQuery(hqlstr,ProductBean.class);
+		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
 		return queryObj.setParameter("storeId", storeId).list();
 		
 	}
-	public int insert(ProductBean pb) throws SQLException{
+	
+	public int insert(Product pb) throws SQLException{
 		Session session = sessionFactory.getCurrentSession();
 		session.save(pb);
 		return 1;
 	}
 	public int deletebyid(int id) throws SQLException{
 		Session session = sessionFactory.getCurrentSession();
-		ProductBean pb = session.get(ProductBean.class, id);
+		Product pb = session.get(Product.class, id);
 		if(pb!=null) {
 			session.delete(pb);
 			return 1;
@@ -55,11 +56,11 @@ public class ProductDaoimpl implements ProductDao {
 		else return 0;
 		
 	}
-	public int alterbyid(ProductBean pb) throws SQLException{
+	public int alterbyid(Product pb) throws SQLException{
 		Session session = sessionFactory.getCurrentSession();
 		
 	
-		ProductBean pbg = session.get(ProductBean.class, pb.getproductId());
+		Product pbg = session.get(Product.class, pb.getproductId());
 		if(pbg!=null) {
 			session.update(pbg);
 			System.out.println("11111");

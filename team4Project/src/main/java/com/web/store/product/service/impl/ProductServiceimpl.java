@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.web.store.product.dao.ProductDao;
-import com.web.store.product.model.ProductBean;
+import com.web.store.product.model.Product;
 import com.web.store.product.service.ProductService;
 
 @Service
@@ -21,25 +21,25 @@ public class ProductServiceimpl implements ProductService {
 	ProductDao productDao;
 
 	@Override
-	public List<ProductBean> selectAll() {
+	public List<Product> selectAll() {
 
 		return productDao.selectAll();
 	}
 
 	@Override
-	public List<ProductBean> selectbyid(int ProductId) {
+	public List<Product> selectbyid(int ProductId) {
 		return productDao.selectbyid(ProductId);
 
 	};
 
 	@Override
-	public List<ProductBean> selectbystoreid(int storeId) {
+	public List<Product> selectbystoreid(int storeId) {
 
 		return productDao.selectbystoreid(storeId);
 	}
 
 	@Override
-	public int insert(ProductBean pb) throws SQLException {
+	public int insert(Product pb) throws SQLException {
 
 		return productDao.insert(pb);
 	}
@@ -51,7 +51,7 @@ public class ProductServiceimpl implements ProductService {
 	}
 
 	@Override
-	public int alterbyid(ProductBean pb) throws SQLException {
+	public int alterbyid(Product pb) throws SQLException {
 		return productDao.alterbyid(pb);
 
 	}
