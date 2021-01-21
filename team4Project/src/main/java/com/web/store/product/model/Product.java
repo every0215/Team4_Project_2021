@@ -18,7 +18,7 @@ public class Product implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name= "ProductId")
-	private int productId;
+	private Integer productId;
 	@Column(name= "ProductName")
 	private String productName;
 	@Column(name= "ProductType")
@@ -28,35 +28,35 @@ public class Product implements Serializable{
 	@Column(name= "CompanyName")
 	private String companyName;
 	@Column(name= "productStuck")
-	private int productStuck;
+	private Integer productStuck;
 	@Column(name= "ProductPrice")
-	private int productPrice;
-	@Column(name= "StoreID")
-	private int storeID;
+	private Integer productPrice;
+	
 	@Column(name= "Discount")
-	private int discount;
+	private Integer discount;
 	@Column(name= "ProductPic")
 	private Blob productPic;
-	
+	@Column(name= "Status")
+	private Integer status;
 	public  Product(){
 		
 	}
-	public  Product(int productId,String productName,String productType,String productDescript,
-			String companyName,int productStuck,int productPrice,int storeID,int discount,Blob productPic
-			){
+	public  Product(Integer productId,String productName,String productType,String productDescript,
+			String companyName,Integer productStuck,Integer productPrice,Integer discount,Blob productPic
+			,Integer status){
 		this.productId = productId;
 		this.productName =productName;
 		this.productType = productType;
 		this.productDescript = productDescript;
 		this.productStuck= productStuck;
 		this.productPrice =productPrice;
-		this.storeID=storeID;
 		this.discount=discount; 
 		this.productPic=productPic; 
 		this.companyName=companyName;
+		this.status=status;
 	}
 	public  Product(String productName,String productType,String productDescript,
-			String companyName,int productStuck,int productPrice,int storeID,int discount,Blob productPic
+			String companyName,Integer productStuck,Integer productPrice,Integer discount,Blob productPic
 			){
 		
 		this.productName =productName;
@@ -64,15 +64,15 @@ public class Product implements Serializable{
 		this.productDescript = productDescript;
 		this.productStuck= productStuck;
 		this.productPrice =productPrice;
-		this.storeID=storeID;
+		
 		this.discount=discount; 
 		this.productPic=productPic; 
 		this.companyName=companyName;
 	}
-	public int getproductId() {
+	public Integer getproductId() {
 		return productId;
 	}
-	public void setproductId(int productId) {
+	public void setproductId(Integer productId) {
 		this.productId = productId;
 	}
 	public String getproductName() {
@@ -99,28 +99,23 @@ public class Product implements Serializable{
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	public int getproductStuck() {
+	public Integer getproductStuck() {
 		return productStuck;
 	}
-	public void setproductStuck(int productStuck) {
+	public void setproductStuck(Integer productStuck) {
 		this.productStuck = productStuck;
 	}
-	public int getproductPrice() {
+	public Integer getproductPrice() {
 		return productPrice;
 	}
-	public void setproductPrice(int productPrice) {
+	public void setproductPrice(Integer productPrice) {
 		this.productPrice = productPrice;
 	}
-	public int getstoreID() {
-		return storeID;
-	}
-	public void setstoreID(int storeID) {
-		this.storeID = storeID;
-	}
-	public int getdiscount() {
+	
+	public Integer getdiscount() {
 		return discount;
 	}
-	public void setdiscount(int discount) {
+	public void setdiscount(Integer discount) {
 		this.discount = discount;
 	}
 	public Blob getproductPic() {
@@ -128,5 +123,11 @@ public class Product implements Serializable{
 	}
 	public void setproductPic(Blob productPic) {
 		this.productPic = productPic;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 }
