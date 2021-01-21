@@ -39,7 +39,6 @@ public class ProductController {
 	@Autowired
 	ServletContext context;
 	
-	
 	@RequestMapping("/ProductIndex")
 	public String ProductView(Model model) {
 		List<Product> list = pService.selectAll();
@@ -47,7 +46,7 @@ public class ProductController {
 			System.out.println(pb.getproductName());
 		}
 		model.addAttribute("ProductList", list);
-		return "ProductIndex";
+		return "/product/ProductIndex";
 	}
 
 	@ModelAttribute("Product")
