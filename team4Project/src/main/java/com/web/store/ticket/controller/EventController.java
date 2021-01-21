@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.web.store.company.model.Company;
 import com.web.store.ticket.model.Attraction;
 import com.web.store.ticket.model.Bank;
 import com.web.store.ticket.model.CreditCard;
@@ -58,8 +59,8 @@ public class EventController {
 	@Autowired
 	ServletContext context;
 	
-	final static String DATE_FORMAT = "yyyy-MM-dd";
-	final static String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+//	final static String DATE_FORMAT = "yyyy-MM-dd";
+//	final static String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	
 	@GetMapping(value="/combobox",produces = {"application/json; charset=UTF-8"})
 	public @ResponseBody ArrayList<Bank> combobox() {
@@ -172,7 +173,9 @@ public class EventController {
 //			@PathVariable int companyId,
 			Model model
 			) {
-		ArrayList<Event> events = backendService.queryAll(1);
+		Company company = (Company)model.getAttribute("company");
+		int companyId = company.getId();
+		ArrayList<Event> events = backendService.queryAll(companyId);
 		model.addAttribute("events", events);
 		return "/ticket/TicketIndex";
 	}
@@ -209,8 +212,9 @@ public class EventController {
 			@RequestParam(value="id",required=false) Integer id, 
 			@RequestParam(value="typeId") Integer typeId, 
 			@RequestParam(value="eventName") String eventName, 
-			@RequestParam(value="eventLocation")String eventLocation, 
-			@RequestParam(value="companyId")Integer companyId,
+			@RequestParam(value="eventLocation")String eventLocation,
+			Model model,
+//			@RequestParam(value="companyId")Integer companyId,
 			@RequestParam(value="eventImage")MultipartFile eventImage,
 			
 			@RequestParam(value="exhibitionId",required=false)Integer exhibitionId,
@@ -232,7 +236,8 @@ public class EventController {
 		try {
 			Blob blob = new javax.sql.rowset.serial.SerialBlob(bytes);
 			String imageName = eventImage.getOriginalFilename();
-				
+			Company company = (Company)model.getAttribute("company");
+			int companyId = company.getId();
 				if(id==null) {
 					Map<String, Object> map = addEx(typeId,eventName,eventLocation,companyId,blob,imageName, onSaleDate,offSaleDate,commDate,dueDate,description,cardId,discountRatio,priceName,priceCost);		
 					Event event = (Event) map.get("event");
@@ -280,7 +285,8 @@ public class EventController {
 			@RequestParam(value="typeId") Integer typeId, 
 			@RequestParam(value="eventName") String eventName, 
 			@RequestParam(value="eventLocation")String eventLocation, 
-			@RequestParam(value="companyId")Integer companyId,
+			Model model,
+//			@RequestParam(value="companyId")Integer companyId,
 			@RequestParam(value="eventImage")MultipartFile eventImage,
 			
 			@RequestParam(value="attractionId",required=false)Integer attractionId,
@@ -297,7 +303,8 @@ public class EventController {
 		try {
 			Blob blob = new javax.sql.rowset.serial.SerialBlob(bytes);
 			String imageName =eventImage.getOriginalFilename();
-//			System.out.println("====================="+imageName);
+			Company company = (Company)model.getAttribute("company");
+			int companyId = company.getId();
 				
 			if(id==null) {
 				Map<String, Object> map = addAt(typeId,eventName,eventLocation,companyId,blob,imageName,onSaleDate,offSaleDate,commDate,dueDate,description,priceName,priceCost);		
@@ -332,9 +339,10 @@ public class EventController {
 			@RequestParam(value="id",required=false) Integer id,
 			@RequestParam(value="typeId") Integer typeId, 
 			@RequestParam(value="eventName") String eventName, 
-			@RequestParam(value="eventLocation")String eventLocation, 
+			@RequestParam(value="eventLocation")String eventLocation,
+			Model model,
 			@RequestParam(value="eventImage")MultipartFile eventImage,
-			@RequestParam(value="companyId")Integer companyId,
+//			@RequestParam(value="companyId")Integer companyId,
 			
 			@RequestParam(value="sportId",required=false)Integer sportId,
 			@RequestParam(value="onSaleDate")String onSaleDate,
@@ -353,8 +361,8 @@ public class EventController {
 		try {
 			Blob blob = new javax.sql.rowset.serial.SerialBlob(bytes);
 			String imageName = eventImage.getOriginalFilename();
-//			System.out.println("@@@@@@@@@@@@imageName: " + imageName);
-			
+			Company company = (Company)model.getAttribute("company");
+			int companyId = company.getId();
 			if(id==null) {
 				Map<String, Object> map = addSp(typeId,eventName,eventLocation,companyId,blob,imageName, onSaleDate,offSaleDate,description,cardId,discountRatio,priceName,priceCost,kickOfTime,seatNo);		
 				Event event = (Event) map.get("event");

@@ -44,7 +44,7 @@
 				<input type="text" name="eventName" required="required" value='${event.eventName}'><br><br>
 				<label class="t1" for="">景點地點:</label>
 				<input type="text" name="eventLocation" required="required" value='${event.eventLocation}'><br><br>
-				<input type="hidden" name="companyId" value="1" />
+				
 				<label class="t1" for="">景點宣傳圖片:</label>
 				<input id="image_input" type="file" name="eventImage"><br><br>
 
