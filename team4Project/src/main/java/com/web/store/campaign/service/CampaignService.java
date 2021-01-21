@@ -27,8 +27,6 @@ public interface CampaignService {
 
 	int getTotalPageByCompanyId(int id);
 
-	List<Campaign> getSinglePageResultByCompayId(int page, int companyId);
-
 	int deleteById(int id);
 
 	int update(Campaign camp);
@@ -44,5 +42,7 @@ public interface CampaignService {
 	void checkCampaignStatus();
 	
 	List<Campaign> getRandomCampaignbyCompany(int companyId, int count);
+	
+	Page<Campaign> getActiveCampaignPageByCompany(Page<Campaign> page,int companyId);
 
 }
