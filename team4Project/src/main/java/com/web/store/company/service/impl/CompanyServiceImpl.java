@@ -55,4 +55,9 @@ public class CompanyServiceImpl implements CompanyService {
 		return cmpDao.update(cmp);
 	}
 
+	@Override
+	public Company getCompanyById(Integer id) {
+		return cmpDao.getCompanyById(id);
+	}
+
 }
