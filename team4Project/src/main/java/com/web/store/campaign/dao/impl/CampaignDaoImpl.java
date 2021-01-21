@@ -158,9 +158,8 @@ public class CampaignDaoImpl implements CampaignDao {
 					query.setParameter("launchStatus", false);
 					break;
 				case 3:
-					hql += "and startDateTime<:current and endDateTime>:current ";
+					hql += "and status=true and expired=false ";
 					query = session.createQuery(hql,Campaign.class);
-					query.setParameter("current", new Date());
 					break;
 			}
 			
@@ -182,9 +181,8 @@ public class CampaignDaoImpl implements CampaignDao {
 					query.setParameter("launchStatus", false);
 					break;
 				case 3:
-					hql += "and startDateTime<:current and endDateTime>:current ";
+					hql += "and status=true and expired=false ";
 					query = session.createQuery(hql,Campaign.class);
-					query.setParameter("current", new Date());
 					break;
 			}
 			query.setParameter("searchStr", "%"+searchStr+"%");

@@ -147,7 +147,7 @@
         </div> 
         
         <div class="functionBar">
-            <button class="btn btn-primary" onclick="location.href='<c:url value="/campaign/showCampaign/${1}/1"/>'">返回</button>
+            <button class="btn btn-primary" onclick="window.history.go(-2)">返回</button>
         </div>
     </div>
 </body>
