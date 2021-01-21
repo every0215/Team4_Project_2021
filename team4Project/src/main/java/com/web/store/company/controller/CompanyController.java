@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.http.HttpResponse;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -27,15 +28,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.store.campaign.model.Campaign;
 import com.web.store.company.model.Company;
+import com.web.store.company.model.Store;
 import com.web.store.company.service.CompanyService;
+import com.web.store.company.service.StoreService;
+import com.web.store.ticket.model.Event;
 
 
 @Controller
@@ -44,6 +51,9 @@ public class CompanyController {
 	
 	@Autowired
 	CompanyService cmpService;
+	
+	@Autowired
+	StoreService stoService;
 	
 	@Autowired
 	ServletContext context;
@@ -58,9 +68,10 @@ public class CompanyController {
 			@RequestParam String password,
 			@RequestParam String phone,
 			@RequestParam String email,
-			@RequestParam(value="logo",required=false)MultipartFile logo,
-			@RequestParam(value="busRC",required=false)MultipartFile busRC
+			@RequestParam(value="brand",required=false)MultipartFile logo,
+			@RequestParam(value="busR",required=false)MultipartFile busRC,
 //			HttpServletResponse response
+			SessionStatus sessionStatus
 			) throws IOException {
 		
 		/////////////////存圖片轉成Byte陣列////////////////////
@@ -90,6 +101,70 @@ public class CompanyController {
 		  }
 		  
 		/////////////////存圖片轉成Byte陣列////////////////////
+		//密碼洩漏問題
+		sessionStatus.setComplete();
+		return "redirect:/index";
+		
+		
+	}
+	////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////
+	@PostMapping(value="/updateCompany")
+	public String updateCompany(
+			@RequestParam Integer id,
+			@RequestParam String companyName,
+			@RequestParam String uniformNumbers,
+			@RequestParam Integer categories,
+			@RequestParam String account,
+			@RequestParam String password,
+			@RequestParam String phone,
+			@RequestParam String email,
+			@RequestParam(value="logoA",required=false)MultipartFile logo,
+			@RequestParam(value="busRCA",required=false)MultipartFile busRC,
+//			HttpServletResponse response
+			//
+			SessionStatus sessionStatus,
+			Model model
+			) throws IOException {
+		System.out.println("HELLO");
+		sessionStatus.setComplete();
+		
+		
+		/////////////////存圖片轉成Byte陣列////////////////////
+		
+		//用getBytes方法把上傳的MultipartFile logo 轉成 byte[]
+		byte[] logoB = logo.getBytes();
+		byte[] busRCB = busRC.getBytes();
+		
+		try {
+			//再把Byte[]轉成Blob物件
+			Blob logoblob = new javax.sql.rowset.serial.SerialBlob(logoB);
+			Blob busRCblob = new javax.sql.rowset.serial.SerialBlob(busRCB);
+			//取得logo 的Filename
+			String logoName = logo.getOriginalFilename();
+			String busRCName = busRC.getOriginalFilename();
+			//得到的參數塞到建構子                     Blob物件  Filename
+			Company cmp = new Company(id,companyName,logoblob,logoName,uniformNumbers,categories,account,password,email,phone,busRCblob,busRCName);
+			//呼叫Service更新資料庫
+//			System.out.println(cmp);
+			cmpService.updateCompany(cmp);
+			//更新之後要重設Session
+			model.addAttribute("company", cmp);
+		} catch (SerialException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		/////////////////存圖片轉成Byte陣列////////////////////
 		
 		return "/index";
 		
@@ -100,7 +175,7 @@ public class CompanyController {
 		return "\\company\\ShowCompanyInfo";
 	}
 	//輸出圖片
-	@GetMapping(value = "/getimage/{account}")
+	@GetMapping(value = "/getCompanyimage/{account}")
 	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable String account) {
 		String filePath = "/images/NoImage.jpg";
 
@@ -178,7 +253,8 @@ public class CompanyController {
 		if(cmp!= null) {
 //			setCompany(cmp);
 			model.addAttribute("company", cmp);//直接這樣子就可以
-			return "/crm/backOffice";
+			System.out.println("controller");
+			return "redirect:/crm/backOffice";
 		}else {
 			return "/company/CompanyLogin";
 		}	
@@ -195,12 +271,18 @@ public class CompanyController {
 	    public Company setCompany(Company cmp) {
 	        return cmp;
 	}
+	//登出
+	@GetMapping(value="/Logout")
+	public String Logout(SessionStatus sessionStatus) {
+		sessionStatus.setComplete();
+		return "/index";
+	}
 	 
 	///////////////////////////////////////企業登入///////////////////////////////////////////
 	///////////////////////////////////////秀合作企業///////////////////////////////////////////
-	//未實作
+	//秀合作企業
 	@RequestMapping("/showCompany")
-	public String list(Model model) {
+	public String showCompany(Model model) {
 
 		List<Company> list = cmpService.getAllCompany();
 		for(Company cmp:list) {
@@ -210,5 +292,38 @@ public class CompanyController {
 		return "/company/ShowCompany";
 	}
 	///////////////////////////////////////秀合作企業///////////////////////////////////////////
+	
+	@GetMapping("/CompanyInfo")
+	public String companyInfo() {
+		return "/company/CompanyRegister";
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	
+	@GetMapping(value="/ShowStore")
+	public String showAllStore(
+			Model model
+			) {
+		
+		List<Store> sto = stoService.getAllStore();
+		model.addAttribute("store", sto);
+		return "/company/ShowStore";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

@@ -131,16 +131,6 @@ public class CampaignDaoImpl implements CampaignDao {
 	}
 
 	@Override
-	public List<Campaign> getSinglePageResultByCompanyId(int page, int compayId) {
-		String hql = "FROM Campaign where companyId=:companyId";
-		Session session = sessionFactory.getCurrentSession();
-		Query<Campaign> query = session.createQuery(hql,Campaign.class).setParameter("companyId", compayId).setMaxResults(RESULT_PER_PAGE).setFirstResult((page-1)*RESULT_PER_PAGE);
-		List<Campaign> list = query.list();
-
-		return list;
-	}
-
-	@Override
 	public Page<Campaign> serchCampaignOfCompany(int companyId, SearchBean search, Page<Campaign> page) {
 		
 		String searchStr = search.getSearchStr();
@@ -232,13 +222,45 @@ public class CampaignDaoImpl implements CampaignDao {
 		String hql2 = "FROM Campaign WHERE companyId=:companyId";
 		Session session = sessionFactory.getCurrentSession();
 		int totalPage = (int)Math.ceil((long)session.createQuery(hql).setParameter("companyId", companyId).uniqueResult()/(double)page.getPageSize());
-		List<Campaign> camps = session.createQuery(hql2,Campaign.class).setParameter("companyId", companyId).setMaxResults(page.getPageSize()).setFirstResult((page.getCurrentPage()-1)*page.getPageSize()).list();
+		List<Campaign> camps = session.createQuery(hql2,Campaign.class)
+									  .setParameter("companyId", companyId)
+									  .setMaxResults(page.getPageSize())
+									  .setFirstResult((page.getCurrentPage()-1)*page.getPageSize())
+									  .list();
 		page.setContent(camps);
 		page.setTotalpage(totalPage);
 		page.setTotalResultCount((int)(long)getTotalCampCountOfCompany(companyId));
 		return page;
 	}
 
-	
+	@Override
+	public List<Campaign> getRandomCampaignbyCompany(int companyId, int count) {
+		String hql = "From Campaign Where status=true "
+				+ "and expired=false "
+				+ "and companyId=:companyId "
+				+ "ORDER BY NEWID()";
+		Session session = sessionFactory.getCurrentSession();
+		Query<Campaign> query = session.createQuery(hql,Campaign.class);
+		query.setParameter("companyId", companyId)
+		.setMaxResults(count);
+		return query.list();
+	}
+
+	@Override
+	public Page<Campaign> getActiveCampaignPageByCompany(Page<Campaign> page, int companyId) {
+		String hql = "From Campaign Where status=true "
+				+ "and expired=false "
+				+ "and companyId=:companyId";
+		String hql2 = "SELECT COUNT(*) " + hql;
+		Session session = sessionFactory.getCurrentSession();
+		Query<Campaign> query = session.createQuery(hql,Campaign.class);
+		List<Campaign> list = query.setParameter("companyId", companyId)
+		.setMaxResults(page.getPageSize()).setFirstResult(page.getCurrentPage()-1).list();
+		Integer totalPage = (int)(long)session.createQuery(hql2).setParameter("companyId", companyId).uniqueResult();
+		page.setContent(list);
+		page.setTotalpage(totalPage);
+		return page;
+	}
+
 	
 }

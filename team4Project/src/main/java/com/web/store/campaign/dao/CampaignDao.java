@@ -19,14 +19,16 @@ public interface CampaignDao {
 	Page<Campaign> serchCampaignOfCompany(int companyId,SearchBean search,Page<Campaign> page);
 
 	Campaign getCampaignById(int campId);
+	
+	List<Campaign> getRandomCampaignbyCompany(int companyId,int count);
+	
+	Page<Campaign> getActiveCampaignPageByCompany(Page<Campaign> page ,int companyId);
 
 	List<Campaign> getAllCampaign();
 	
 	List<Campaign> getCampaignByCompanyId(int companyId);
 	
 	List<Campaign> getCampaignByLaunchStatus(boolean launchStatus);
-	
-	List<Campaign> getSinglePageResultByCompanyId(int page,int compayId);
 	
 	Page<Campaign> getPageByCompanyId(Page<Campaign> page,int companyId);
 	
@@ -37,4 +39,5 @@ public interface CampaignDao {
 	int getTotalPageByCompanyId(int id);
 	
 	int deleteById(int id);	
+	
 }

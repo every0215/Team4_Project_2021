@@ -128,7 +128,7 @@ select option[value="0"] {
 			    data: {todo:"ajaxexample1"}, 
 			    success: function(data){
 			    	bankInfo = data;
-			    	console.log(bankInfo)
+//			    	console.log(bankInfo)
 			    }
 			});
 			

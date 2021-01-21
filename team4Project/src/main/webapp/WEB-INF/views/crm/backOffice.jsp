@@ -109,7 +109,7 @@
                                 <li><a href="#" target="_blank"><i class="fa fa-long-arrow-left fa-fw" aria-hidden="true"></i>聯絡我們</a></li>
                             </ul>
                         </li>
-                        <li><a href="#"><i class="fa fa-sign-out fa-3x"></i></a></li>
+                        <li><a href="<c:url value='/Logout' />"><i class="fa fa-sign-out fa-3x"></i></a></li>
                     </ul>
 
 
@@ -140,7 +140,8 @@
                         </a>
                     </li>
                     <li class="treeview">
-                        <a href="TicketIndex">
+                        <a href="<c:url value='/TicketIndex' />">
+                        
                             <i class="fa fa-ticket"></i>
                             <span>票券管理</span>
                         </a>
@@ -152,7 +153,8 @@
                     </li>
 
                     <li class="treeview">
-                        <a href="reportindex">
+                        <a href="<c:url value='/reportindex' />">
+                        
                             <i class="fa fa-files-o"></i>
                             <span>報表管理</span>
                         </a>
@@ -185,8 +187,12 @@
 		<a href="<c:url value='/CompanyInfo' />">修改企業資訊 </a>
 		</div>
 		<div  style="top:500px;left:600px;background-color:yellow">
-		<a href="<c:url value='/Logout' />">登出 </a>
+		<a href="<c:url value='XXX' />">新增企業簡介 </a>
 		</div>
+		<div  style="top:500px;left:600px;background-color:yellow">
+		<a href="<c:url value='XXX' />">新增企業服務 </a>
+		</div>
+		
         <!-- Right side column. Contains the navbar and content of the page -->
 
         <!-- /.content-wrapper -->

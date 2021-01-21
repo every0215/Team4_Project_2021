@@ -154,8 +154,8 @@
 					</c:if>
 					
                     <c:if test="${!camp.launchStatus}">
-						<input type="radio" class="form-check-input " name="launchStatus" value="true" checked>上架 
-                    	<input type="radio" class="form-check-input" name="launchStatus" value="false" >下架
+						<input type="radio" class="form-check-input " name="launchStatus" value="true" >上架 
+                    	<input type="radio" class="form-check-input" name="launchStatus" value="false" checked>下架
 					</c:if>
                 </label>
             </div>
@@ -171,7 +171,7 @@
             </div>
 
             <div class="form-group">
-            	<img style="width:300px;height:150px" src="${pageContext.request.contextPath}/campaign/pic/${camp.id}"/><br>
+            	<img style="width:300px;height:150px" src="${camp.picturePath}"/><br>
                 <label for="fileUpload">活動圖檔:</label>
                 <input class="form-control" id="fileUpload" name="picture" type="file">
 
@@ -225,7 +225,7 @@
                     })
                 } else {
                     swal({
-                        title: '確認新增',
+                        title: '確認修改',
                         text: '請您確認活動內容後按確定',
                         type: 'warning',
                         showCancelButton: true,

@@ -6,11 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BaseController {
 	
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
-	
 	@GetMapping("/ticket/InputPageEX")
 	public String InputPageEX() {
 		return "ticket/InputPageEX";
@@ -39,6 +34,21 @@ public class BaseController {
 	@GetMapping("/ticket/ShowPageSP")
 	public String ShowPageSP() {
 		return "ticket/ShowPageSP";
+	}
+	
+	@GetMapping("/ticket/CTicketIndex")
+	public String TestTicketIndex() {
+		return "ticket/CTicketIndex";
+	}
+	
+	@GetMapping("/ticket/CTicketShow")
+	public String TestTicketShow() {
+		return "ticket/CTicketShow";
+	}
+	
+	@GetMapping("/ticket/CTicketSort")
+	public String TestTicketSort() {
+		return "ticket/CTicketSort";
 	}
 	
 }

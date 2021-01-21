@@ -174,5 +174,15 @@ public class CompanyDaoImpl implements CompanyDao {
 			return null;
 		}
 	}
+
+	@Override
+	public Company getCompanyById(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Company where Id = :id";
+		Query<Company> queryObj = session.createQuery(hqlstr,Company.class);
+		queryObj.setParameter("id", id);
+		return queryObj.uniqueResult();
+		
+	}
 	
 }

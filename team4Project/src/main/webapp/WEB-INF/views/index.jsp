@@ -11,8 +11,7 @@
 <!--   企業登入連結 -->
 <!--   企業登入連結 -->
 <!--   企業登入連結 -->
-
-  <a href="<c:url value='/CmpLog' />">企業登入 </a><br>
+ 
   
    <!-- wpf loader Two -->
     <div id="wpf-loader-two">
@@ -159,7 +158,8 @@
 		</div>
 	</div>
 	<!-- / Promo section -->
-	<a href="<c:url value='/CmpRegi' />">企業註冊</a>
+
+ <a href="<c:url value='/ShowStore' />">門市主頁 </a><br>
   <!-- Products section -->
  <section id="aa-product">
     <div class="container">
@@ -1848,17 +1848,18 @@
       <div class="modal-content">
         <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4>Login or Register</h4>
-          <form class="aa-login-form" action="">
-            <label for="">Username or Email address<span>*</span></label>
-            <input type="text" placeholder="Username or email">
-            <label for="">Password<span>*</span></label>
-            <input type="password" placeholder="Password">
-            <button class="aa-browse-btn" type="submit">Login</button>
+          <h4>企業登入</h4>
+          <form class="aa-login-form" action="CompanyLogin" method="post">
+            <label for="">帳號(或Email)<span>*</span></label>
+            <input type="text" name="account" placeholder="Username (or email)" value="familymart">
+            <label for="">密碼<span>*</span></label>
+            <input type="password" name="password" placeholder="Password" value="123">
+            <button class="aa-browse-btn" type="submit" name="enter" >登入</button>
             <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-            <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+            <p class="aa-lost-password"><a href="#">忘記密碼</a></p>
             <div class="aa-register-now">
-              Don't have an account?<a href="account.html">Register now!</a>
+              
+              <a href="<c:url value='/CmpRegi' />">企業註冊</a>
             </div>
           </form>
         </div>
