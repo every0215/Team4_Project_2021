@@ -13,4 +13,10 @@ public class CompanyViewController {
 		System.out.println("redirect");
 		return "/crm/backOffice";
 	}
+	
+	@GetMapping("/index")
+	public String companyRegister() {
+		System.out.println("redirect");
+		return "/index";
+	}
 }

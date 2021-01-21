@@ -24,6 +24,9 @@ public interface CompanyDao {
 	
 	//update密碼by account
 	
+	//取company
+	Company getCompanyById(Integer id);
+	
 	/////////////////////登入功能////////////////////////
 	
 	/////////////////////後台功能////////////////////////

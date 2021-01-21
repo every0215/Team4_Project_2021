@@ -11,7 +11,7 @@
 <!--   企業登入連結 -->
 <!--   企業登入連結 -->
 <!--   企業登入連結 -->
-<%--   <a href="<c:url value='/CmpLog' />">企業登入 </a><br> --%>
+ 
   
    <!-- wpf loader Two -->
     <div id="wpf-loader-two">
@@ -158,7 +158,8 @@
 		</div>
 	</div>
 	<!-- / Promo section -->
-<%-- 	<a href="<c:url value='/CmpRegi' />">企業註冊</a> --%>
+
+ <a href="<c:url value='/ShowStore' />">門市主頁 </a><br>
   <!-- Products section -->
  <section id="aa-product">
     <div class="container">
