@@ -12,6 +12,7 @@ import java.net.http.HttpResponse;
 import java.sql.Blob;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -429,6 +430,30 @@ public class CampaignController {
 		campService.getActiveCampaignPageByCompany(page,companyId);
 		model.addAttribute("page", page);
 		return "/campaign/CampaignOfCompany";
+	}
+	
+	@GetMapping("/getIndexCamp")
+	public @ResponseBody List<Campaign> getCampaignOfIndex(){
+		
+		List<Campaign> resultCamps = new ArrayList<Campaign>();//要傳到首頁的活動
+		List<Campaign> AllCamps = campService.getAllCampaign();//全部活動
+		List<Campaign> activeCamp = new ArrayList<Campaign>();//進行中的活動容器
+		
+		//篩選進行中的活動
+		for(Campaign camp:AllCamps) {
+			if(camp.getStatus() && !camp.getExpired()) {
+				activeCamp.add(camp);
+			}
+		}
+		
+		//當活動數量小於6並且進行中得活動大於0則繼續取
+		while(resultCamps.size()<6 && activeCamp.size()>0) {
+			int randomNum = (int)(Math.random()*activeCamp.size());
+			resultCamps.add(activeCamp.get(randomNum));
+			activeCamp.remove(randomNum);
+		}
+		
+		return resultCamps;
 	}
 	
 	@ModelAttribute(name = "searchBean")

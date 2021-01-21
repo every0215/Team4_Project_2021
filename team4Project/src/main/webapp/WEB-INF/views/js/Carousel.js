@@ -1,6 +1,24 @@
 $(function(){
-
-    let slideNum=0;
+	
+	$.ajax({
+		url:"/proj/campaign/getIndexCamp",
+		success:function(response){		
+			var campContainer = $("#campContainer");
+			var dotContainer = $("#dotContainer");
+			console.log(campContainer);
+			campContainer.html("");
+			dotContainer.html("");
+			for(var i=0;i<response.length;i++){
+				var pathUrl = response[i].picturePath;
+				var campUrl = "";
+				var campTepl = `<li><a href='${campUrl}'><img src='${pathUrl}' alt=''></a></li>`;
+				var dotTepl = `<li id=${i+1}></li>`;
+				console.log(pathUrl);
+				campContainer.append(campTepl);
+				dotContainer.append(dotTepl);
+			}
+			
+			let slideNum=0;
     let slideCount=$(".slides li").length;
     let lastIndex=slideCount-1;
     let intervalID;
@@ -76,5 +94,9 @@ $(function(){
         },playInterval)  
 
     }
+		}
+	})
+			
+    
                        
 });

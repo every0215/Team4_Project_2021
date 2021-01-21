@@ -3,7 +3,7 @@
         } */
 
         :root {
-            --perPicHeight:400px;
+            --perPicHeight:500px;
         }
 
         .wrapper{
@@ -39,7 +39,6 @@
         ul.slides li img{
             width: 100%;
             height: 100%;
-            object-fit: cover;
         }
         .dot{
             bottom:10px;
