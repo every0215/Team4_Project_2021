@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.store.company.model.Company;
 
 @Entity
-@Table(name = "event")
+@Table(name = "Event")
 public class Event {
 	@Id
 	@Column(name = "Id")

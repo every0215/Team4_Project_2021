@@ -65,7 +65,7 @@ public class CompanyController {
 			@RequestParam(value="busR",required=false)MultipartFile busRC
 //			HttpServletResponse response
 			) throws IOException {
-		System.out.println("我要進去");
+		
 		/////////////////存圖片轉成Byte陣列////////////////////
 
 		//用getBytes方法把上傳的MultipartFile logo 轉成 byte[]
