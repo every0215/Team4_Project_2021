@@ -48,7 +48,6 @@ function ProductDelete() {
 					<th>功能</th>
 					<th>商品名稱</th>
 					<th>廠商名稱</th>
-					<th>門市編號</th>
 					<th>商品存貨</th>
 					<th>商品類別</th>
 					<th>商品價格</th>
@@ -67,12 +66,11 @@ function ProductDelete() {
 							type="button" value="刪除" onclick="ProductDelete()"></td>
 						<td>${product.productName}</td>
 						<td>${product.companyName}</td>
-						<td>${product.storeID}</td>
 						<td>${product.productStuck}</td>
 						<td>${product.productType}</td>
 						<td>${product.productPrice}</td>
 						<td>${product.discount}</td>
-						<td>${product.productPic}</td>
+						<td><img height="300px" src="<c:url value='/getProductimage/${product.productId}'/>" /></td>
 						<td>${product.productDescript}</td>
 					</tr>
 				</c:forEach>
