@@ -11,12 +11,13 @@ public interface ProductService {
 
 	List<Product> selectbyid(int ProductId);
 
-	List<Product> selectbystoreid(int storeId);
 	
 	int insert(Product pb) throws SQLException;
 
 	int deletebyid(int id) throws SQLException;
 
 	int alterbyid(Product pb) throws SQLException;
+
+	Product getProduct(String productId);
 
 }

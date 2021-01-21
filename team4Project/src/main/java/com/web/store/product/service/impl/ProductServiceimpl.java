@@ -32,11 +32,7 @@ public class ProductServiceimpl implements ProductService {
 
 	};
 
-	@Override
-	public List<Product> selectbystoreid(int storeId) {
-
-		return productDao.selectbystoreid(storeId);
-	}
+	
 
 	@Override
 	public int insert(Product pb) throws SQLException {
@@ -54,5 +50,11 @@ public class ProductServiceimpl implements ProductService {
 	public int alterbyid(Product pb) throws SQLException {
 		return productDao.alterbyid(pb);
 
+	}
+
+	@Override
+	public Product getProduct(String productId) {
+		// TODO Auto-generated method stub
+		return productDao.getProduct(productId);
 	}
 }

@@ -33,13 +33,7 @@ public class ProductDaoimpl implements ProductDao {
 		return queryObj.setParameter("ProductId", ProductId).list();
 		
 	};
-	public List<Product> selectbystoreid(int storeId){
-		Session session = sessionFactory.getCurrentSession();
-		String hqlstr = "from Product where storeId=:storeId";
-		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
-		return queryObj.setParameter("storeId", storeId).list();
-		
-	}
+	
 	
 	public int insert(Product pb) throws SQLException{
 		Session session = sessionFactory.getCurrentSession();
@@ -63,14 +57,25 @@ public class ProductDaoimpl implements ProductDao {
 		Product pbg = session.get(Product.class, pb.getproductId());
 		if(pbg!=null) {
 			session.update(pbg);
-			System.out.println("11111");
+			
 			return 1;
 		}else {
-			System.out.println("00000");
+			
 			return 0;
 		}
 	
 		
+	}
+
+
+	@Override
+	public Product getProduct(String productId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Product where productId = :productId";
+		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
+		queryObj.setParameter("ProductId", productId);
+		return queryObj.uniqueResult();
 	}
 
 
