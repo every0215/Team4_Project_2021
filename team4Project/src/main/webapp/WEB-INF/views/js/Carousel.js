@@ -67,7 +67,7 @@ $(function() {
 
 			$(".wrapper li").on({
 
-				mouseenter: () => { clearInterval(intervalID) },
+				mouseenter: () => 	{ clearInterval(intervalID) },
 				mouseleave: autoPlay,
 
 			})
