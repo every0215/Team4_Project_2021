@@ -75,11 +75,6 @@ public class CampaignServiceImpl implements CampaignService {
 	}
 
 	@Override
-	public List<Campaign> getSinglePageResultByCompayId(int page, int companyId) {
-		return campDao.getSinglePageResultByCompanyId(page, companyId);
-	}
-
-	@Override
 	public List<Campaign> getActiveCampaign(List<Campaign> list) {
 		List<Campaign> resultList = new ArrayList<Campaign>();
 		for(Campaign camp:list) {
@@ -125,6 +120,11 @@ public class CampaignServiceImpl implements CampaignService {
 	@Override
 	public List<Campaign> getRandomCampaignbyCompany(int companyId, int count) {
 		return campDao.getRandomCampaignbyCompany(companyId, count);
+	}
+
+	@Override
+	public Page<Campaign> getActiveCampaignPageByCompany(Page<Campaign> page, int companyId) {
+		return campDao.getActiveCampaignPageByCompany(page, companyId);
 	}
 		
 }

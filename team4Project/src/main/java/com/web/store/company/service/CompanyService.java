@@ -16,4 +16,6 @@ public interface CompanyService {
 	//更新企業資料
 	boolean updateCompany(Company cmp);
 	
+	Company getCompanyById(Integer id);
+	
 }

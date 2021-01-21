@@ -131,16 +131,6 @@ public class CampaignDaoImpl implements CampaignDao {
 	}
 
 	@Override
-	public List<Campaign> getSinglePageResultByCompanyId(int page, int compayId) {
-		String hql = "FROM Campaign where companyId=:companyId";
-		Session session = sessionFactory.getCurrentSession();
-		Query<Campaign> query = session.createQuery(hql,Campaign.class).setParameter("companyId", compayId).setMaxResults(RESULT_PER_PAGE).setFirstResult((page-1)*RESULT_PER_PAGE);
-		List<Campaign> list = query.list();
-
-		return list;
-	}
-
-	@Override
 	public Page<Campaign> serchCampaignOfCompany(int companyId, SearchBean search, Page<Campaign> page) {
 		
 		String searchStr = search.getSearchStr();
@@ -245,15 +235,31 @@ public class CampaignDaoImpl implements CampaignDao {
 
 	@Override
 	public List<Campaign> getRandomCampaignbyCompany(int companyId, int count) {
-		String hql = "Select TOP :count * From Table Where status=true "
+		String hql = "From Campaign Where status=true "
 				+ "and expired=false "
-				+ "and companyId=:companyId"
-				+ "and ORDER BY NEWID()";
+				+ "and companyId=:companyId "
+				+ "ORDER BY NEWID()";
 		Session session = sessionFactory.getCurrentSession();
 		Query<Campaign> query = session.createQuery(hql,Campaign.class);
-		query.setParameter("count", count)
-		.setParameter("companyId", companyId);
+		query.setParameter("companyId", companyId)
+		.setMaxResults(count);
 		return query.list();
+	}
+
+	@Override
+	public Page<Campaign> getActiveCampaignPageByCompany(Page<Campaign> page, int companyId) {
+		String hql = "From Campaign Where status=true "
+				+ "and expired=false "
+				+ "and companyId=:companyId";
+		String hql2 = "SELECT COUNT(*) " + hql;
+		Session session = sessionFactory.getCurrentSession();
+		Query<Campaign> query = session.createQuery(hql,Campaign.class);
+		List<Campaign> list = query.setParameter("companyId", companyId)
+		.setMaxResults(page.getPageSize()).setFirstResult(page.getCurrentPage()-1).list();
+		Integer totalPage = (int)(long)session.createQuery(hql2).setParameter("companyId", companyId).uniqueResult();
+		page.setContent(list);
+		page.setTotalpage(totalPage);
+		return page;
 	}
 
 	

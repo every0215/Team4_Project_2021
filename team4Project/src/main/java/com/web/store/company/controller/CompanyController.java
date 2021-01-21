@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.http.HttpResponse;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -38,7 +39,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.web.store.campaign.model.Campaign;
 import com.web.store.company.model.Company;
+import com.web.store.company.model.Store;
 import com.web.store.company.service.CompanyService;
+import com.web.store.company.service.StoreService;
+import com.web.store.ticket.model.Event;
 
 
 @Controller
@@ -47,6 +51,9 @@ public class CompanyController {
 	
 	@Autowired
 	CompanyService cmpService;
+	
+	@Autowired
+	StoreService stoService;
 	
 	@Autowired
 	ServletContext context;
@@ -62,10 +69,11 @@ public class CompanyController {
 			@RequestParam String phone,
 			@RequestParam String email,
 			@RequestParam(value="brand",required=false)MultipartFile logo,
-			@RequestParam(value="busR",required=false)MultipartFile busRC
+			@RequestParam(value="busR",required=false)MultipartFile busRC,
 //			HttpServletResponse response
+			SessionStatus sessionStatus
 			) throws IOException {
-		System.out.println("我要進去");
+		
 		/////////////////存圖片轉成Byte陣列////////////////////
 
 		//用getBytes方法把上傳的MultipartFile logo 轉成 byte[]
@@ -93,8 +101,10 @@ public class CompanyController {
 		  }
 		  
 		/////////////////存圖片轉成Byte陣列////////////////////
+		//密碼洩漏問題
+		sessionStatus.setComplete();
+		return "redirect:/index";
 		
-		return "/index";
 		
 	}
 	////////////////////////////////////////////////////////
@@ -287,5 +297,33 @@ public class CompanyController {
 	public String companyInfo() {
 		return "/company/CompanyRegister";
 	}
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	
+	@GetMapping(value="/ShowStore")
+	public String showAllStore(
+			Model model
+			) {
+		
+		List<Store> sto = stoService.getAllStore();
+		model.addAttribute("store", sto);
+		return "/company/ShowStore";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

@@ -267,21 +267,6 @@ public class CampaignController {
 		
 	}
 	
-	//取得公司活動單獨頁面資料
-	@GetMapping(value="/getPageByCompany/{companyId}/{page}", produces = {"application/json; charset=UTF-8"})
-	public @ResponseBody Map<String,Object> getPageByCompanyAjax(@PathVariable int page,
-																	@PathVariable int companyId) {		
-		Map<String,Object> map = new HashMap<String,Object>();
-		List<Campaign> camps = campService.getSinglePageResultByCompayId(page, companyId);
-		for(Campaign camp:camps) {			
-			camp.isActive();
-		}
-		map.put("totalPage",campService.getTotalPageByCompanyId(companyId));
-		map.put("content", camps);
-		return map;
-		
-	}
-	
 	//傳送圖片
 	@GetMapping(value="/pic/{id}")
 	public ResponseEntity<byte[]> getPic(@PathVariable int id){
@@ -425,13 +410,25 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/index")
-	public String campaignUserIndex() {
+	public String campaignUserIndex(Model model) {
 		List<Company> companys = companyService.getAllCompany();
 		for(Company company:companys) {
 			List<Campaign> camps = campService.getRandomCampaignbyCompany(company.getId(), 3);
 			Set<Campaign> campsSet = new HashSet<Campaign>(camps);
+			company.setCampaigns(campsSet);
 		}
-		return null;
+		model.addAttribute("companys", companys);
+		return "campaign/CampaignIndex";
+	}
+	
+	@GetMapping("/index/{companyId}")
+	public String getComapnyCampaignFP(@PathVariable int companyId,
+			Model model) {
+		Page<Campaign> page = new Page<Campaign>();
+		page.setCurrentPage(1);
+		campService.getActiveCampaignPageByCompany(page,companyId);
+		model.addAttribute("page", page);
+		return "/campaign/CampaignOfCompany";
 	}
 	
 	@ModelAttribute(name = "searchBean")

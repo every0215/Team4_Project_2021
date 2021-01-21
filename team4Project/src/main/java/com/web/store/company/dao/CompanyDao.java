@@ -24,6 +24,9 @@ public interface CompanyDao {
 	
 	//update密碼by account
 	
+	//取company
+	Company getCompanyById(Integer id);
+	
 	/////////////////////登入功能////////////////////////
 	
 	/////////////////////後台功能////////////////////////
@@ -36,6 +39,15 @@ public interface CompanyDao {
 	//登出
 	
 	/////////////////////後台功能////////////////////////
+	
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
 	
 	
 	
