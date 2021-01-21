@@ -56,6 +56,7 @@
                   	<c:when test="${ user == null }" >
                   		<li class="hidden-xs"><a href="<c:url value='/account/register' />">註冊</a></li>
                   		<li class="hidden-xs"><a href="<c:url value='/account/login' />">登入</a></li>
+                  		<li><a href="" data-toggle="modal" data-target="#login-modal">企業登入</a></li>
 	                </c:when>
 	                <c:otherwise>
                   		<li id="userbox" style="width:30px;" ><img alt="img" style="margin-left:10px;margin-right:10px; " width="20" src="data:image/jpeg;base64,${user.profileImage1Base64}"/></li>

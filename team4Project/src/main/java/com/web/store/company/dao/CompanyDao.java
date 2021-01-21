@@ -37,6 +37,15 @@ public interface CompanyDao {
 	
 	/////////////////////後台功能////////////////////////
 	
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+//	簡介修改 特定Service新增
+	
 	
 	
 	
