@@ -41,7 +41,7 @@ import com.web.store.campaign.model.Campaign;
 import com.web.store.company.model.Company;
 import com.web.store.company.model.Store;
 import com.web.store.company.service.CompanyService;
-import com.web.store.company.service.StoreService;
+//import com.web.store.company.service.StoreService;
 import com.web.store.ticket.model.Event;
 
 
@@ -52,9 +52,9 @@ public class CompanyController {
 	@Autowired
 	CompanyService cmpService;
 	
-	@Autowired
-	StoreService stoService;
-	
+//	@Autowired
+//	StoreService stoService;
+//	
 	@Autowired
 	ServletContext context;
 	///////////////////////////////////////企業新增///////////////////////////////////////////
@@ -305,15 +305,15 @@ public class CompanyController {
 	//////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////
 	
-	@GetMapping(value="/ShowStore")
-	public String showAllStore(
-			Model model
-			) {
-		
-		List<Store> sto = stoService.getAllStore();
-		model.addAttribute("store", sto);
-		return "/company/ShowStore";
-	}
+//	@GetMapping(value="/ShowStore")
+//	public String showAllStore(
+//			Model model
+//			) {
+//		
+//		List<Store> sto = stoService.getAllStore();
+//		model.addAttribute("store", sto);
+//		return "/company/ShowStore";
+//	}
 	
 	
 	

@@ -124,7 +124,7 @@
                 <ul class="sidebar-menu">
                     <li></li>
                     <li>
-                        <a href="ProductIndex">
+                        <a href="<c:url value='/ProductIndex' />">
                             <i class="fa fa-th"></i> <span>商品管理</span>
                         </a>
                     </li>
@@ -132,7 +132,7 @@
                         <a href="#">
                             <i class="fa fa-check-square-o"></i> <span>訂單管理</span>
                         </a>
-                    </li>-
+                    </li>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-bullhorn"></i>
