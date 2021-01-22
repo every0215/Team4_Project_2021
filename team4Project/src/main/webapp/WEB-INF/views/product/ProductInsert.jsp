@@ -42,7 +42,7 @@ select option[value="0"] {
 	<h3>Event Input Page-樂園與景點</h3>
 	<form name="myForm" action="<c:url value='/ticket/InputPageAT'/>"
 		method="post" enctype="multipart/form-data">
-		<hr />
+		<hr/>
 		<input type="hidden" name="typeId" value="2" />
 		<label class="t1" for="">景點名稱:</label>
 		<input type="text" name="eventName"
@@ -71,6 +71,6 @@ select option[value="0"] {
 		
 		<input type="submit" name="submit" id="s1">
 	</form>
-	<a href="../TicketIndex">回主頁</a>
+	<a href="../ProductIndex">回主頁</a>
 </body>
 </html>

@@ -23,8 +23,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.store.company.model.Company;
 import com.web.store.product.model.Product;
@@ -48,10 +52,35 @@ public class ProductController {
 		model.addAttribute("ProductList", list);
 		return "/product/ProductIndex";
 	}
-
+	@GetMapping("/product/productImage")
+	public String ShowPageSP() {
+		return "product/productImage";
+	}
+	
+	
 	@ModelAttribute("Product")
 	public Product setProduct(Product pb) {
 		return pb;
+	}
+	@PostMapping(value="/updateCompany")
+	public String updateCompany(
+			@RequestParam Integer id,
+			@RequestParam String companyName,
+			@RequestParam String uniformNumbers,
+			@RequestParam Integer categories,
+			@RequestParam String account,
+			@RequestParam String password,
+			@RequestParam String phone,
+			@RequestParam String email,
+			@RequestParam(value="logoA",required=false)MultipartFile logo,
+			@RequestParam(value="busRCA",required=false)MultipartFile busRC,
+//			HttpServletResponse response
+			//
+			SessionStatus sessionStatus,
+			Model model
+			) throws IOException {
+		System.out.println("HELLO");
+		sessionStatus.setComplete();
 	}
 //-----------------圖
 	@GetMapping(value = "/getimage/{productId}")
