@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,9 @@ public class CampaignServiceImpl implements CampaignService {
 
 	@Override
 	public Campaign getCampaignById(int campId) {
-		return campDao.getCampaignById(campId);
+		Campaign camp = campDao.getCampaignById(campId);
+		Hibernate.initialize(camp);
+		return camp;
 	}
 	
 	@Override

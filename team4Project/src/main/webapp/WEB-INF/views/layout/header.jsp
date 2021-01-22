@@ -194,54 +194,47 @@
                   </li>
                 </ul>
               </li>
-              <li><a href="#">活動 <span class="caret"></span></a>
-                <ul class="dropdown-menu">  
-                  <li><a href="#">Kurta & Kurti</a></li>                                                                
-                  <li><a href="#">Trousers</a></li>              
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>                
-                  <li><a href="#">Sarees</a></li>
-                  <li><a href="#">Shoes</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>
-                      <li><a href="#">And more.. <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">Rings</a></li>
-                          <li><a href="#">Earrings</a></li>
-                          <li><a href="#">Jewellery Sets</a></li>
-                          <li><a href="#">Lockets</a></li>
-                          <li class="disabled"><a class="disabled" href="#">Disabled item</a></li>                       
-                          <li><a href="#">Jeans</a></li>
-                          <li><a href="#">Polo T-Shirts</a></li>
-                          <li><a href="#">SKirts</a></li>
-                          <li><a href="#">Jackets</a></li>
-                          <li><a href="#">Tops</a></li>
-                          <li><a href="#">Make Up</a></li>
-                          <li><a href="#">Hair Care</a></li>
-                          <li><a href="#">Perfumes</a></li>
-                          <li><a href="#">Skin Care</a></li>
-                          <li><a href="#">Hand Bags</a></li>
-                          <li><a href="#">Single Bags</a></li>
-                          <li><a href="#">Travel Bags</a></li>
-                          <li><a href="#">Wallets & Belts</a></li>                        
-                          <li><a href="#">Sunglases</a></li>
-                          <li><a href="#">Nail</a></li>                       
-                        </ul>
-                      </li>                   
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="blog-archive.html">論壇 <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="blog-archive.html">Blog Style 1</a></li>
-                  <li><a href="blog-archive-2.html">Blog Style 2</a></li>
-                  <li><a href="blog-single.html">Blog Single</a></li>                
-                </ul>
+              <li><a href="<c:url value='/campaign/index'/>">活動</a>
+<!--                 <ul class="dropdown-menu">   -->
+<!--                   <li><a href="#">全家</a></li>                                                                 -->
+<!--                   <li><a href="#">萊爾富</a></li>               -->
+<!--                   <li><a href="#">統一超商</a></li> -->
+<!--                   <li><a href="#">Sports</a></li> -->
+<!--                   <li><a href="#">Formal</a></li>                 -->
+<!--                   <li><a href="#">Sarees</a></li> -->
+<!--                   <li><a href="#">Shoes</a></li> -->
+<!--                   <li><a href="#">And more.. <span class="caret"></span></a> -->
+<!--                     <ul class="dropdown-menu"> -->
+<!--                       <li><a href="#">Sleep Wear</a></li> -->
+<!--                       <li><a href="#">Sandals</a></li> -->
+<!--                       <li><a href="#">Loafers</a></li> -->
+<!--                       <li><a href="#">And more.. <span class="caret"></span></a> -->
+<!--                         <ul class="dropdown-menu"> -->
+<!--                           <li><a href="#">Rings</a></li> -->
+<!--                           <li><a href="#">Earrings</a></li> -->
+<!--                           <li><a href="#">Jewellery Sets</a></li> -->
+<!--                           <li><a href="#">Lockets</a></li> -->
+<!--                           <li class="disabled"><a class="disabled" href="#">Disabled item</a></li>                        -->
+<!--                           <li><a href="#">Jeans</a></li> -->
+<!--                           <li><a href="#">Polo T-Shirts</a></li> -->
+<!--                           <li><a href="#">SKirts</a></li> -->
+<!--                           <li><a href="#">Jackets</a></li> -->
+<!--                           <li><a href="#">Tops</a></li> -->
+<!--                           <li><a href="#">Make Up</a></li> -->
+<!--                           <li><a href="#">Hair Care</a></li> -->
+<!--                           <li><a href="#">Perfumes</a></li> -->
+<!--                           <li><a href="#">Skin Care</a></li> -->
+<!--                           <li><a href="#">Hand Bags</a></li> -->
+<!--                           <li><a href="#">Single Bags</a></li> -->
+<!--                           <li><a href="#">Travel Bags</a></li> -->
+<!--                           <li><a href="#">Wallets & Belts</a></li>                         -->
+<!--                           <li><a href="#">Sunglases</a></li> -->
+<!--                           <li><a href="#">Nail</a></li>                        -->
+<!--                         </ul> -->
+<!--                       </li>                    -->
+<!--                     </ul> -->
+<!--                   </li> -->
+<!--                 </ul> -->
               </li>
               <li><a href="<c:url value='/showCompany' />">合作企業</a></li>      
               <li><a href="contact.html">聯絡我們</a></li>

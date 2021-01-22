@@ -82,7 +82,7 @@
             <div class="form-group">
                 <label >活動類型:</label>
                 <select name="type" class="form-select need" aria-label="Default select example ">
-                    <option value="0">請選擇</option>
+                    <option value="0">不指定活動類型</option>
                     <option value="1">折扣</option>
                     <option value="2">滿額折</option>
                 </select>
@@ -161,14 +161,10 @@
     <script>
         $(function () {
 
-            
-
             setDate(); //將開始日期設定為今天後一天的日期，結束日期為後兩天
 
             $("#addCamp").click(function (event) {
-               
-               
-               
+                        
                 var isOk = true;//flag
 
                 // 資料驗證區塊------------------------------------------------------------------------------------
@@ -177,11 +173,6 @@
                 $(".need").each(function () {
                     console.log($(this).val())
                     if ($(this).val() == "" || $.trim($(this).val()) == "") {
-                        isOk = false;
-                    }
-
-                    //如果沒有選擇類型
-                    if($("select[name='type'] option").filter(':selected').val()==0){
                         isOk = false;
                     }
                 }) 
@@ -205,13 +196,13 @@
                         cancelButtonText: "取消",
                         confirmButtonText: '确定',
                     }).then(function () {
-                        swal(
-                            '成功新增!',
-                            '您的活動已成功新增',
-                            'success'
-                        );
+                        swal({
+                        	title:'成功新增!',
+                        	text:'您的活動已成功新增',
+                        	type:'success',
+                        });
                         
-                        setTimeout(()=>{$("#campForm").submit()},1000) 
+                        setTimeout(()=>{$("#campForm").submit()},500) 
                         
                     })
 

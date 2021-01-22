@@ -69,7 +69,7 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.queryActiveSales(companyid);
 	}
 	
-	//Tab4-各店-各店年度業績/折扣/會員數
+	//Tab4-各店-各店年度業績/折扣
 	@Override
 	public List<Report> queryAllStoreSales(int companyid) {
 		return reportDao.queryAllStoreSales(companyid);

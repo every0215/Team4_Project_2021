@@ -29,20 +29,11 @@
   <!-- Start slider -->
   <section id="aa-slider">
     <div class="wrapper">
-        <ul class="slides">
-
-            <li><a href="1"><img src="img\slider\1.jpg" alt=""></a></li>
-            <li><a href="2"><img src="img\slider\2.jpg" alt=""></a></li>
-            <li><a href="3"><img src="img\slider\3.jpg" alt=""></a></li>
-            <li><a href="4"><img src="img\slider\4.jpg" alt=""></a></li>
-            <li><a href=""><img src="img\slider\5.jpg" alt=""></a></li>
+        <ul class="slides" id="campContainer">
+<!--             <li><a href="1"><img src="img\slider\1.jpg" alt=""></a></li>      -->
         </ul>
-        <ul class="dot">
-            <li id="1"></li>
-            <li id="2"></li>
-            <li id="3"></li>
-            <li id="4"></li>
-            <li id="5"></li>
+        <ul class="dot" id="dotContainer">
+<!--         	<li id="1"></li> -->
         </ul>
         <div id="prevSlide" class="slide_btn">
             <i class="fa fa-caret-left"></i>
@@ -1767,10 +1758,8 @@
                   <h3>Main Menu</h3>
                   <ul class="aa-footer-nav">
                     <li><a href="#">商品</a></li>
-                    <li><a href="#">活動</a></li>
-                    <li><a href="#">論壇</a></li>
-
-                    
+                    <li><a href="<c:url value='/campaign/index'/>">活動</a></li>        
+                    <li><a href="#">論壇</a></li>               
                   </ul>
                 </div>
               </div>

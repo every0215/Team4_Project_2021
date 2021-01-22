@@ -12,6 +12,7 @@ import java.net.http.HttpResponse;
 import java.sql.Blob;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -413,6 +414,14 @@ public class CampaignController {
 	public String campaignUserIndex(Model model) {
 		List<Company> companys = companyService.getAllCompany();
 		for(Company company:companys) {
+			//篩選企業，狀態為false則continue
+			if(company.getStatus()==false) {
+				
+				companys.remove(company);
+				continue;
+				
+			}
+			
 			List<Campaign> camps = campService.getRandomCampaignbyCompany(company.getId(), 3);
 			Set<Campaign> campsSet = new HashSet<Campaign>(camps);
 			company.setCampaigns(campsSet);
@@ -428,7 +437,43 @@ public class CampaignController {
 		page.setCurrentPage(1);
 		campService.getActiveCampaignPageByCompany(page,companyId);
 		model.addAttribute("page", page);
+		model.addAttribute("companyName", companyService.getCompanyById(companyId).getCompanyName());
 		return "/campaign/CampaignOfCompany";
+	}
+	
+	@GetMapping("/getIndexCamp")
+	public @ResponseBody List<Campaign> getCampaignOfIndex(){
+		
+		List<Campaign> resultCamps = new ArrayList<Campaign>();//要傳到首頁的活動
+		List<Campaign> AllCamps = campService.getAllCampaign();//全部活動
+		List<Campaign> activeCamp = new ArrayList<Campaign>();//進行中的活動容器
+		
+		//篩選進行中的活動
+		for(Campaign camp:AllCamps) {
+			if(camp.getStatus() && !camp.getExpired()) {
+				activeCamp.add(camp);
+			}
+		}
+		
+		//當活動數量小於6並且進行中得活動大於0則繼續取
+		while(resultCamps.size()<6 && activeCamp.size()>0) {
+			int randomNum = (int)(Math.random()*activeCamp.size());
+			resultCamps.add(activeCamp.get(randomNum));
+			activeCamp.remove(randomNum);//刪除已經取得的活動，避免重複
+		}
+		
+		return resultCamps;
+	}
+	
+	@GetMapping("/detail/{campId}")
+	public String getSingleCampPage(@PathVariable Integer campId,
+									Model model
+			) {
+		Campaign camp = campService.getCampaignById(campId);
+		List<Campaign> sideCamps = campService.getRandomCampaignbyCompany(camp.getCompany().getId(), 3);
+		model.addAttribute("camp", camp);
+		model.addAttribute("sideCamps", sideCamps);
+		return "/campaign/CampaignDetailFE";
 	}
 	
 	@ModelAttribute(name = "searchBean")

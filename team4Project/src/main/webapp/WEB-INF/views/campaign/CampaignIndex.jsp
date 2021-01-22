@@ -5,12 +5,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>活動首頁</title>
-    <link rel="stylesheet" href="css/Campaign_index.css">
-</head>
+<c:import url="/layout/head" />
 <style>
     *{
     /* border:2px solid ; */
@@ -26,6 +21,11 @@ a:visited{
     color:black;
 }
 
+.campaign_section{
+	clear:both;
+	padding-top:20px;
+}
+
 .title{
     width: 500px;
     background-color: #2d3e48;
@@ -33,6 +33,7 @@ a:visited{
     color: white;
     margin: 20px auto 0px;
     border-radius: 10px;
+    clear:both;
 }
 
 .company{
@@ -91,10 +92,24 @@ a:visited{
     color: white;
 }
 </style>
+
 <body>
+	<!-- wpf loader Two -->
+        <div id="wpf-loader-two">
+          <div class="wpf-loader-two-inner">
+            <span>Loading</span>
+          </div>
+        </div>
+        <!-- / wpf loader Two -->
+        <!-- SCROLL TOP BUTTON -->
+        <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
+        <!-- END SCROLL TOP BUTTON -->
+
+        <c:import url="/layout/header" />
+<!--     section部分     -->
     <div class="campaign_section">
         <div class="title">
-            <h2>商家優惠活動</h2>
+            <h2 style="color:white;padding-bottom:0">商家優惠活動</h2>
         </div>
 		
 		<c:forEach items="${companys}" var="comp">
@@ -106,13 +121,14 @@ a:visited{
 	            <div class="camp_section_bottom">	                
 	                <c:forEach items="${comp.campaigns}" var="campaign">
 		                <div class="camp">
-		                    <div class="camp_top"><a href=""><img src="${campaign.picturePath}" alt=""></a></div>
+		                    <div class="camp_top"><a href="<c:url value='/campaign/detail/${campaign.id}'/>"><img src="${campaign.picturePath}" alt=""></a></div>
+		                    
 		                    <div class="camp_bottom">
 		                        <h3 class="camp_date">
 		                        <fmt:formatDate value="${campaign.startDateTime}" pattern='yyyy-MM-dd'/> ~
 		                        <fmt:formatDate value="${campaign.endDateTime}" pattern='yyyy-MM-dd'/>
 		                        </h3>
-		                        <h3 class="camp_title"><a href="">${campaign.name}</a></h3>
+		                        <h3 class="camp_title"><a href="<c:url value='/campaign/detail/${campaign.id}'/>">${campaign.name}</a></h3>
 		                    </div>
 		                </div>
 	                </c:forEach>
@@ -125,5 +141,29 @@ a:visited{
 	        </div>
 		</c:forEach>
     </div>
+    
+    
+    <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="<c:url value='/js/bootstrap.js' />"></script>
+        <!-- SmartMenus jQuery plugin -->
+        <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.js' />"></script>
+        <!-- SmartMenus jQuery Bootstrap Addon -->
+        <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.bootstrap.js' />"></script>
+        <!-- To Slider JS -->
+        <script src="<c:url value='/js/sequence.js' />"></script>
+        <script src="<c:url value='/js/sequence-theme.modern-slide-in.js' />"></script>
+        <!-- Product view slider -->
+        <script type="text/javascript" src="<c:url value='/js/jquery.simpleGallery.js' />"></script>
+        <script type="text/javascript" src="<c:url value='/js/jquery.simpleLens.js' />"></script>
+        <!-- slick slider -->
+        <script type="text/javascript" src="<c:url value='/js/slick.js' />"></script>
+        <!-- Price picker slider -->
+        <script type="text/javascript" src="<c:url value='/js/nouislider.js' />"></script>
+        <!-- Custom js -->
+        <script src="<c:url value='/js/custom.js' />"></script>
+
+        <script src="<c:url value='/js/luke_js.js' />"></script>
 </body>
 </html>

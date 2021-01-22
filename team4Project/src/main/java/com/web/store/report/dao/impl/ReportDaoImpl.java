@@ -98,7 +98,7 @@ public class ReportDaoImpl implements ReportDao {
 	@Override
 	public List<Report> queryAreaSales(int companyid) {
 
-		String hqlstr = "select storearea,sum(salesamount) as amount,sum((productprice-productdiscountprice)*salesamount) AS Count,sum(productdiscountprice*salesamount) AS discount FROM Report WHERE companyid=:comp group by storearea";
+		String hqlstr = "select storearea,sum((productprice-productdiscountprice)*salesamount) AS Count FROM Report WHERE companyid=:comp group by storearea ";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
@@ -128,7 +128,7 @@ public class ReportDaoImpl implements ReportDao {
 	}
 
 
-	// Tab4-各店-各店年度業績/折扣/店會員數(待補)
+	// Tab4-各店-各店年度業績/折扣
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryAllStoreSales(int companyid) {
@@ -143,18 +143,20 @@ public class ReportDaoImpl implements ReportDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryAllActiveSales(int companyid) {
-		String hqlstr = "select storename,activeitem,sum(salesamount) as amount,sum((productprice-productdiscountprice)*salesamount) AS Count ,sum(productdiscountprice*salesamount) as discount FROM Report WHERE companyid=:comp group by activeitem,storename";
+		String hqlstr = "select storename,activeitem,sum(salesamount) as amount,sum((productprice-productdiscountprice)*salesamount) AS Count ,sum(productdiscountprice*salesamount) as discount FROM Report WHERE (companyid=:comp) and (Activeitem<>'null') group by storename,activeitem";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
+		System.out.println(list);
 		return list;
+		
 	}
 
 	// Tab6-各店-各店付款方式
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryAllStorePayment(int companyid) {
-		String hqlstr = "select storename,payment,sum(salesamount) as amount,sum((productprice-productdiscountprice)*salesamount) AS Count ,sum(productdiscountprice*salesamount) as discount FROM Report WHERE companyid=:comp group by payment,storename";
+		String hqlstr = "select storename,payment,sum(salesamount) as amount,sum((productprice-productdiscountprice)*salesamount) AS Count ,sum(productdiscountprice*salesamount) as discount FROM Report WHERE companyid=:comp group by storename,payment";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
@@ -162,10 +164,15 @@ public class ReportDaoImpl implements ReportDao {
 	}
 	
 	// Tab7-各店-各店無庫存項數
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryAllStoreStock(int companyid) {
-
-		return null;
+		// String hqlstr = "select Storename, count(Stockamount) as stock from Report where (Companyid=:comp) and (Stockamount<5) group by Storename";
+		String hqlstr = "select storename, count(stockamount) as stock from Report where companyid=:comp and (stockamount<5) group by storename";// and (Stockamount<5)";
+		List<Report> list = new ArrayList<Report>();
+		Session session = sessionFactory.getCurrentSession();
+		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
+		return list;
 			}
 	
 	// Tab8-商品前十名排行
