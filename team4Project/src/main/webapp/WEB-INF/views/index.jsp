@@ -150,7 +150,7 @@
 	</div>
 	<!-- / Promo section -->
 
- <a href="<c:url value='/ShowStore' />">門市主頁 </a><br>
+ 
   <!-- Products section -->
  <section id="aa-product">
     <div class="container">
