@@ -9,6 +9,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,10 +24,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.web.store.company.model.Company;
 import com.web.store.product.model.Product;
 import com.web.store.product.service.ProductService;
 
@@ -48,12 +51,49 @@ public class ProductController {
 		model.addAttribute("ProductList", list);
 		return "/product/ProductIndex";
 	}
-
+	@GetMapping("/product/ProductInsert")
+	public String ProductInsert() {
+		return "product/ProductInsert";
+	}
+	
 	@ModelAttribute("Product")
 	public Product setProduct(Product pb) {
 		return pb;
 	}
-//-----------------圖
+//-----------------
+	@PostMapping(value="/product/ProductInsert")
+	public String proceedAt(
+			@RequestParam(value="productName") String productName, 
+			@RequestParam(value="companyName") String companyName, 
+			@RequestParam(value="productStuck")Integer productStuck, 
+			@RequestParam(value="productPrice")Integer productPrice,
+			@RequestParam(value="productType")String productType,
+			@RequestParam(value="discount")Integer discount,
+			@RequestParam(value="productPic",required=false)MultipartFile productPic,
+			@RequestParam(value="productDescript")String productDescript,
+			@RequestParam(value="status")Integer status
+
+			) throws IOException {
+		
+				byte[] bytes = productPic.getBytes();
+
+		try {
+		
+			   Blob picblob = new javax.sql.rowset.serial.SerialBlob(bytes);
+			   String picName = productPic.getOriginalFilename();
+			   Product product = new Product(picblob,picName,productName, productType, productDescript,
+						 companyName, productStuck, productPrice, discount, status);
+			   pService.insert(product);
+			  
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} 
+
+		return "redirect:/ProductIndex";
+	}
+	
+	//-----------------輸出圖
 	@GetMapping(value = "/getimage/{productId}")
 	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable String ProductId) {
 		String filePath = "/images/NoImage.jpg";

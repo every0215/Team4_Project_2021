@@ -41,7 +41,7 @@ function ProductDelete() {
 	<h1>商品管理</h1>
 	<br>
 	<div>
-		<a href="ProductInsert" class="btn btn-success" role="button">新增商品</a>
+		<a href="product/ProductInsert" class="btn btn-success" role="button">新增商品</a>
 		<table id="productlist" class="display">
 			<thead>
 				<tr>
