@@ -251,10 +251,14 @@ public class CampaignDaoImpl implements CampaignDao {
 				+ "and companyId=:companyId";
 		String hql2 = "SELECT COUNT(*) " + hql;
 		Session session = sessionFactory.getCurrentSession();
+		int pageSize = page.getPageSize();
+		int currentPage = page.getCurrentPage();
 		Query<Campaign> query = session.createQuery(hql,Campaign.class);
 		List<Campaign> list = query.setParameter("companyId", companyId)
-		.setMaxResults(page.getPageSize()).setFirstResult(page.getCurrentPage()-1).list();
-		Integer totalPage = (int)(long)session.createQuery(hql2).setParameter("companyId", companyId).uniqueResult();
+		.setMaxResults(pageSize).setFirstResult((currentPage-1)*pageSize).list();
+		long totalResult = (long) session.createQuery(hql2).setParameter("companyId", companyId).uniqueResult();
+		Integer totalPage = (int)Math.ceil(((double)totalResult/pageSize));
+		page.setTotalResultCount((int)totalResult);
 		page.setContent(list);
 		page.setTotalpage(totalPage);
 		return page;
