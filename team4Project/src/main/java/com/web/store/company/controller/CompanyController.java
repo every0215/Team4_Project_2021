@@ -21,6 +21,7 @@ import javax.sql.rowset.serial.SerialException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -251,7 +252,11 @@ public class CompanyController {
 	public String Login(
 			@RequestParam String account,
 			@RequestParam String password,
-			Model model
+			Model model,
+			///////////////////
+			HttpSession session
+			///////////////////
+			
 			) {
 		Company cmp = cmpService.verifyLogin(account, password);
 		
@@ -259,7 +264,7 @@ public class CompanyController {
 //			setCompany(cmp);
 			model.addAttribute("company", cmp);//直接這樣子就可以
 			//////////////////////////
-			HttpSession session = null;
+
 			session.setAttribute("company", cmp);
 			session.setMaxInactiveInterval(60 * 60 * 24* 3);
 			//////////////////////////
