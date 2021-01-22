@@ -106,7 +106,7 @@ a:visited{
         <!-- END SCROLL TOP BUTTON -->
 
         <c:import url="/layout/header" />
-        
+<!--     section部分     -->
     <div class="campaign_section">
         <div class="title">
             <h2 style="color:white;padding-bottom:0">商家優惠活動</h2>
@@ -121,13 +121,14 @@ a:visited{
 	            <div class="camp_section_bottom">	                
 	                <c:forEach items="${comp.campaigns}" var="campaign">
 		                <div class="camp">
-		                    <div class="camp_top"><a href=""><img src="${campaign.picturePath}" alt=""></a></div>
+		                    <div class="camp_top"><a href="<c:url value='/campaign/detail/${campaign.id}'/>"><img src="${campaign.picturePath}" alt=""></a></div>
+		                    
 		                    <div class="camp_bottom">
 		                        <h3 class="camp_date">
 		                        <fmt:formatDate value="${campaign.startDateTime}" pattern='yyyy-MM-dd'/> ~
 		                        <fmt:formatDate value="${campaign.endDateTime}" pattern='yyyy-MM-dd'/>
 		                        </h3>
-		                        <h3 class="camp_title"><a href="">${campaign.name}</a></h3>
+		                        <h3 class="camp_title"><a href="<c:url value='/campaign/detail/${campaign.id}'/>">${campaign.name}</a></h3>
 		                    </div>
 		                </div>
 	                </c:forEach>

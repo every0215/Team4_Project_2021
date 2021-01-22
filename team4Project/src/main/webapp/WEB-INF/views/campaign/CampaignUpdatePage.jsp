@@ -113,22 +113,6 @@
 							class="form-control" type="text" placeholder="折多少元"></input>
 					</div>
 				</c:if>
-
-				<!-- 改為動態產生 -->
-                <!-- <div class="offField form-group noShow">
-                    <label for="comment">折數:</label>
-                    <input name="OffParam" class="form-control" type="text" placeholder="幾折"></input>
-                </div>
-
-                <div class="upToAmmountFiled form-group noShow">
-                    <label for="comment">滿額:</label>
-                    <input name="AmountUpTo" class="form-control" type="text" placeholder="滿多少元"></input>
-                </div>
-
-                <div class="upToAmmountFiled form-group noShow">
-                    <label for="comment">折多少:</label>
-                    <input name="AmountOffParam" class="form-control" type="text" placeholder="折多少元"></input>
-                </div> -->
             </div>
             
             <div class="form-group">
