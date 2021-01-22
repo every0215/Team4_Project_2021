@@ -20,9 +20,9 @@ public class Store {
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name= "Id")
-		private int id;
-		@Column(name= "Store")
-		private String store;
+		private Integer id;
+		@Column(name= "StoreName")
+		private String storeName;
 		@Column(name= "StoreArea")
 		private String storeArea;
 		@Column(name= "StoreAddress")
@@ -41,27 +41,52 @@ public class Store {
 		@Transient
 		@Column(name= "CompanyId")
 		private Integer companyId;
-		//寫bank關聯
-		@Transient
-		@Column(name= "BankId")
-		private Integer bankId;
-		
-		
+	
 		@Column(name= "Profiles")
-		private String Profiles;
+		private String profiles;
 		@Column(name= "Status")
-		private Boolean Status=true;
-		public int getId() {
+		private Boolean status=true;
+		
+		public Store() {
+			
+		}
+		
+		public Store(Integer id,Boolean status) {
+			super();
+			this.id = id;
+			this.status = status;
+		}
+		
+		public Store(Integer id, String storeName, String storeArea, String storeAddress, String phone, String fex,
+				Boolean businessHour, Date openhour, Date closehour, Integer companyId, String profiles,
+				Boolean status) {
+			super();
+			this.id = id;
+			this.storeName = storeName;
+			this.storeArea = storeArea;
+			this.storeAddress = storeAddress;
+			this.phone = phone;
+			this.fex = fex;
+			this.businessHour = businessHour;
+			this.openhour = openhour;
+			this.closehour = closehour;
+			this.companyId = companyId;
+			this.profiles = profiles;
+			this.status = status;
+		}
+		
+		
+		public Integer getId() {
 			return id;
 		}
-		public void setId(int id) {
+		public void setId(Integer id) {
 			this.id = id;
 		}
-		public String getStore() {
-			return store;
+		public String getStoreName() {
+			return storeName;
 		}
-		public void setStore(String store) {
-			this.store = store;
+		public void setStoreName(String storeName) {
+			this.storeName = storeName;
 		}
 		public String getStoreArea() {
 			return storeArea;
@@ -111,22 +136,17 @@ public class Store {
 		public void setCompanyId(Integer companyId) {
 			this.companyId = companyId;
 		}
-		public Integer getBankId() {
-			return bankId;
-		}
-		public void setBankId(Integer bankId) {
-			this.bankId = bankId;
-		}
+
 		public String getProfiles() {
-			return Profiles;
+			return profiles;
 		}
 		public void setProfiles(String profiles) {
-			Profiles = profiles;
+			this.profiles = profiles;
 		}
 		public Boolean getStatus() {
-			return Status;
+			return status;
 		}
 		public void setStatus(Boolean status) {
-			Status = status;
+			this.status = status;
 		}
 }
