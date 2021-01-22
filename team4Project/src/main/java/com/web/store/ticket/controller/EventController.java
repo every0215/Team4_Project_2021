@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -166,14 +167,14 @@ public class EventController {
 		return s;
 	}
 	
-	
-	
-	@GetMapping(value="TicketIndex")
+	@GetMapping(value="/TicketIndex")
 	public String showAllEvent(
-//			@PathVariable int companyId,
 			Model model
 			) {
+		System.out.println("123123");
+		System.out.println(RequestContextHolder.currentRequestAttributes().getSessionId());
 		Company company = (Company)model.getAttribute("company");
+		System.out.println(company);
 		int companyId = company.getId();
 		ArrayList<Event> events = backendService.queryAll(companyId);
 		model.addAttribute("events", events);
@@ -630,7 +631,7 @@ public class EventController {
 			sessionList.add(sportSession);
 			backendService.addSportSession(sport, sportSession);
 			for(int j=0;j<seatNo.length;j++) {
-				SportSeat sportSeat = new SportSeat(priceIdList.get(i),sportSession.getId(),seatNo[j]);
+				SportSeat sportSeat = new SportSeat(priceIdList.get(j),sportSession.getId(),seatNo[j],seatNo[j]);
 				backendService.addSportSeat(sportSeat);
 				if(i==0) {seatList.add(sportSeat);}
 				
@@ -694,7 +695,7 @@ public class EventController {
 			sessionList.add(sportSession);
 			backendService.addSportSession(sport, sportSession);
 			for(int j=0;j<seatNo.length;j++) {
-				SportSeat sportSeat = new SportSeat(priceIdList.get(i),sportSession.getId(),seatNo[j]);
+				SportSeat sportSeat = new SportSeat(priceIdList.get(j),sportSession.getId(),seatNo[j],seatNo[j]);
 				backendService.addSportSeat(sportSeat);
 				if(i==0) {seatList.add(sportSeat);}
 				

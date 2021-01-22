@@ -36,15 +36,11 @@ public class BaseController {
 		return "ticket/ShowPageSP";
 	}
 	
-	@GetMapping("/ticket/CTicketIndex")
-	public String TestTicketIndex() {
-		return "ticket/CTicketIndex";
-	}
 	
-	@GetMapping("/ticket/CTicketShow")
-	public String TestTicketShow() {
-		return "ticket/CTicketShow";
-	}
+//	@GetMapping("/ticket/CTicketShow")
+//	public String TestTicketShow() {
+//		return "ticket/CTicketShow";
+//	}
 	
 	@GetMapping("/ticket/CTicketSort")
 	public String TestTicketSort() {

@@ -87,33 +87,23 @@
           <div class="container text-center">
             <!-- 第一行 -->
             <div class="sub-title">
-              <span class="inner">我是第一行分割線</span>
+              <span class="inner">展覽</span>
             </div>
             <div class="row" style="height:330px">
+<!--             ====================================== -->
+<c:forEach var="event" items="${smallexhibtion}">
+
               <div class="col-sm-4">
-                <div class="panel panel-primary">
-                  <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                  <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                      style="width:100%" alt="Image"></div>
+                <div class="panel panel-primary" onclick="location.href = '<c:url value="/TicketShow/${event.id}"/>'">
+                  <div class="panel-heading">${event.eventName}</div>
+                  <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
+                      style="width:100%" alt="${event.eventName}"></div>
                   <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
                 </div>
               </div>
-              <div class="col-sm-4">
-                <div class="panel panel-danger">
-                  <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                  <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                      style="width:100%" alt="Image"></div>
-                  <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="panel panel-success">
-                  <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                  <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                      style="width:100%" alt="Image"></div>
-                  <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-              </div>
+</c:forEach>              
+<!--             ======================================= -->              
+
               <div class="more-link">
                 <a href="#" class="btn btn-info" role="button" style="float:right"><svg xmlns="http://www.w3.org/2000/svg"
                     width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
@@ -130,33 +120,22 @@
   
             <!-- 第二行 -->
             <div class="sub-title">
-              <span class="inner">我是第二行分割線</span>
+              <span class="inner">樂園與景點</span>
             </div>
             <div class="row" style="height:330px">
+              <!--             ====================================== -->
+<c:forEach var="event" items="${smallattraction}">
+
               <div class="col-sm-4">
-                <div class="panel panel-primary">
-                  <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                  <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                      style="width:100%" alt="Image"></div>
+                <div class="panel panel-primary" onclick="location.href = '<c:url value="/TicketShow/${event.id}"/>'">
+                  <div class="panel-heading">${event.eventName}</div>
+                  <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
+                      style="width:100%" alt="${event.eventName}"></div>
                   <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
                 </div>
               </div>
-              <div class="col-sm-4">
-                <div class="panel panel-danger">
-                  <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                  <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                      style="width:100%" alt="Image"></div>
-                  <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="panel panel-success">
-                  <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                  <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                      style="width:100%" alt="Image"></div>
-                  <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-              </div>
+</c:forEach>              
+<!--             ======================================= -->     
               <div class="more-link">
                 <a href="#" class="btn btn-info" role="button" style="float:right"><svg xmlns="http://www.w3.org/2000/svg"
                     width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
@@ -172,33 +151,22 @@
   
             <!-- 第三行 -->
             <div class="sub-title">
-              <span class="inner">我是第三行分割線</span>
+              <span class="inner">運動賽事</span>
             </div>
             <div class="row" style="height:330px">
+             <!--             ====================================== -->
+<c:forEach var="event" items="${smallsport}">
+
               <div class="col-sm-4">
-                <div class="panel panel-primary">
-                  <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                  <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                      style="width:100%" alt="Image"></div>
+                <div class="panel panel-primary" onclick="location.href = '<c:url value="/TicketShow/${event.id}"/>'">
+                  <div class="panel-heading">${event.eventName}</div>
+                  <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
+                      style="width:100%" alt="${event.eventName}"></div>
                   <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
                 </div>
               </div>
-              <div class="col-sm-4">
-                <div class="panel panel-danger">
-                  <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                  <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                      style="width:100%" alt="Image"></div>
-                  <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="panel panel-success">
-                  <div class="panel-heading">BLACK FRIDAY DEAL</div>
-                  <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
-                      style="width:100%" alt="Image"></div>
-                  <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
-                </div>
-              </div>
+</c:forEach>              
+<!--             ======================================= -->     
               <div class="more-link">
                 <a href="#" class="btn btn-info" role="button" style="float:right"><svg xmlns="http://www.w3.org/2000/svg"
                     width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">

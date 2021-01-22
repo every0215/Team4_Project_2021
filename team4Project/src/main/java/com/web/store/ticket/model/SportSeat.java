@@ -43,25 +43,28 @@ public class SportSeat {
 	@Column(name = "seatNo")//票券張數
 	private Integer seatNo;
 	
-	
+	@Column(name = "stock")//庫存張數
+	private Integer stock;
 
 	public SportSeat() {
 		super();
 	}
 	
-	public SportSeat(Integer priceId, Integer sessionId, Integer seatNo) {
+	public SportSeat(Integer priceId, Integer sessionId, Integer seatNo,Integer stock) {
 		super();
 		this.priceId = priceId;
 		this.sessionId = sessionId;
 		this.seatNo = seatNo;
+		this.stock=stock;
 	}
 
-	public SportSeat(Integer id, Integer priceId, Integer sessionId, Integer seatNo) {
+	public SportSeat(Integer id, Integer priceId, Integer sessionId, Integer seatNo,Integer stock) {
 		super();
 		this.id = id;
 		this.priceId = priceId;
 		this.sessionId = sessionId;
 		this.seatNo = seatNo;
+		this.stock=stock;
 	}
 
 
@@ -96,6 +99,22 @@ public class SportSeat {
 
 	public void setSeatNo(Integer seatNo) {
 		this.seatNo = seatNo;
+	}
+
+	public Set<SportSession> getSessions() {
+		return sessions;
+	}
+
+	public void setSessions(Set<SportSession> sessions) {
+		this.sessions = sessions;
+	}
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 	
 	

@@ -65,11 +65,11 @@ select option[value="0"] {
 			placeholder="ex:2021-01-31 21:00:01" required="required"> <span
 			id="datetimesp2"></span><br>
 		<br> <span>時間格式:yyyy-MM-dd HH:mm:ss</span><br>
-		<br> <label class="t1" for="">展覽起始日:</label> <input type="text"
+		<br> <label class="t1" for="">票券起始日:</label> <input type="text"
 			id="date1" name="commDate" placeholder="ex:2021-01-01"
 			required="required"> <span id="datesp1"></span><br>
 		<br> <span>時間格式:yyyy-MM-dd</span> <br>
-		<br> <label class="t1" for="">展覽終止日:</label> <input type="text"
+		<br> <label class="t1" for="">票券終止日:</label> <input type="text"
 			id="date2" name="dueDate" placeholder="ex:2021-01-31"
 			required="required"> <span id="datesp2"></span><br>
 		<br> <span>時間格式:yyyy-MM-dd</span><br>

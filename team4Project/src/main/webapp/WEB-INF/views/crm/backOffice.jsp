@@ -124,7 +124,7 @@
                 <ul class="sidebar-menu">
                     <li></li>
                     <li>
-                        <a href="#">
+                        <a href="<c:url value='/ProductIndex' />">
                             <i class="fa fa-th"></i> <span>商品管理</span>
                         </a>
                     </li>

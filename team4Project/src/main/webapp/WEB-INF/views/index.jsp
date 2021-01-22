@@ -134,7 +134,7 @@
 			<div class="indexclassspan">
 				<span>優惠促銷</span>
 				<h4>
-					<a class="indexclassa" href="#">票券專區-11</a>
+					<a class="indexclassa" href="<c:url value='/ticket/CTicketIndex' />">票券專區-11</a>
 				</h4>
 			</div>
 

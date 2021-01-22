@@ -44,8 +44,12 @@
 				<c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach>
 			</tr>
 			<tr>
-				<td>剩餘座位數</td>
+				<td>座位數</td>
 				<c:forEach var="seat" items="${sessionSeat[1]}"><td>${seat.seatNo}</td></c:forEach>
+			</tr>
+			<tr>
+				<td>餘票量</td>
+				<c:forEach var="seat" items="${sessionSeat[1]}"><td>${seat.stock}</td></c:forEach>
 			</tr>
 			</tbody>
 		</table>
