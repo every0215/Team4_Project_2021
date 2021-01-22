@@ -29,7 +29,7 @@ public interface ReportDao {
 	List<Report> queryProdustClass(int companyid);
 	//Tab3-年度活動銷售
 	List<Report> queryActiveSales(int companyid);
-	//Tab4-各店-各店年度業績/折扣/會員數
+	//Tab4-各店-各店年度業績/折扣
 	List<Report> queryAllStoreSales(int companyid);
 	//Tab5-各店-各店活動業績
 	List<Report> queryAllActiveSales(int companyid);
