@@ -9,11 +9,13 @@ import java.io.PrintWriter;
 import java.net.http.HttpResponse;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +46,8 @@ import com.web.store.company.model.Store;
 import com.web.store.company.service.CompanyService;
 import com.web.store.company.service.StoreService;
 import com.web.store.ticket.model.Event;
+
+
 
 
 @Controller
@@ -253,6 +258,11 @@ public class CompanyController {
 		if(cmp!= null) {
 //			setCompany(cmp);
 			model.addAttribute("company", cmp);//直接這樣子就可以
+			//////////////////////////
+			HttpSession session = null;
+			session.setAttribute("company", cmp);
+			session.setMaxInactiveInterval(60 * 60 * 24* 3);
+			//////////////////////////
 			System.out.println("controller");
 			return "redirect:/crm/backOffice";
 		}else {
@@ -297,33 +307,74 @@ public class CompanyController {
 	public String companyInfo() {
 		return "/company/CompanyRegister";
 	}
-	//////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////門市部分/////////////////////////////////////////
+	/////////////////////////////////////////門市部分/////////////////////////////////////////
+	/////////////////////////////////////////門市部分/////////////////////////////////////////
+	/////////////////////////////////////////門市部分/////////////////////////////////////////
+	/////////////////////////////////////////門市部分/////////////////////////////////////////
+	/////////////////////////////////////////門市部分/////////////////////////////////////////
+	
 	
 	@GetMapping(value="/ShowStore")
 	public String showAllStore(
 			Model model
 			) {
-		
-		List<Store> sto = stoService.getAllStore();
-		model.addAttribute("store", sto);
+		Company company=(Company)model.getAttribute("company");
+		int companyId = company.getId();
+		List<Store> sto = stoService.getAllStoreByCompanyId(companyId);
+		System.out.println("傳回storelist");
+		System.out.println(sto);
+		model.addAttribute("storeList", sto);
 		return "/company/ShowStore";
 	}
 	
 	
 	
+	//新增門市
+	//新增門市
+	//新增門市
+	//新增門市
+	//新增門市
+	//新增門市
+	//新增門市
+	//新增門市
+	@GetMapping("/storeRegister")
+	public String showStoreForm(Model model) {
+		System.out.println("1. 本方法送出新增Customer資料的空白表單");
+		Store sto = new Store();
+		//可預設
+//		bean.setName("章軍雃");
+//		bean.setPassword("Do!ng456");
+//		bean.setPassword1("Do!ng456");
+//		bean.setBirthday(java.sql.Date.valueOf("1980-5-4"));
+//		bean.setLastPostTime(java.sql.Timestamp.valueOf("2019-10-14 17:50:24"));
+		model.addAttribute("storeBean", sto);
+		return "/company/StoreRegister";
+	}
+	// 
+	@PostMapping("/storeRegister")
+	public String insertStoreData(
+		@ModelAttribute Store sto 
+		, BindingResult bindingResult 
+		) {
+		
+		//驗證盼短有無錯誤
+//		new CustomerValidator().validate(bean, bindingResult);    
+//		if (bindingResult.hasErrors()) {
+//			return "_01_customer/CustomerForm";
+//		}
+
+		//如果有找到就更新
+		if (sto.getId() != null ) {
+			stoService.update(sto);
+		} 
+		
+		stoService.addStore(sto);
+		return "redirect:customers";
+	}
 	
 	
-	
-	
-	
-	
-	
-	
+
 	
 }

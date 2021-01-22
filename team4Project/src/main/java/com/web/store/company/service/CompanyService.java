@@ -18,4 +18,6 @@ public interface CompanyService {
 	
 	Company getCompanyById(Integer id);
 	
+	boolean statusCheck(Integer id);
+	
 }

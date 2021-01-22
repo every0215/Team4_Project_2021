@@ -60,4 +60,10 @@ public class CompanyServiceImpl implements CompanyService {
 		return cmpDao.getCompanyById(id);
 	}
 
+	@Override
+	public boolean statusCheck(Integer id) {
+		
+		return cmpDao.statusCheck(id);
+	}
+
 }

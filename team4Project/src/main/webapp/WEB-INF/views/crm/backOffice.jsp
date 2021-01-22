@@ -147,7 +147,7 @@
                         </a>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a href="<c:url value='/ShowStore' />">
                             <i class="fa fa-map-marker"></i> <span>門市管理</span>
                         </a>
                     </li>
