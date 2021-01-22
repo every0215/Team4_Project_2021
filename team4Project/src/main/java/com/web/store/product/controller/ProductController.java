@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -30,7 +31,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.web.store.company.model.Company;
+import com.web.store.company.service.CompanyService;
 import com.web.store.product.model.Product;
 import com.web.store.product.service.ProductService;
 
@@ -42,6 +43,8 @@ public class ProductController {
 	ProductService pService;
 	@Autowired
 	ServletContext context;
+	@Autowired
+	CompanyService cService;
 	
 	@RequestMapping("/ProductIndex")
 	public String ProductView(Model model) {
@@ -52,37 +55,70 @@ public class ProductController {
 		model.addAttribute("ProductList", list);
 		return "/product/ProductIndex";
 	}
-	@GetMapping("/product/productImage")
-	public String ShowPageSP() {
-		return "product/productImage";
+//	------------------------
+	@GetMapping("/product/ProductInsert")
+	public String productInsert() {
+		return "product/ProductInsert";
 	}
-	
-	
+
 	@ModelAttribute("Product")
 	public Product setProduct(Product pb) {
 		return pb;
 	}
-	@PostMapping(value="/updateCompany")
-	public String updateCompany(
-			@RequestParam Integer id,
-			@RequestParam String companyName,
-			@RequestParam String uniformNumbers,
-			@RequestParam Integer categories,
-			@RequestParam String account,
-			@RequestParam String password,
-			@RequestParam String phone,
-			@RequestParam String email,
-			@RequestParam(value="logoA",required=false)MultipartFile logo,
-			@RequestParam(value="busRCA",required=false)MultipartFile busRC,
-//			HttpServletResponse response
-			//
+	//---------------------------------
+	@GetMapping("/product/productImage")
+	public String ShowPage() {
+		return "product/productImage";
+	}
+	
+	
+	@PostMapping(value="/product/ProductInsert")
+	public String porductIn(
+			@RequestParam String productName,
+			@RequestParam Integer productStuck,
+			@RequestParam Integer productPrice,
+			@RequestParam String productType,			
+			@RequestParam(name = "cName") String comName,						
+			@RequestParam String productDescript,
+			@RequestParam("productimage") MultipartFile pImage,
+			@RequestParam Integer status,
+			
 			SessionStatus sessionStatus,
 			Model model
 			) throws IOException {
-		System.out.println("HELLO");
+		
+			byte[] pic = pImage.getBytes();
+			
+
+		  try {
+		   //再把Byte[]轉成Blob物件
+		   Blob Pblob = new javax.sql.rowset.serial.SerialBlob(pic);
+		  
+		   //取得logo 的Filename
+		   String picName = pImage.getOriginalFilename();
+		  
+		
+		   //呼叫Service新增到資料庫
+		   Product pb = new Product(Pblob, picName, productName, productType, productDescript, comName, productStuck, productPrice, status);
+		   pService.insert(pb);
+	   
+		  } catch (SerialException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		  } catch (SQLException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		  }
+
 		sessionStatus.setComplete();
+		
+		return "redirect:/ProductIndex";
+
 	}
-//-----------------圖
+		
+		
+	
+//-----------------輸出圖
 	@GetMapping(value = "/getimage/{productId}")
 	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable String ProductId) {
 		String filePath = "/images/NoImage.jpg";

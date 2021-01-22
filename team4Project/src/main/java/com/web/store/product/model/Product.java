@@ -35,7 +35,7 @@ public class Product implements Serializable{
 	@Column(name= "ProductPrice")
 	private Integer productPrice;
 	@Column(name= "Discount")
-	private Integer discount;
+	private Integer discount=1;
 	@Column(name= "ProductPic")
 	private Blob productPic;
 	@Column(name= "PicName")
@@ -44,9 +44,7 @@ public class Product implements Serializable{
 	private Integer status;
 	@Transient
 	MultipartFile eMultipartFile;
-	public  Product(){
-		
-	}
+	
 	public  Product(Integer productId,String productName,String productType,String productDescript,
 			String companyName,Integer productStuck,Integer productPrice,Integer discount,Blob productPic
 			,Integer status){
@@ -76,10 +74,14 @@ public class Product implements Serializable{
 		this.companyName=companyName;
 		this.status=status;
 	}
+	public  Product(){
+		
+	}
 	
-	
+
 	public Product(Blob productPic, String picName, String productName, String productType, String productDescript,
-			String companyName, Integer productStuck, Integer productPrice, Integer discount, Integer status) {		
+			String companyName, Integer productStuck, Integer productPrice, Integer status) {
+		// TODO Auto-generated constructor stub
 		super();
 		this.productPic=productPic;
 		this.picName=picName;
@@ -88,10 +90,10 @@ public class Product implements Serializable{
 		this.productDescript = productDescript;
 		this.productStuck= productStuck;
 		this.productPrice =productPrice;
-		this.discount=discount; 
 		this.companyName=companyName;
 		this.status=status;
 	}
+	
 	public Integer getproductId() {
 		return productId;
 	}

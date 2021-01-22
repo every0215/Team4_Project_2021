@@ -13,7 +13,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-        <script src="../ticketjs/checkDateTime.js"></script>
 
         <style>
             .t1 {
@@ -22,52 +21,63 @@
                 text-align: right;
             }
             
-            select option[value="0"] {
-                display: none;
-            }
+         
         </style>
     </head>
 
     <body>
 
         <h3>商品新增</h3>
-        <form name="myForm" method="post">
+        <form name="myForm" method="post" enctype="multipart/form-data">
             <hr />
 
-            <label class="t1" for="">商品名稱:</label>
-            <input type="text" name="ProductName" required="required"><br> <br>
-            <label class="t1" for="">公司名稱:</label>
-            <input type="text" name="CompanyName" required="required">
+            <label class="t1" >商品名稱:</label>
+            <input type="text" name="productName" required="required"><br> <br>
+            <label class="t1" >公司名稱:</label>
+<!--        		<input type="text" name="companyName" required="required"> -->
+            <input type="text"  name="cName" value='${company.companyName}' required="required" />
+            <br><br>
+            <label class="t1" >商品存貨:</label>
+            <input type="text" name="productStuck" required="required">
+            <br><br>
+            <label class="t1" >商品價格:</label>
+            <input type="text" name="productPrice" required="required">
             <br> <br>
-            <label class="t1" for="">商品存貨:</label>
-            <input type="text" name="ProductStuck" required="required">
+            <label class="t1" >商品類別:</label>
+            
+            <select style="width: 185px" class="t1" name="productType" required="required">
+				<option value="-1" selected>商品類別</option>
+				<option value="飲料">飲料</option>
+				<option value="泡麵">泡麵</option>
+				<option value="零食">零食</option>
+				<option value="甜點">甜點</option>
+				<option value="清潔">清潔</option>
+				<option value="餐廚">餐廚</option>
+				<option value="調味">調味</option>
+				<option value="生鮮">生鮮</option>
+				<option value="保健">保健</option>
+			</select>
             <br> <br>
-            <label class="t1" for="">商品價格:</label>
-            <input type="text" name="ProductType" required="required">
-            <br> <br>
-            <label class="t1" for="">商品類型:</label>
-            <input type="text" name="ProductStuck" required="required">
-            <br> <br>
-            <label class="t1" for="">商品說明:</label>
-            <textarea style="resize: none; width: 600px; height: 200px;" name="ProductDescription"></textarea>
-            <br> <br>
-            <label class="t1" for="">商品狀態:</label>
-            <input type="radio" id="on" name="ProductStuck" value="1">
+            <label class="t1" >商品說明:</label>
+            <textarea style="resize: none; width: 600px; height: 200px;" name="productDescript"></textarea>
+            <br><br>
+            <label class="t1" >商品狀態:</label>
+            <input type="radio" id="on" name="status" value="1">
             <label for="on">上架</label>
-            <input type="radio" id="off" name="ProductStuck" value="0">
+            <input type="radio" id="off" name=status value="0">
             <label for="off">下架</label>
-
-            <br> <br>
+			
+            <br><br>
             <label class="t1" for="">商品圖片:</label>
-            <input id="image_input" type="file" name="ProductPic"><br>
-            <br>
+            <input id="image_input" type=file name="productimage">
+            <br><br>
 
 
 
 
-            <input type="submit" name="submit" id="s1"><input type="reset" name="reset" id="s1">
+            <input type="submit" name="submit" ><input type="reset" name="reset" id="s1">
         </form>
-        <a href="../ProductIndex">回主頁</a>
+        <a href="../ProductIndex">回商品瀏覽</a>
     </body>
 
     </html>

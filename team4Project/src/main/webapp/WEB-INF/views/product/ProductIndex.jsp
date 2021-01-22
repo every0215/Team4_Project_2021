@@ -70,7 +70,8 @@ function ProductDelete() {
 						<td>${product.productType}</td>
 						<td>${product.productPrice}</td>
 						<td>${product.discount}</td>
-						<td><img height="300px" src="<c:url value='/getProductimage/${product.productId}'/>" /></td>
+						<td><img height="150px"
+							src="<c:url value='/getProductimage/${product.productId}'/>" /></td>
 						<td>${product.productDescript}</td>
 					</tr>
 				</c:forEach>
