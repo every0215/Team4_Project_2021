@@ -414,6 +414,14 @@ public class CampaignController {
 	public String campaignUserIndex(Model model) {
 		List<Company> companys = companyService.getAllCompany();
 		for(Company company:companys) {
+			//篩選企業，狀態為false則continue
+			if(company.getStatus()==false) {
+				
+				companys.remove(company);
+				continue;
+				
+			}
+			
 			List<Campaign> camps = campService.getRandomCampaignbyCompany(company.getId(), 3);
 			Set<Campaign> campsSet = new HashSet<Campaign>(camps);
 			company.setCampaigns(campsSet);
@@ -429,6 +437,7 @@ public class CampaignController {
 		page.setCurrentPage(1);
 		campService.getActiveCampaignPageByCompany(page,companyId);
 		model.addAttribute("page", page);
+		model.addAttribute("companyName", companyService.getCompanyById(companyId).getCompanyName());
 		return "/campaign/CampaignOfCompany";
 	}
 	
@@ -450,10 +459,21 @@ public class CampaignController {
 		while(resultCamps.size()<6 && activeCamp.size()>0) {
 			int randomNum = (int)(Math.random()*activeCamp.size());
 			resultCamps.add(activeCamp.get(randomNum));
-			activeCamp.remove(randomNum);
+			activeCamp.remove(randomNum);//刪除已經取得的活動，避免重複
 		}
 		
 		return resultCamps;
+	}
+	
+	@GetMapping("/detail/{campId}")
+	public String getSingleCampPage(@PathVariable Integer campId,
+									Model model
+			) {
+		Campaign camp = campService.getCampaignById(campId);
+		List<Campaign> sideCamps = campService.getRandomCampaignbyCompany(camp.getCompany().getId(), 3);
+		model.addAttribute("camp", camp);
+		model.addAttribute("sideCamps", sideCamps);
+		return "/campaign/CampaignDetailFE";
 	}
 	
 	@ModelAttribute(name = "searchBean")

@@ -5,21 +5,23 @@ $(function() {
 		success: function(response) {
 			var campContainer = $("#campContainer");
 			var dotContainer = $("#dotContainer");
-			console.log(campContainer);
+
 			campContainer.html("");
 			dotContainer.html("");
 			for (var i = 0; i < response.length; i++) {
-//				$("ul.slides").css("width",response.length*100+"%");
-//				$("ul.slides li").css("width","calc(100%/"+response.length+")");
+//				
+//				
 				var pathUrl = response[i].picturePath;
-				var campUrl = "";
+				var campUrl = "/proj/campaign/detail/"+response[i].id;
 				var campTepl = `<li><a href='${campUrl}'><img src='${pathUrl}' alt=''></a></li>`;
 				var dotTepl = `<li id=${i + 1}></li>`;
 				console.log(pathUrl);
 				campContainer.append(campTepl);
 				dotContainer.append(dotTepl);
 			}
-			
+			//根據後台回傳的圖片數量，動態改變圖片寬度和容器寬度
+			$("ul.slides").css("width",response.length*100+"%");
+			$("ul.slides li").css("width","calc(100%/"+response.length+")");
 			
 			let slideNum = 0;
 			let slideCount = $(".slides li").length;
