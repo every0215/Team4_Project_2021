@@ -97,9 +97,9 @@
           <div class="container text-center">
            <div class="ticket-info">
            <div class="panel-body">
-           <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"style="width:500px;float:left" alt="Image">
-           <p style="text-align:left">票券名稱:</p>
-           <p style="text-align:left">經銷便利店:</p>
+           <img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"style="width:500px;float:left" alt="Image">
+           <p style="text-align:left">票券名稱:${event.eventName}</p>
+           <p style="text-align:left">經銷便利店:${event.companyId}</p>
            <p style="text-align:left">場地/地區:</p>
            </div>
 				 <div id="accordion" class="ticket-info-title">

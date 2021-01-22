@@ -75,10 +75,20 @@
           </tr>
         </thead>
         <tbody>
+
           <c:forEach var="event" items="${events}">
             <tr>
               <td>${event.id}</td>
-              <td>${event.typeId}</td>
+              <td>
+  
+               <c:choose>
+               	 <c:when test="${event.typeId==1}">展覽
+               	 </c:when>
+               	 <c:when test="${event.typeId==2}">樂園與景點
+               	 </c:when>
+               	 <c:otherwise>運動賽事</c:otherwise>
+                 </c:choose>
+              </td>
               <td>${event.eventName}</td>
               <td>${event.eventLocation}</td>
               <td><img height="150px" src="<c:url value='/geteventimage/${event.id}'/>" /></td>
