@@ -10,8 +10,10 @@
      	 text-align:left;
      	}
         .panel-body{
-          border:5px #FFAC55 solid;
-          padding:3px
+          border:5px #ffffff solid;
+          border-radius: 5px;
+          padding:3px;
+          box-shadow:0px 0px 9px #FF7575;
           
         }
         .more-link{
@@ -97,31 +99,65 @@
           <div class="container text-center">
            <div class="ticket-info">
            <div class="panel-body">
-           <img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"style="width:500px;float:left" alt="Image">
-           <p style="text-align:left">票券名稱:${event.eventName}</p>
+           <img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"style="width:500px;float:left;border-right:5px #ffffff solid" alt="Image">
+           <p style="text-align:left;font-size:20px;">${event.eventName}</p>
            <p style="text-align:left">經銷便利店:${event.companyId}</p>
-           <p style="text-align:left">場地/地區:</p>
+           <p style="text-align:left">場地/地區:${event.eventLocation}</p>
+           
+           <c:choose>
+             <c:when test="${event.typeId==1}">
+             <p style="text-align:left">售票期間:${exhibition.onSaleDate}~${exhibition.offSaleDate}</p>
+             <p style="text-align:left">展出期間:${exhibition.commDate}~${exhibition.dueDate}</p>
+             <p style="text-align:left">優惠信用卡與折扣數:${creditCard.cardName}/&nbsp;${exhibition.discountRatio*10}折</p>
+             </c:when>
+             <c:when test="${event.typeId==2}">
+             <p style="text-align:left">售票期間:${attraction.onSaleDate}~${attraction.offSaleDate}</p>
+             <p style="text-align:left">展出期間:${attraction.commDate}~${attraction.dueDate}</p>
+             </c:when>
+            <c:otherwise>
+            <p style="text-align:left">售票期間:${sport.onSaleDate}~${sport.offSaleDate}</p>
+            <p style="text-align:left">優惠信用卡與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
+            </c:otherwise>
+            </c:choose>
+            
+            
+            
            </div>
 				 <div id="accordion" class="ticket-info-title">
         <h3>票券介紹</h3>
         <div >
-            <p>ATP倫敦年終賽將在10日開打，自2009年以來就一直在倫敦舉行，日前小組籤表也已經出爐，兩組分別以美國退役名將阿格西（Andre Agassi）和瑞典退役名將柏格（Björn Borg）命名。其中備受關注的喬科維奇（Novak Djokovic）和費德勒（Roger Federer）被分在同一組，至於剛完婚的納達爾（Rafael Nadal）則是將力抗3位未滿24歲的年輕小將。</p>
-            <p>柏格組包括喬科維奇、費德勒、奧地利好手蒂姆（Dominic Thiem）和首度入圍的義大利好手貝雷蒂尼（Matteo Berrettini）；至於阿格西組則是包括納達爾、俄羅斯好手梅德維夫（Daniil Medvedev）、希臘新星西西帕斯（Stefanos Tsitsipas）和德國金童茲維列夫（Alexander Zverev）。</p>
+            <p>
+            <c:choose>
+             <c:when test="${event.typeId==1}">
+             ${exhibition.description}
+             </c:when>
+             <c:when test="${event.typeId==2}">
+             ${attraction.description}
+             </c:when>
+            <c:otherwise>
+            ${sport.description}
+            </c:otherwise>
+            </c:choose>
+            </p>
         </div>
         <h3>購票須知</h3>
         <div>
-            <p>納達爾在上周因腹傷退出了巴黎大師賽的4強賽，但仍計畫前往倫敦看是否能夠出賽，納達爾說道：「我預計將會在周四或周五展開訓練，目標就是在年終賽出戰。」然而如果納達爾最終確定退賽，將會由西班牙好手巴提斯塔（Roberto Bautista Agut）遞補。</p>
-            <p>納達爾在上周因腹傷退出了巴黎大師賽的4強賽，但仍計畫前往倫敦看是否能夠出賽，納達爾說道：「我預計將會在周四或周五展開訓練，目標就是在年終賽出戰。」然而如果納達爾最終確定退賽，將會由西班牙好手巴提斯塔（Roberto Bautista Agut）遞補。</p>
-            <ul>
-                <li>清單項目一</li>
-                <li>清單項目二</li>
-                <li>清單項目三</li>
-            </ul>
+            <p>
+            請於訂票完成前再次確認您的場次票價是否正確，若於訂票完成後需作更換，須另付手續費用，詳請請參閱退換票方式。訂票完成後，請自行先至會員專區即可查詢消費紀錄確認交易是否成功，以避免重複訂票；透過信用卡交易者，交易成功後銀行會直接自消費者指定之信用卡扣款。
+            </p>
+            <p>票券因故須郵寄退票，請洽ibon客服：0800-016138(不補回郵資)，逾七日鑑賞期辦退，需酌收10%作業處理費。</p>
+            
         </div>
         <h3>注意事項</h3>
         <div>
-            <p>費德勒則是睽違17年後，首次無緣年終排名世界前2，目前累積6座年終賽冠軍為史上之最，今年將尋求生涯第7座年終賽冠軍。而費德勒今年出賽13站賽事，戰績51勝8敗，一共進帳4座冠軍，不過並沒有包括大滿貫賽冠軍，目前前生涯累計103座冠軍，距離美國傳奇康諾斯（Jimmy Connors）還差6冠。</p>
-            <p>費德勒則是睽違17年後，首次無緣年終排名世界前2，目前累積6座年終賽冠軍為史上之最，今年將尋求生涯第7座年終賽冠軍。而費德勒今年出賽13站賽事，戰績51勝8敗，一共進帳4座冠軍，不過並沒有包括大滿貫賽冠軍，目前前生涯累計103座冠軍，距離美國傳奇康諾斯（Jimmy Connors）還差6冠。</p>
+        <ul style="list-style-type:circle">
+                <li>本票券僅限使用乙次，憑票入場，不得轉售。票券若經毀損或遺失視同無效，逾期作廢，恕不補發；本票券為無記名之有價票券，嚴禁公開販售、轉售，若經發現將依法處理。</li>
+                <li> 如遇人潮眾多，展場將進行入場人流控管，請依工作人員指示排隊進場；展場內無提供洗手間，如臨時需離場，請於出口處蓋手章後出場，並於入口處重新排隊入場。</li>
+                <li>為維護觀展品質，展場內不可攜帶嬰兒車、長柄雨傘(短柄雨傘請收納至肩背包)、自拍棒、大型行李、寵物(導盲犬除外)入場，如需寄放物品，請至場館提供之置物櫃；主辦單位僅提供停放區，恕不負保管之責。</li>
+                <li>場內禁止飲食(包含水)、奔跑、嬉戲、抽菸或嚼食口香糖、檳榔，如未遵守展場規則且經勸導後無意改善，主辦單位有權要求違規者離場，恕不退還或補償門票費用。</li>
+                <li>請勿擅自拍打或觸碰展品，如有損壞須照原價賠償。</li>
+                <li>本注意事項若有未盡事宜，概以主辦單位之規定、解釋為準；主辦單位保留修改、增加、取消活動及注意事項之權利，詳情及票券使用相關資訊及規定，請洽主辦單位。</li>
+            </ul>
         </div>
     </div>
            </div>

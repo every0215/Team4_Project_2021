@@ -91,6 +91,7 @@ public class TicketController {
 		if(typeId==1) {
 			Exhibition exhibition = backendService.selectExhibitionByEvent(eventId);
 			Integer creditCardId = exhibition.getCardId();
+			System.out.println(exhibition.getDiscountRatio());
 			CreditCard creditCard = backendService.queryCreditCard(creditCardId);
 			model.addAttribute("creditCard",creditCard);
 			model.addAttribute("exhibition",exhibition);
@@ -115,6 +116,7 @@ public class TicketController {
 			 }
 			 model.addAttribute("creditCard",creditCard);
 			 model.addAttribute("sport",sport);
+			 System.out.println(sport.getDiscountRatio());
 			 model.addAttribute("sessionList",sessionList);
 			 model.addAttribute("sessionSeatList",sessionSeatList);
 			 
@@ -123,6 +125,15 @@ public class TicketController {
 		return "/ticket/CTicketShow";
 		
 	}
+	
+	public String sortByType(@PathVariable int eventId,Model model) {
+		
+		
+		return null;
+		
+	
+	}
+	
 	
 	@GetMapping("/test")
 	public String test() {

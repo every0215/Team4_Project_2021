@@ -97,7 +97,7 @@
                 <div class="panel panel-primary" onclick="location.href = '<c:url value="/TicketShow/${event.id}"/>'">
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
-                      style="width:100%" alt="${event.eventName}"></div>
+                      style="width:100%;height:164px" alt="${event.eventName}"></div>
                   <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
                 </div>
               </div>
@@ -127,10 +127,10 @@
 <c:forEach var="event" items="${smallattraction}">
 
               <div class="col-sm-4">
-                <div class="panel panel-primary" onclick="location.href = '<c:url value="/TicketShow/${event.id}"/>'">
+                <div class="panel panel-danger" onclick="location.href = '<c:url value="/TicketShow/${event.id}"/>'">
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
-                      style="width:100%" alt="${event.eventName}"></div>
+                      style="width:100%;height:164px" alt="${event.eventName}"></div>
                   <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
                 </div>
               </div>
@@ -158,10 +158,10 @@
 <c:forEach var="event" items="${smallsport}">
 
               <div class="col-sm-4">
-                <div class="panel panel-primary" onclick="location.href = '<c:url value="/TicketShow/${event.id}"/>'">
+                <div class="panel panel-success" onclick="location.href = '<c:url value="/TicketShow/${event.id}"/>'">
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
-                      style="width:100%" alt="${event.eventName}"></div>
+                      style="width:100%;height:164px" alt="${event.eventName}"></div>
                   <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
                 </div>
               </div>
