@@ -12,7 +12,7 @@
 
 
 
-<form:form method='POST' modelAttribute="Store" action="<c:url value='StoreRegister'/>">
+<form:form method='POST' modelAttribute="storeBean" action="<c:url value='StoreRegister'/>">
 			<c:if test='${Store.id != null}'>
                  <form:hidden path="id" />
 			</c:if>
@@ -23,17 +23,19 @@
 						<td align='right'>門市名稱：</td>
 						<td><form:input path="storeName"  type="text" />						</td>
 						<td align='right'>24hr Y/N：</td>
-						<td><form:select path="businessHour" />
+						<td><form:select path="businessHour" >
 							<form:option value="0">24hr</form:option>
 							<form:option value="1">其他</form:option>
+							</form:select>
 						</td>
 					</tr>
 					<tr>
 						<td align='right'>地區：</td>
-						<td><form:select path="storeArea"  type="text" />
+						<td><form:select path="storeArea"  type="text" >
 							<form:option value="0">北區</form:option>
 							<form:option value="1">中區</form:option>
 							<form:option value="2">南區</form:option>
+							</form:select>
 						</td>
 						<td align='right'>開店時間：</td>
 						<td><form:input path="openhour"  type="text" />

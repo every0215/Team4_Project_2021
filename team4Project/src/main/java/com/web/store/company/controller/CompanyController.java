@@ -365,7 +365,7 @@ public class CompanyController {
 	// 
 	@PostMapping("/storeRegister")
 	public String insertStoreData(
-		@ModelAttribute Store sto 
+		@ModelAttribute("storeBean") Store sto 
 		, BindingResult bindingResult 
 		) {
 		
