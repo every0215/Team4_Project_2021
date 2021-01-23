@@ -111,18 +111,18 @@ public class CampaignController {
 //		後端驗證區塊↓	
 		HashMap<String,String> errMsg = new HashMap<String,String>();
 		boolean isOk = true;
-		
-		
-		if(StartDateTimeStamp.compareTo(date)<0) {
-			errMsg.put("startAfterCurrentErr","開始時間不得小於當前時間");
-			isOk = false;
-		}
-		
-		if(StartDateTimeStamp.compareTo(endDateTimeStamp)>0) {
-			errMsg.put("startAfterEndErr","結束時間必須大於開始時間");
-			isOk = false;
-		}
-		
+//		
+//		
+//		if(StartDateTimeStamp.compareTo(date)<0) {
+//			errMsg.put("startAfterCurrentErr","開始時間不得小於當前時間");
+//			isOk = false;
+//		}
+//		
+//		if(StartDateTimeStamp.compareTo(endDateTimeStamp)>0) {
+//			errMsg.put("startAfterEndErr","結束時間必須大於開始時間");
+//			isOk = false;
+//		}
+//		
 				
 //		後端驗證區塊↑		
 		
@@ -134,6 +134,7 @@ public class CampaignController {
 		DiscountParams discountParams = new DiscountParams();
 		discountParams.setType(type);
 		if(type==1) {
+			offParam = offParam/10;
 			discountParams.setOffParam(offParam);
 		}else if(type==2) {		
 			discountParams.setAmountUpTo(amountUpTo);
@@ -235,6 +236,7 @@ public class CampaignController {
 		DiscountParams discountParams = campOrigin.getDiscountParams();
 		discountParams.setType(type);
 		if (type == 1) {
+			offParam = offParam/10;
 			discountParams.setOffParam(offParam);
 		} else if (type == 2) {
 			discountParams.setAmountUpTo(amountUpTo);
@@ -484,6 +486,8 @@ public class CampaignController {
 		List<Campaign> sideCamps = campService.getRandomCampaignbyCompany(camp.getCompany().getId(), 3);
 		model.addAttribute("camp", camp);
 		model.addAttribute("sideCamps", sideCamps);
+		double discount = campService.checkProductDiscountById(207);
+		System.out.println(discount+"-------------------");
 		return "/campaign/CampaignDetailFE";
 	}
 	

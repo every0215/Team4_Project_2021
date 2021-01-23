@@ -74,7 +74,7 @@ public class ProductDaoimpl implements ProductDao {
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "from Product where productId = :productId";
 		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
-		queryObj.setParameter("ProductId", productId);
+		queryObj.setParameter("productId", Integer.parseInt(productId));
 		return queryObj.uniqueResult();
 	}
 
