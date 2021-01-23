@@ -437,8 +437,19 @@ public class CampaignController {
 		page.setCurrentPage(1);
 		campService.getActiveCampaignPageByCompany(page,companyId);
 		model.addAttribute("page", page);
-		model.addAttribute("companyName", companyService.getCompanyById(companyId).getCompanyName());
+		model.addAttribute("comp", companyService.getCompanyById(companyId));
 		return "/campaign/CampaignOfCompany";
+	}
+	
+	@PostMapping("/companyCampPage/{companyId}")
+	public @ResponseBody Page<Campaign> getComapnyCampaignPage (@ModelAttribute Page<Campaign> page,
+																@PathVariable Integer companyId
+			){
+		campService.getActiveCampaignPageByCompany(page,companyId);
+		for(Campaign camp :page.getContent()) {
+			camp.convertTimestampToString();
+		}
+		return page;
 	}
 	
 	@GetMapping("/getIndexCamp")
@@ -466,7 +477,7 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/detail/{campId}")
-	public String getSingleCampPage(@PathVariable Integer campId,
+	public String getCampDetailPage(@PathVariable Integer campId,
 									Model model
 			) {
 		Campaign camp = campService.getCampaignById(campId);

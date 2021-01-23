@@ -7,7 +7,7 @@ public class Page <E>{
 	private Integer totalpage;
 	private Integer currentPage;
 	private Integer pageSize=6;
-	private Integer TotalResultCount;
+	private Integer TotalResultCount=0;
 	private List<E> content;
 	
 	
