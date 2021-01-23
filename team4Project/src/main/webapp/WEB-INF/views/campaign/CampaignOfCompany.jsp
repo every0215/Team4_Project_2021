@@ -97,7 +97,7 @@
             border-radius: 10px;
             text-align: center;
             width: 150px;
-            border:dashed 1px;
+            border:solid 1px;
             margin: auto;
             padding: 5px 10px;
         }
@@ -118,9 +118,9 @@
         <c:import url="/layout/header" />
 <!--     section部分 -->
 	<section class="camp-section">
-	    <div class="title"><h2 style="padding-bottom:0;color:white">${companyName}</h2></div>
+	    <div class="title"><h2 style="padding-bottom:0;color:white">${comp.companyName}</h2></div>
 	    
-	       <div class="camp-container">
+	       <div class="camp-container" id="camp-container">
 	       	<c:forEach items="${page.content}" var="camp">
 				<div class="camp">
 					<div class="camp_top">
@@ -138,11 +138,14 @@
 				</div>
 		    </c:forEach> 
 	       </div> 
-	             
-	    <div class="more-btn">下滑查看更多</div>
-    
+	    <c:if test="${page.totalResultCount>6}">
+	    	<div class="more-btn">下滑查看更多</div>
+	    </c:if>         
+	     
     </section>
-    <!-- jQuery library -->
+    	
+    
+    	<!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="<c:url value='/js/bootstrap.js' />"></script>
@@ -164,5 +167,46 @@
         <script src="<c:url value='/js/custom.js' />"></script>
 
         <script src="<c:url value='/js/luke_js.js' />"></script>
+        
+        <script>
+        	var currentPage = 1;
+        	var totalPage = 0;
+        	
+    		$(window).scroll(function(){ 
+    			
+    			var windowScrollTop = $(this).scrollTop();
+    			var docHeight = $(document).height();
+    			var windowHeight = $(this).height();
+    			
+    			if((docHeight-1)<(windowScrollTop+windowHeight)){
+    				console.log("reach bottom");
+    				currentPage+=1;
+    				$.ajax({
+    					type:"Post",
+    					url:"<c:url value='/campaign/companyCampPage/'/>/"+${comp.id},
+    					data:{"currentPage":currentPage},
+    					success:function(response){
+    						totalPage = response.totalPage;
+    						var container = document.getElementById("camp-container");
+    						var campElement = document.querySelector(".camp");
+    						var camps = response.content;
+    						for(camp of camps){			
+    							//建立camp模板
+   								var campElementClone = campElement.cloneNode(true);
+           						campElementClone.querySelector("img").src = camp.picturePath;
+           						campElementClone.querySelector(".camp_title").innerText = camp.name;
+           						campElementClone.querySelector(".camp_date").innerText = camp.startDate+" ~ "+camp.endDate;
+           						campElementClone.querySelector(".camp_top a").href = "<c:url value='/campaign/detail/'/>"+camp.id;
+           						campElementClone.querySelector(".camp_bottom a").href = "<c:url value='/campaign/detail/'/>"+camp.id;
+           						container.appendChild(campElementClone);
+    							
+    						}
+    						
+    						
+    					}
+    				});
+    			}
+    		});
+    	</script>
 </body>
 </html>

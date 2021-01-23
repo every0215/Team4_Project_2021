@@ -17,6 +17,7 @@ public class SearchBean {
 	private String endDateStr;
 	private Timestamp strDate;
 	private Timestamp endDate;
+	private Boolean byDate=false;
 	
 	
 	public void convertStringToTimestamp() {
@@ -59,6 +60,14 @@ public class SearchBean {
 	}
 	public void setEndDateStr(String endDateStr) {
 		this.endDateStr = endDateStr;
+	}
+
+	public Boolean getByDate() {
+		return byDate;
+	}
+
+	public void setByDate(Boolean byDate) {
+		this.byDate = byDate;
 	}
 	
 }

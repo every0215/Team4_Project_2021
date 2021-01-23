@@ -39,7 +39,7 @@ ul.functionBar {
 }
 
 ul.functionBar li {
-	padding: 0px 20px;
+	padding: 0px 10px;
 	vertical-align: bottom;
 	line-height: 1.7;
 }
@@ -109,7 +109,7 @@ tr>td>button {
 		<input id="companyId" type="hidden" value="1">  
 		<ul class="functionBar">
 			
-			<li><button id="addBtn" class="btn btn-self" type="button">新增活動</button></li>
+			
 			
 			<li><label>查詢活動:</label><form:input type="text" path="searchStr" placeholder="Search.."/></li>
 			
@@ -120,6 +120,7 @@ tr>td>button {
 					<form:option value="1">上架</form:option>
 					<form:option value="2">下架</form:option>
 					<form:option value="3">進行中</form:option>
+					<form:option value="4">已過期</form:option>
 				</form:select>
 			</li>
 	
@@ -133,9 +134,9 @@ tr>td>button {
 				<form:input id="endDate" type="date" path="endDateStr"/>
 			</li>
 	
-			
+			<li><label>依日期</label><form:checkbox path="byDate" value="true"/></li>
 			<li><button id="queryBtn" class="btn btn-self" type="submit">查詢</button></li>
-			
+			<li><button id="addBtn" class="btn btn-self" type="button">新增活動</button></li>
 		</ul>
 	</form:form>
 	<div id="container" class="container">

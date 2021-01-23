@@ -1,5 +1,5 @@
 $(function() {
-
+	console.log("1233333333333333333333");
 	$.ajax({
 		url: "/proj/campaign/getIndexCamp",
 		success: function(response) {

@@ -29,15 +29,10 @@
   <!-- Start slider -->
   <section id="aa-slider">
     <div class="wrapper">
-        <ul class="slides">
+        <ul class="slides" id="campContainer">
 
-            <li><a href="1"><img src="img\slider\1.jpg" alt=""></a></li>
-            <li><a href="2"><img src="img\slider\2.jpg" alt=""></a></li>
-            <li><a href="3"><img src="img\slider\3.jpg" alt=""></a></li>
-            <li><a href="4"><img src="img\slider\4.jpg" alt=""></a></li>
-            <li><a href=""><img src="img\slider\5.jpg" alt=""></a></li>
         </ul>
-        <ul class="dot">
+        <ul class="dot" id="dotContainer">
             <li id="1"></li>
             <li id="2"></li>
             <li id="3"></li>
