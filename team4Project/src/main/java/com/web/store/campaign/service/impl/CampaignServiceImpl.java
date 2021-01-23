@@ -3,6 +3,7 @@ package com.web.store.campaign.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -15,6 +16,8 @@ import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.Page;
 import com.web.store.campaign.model.SearchBean;
 import com.web.store.campaign.service.CampaignService;
+import com.web.store.product.model.Product;
+import com.web.store.product.service.ProductService;
 
 
 
@@ -24,6 +27,8 @@ public class CampaignServiceImpl implements CampaignService {
 	
 	@Autowired
 	CampaignDao campDao;
+	@Autowired
+	ProductService productService;
 	
 	@Override
 	public int insert(Campaign camp) {
@@ -128,6 +133,25 @@ public class CampaignServiceImpl implements CampaignService {
 	@Override
 	public Page<Campaign> getActiveCampaignPageByCompany(Page<Campaign> page, int companyId) {
 		return campDao.getActiveCampaignPageByCompany(page, companyId);
+	}
+
+	@Override
+	public double checkProductDiscountById(int productId) {
+		String productIdStr = String.valueOf(productId);
+		Product product = productService.getProduct(productIdStr);
+		Hibernate.initialize(product);
+		Set<Campaign> campOfProduct = product.getCampaigns();
+		double lowestDiscount = 1;
+		for(Campaign camp:campOfProduct) {
+			if(camp.getDiscountParams().getType()==1) {
+				int AmountOffParam = camp.getDiscountParams().getAmountOffParam();
+				
+				if(AmountOffParam<lowestDiscount) {
+					lowestDiscount = AmountOffParam;
+				}				
+			}		
+		}
+		return lowestDiscount;
 	}
 		
 }
