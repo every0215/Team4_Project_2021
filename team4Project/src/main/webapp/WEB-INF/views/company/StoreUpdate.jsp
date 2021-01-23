@@ -8,7 +8,6 @@
 </head>
 <body>
 
-
-
+把Store的Bean全部顯示
 </body>
 </html>

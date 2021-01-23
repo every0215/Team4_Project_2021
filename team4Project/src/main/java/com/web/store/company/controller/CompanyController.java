@@ -180,9 +180,9 @@ public class CompanyController {
 	public String testImage() {
 		return "\\company\\ShowCompanyInfo";
 	}
-	//輸出圖片
-	@GetMapping(value = "/getCompanyimage/{account}")
-	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable String account) {
+	
+	@GetMapping(value = "/getCompanyimage/{id}")
+	public ResponseEntity<byte[]> getPictureById(HttpServletResponse resp, @PathVariable Integer id) {
 		String filePath = "/images/NoImage.jpg";
 
 		byte[] media = null;
@@ -190,7 +190,7 @@ public class CompanyController {
 		String logoname = "";
 		
 		int len = 0;
-		Company cmp = cmpService.getCompany(account);
+		Company cmp = cmpService.getCompanyById(id);
 		
 		if (cmp != null) {
 			
@@ -227,6 +227,58 @@ public class CompanyController {
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}
+	
+	
+	
+	
+	
+	//輸出圖片
+//	@GetMapping(value = "/getCompanyimage/{account}")
+//	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable String account) {
+//		String filePath = "/images/NoImage.jpg";
+//
+//		byte[] media = null;
+//		HttpHeaders headers = new HttpHeaders();
+//		String logoname = "";
+//		
+//		int len = 0;
+//		Company cmp = cmpService.getCompany(account);
+//		
+//		if (cmp != null) {
+//			
+//			Blob logoblob = cmp.getLogo();
+//			
+//			logoname = cmp.getLogoName();
+//			
+//			if (logoblob != null) {
+//				
+//				try {
+//					len = (int) logoblob.length();
+////					System.out.println(len);
+//					media = logoblob.getBytes(1, len);
+////					System.out.println(media);
+//				} catch (SQLException e) {
+//					throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
+//				}
+//			} else {
+//				media = toByteArray(filePath);
+//				logoname = filePath;
+//			}
+//		} else {
+//			media = toByteArray(filePath);
+//			logoname = filePath;
+//		}
+//		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+//		System.out.println("media"+media);
+//		String mimeType = context.getMimeType(logoname); //getMimeType 會抓出副檔名的mimetype  
+//		System.out.println("--------mimeType"+mimeType);
+//		System.out.println("123-----filename---"+logoname);
+//		MediaType mediaType = MediaType.valueOf(mimeType);
+//		System.out.println("66666mimeType = "+mimeType+"   mediaType = " + mediaType);
+//		headers.setContentType(mediaType);
+//		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
+//		return responseEntity;
+//	}
 	//輸出圖片裡會用到的方法
 	private byte[] toByteArray(String filepath) {
 		byte[] b = null;
