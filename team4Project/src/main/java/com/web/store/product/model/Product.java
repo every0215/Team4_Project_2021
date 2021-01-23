@@ -2,16 +2,26 @@ package com.web.store.product.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.web.store.campaign.model.Campaign;
 
 
 @Entity
@@ -44,6 +54,12 @@ public class Product implements Serializable{
 	private Integer status;
 	@Transient
 	MultipartFile eMultipartFile;
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "Campaign_product", joinColumns = {
+            @JoinColumn(name = "product_id", referencedColumnName = "productId") }, inverseJoinColumns = {
+                    @JoinColumn(name = "campaign_id", referencedColumnName = "id") })
+	Set<Campaign> campaigns=new HashSet<Campaign>();
 	
 	public  Product(Integer productId,String productName,String productType,String productDescript,
 			String companyName,Integer productStuck,Integer productPrice,Integer discount,Blob productPic
@@ -167,4 +183,12 @@ public class Product implements Serializable{
 	public void setPicName(String picName) {
 		this.picName = picName;
 	}
+	public Set<Campaign> getCampaigns() {
+		return campaigns;
+	}
+	public void setCampaigns(Set<Campaign> campaigns) {
+		this.campaigns = campaigns;
+	}
+	
+	
 }

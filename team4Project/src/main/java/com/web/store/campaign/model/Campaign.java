@@ -4,14 +4,19 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,6 +24,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.store.company.model.Company;
+import com.web.store.product.model.Product;
 
 @Entity
 @Table(name = "Campaign")
@@ -28,6 +34,7 @@ public class Campaign implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
 	private Integer id;
 
 	private String name;
@@ -69,6 +76,14 @@ public class Campaign implements Serializable {
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "campaign")
 	@JsonIgnore
 	private DiscountParams discountParams;
+	
+	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "Campaign_product", joinColumns = {
+            @JoinColumn(name = "campaign_id", referencedColumnName = "id") }, inverseJoinColumns = {
+                    @JoinColumn(name = "product_id", referencedColumnName = "ProductId") })
+	private Set<Product> products=new HashSet<Product>();;
 
 //	//商品活動多對多映射，之後補上
 //	@ManyToMany(cascade=CascadeType.ALL,mappedBy = "campaign",fetch = FetchType.LAZY)
@@ -303,5 +318,15 @@ public class Campaign implements Serializable {
 	public void setExpired(Boolean expired) {
 		this.expired = expired;
 	}
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+	
+	
 	
 }
