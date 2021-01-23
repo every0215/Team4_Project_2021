@@ -486,8 +486,6 @@ public class CampaignController {
 		List<Campaign> sideCamps = campService.getRandomCampaignbyCompany(camp.getCompany().getId(), 3);
 		model.addAttribute("camp", camp);
 		model.addAttribute("sideCamps", sideCamps);
-		double discount = campService.checkProductDiscountById(207);
-		System.out.println(discount+"-------------------");
 		return "/campaign/CampaignDetailFE";
 	}
 	
