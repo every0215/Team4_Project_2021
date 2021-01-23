@@ -66,11 +66,14 @@
     <div id="container" class="container">
     
         <div class="row head">
-        	<c:if test="${empty isUpdate}">
+        	<c:if test="${!empty isInsert}">
         		<h3>新增成功</h3>
         	</c:if>
             <c:if test="${!empty isUpdate}">
         		<h3>修改成功</h3>
+        	</c:if>
+        	<c:if test="${empty isUpdate && empty isInsert}">
+        		<h3>活動詳情</h3>
         	</c:if>
         </div>
         
@@ -147,7 +150,13 @@
         </div> 
         
         <div class="functionBar">
-            <button class="btn btn-primary" onclick="window.history.go(-2)">返回</button>
+        	<c:if test="${empty isUpdate && empty isInsert}">
+        		<button class="btn btn-primary" onclick="window.history.go(-1)">返回</button>
+        	</c:if>
+        	<c:if test="${!(empty isUpdate && empty isInsert)}">
+        		<button class="btn btn-primary" onclick="window.history.go(-2)">返回</button>
+        	</c:if>
+            
         </div>
     </div>
 </body>

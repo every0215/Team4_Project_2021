@@ -117,6 +117,7 @@ public class CampaignServiceImpl implements CampaignService {
 	}
 
 	@Override
+	//排程任務呼叫的method，確認全部活動狀態，進行中、已過期之判斷
 	public void checkCampaignStatus() {
 		List<Campaign> camps = campDao.getAllCampaign();
 		for(Campaign camp:camps) {

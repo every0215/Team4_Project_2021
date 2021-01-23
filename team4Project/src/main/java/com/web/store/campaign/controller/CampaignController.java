@@ -55,6 +55,8 @@ import com.web.store.campaign.service.CampaignService;
 import com.web.store.campaign.validator.SearchValidator;
 import com.web.store.company.model.Company;
 import com.web.store.company.service.CompanyService;
+import com.web.store.product.model.Product;
+import com.web.store.product.service.ProductService;
 import com.web.store.utils.ImgurAPI;
 
 
@@ -70,6 +72,8 @@ public class CampaignController {
 	ServletContext context;
 	@Autowired
 	CompanyService companyService;
+	@Autowired
+	ProductService productService;
 	
 	@GetMapping("/show")
 	public String showAllCamp(Model model) {
@@ -173,6 +177,8 @@ public class CampaignController {
 		if(!isOk) {
 			return "redirect:/campaign/insertPage";
 		}
+		
+		model.addAttribute("isInsert", true);
 		
 		return "redirect:/campaign/campaignAddComfirm";
 		
@@ -348,20 +354,33 @@ public class CampaignController {
 	}
 	
 	
-	@GetMapping("/showCampaign/{companyId}/{pageNum}")
-	public String showCampaignPage(@PathVariable int companyId,
-			Model model,
+	@GetMapping("/boIndex/{pageNum}")
+	public String BoCampaignPage(Model model,
 			@PathVariable int pageNum) {
-
+		
+		
 		Page<Campaign> page = new Page<Campaign>();
 		page.setCurrentPage(pageNum);
-		campService.getCampaignPageOfCompany(page, companyId);
+		Company company = (Company)model.getAttribute("company");
+		
+		if(company==null) {
+			return "redirect:/index";
+		}
+		
+		campService.getCampaignPageOfCompany(page,company.getId());
 		List<Campaign> camps = page.getContent();
 		for(Campaign camp:camps) {			
 			camp.isActive();
 		}
 		model.addAttribute("page", page);
 		return "campaign/CampaignShowPage";
+	}
+	
+	@GetMapping("/boDetail/{campaignId}")
+	public String boCampaignDeatail(@PathVariable Integer campaignId,Model model) {
+		Campaign camp = campService.getCampaignById(campaignId);
+		model.addAttribute("camp", camp);
+		return "campaign/CampaignAddComfirmPage";
 	}
 	
 	@GetMapping("/ShowUpdatePage/{campaignId}")
@@ -385,13 +404,17 @@ public class CampaignController {
 		return pageResult;
 	}
 	
-	@GetMapping(value="/search/{companyId}/{pageNum}")
+	@GetMapping(value="/search/{pageNum}")
 	public String searchCampaign(@ModelAttribute SearchBean searchBean	,
-									@PathVariable Integer companyId,
 									@PathVariable Integer pageNum,
 									Model model,
 									BindingResult result
 			) {
+		
+		Company company = (Company)model.getAttribute("company");
+		if(company==null) {
+			return "redirect:/index";
+		}
 		
 		SearchValidator validator = new SearchValidator();
 		validator.validate(searchBean, result);
@@ -401,7 +424,7 @@ public class CampaignController {
 		Page<Campaign> page = new Page<Campaign>();
 		searchBean.convertStringToTimestamp();
 		page.setCurrentPage(pageNum);
-		page = campService.searchCampaignOfCompany(companyId, searchBean, page);
+		page = campService.searchCampaignOfCompany(company.getId(), searchBean, page);
 		List<Campaign> camps = page.getContent();
 		for(Campaign camp:camps) {			
 			camp.isActive();
@@ -433,7 +456,7 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/index/{companyId}")
-	public String getComapnyCampaignFP(@PathVariable int companyId,
+	public String ComapnyCampaignFP(@PathVariable int companyId,
 			Model model) {
 		Page<Campaign> page = new Page<Campaign>();
 		page.setCurrentPage(1);
@@ -444,7 +467,7 @@ public class CampaignController {
 	}
 	
 	@PostMapping("/companyCampPage/{companyId}")
-	public @ResponseBody Page<Campaign> getComapnyCampaignPage (@ModelAttribute Page<Campaign> page,
+	public @ResponseBody Page<Campaign> ComapnyCampaignPage (@ModelAttribute Page<Campaign> page,
 																@PathVariable Integer companyId
 			){
 		campService.getActiveCampaignPageByCompany(page,companyId);
@@ -455,7 +478,7 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/getIndexCamp")
-	public @ResponseBody List<Campaign> getCampaignOfIndex(){
+	public @ResponseBody List<Campaign> CampaignOfIndex(){
 		
 		List<Campaign> resultCamps = new ArrayList<Campaign>();//要傳到首頁的活動
 		List<Campaign> AllCamps = campService.getAllCampaign();//全部活動
@@ -479,7 +502,7 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/detail/{campId}")
-	public String getCampDetailPage(@PathVariable Integer campId,
+	public String CampDetailPage(@PathVariable Integer campId,
 									Model model
 			) {
 		Campaign camp = campService.getCampaignById(campId);
@@ -487,6 +510,20 @@ public class CampaignController {
 		model.addAttribute("camp", camp);
 		model.addAttribute("sideCamps", sideCamps);
 		return "/campaign/CampaignDetailFE";
+	}
+	
+	@GetMapping("/applyPage/{campaignId}")
+	public String applyCampaignPage(Model model, @PathVariable Integer campaignId) {
+		return "campaign/CampaignApplyPage";
+	}
+	
+	@PostMapping("/applyCampaign")
+	public @ResponseBody Map<String,String> applyCampaign(@RequestBody List<Integer> productIds														 
+			){
+		for(int i:productIds) {
+			Product product = productService.getProduct(String.valueOf(i));
+		}
+		return null;
 	}
 	
 	@ModelAttribute(name = "searchBean")
