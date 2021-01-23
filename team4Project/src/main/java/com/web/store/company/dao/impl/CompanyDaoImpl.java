@@ -89,13 +89,13 @@ public class CompanyDaoImpl implements CompanyDao {
 	//更新企業資訊(要多寫一個用來更改企業狀態上下架)
 	@Override
 	public boolean update(Company cmp) {
-		System.out.println("1");
+		
 		Session session = sessionFactory.getCurrentSession();
 		
-		System.out.println("2");
+		
 //		String hqlstr = "UPDATE Company SET id = :newId , companyName = :newName , logo = :newLogo , logoName = :newLogoName , uniformNumbers = :newUniformNum ,categories = :newCategories , email = :newEmail ,phone = :newPhone ,busRC = :newBusRC ,busRCName = :newBusRCName WHERE id = :Cid";
 		
-		System.out.println("3");
+		
 		Query queryObj = session.createQuery("UPDATE Company SET  companyName = :newName , logo = :newLogo , logoName = :newLogoName , uniformNumbers = :newUniformNum ,categories = :newCategories , email = :newEmail ,phone = :newPhone ,busRC = :newBusRC ,busRCName = :newBusRCName WHERE id = :Cid")
 		.setParameter("Cid", cmp.getId())
 		.setParameter("newName", cmp.getCompanyName())
@@ -181,8 +181,38 @@ public class CompanyDaoImpl implements CompanyDao {
 		String hqlstr = "from Company where Id = :id";
 		Query<Company> queryObj = session.createQuery(hqlstr,Company.class);
 		queryObj.setParameter("id", id);
-		return queryObj.uniqueResult();
+//		return queryObj.uniqueResult();
+		Company cmp = queryObj.uniqueResult();
 		
+		if(cmp!=null) {
+			if(cmp.getStatus()) {
+				return cmp;
+			}else {
+				return null;
+			}
+		}else  {
+			return null;
+		}
+		
+	
+	}
+
+	@Override
+	public boolean statusCheck(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Company where Id = :id";
+		Query<Company> queryObj = session.createQuery(hqlstr,Company.class);
+		queryObj.setParameter("id", id);
+		Company cmp = queryObj.uniqueResult();
+		boolean chk = cmp.getStatus();
+		
+		if(chk) {
+			return true;
+			
+		}else {
+			return false;
+			
+		}
 	}
 	
 }

@@ -22,7 +22,9 @@ public class StoreDaoImpl implements StoreDao {
 	
 	@Override
 	public void addStore(Store sto) {
-		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+
+		session.save(sto);
 
 	}
 
@@ -33,31 +35,50 @@ public class StoreDaoImpl implements StoreDao {
 	}
 
 	@Override
-	public List<Store> getAllStore() {
+	public List<Store> getAllStoreByCompanyId(Integer id) {
 		
+
 		Session session = sessionFactory.getCurrentSession();
-		String hqlstr = "from Store";
-		Query<Store> queryObj = session.createQuery(hqlstr,Store.class); 			
+		String hqlstr = "from Store where CompanyId = :CompanyId";
+		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);
+		queryObj.setParameter("CompanyId", id);
+		
 		return queryObj.list();	
+		
 		
 	}
 
 	@Override
 	public List<Store> getStoreByArea(String storeArea) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Store where StoreArea = :storeArea";
+		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);
+		queryObj.setParameter("StoreArea", storeArea);
+		
+		return queryObj.list();	
+	
 	}
 
 	@Override
-	public List<Store> getStoreByName(String store) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Store> getStoreByName(String storeName) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Store where StoreName = :storeName";
+		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);
+		queryObj.setParameter("StoreName", storeName);
+		
+		return queryObj.list();	
 	}
 
 	@Override
-	public boolean updateStatus(Store sto) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateStatus(Integer id,Boolean status) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		Query queryObj = session.createQuery("UPDATE Store SET  Status = :newStatus WHERE Id = :Sid")
+				.setParameter("Sid", id)
+				.setParameter("newStatus", status);
+		
+		queryObj.executeUpdate();
+		return true;
 	}
 
 }

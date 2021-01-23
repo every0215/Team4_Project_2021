@@ -36,7 +36,8 @@ public interface CompanyDao {
 	boolean delete(Company cmp);
 	//顯示合作企業
 	List<Company> getAllCompany();
-	//登出
+	//驗證上架狀態
+	boolean statusCheck(Integer id);
 	
 	/////////////////////後台功能////////////////////////
 	
