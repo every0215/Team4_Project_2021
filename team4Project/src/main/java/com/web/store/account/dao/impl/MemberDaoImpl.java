@@ -1,4 +1,4 @@
-package com.web.store.account.dao;
+package com.web.store.account.dao.impl;
 
 
 import java.sql.SQLException;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import com.web.store.account.common.HibernateUtil;
 import com.web.store.account.common.Utility;
+import com.web.store.account.dao.MemberDao;
 import com.web.store.account.javabean.MemberBean;
 
 @Repository
@@ -65,6 +66,8 @@ public class MemberDaoImpl implements MemberDao {
 		m.setPassword(Utility.encryptUsingSHA512(m.getPwd()));
 		m.setActive(false);
 		m.setVerified(false);
+		m.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		m.setModifiedDate(new Timestamp(System.currentTimeMillis()));
 		//....
 		session.save(m);
 
@@ -86,17 +89,41 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	@Override
-	public int updateNickName(MemberBean m) throws SQLException {
+	public void update(MemberBean m) throws SQLException {
 		Session session = factory.getCurrentSession();
-
-		Query query = session.createQuery("update MemberBean m SET m.nickname = :Nickname where m.id = :Id")
+		//....
+		session.saveOrUpdate(m);
+		
+	}
+	
+	
+	@Override
+	public int updatePassword(MemberBean m) throws SQLException {
+		Session session = factory.getCurrentSession();
+		m.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+		Query query = session.createQuery("update MemberBean m SET m.password = :Password, m.modifiedDate = :ModifiedDate WHERE m.id = :Id")
 				.setParameter("Id", m.getId())
-				.setParameter("Nickname", m.getNickname());
+				.setParameter("Password", m.getPassword())
+				.setParameter("ModifiedDate", m.getModifiedDate());
 		
 			query.executeUpdate();
 
 		return 1;
 		
+	}
+	
+	@Override
+	public int updateNickname(MemberBean m) throws SQLException {
+		Session session = factory.getCurrentSession();
+		m.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+		Query query = session.createQuery("update MemberBean m SET m.nickname = :Nickname, m.modifiedDate = :ModifiedDate where m.id = :Id")
+				.setParameter("Id", m.getId())
+				.setParameter("Nickname", m.getNickname())
+				.setParameter("ModifiedDate", m.getModifiedDate());
+		
+			query.executeUpdate();
+
+		return 1;
 	}
 	
 	@Override
@@ -126,11 +153,11 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int updateProfileImages(MemberBean m) throws SQLException {
 		Session session = factory.getCurrentSession();
-
-		Query query = session.createQuery("update MemberBean m SET m.profileImage1 = :ProfileImage1 where m.id = :Id")
+		m.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+		Query query = session.createQuery("update MemberBean m SET m.profileImage1 = :ProfileImage1, m.modifiedDate = :ModifiedDate  where m.id = :Id")
 				.setParameter("Id", m.getId())
-				.setParameter("ProfileImage1", m.getProfileImage1());
-		
+				.setParameter("ProfileImage1", m.getProfileImage1())
+				.setParameter("ModifiedDate", m.getModifiedDate());
 			query.executeUpdate();
 
 		return 1;

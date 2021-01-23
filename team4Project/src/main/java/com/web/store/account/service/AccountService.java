@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.javabean.MemberCreditCard;
 import com.web.store.account.javabean.MemberLoginHistory;
 
 public interface AccountService {
@@ -16,7 +17,7 @@ public interface AccountService {
 
 	int deleteById(int id) throws Exception;
 
-	int update(MemberBean member) throws Exception;
+//	int update(MemberBean member) throws Exception;
 
 	int updateProfileImages(MemberBean member) throws Exception;
 
@@ -29,5 +30,17 @@ public interface AccountService {
 	int updateVerified(MemberBean m) throws SQLException;
 
 	int updateActive(MemberBean m) throws SQLException;
+
+	void insert(MemberCreditCard mCreditCard) throws Exception;
+
+//	List<MemberCreditCard> selectAllMemberCreditCards() throws Exception;
+
+	int deleteMemberCreditCardById(int memberCreditCardId) throws Exception;
+
+	int updatePassword(MemberBean member) throws Exception;
+
+	int updateNickname(MemberBean member) throws Exception;
+
+	void update(MemberBean member) throws Exception;
 
 }

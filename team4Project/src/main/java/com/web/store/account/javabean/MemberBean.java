@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -46,6 +48,9 @@ public class MemberBean implements Serializable {
 	private byte[] password;
 	
 	@Transient
+	private String origpwd;
+	
+	@Transient
 	private String pwd;
 	
 	@Transient
@@ -70,6 +75,8 @@ public class MemberBean implements Serializable {
 	
 	@Transient
 	private String profileImage1Base64;
+	@Transient
+	private String profileImage1Path;
 	
 	@Transient
 	private String profileImage2Base64;
@@ -88,8 +95,18 @@ public class MemberBean implements Serializable {
 	@Column(name="ModifiedDate")
 	private Timestamp modifiedDate;
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
-	private List<MemberLoginHistory> memberLoginHistory;
+	private Set<MemberLoginHistory> memberLoginHistoryList;
 	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	private Set<MemberCreditCard> memberCreditCardList;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	private Set<MCoinTopUpDetail> mCoinTopupDetailList;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	private MCoin mCoin;
+	
+
 
 	public MemberBean(String fullname, String nickname,String qid, String email,byte[] password) {
 		this.fullname = fullname;
@@ -203,6 +220,14 @@ public class MemberBean implements Serializable {
 	public void setPassword(byte[] password) {
 		this.password = password;
 	}
+	
+	public String getOrigpwd() {
+		return origpwd;
+	}
+
+	public void setOrigpwd(String origpwd) {
+		this.origpwd = origpwd;
+	}
 
 	public String getPwd() {
 		return pwd;
@@ -247,6 +272,14 @@ public class MemberBean implements Serializable {
 
 	public void setProfileImage1(byte[] profileImage1) {
 		this.profileImage1 = profileImage1;
+	}
+
+	public String getProfileImage1Path() {
+		return profileImage1Path;
+	}
+
+	public void setProfileImage1Path(String profileImage1Path) {
+		this.profileImage1Path = profileImage1Path;
 	}
 
 
@@ -334,13 +367,35 @@ public class MemberBean implements Serializable {
 		this.modifiedDate = modifiedDate;
 	}
 	
-	
-	public List<MemberLoginHistory> getMemberLoginHistory() {
-		return memberLoginHistory;
+	public Set<MemberLoginHistory> getMemberLoginHistoryList() {
+		return memberLoginHistoryList;
 	}
 
-	public void setMemberLoginHistory(List<MemberLoginHistory> memberLoginHistory) {
-		this.memberLoginHistory = memberLoginHistory;
+	public void setMemberLoginHistoryList(Set<MemberLoginHistory> memberLoginHistoryList) {
+		this.memberLoginHistoryList = memberLoginHistoryList;
 	}
 
+	public Set<MemberCreditCard> getMemberCreditCardList() {
+		return memberCreditCardList;
+	}
+
+	public void setMemberCreditCardList(Set<MemberCreditCard> memberCreditCardList) {
+		this.memberCreditCardList = memberCreditCardList;
+	}
+
+	public Set<MCoinTopUpDetail> getmCoinTopupDetailList() {
+		return mCoinTopupDetailList;
+	}
+
+	public void setmCoinTopupDetailList(Set<MCoinTopUpDetail> mCoinTopupDetailList) {
+		this.mCoinTopupDetailList = mCoinTopupDetailList;
+	}
+
+	public MCoin getmCoin() {
+		return mCoin;
+	}
+
+	public void setmCoin(MCoin mCoin) {
+		this.mCoin = mCoin;
+	}
 }

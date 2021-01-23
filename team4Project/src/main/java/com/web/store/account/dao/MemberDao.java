@@ -10,9 +10,11 @@ public interface MemberDao {
 	MemberBean selectById(int id) throws SQLException;
 	void insert(MemberBean m) throws SQLException;
 	int deleteById(int id) throws SQLException;
-	int updateNickName(MemberBean m) throws SQLException;
+	void update(MemberBean m) throws SQLException;
+	int updateNickname(MemberBean m) throws SQLException;
 	int updateProfileImages(MemberBean m) throws SQLException;
 	MemberBean selectByLoginInfo(String email, String pwd) throws SQLException;
 	int updateVerified(MemberBean m) throws SQLException;
 	int updateActive(MemberBean m) throws SQLException;
+	int updatePassword(MemberBean m) throws SQLException;
 }
