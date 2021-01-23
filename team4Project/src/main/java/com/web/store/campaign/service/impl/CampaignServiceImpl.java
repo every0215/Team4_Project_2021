@@ -143,12 +143,15 @@ public class CampaignServiceImpl implements CampaignService {
 		Set<Campaign> campOfProduct = product.getCampaigns();
 		double lowestDiscount = 1;
 		for(Campaign camp:campOfProduct) {
-			if(camp.getDiscountParams().getType()==1) {
-				int AmountOffParam = camp.getDiscountParams().getAmountOffParam();
-				
-				if(AmountOffParam<lowestDiscount) {
-					lowestDiscount = AmountOffParam;
-				}				
+			
+			//當活動類型是折扣，活動進行中才判斷
+			if(camp.getDiscountParams().getType()==1 && camp.getStatus() && !camp.getExpired()) {			
+				if(camp.getDiscountParams().getOffParam()!=null) {
+					double OffParam = camp.getDiscountParams().getOffParam();
+					if(OffParam<lowestDiscount) {
+						lowestDiscount = OffParam;
+					}		
+				}					
 			}		
 		}
 		return lowestDiscount;
