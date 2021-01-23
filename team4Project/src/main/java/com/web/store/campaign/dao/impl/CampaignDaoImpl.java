@@ -137,28 +137,34 @@ public class CampaignDaoImpl implements CampaignDao {
 		Query<Campaign> query = null;
 		Session session = sessionFactory.getCurrentSession();
 		
-		String hql = "FROM Campaign where companyId=:companyId "
-				+ "and startDateTime>:startDateTime "
-				+ "and endDateTime<:endDateTime ";
+		String hql = "FROM Campaign where companyId=:companyId ";
+				
+		if(search.getByDate()) {
+			hql += "and startDateTime>=:startDateTime "
+					+ "and endDateTime<=:endDateTime ";
+		}
 		
 		if(searchStr.trim().equals("")) {
 			switch(search.getStatus()) {
 				case 0:
 					query = session.createQuery(hql,Campaign.class);
 					break;
-				case 1:
-					
-					hql += "and launchStatus=:launchStatus ";
+				case 1:					
+					hql += "and launchStatus=:launchStatus and status=false and expired=false ";
 					query = session.createQuery(hql,Campaign.class);
 					query.setParameter("launchStatus", true);
 					break;
 				case 2:
-					hql += "and launchStatus=:launchStatus ";
+					hql += "and launchStatus=:launchStatus and status=false and expired=false ";
 					query = session.createQuery(hql,Campaign.class);
 					query.setParameter("launchStatus", false);
 					break;
 				case 3:
 					hql += "and status=true and expired=false ";
+					query = session.createQuery(hql,Campaign.class);
+					break;
+				case 4:
+					hql += "and status=true and expired=true ";
 					query = session.createQuery(hql,Campaign.class);
 					break;
 			}
@@ -170,13 +176,12 @@ public class CampaignDaoImpl implements CampaignDao {
 					query = session.createQuery(hql,Campaign.class);
 					break;
 				case 1:
-					hql += "and launchStatus=:launchStatus ";
+					hql += "and launchStatus=:launchStatus and status=false and expired=false ";
 					query = session.createQuery(hql,Campaign.class);
 					query.setParameter("launchStatus", true);				
 					break;
 				case 2:
-					System.out.println("2222222222");
-					hql += "and launchStatus=:launchStatus ";
+					hql += "and launchStatus=:launchStatus and status=false and expired=false ";
 					query = session.createQuery(hql,Campaign.class);
 					query.setParameter("launchStatus", false);
 					break;
@@ -184,12 +189,19 @@ public class CampaignDaoImpl implements CampaignDao {
 					hql += "and status=true and expired=false ";
 					query = session.createQuery(hql,Campaign.class);
 					break;
+				case 4:
+					hql += "and status=true and expired=true ";
+					query = session.createQuery(hql,Campaign.class);
+					break;
 			}
 			query.setParameter("searchStr", "%"+searchStr+"%");
 		}
 		
-		query.setParameter("startDateTime", search.getStrDate());
-		query.setParameter("endDateTime", search.getEndDate());
+		if(search.getByDate()) {
+			query.setParameter("startDateTime", search.getStrDate());
+			query.setParameter("endDateTime", search.getEndDate());
+		}
+		
 		query.setParameter("companyId", companyId);
 		
 		int totalResult = query.list().size();
