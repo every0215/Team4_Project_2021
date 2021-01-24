@@ -28,14 +28,14 @@
     <body>
 
         <h3>商品新增</h3>
-        <form name="myForm" method="post" enctype="multipart/form-data">
+        <form  action="<c:url value='alterProduct'/> name="myForm" method="post" enctype="multipart/form-data">
             <hr />
 
             <label class="t1" >商品名稱:</label>
             <input type="text" name="productName" required="required"><br> <br>
             <label class="t1" >公司名稱:</label>
 <!--        		<input type="text" name="companyName" required="required"> -->
-            <input type="text"  name="cName" value='${company.companyName}' required="required" />
+            <input type="text"  name="cName" readonly="readonly" value='${company.companyName}' required="required" />
             <br><br>
             <label class="t1" >商品存貨:</label>
             <input type="text" name="productStuck" required="required">
@@ -62,14 +62,14 @@
             <textarea style="resize: none; width: 600px; height: 200px;" name="productDescript"></textarea>
             <br><br>
             <label class="t1" >商品狀態:</label>
-            <input type="radio" id="on" name="status" value="1">
+            <input type="radio" id="on" name="status" value="1" checked >
             <label for="on">上架</label>
             <input type="radio" id="off" name=status value="0">
             <label for="off">下架</label>
 			
             <br><br>
             <label class="t1" for="">商品圖片:</label>
-            <input id="image_input" type=file name="productimage">
+            <input id="image_input"  readonly="readonly" type=file name="productimage">
             <br><br>
 
 

@@ -38,6 +38,7 @@ function ProductDelete() {
 
 
 <body>
+
 	<h1>商品管理</h1>
 	<br>
 	<div>
@@ -61,23 +62,27 @@ function ProductDelete() {
 			<tbody class="">
 				<c:forEach var="product" items="${ProductList}">
 					<tr>
-						<td><input type="button" value="修改"
-							onclick="location.href='ProductAlter'"><input
+
+						<td width="125"><input type="hidden"  name="typeId"
+							value="${product.productId}" />  
+							<input type="button" value="修改"
+							onclick="location.href='<c:url value="/product/productAlter/${product.productId}" />'"><input
 							type="button" value="刪除" onclick="ProductDelete()"></td>
-						<td>${product.productName}</td>
-						<td>${product.companyName}</td>
-						<td>${product.productStuck}</td>
-						<td>${product.productType}</td>
-						<td>${product.productPrice}</td>
-						<td>${product.discount}</td>
-						<td><img height="150px"
-							src="<c:url value='/getProductimage/${product.productId}'/>" /></td>
+						<td width="100">${product.productName}</td>
+						<td width="100">${product.companyName}</td>
+						<td width="100">${product.productStuck}</td>
+						<td width="100">${product.productType}</td>
+						<td width="100">${product.productPrice}</td>
+						<td width="100">${product.discount}</td>
+						<td width="100"><img height="150px"
+							src="<c:url value='/getproductimage/${product.productId}'/>" /></td>
 						<td>${product.productDescript}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
+
 </body>
 
 </html>
