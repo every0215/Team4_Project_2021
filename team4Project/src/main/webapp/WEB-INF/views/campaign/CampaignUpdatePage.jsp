@@ -155,7 +155,7 @@
             </div>
 
             <div class="form-group">
-            	<img style="width:300px;height:150px" src="${camp.picturePath}"/><br>
+            	<img id="picPreview" style="width:100%;height:150px" src="${camp.picturePath}"/><br>
                 <label for="fileUpload">活動圖檔:</label>
                 <input class="form-control" id="fileUpload" name="picture" type="file">
 
@@ -176,7 +176,9 @@
     <script>
         $(function () {
 
-   
+        	$("#fileUpload").change(function(){
+                readURL(this); 
+              });
 
             $("#addCamp").click(function (event) {
                
@@ -273,7 +275,16 @@
                 }
                 
             });
-
+			
+            function readURL(input){
+          	  if(input.files && input.files[0]){
+          	    var reader = new FileReader();
+          	    reader.onload = function (e) {
+          	       $("#picPreview").attr('src', e.target.result);
+          	    }
+          	    reader.readAsDataURL(input.files[0]);
+          	  }
+          	}
 
             //獲取當前日期
             function setDate () {

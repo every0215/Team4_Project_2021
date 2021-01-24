@@ -432,8 +432,11 @@ public class CampaignController {
 		model.addAttribute("page", page);
 		model.addAttribute("search",searchBean);
 		model.addAttribute("isSearch",true);
+		new String();
 		return "campaign/CampaignShowPage";
 	}
+	
+	
 	
 	@GetMapping("/index")
 	public String campaignUserIndex(Model model) {
