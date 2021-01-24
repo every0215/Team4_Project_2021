@@ -6,6 +6,7 @@ import java.util.List;
 import com.web.store.account.javabean.MemberBean;
 import com.web.store.account.javabean.MemberCreditCard;
 import com.web.store.account.javabean.MemberLoginHistory;
+import com.web.store.account.javabean.MemberSubscription;
 
 public interface AccountService {
 
@@ -42,5 +43,7 @@ public interface AccountService {
 	int updateNickname(MemberBean member) throws Exception;
 
 	void update(MemberBean member) throws Exception;
+
+	void delete(MemberSubscription memberSubscription) throws Exception;
 
 }

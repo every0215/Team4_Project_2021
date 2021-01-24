@@ -21,6 +21,7 @@ import com.web.store.account.common.HibernateUtil;
 import com.web.store.account.common.Utility;
 import com.web.store.account.dao.MemberDao;
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.javabean.MemberSubscription;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -161,5 +162,13 @@ public class MemberDaoImpl implements MemberDao {
 			query.executeUpdate();
 
 		return 1;
+	}
+	
+	@Override
+	public void delete(MemberSubscription memberSubscription) {
+		Session session = factory.getCurrentSession();
+		session.delete(memberSubscription);
+			
+
 	}
 }
