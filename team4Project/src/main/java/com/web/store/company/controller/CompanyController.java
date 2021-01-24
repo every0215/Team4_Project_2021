@@ -43,8 +43,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.store.campaign.model.Campaign;
+import com.web.store.company.model.CmpService;
 import com.web.store.company.model.Company;
 import com.web.store.company.model.Store;
+import com.web.store.company.service.CmpServiceService;
 import com.web.store.company.service.CompanyService;
 import com.web.store.company.service.StoreService;
 import com.web.store.ticket.model.Event;
@@ -63,6 +65,9 @@ public class CompanyController {
 	
 	@Autowired
 	StoreService stoService;
+	
+	@Autowired
+	CmpServiceService cmpsvService;
 	
 	@Autowired
 	ServletContext context;
@@ -324,7 +329,49 @@ public class CompanyController {
 	
 	///////////////////////////////////////企業服務///////////////////////////////////////////
 	
-	
+	@PostMapping(value="/serviceRegister")
+	public String serviceRegister(
+			
+			@RequestParam(value="ServiceP",required=false)MultipartFile spServiceImg,
+			@RequestParam(value="Ser")String spService
+//			HttpServletResponse response
+			
+			) throws IOException {
+		
+		/////////////////存圖片轉成Byte陣列////////////////////
+
+		//用getBytes方法把上傳的MultipartFile logo 轉成 byte[]
+		byte[] svB = spServiceImg.getBytes();
+		
+
+		  try {
+		   //再把Byte[]轉成Blob物件
+		   Blob svblob = new javax.sql.rowset.serial.SerialBlob(svB);
+		  
+		   //取得logo 的Filename
+		   String svImgName = spServiceImg.getOriginalFilename();
+		  
+		   //得到的參數塞到建構子                  Blob物件  Filename
+		   CmpService cmpsv = new CmpService(spService, svblob, svImgName);
+		   //呼叫Service新增到資料庫
+		   cmpsvService.addService(cmpsv);
+		   
+	   
+		  } catch (SerialException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		  } catch (SQLException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		  }
+		  
+		/////////////////存圖片轉成Byte陣列////////////////////
+		//密碼洩漏問題
+		//有可能抓不到SESSION
+		return "redirect:/company/ServiceRegister";
+		
+		
+	}
 	
 	
 	

@@ -37,6 +37,15 @@ public class CmpService {
 	}
 	
 	
+	public CmpService(String spService, Blob spServiceImg, String svFilename) {
+		super();
+		
+		this.spService = spService;
+		this.spServiceImg = spServiceImg;
+		this.svFilename = svFilename;
+		
+	}
+	
 	public CmpService(Integer id, String spService, Blob spServiceImg, String svFilename) {
 		super();
 		this.id = id;

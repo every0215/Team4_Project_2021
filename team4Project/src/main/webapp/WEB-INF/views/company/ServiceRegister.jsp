@@ -8,11 +8,10 @@
 <title>Service Register</title>
 </head>
 <body>
-企業服務 新增頁
 <fieldset>
-	<legend >註冊企業資料</legend> 
-	<h1>我是沒登入</h1>
-<form action="<c:url value='XXX'/>" method="post" enctype="multipart/form-data">
+	<legend >企業服務</legend> 
+	
+<form action="<c:url value='serviceRegister'/>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="CompanyId" value="${company.id}">
 	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
 	<tr>
@@ -22,7 +21,7 @@
 	
 			服務圖示:<input type="file" name="ServiceP" value=""/><br>
 			<!-- 	上傳檔案 -->
-			名稱:<input type="file" name="Ser" value=""/><br>
+			名稱:<input type="text" name="Ser" value=""/><br>
 			<!-- 	上傳檔案 -->
 			<hr/>
 
