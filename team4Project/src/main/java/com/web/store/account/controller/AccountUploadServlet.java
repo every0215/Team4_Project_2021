@@ -33,8 +33,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sun.net.httpserver.HttpContext;
 
-import com.web.store.account.dao.MemberDaoImpl;
-import com.web.store.account.dao.MemberLoginHistoryDaoImpl;
+//import com.web.store.account.dao.impl.MemberDaoImpl;
+//import com.web.store.account.dao.impl.MemberLoginHistoryDaoImpl;
 import com.web.store.account.javabean.MemberBean;
 import com.web.store.account.service.impl.AccountServiceImpl;
 

@@ -225,7 +225,7 @@
                 var paramTemplate = ""; //html模板
 
                 if (choiceVal == 1) {
-                    paramTemplate = "<div class='offField form-group '><label for='comment'>折數:</label><input name='offParam' class='form-control need' type='text' placeholder='幾折'></input></div>";
+                    paramTemplate = "<div class='offField form-group '><label for='comment'>折數:</label><input name='offParam' class='form-control need' type='text' placeholder='1.0、0.9...'></input></div>";
                     $("#paramField").html(paramTemplate);
                 } else if (choiceVal == 2) {
                     paramTemplate = '<div class="upToAmmountFiled form-group "><label for="comment">滿額:</label><input name="amountUpTo" class="form-control need" type="text" placeholder="滿多少元"></input></div><div class="upToAmmountFiled form-group"><label for="comment">折多少:</label><input name="amountOffParam" class="form-control need" type="text" placeholder="折多少元"></input></div>';
@@ -256,7 +256,7 @@
                 $("select[name='type']").trigger("change");
 
                 if(type==1){
-                    $("input[name='offParam']").val(9);
+                    $("input[name='offParam']").val(0.9);
                 }
                 
             });

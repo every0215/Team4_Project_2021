@@ -176,12 +176,16 @@ tr>td>button {
 						<c:if test="${!camp.launchStatus}"><td>下架</td></c:if>
 					</c:if>				
 					<td>${camp.description}</td>
-					<td style="font-size:0;">
-						<input type="hidden" value='${camp.id}'/>
-						<button class="btn btn-self" onclick="location.href='<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>'">編輯</button>
-						<c:if test="${camp.discountParams.type==1}">
-							<button class="btn btn-self" onclick="location.href='<c:url value="/campaign/applyPage/${camp.id}"/>'">套用</button>
-						</c:if>					
+					<td style="">
+						<c:if test="${!(camp.status && !camp.expired)}">
+							<button class="btn btn-self" onclick="location.href='<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>'">編輯</button>						
+							<c:if test="${camp.discountParams.type==1}">
+								<button class="btn btn-self" onclick="location.href='<c:url value="/campaign/applyPage/${camp.id}"/>'">套用</button>
+							</c:if>		
+						</c:if>
+						<c:if test="${camp.status && !camp.expired}">
+							<span style="color:red">活動進行中</span>
+						</c:if>			
 					</td>
 				</tr>
 			</c:forEach>
