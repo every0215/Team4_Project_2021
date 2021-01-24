@@ -13,4 +13,8 @@ public interface StoreService {
 	boolean updateStatus(Integer id,Boolean status);
 	//更新門市
 	boolean update(Store sto);
+	
+	boolean updateProfiles(Integer id, String profiles);
+	
+	Store getStoreById(Integer id);
 }

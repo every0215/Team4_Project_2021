@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.store.campaign.model.Campaign;
 import com.web.store.company.model.Company;
@@ -47,6 +48,8 @@ import com.web.store.company.model.Store;
 import com.web.store.company.service.CompanyService;
 import com.web.store.company.service.StoreService;
 import com.web.store.ticket.model.Event;
+
+
 
 
 
@@ -232,53 +235,7 @@ public class CompanyController {
 	
 	
 	
-	//輸出圖片
-//	@GetMapping(value = "/getCompanyimage/{account}")
-//	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable String account) {
-//		String filePath = "/images/NoImage.jpg";
-//
-//		byte[] media = null;
-//		HttpHeaders headers = new HttpHeaders();
-//		String logoname = "";
-//		
-//		int len = 0;
-//		Company cmp = cmpService.getCompany(account);
-//		
-//		if (cmp != null) {
-//			
-//			Blob logoblob = cmp.getLogo();
-//			
-//			logoname = cmp.getLogoName();
-//			
-//			if (logoblob != null) {
-//				
-//				try {
-//					len = (int) logoblob.length();
-////					System.out.println(len);
-//					media = logoblob.getBytes(1, len);
-////					System.out.println(media);
-//				} catch (SQLException e) {
-//					throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
-//				}
-//			} else {
-//				media = toByteArray(filePath);
-//				logoname = filePath;
-//			}
-//		} else {
-//			media = toByteArray(filePath);
-//			logoname = filePath;
-//		}
-//		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-//		System.out.println("media"+media);
-//		String mimeType = context.getMimeType(logoname); //getMimeType 會抓出副檔名的mimetype  
-//		System.out.println("--------mimeType"+mimeType);
-//		System.out.println("123-----filename---"+logoname);
-//		MediaType mediaType = MediaType.valueOf(mimeType);
-//		System.out.println("66666mimeType = "+mimeType+"   mediaType = " + mediaType);
-//		headers.setContentType(mediaType);
-//		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-//		return responseEntity;
-//	}
+
 	//輸出圖片裡會用到的方法
 	private byte[] toByteArray(String filepath) {
 		byte[] b = null;
@@ -365,6 +322,16 @@ public class CompanyController {
 		return "/company/CompanyRegister";
 	}
 	
+	///////////////////////////////////////企業服務///////////////////////////////////////////
+	
+	
+	
+	
+	
+	
+	
+	///////////////////////////////////////企業服務///////////////////////////////////////////
+	
 	/////////////////////////////////////////門市部分/////////////////////////////////////////
 	/////////////////////////////////////////門市部分/////////////////////////////////////////
 	/////////////////////////////////////////門市部分/////////////////////////////////////////
@@ -385,8 +352,7 @@ public class CompanyController {
 		Company company=(Company)model.getAttribute("company");
 		int companyId = company.getId();
 		List<Store> sto = stoService.getAllStoreByCompanyId(companyId);
-		System.out.println("傳回storelist");
-		System.out.println(sto);
+		
 		model.addAttribute("storeList", sto);
 		return "/company/ShowStore";
 	}
@@ -403,10 +369,10 @@ public class CompanyController {
 	//新增門市
 	@GetMapping("/storeRegister")
 	public String showStoreForm(Model model) {
-		System.out.println("1. 本方法送出新增Customer資料的空白表單");
+		
 		Store sto = new Store();
 		//可預設
-//		bean.setName("章軍雃");
+		sto.setStatus(true);
 //		bean.setPassword("Do!ng456");
 //		bean.setPassword1("Do!ng456");
 //		bean.setBirthday(java.sql.Date.valueOf("1980-5-4"));
@@ -418,7 +384,12 @@ public class CompanyController {
 	@PostMapping("/storeRegister")
 	public String insertStoreData(
 		@ModelAttribute("storeBean") Store sto 
-		, BindingResult bindingResult 
+//		,@RequestParam String openhour
+//		,@RequestParam String closehour
+		///////////////////
+		, RedirectAttributes ra
+		///////////////////
+//		, BindingResult bindingResult 
 		) {
 		
 		//驗證盼短有無錯誤
@@ -426,17 +397,92 @@ public class CompanyController {
 //		if (bindingResult.hasErrors()) {
 //			return "_01_customer/CustomerForm";
 //		}
-
+		
 		//如果有找到就更新
 		if (sto.getId() != null ) {
 			stoService.update(sto);
 		} 
-		
+		System.out.println("沒有update");
 		stoService.addStore(sto);
+		/////////////////////////////////
+		ra.addFlashAttribute("storeBean", sto);
+		
+		/////////////////////////////////
 		return "redirect:/company/StoreRegister_Profile";
 	}
 	
-	
+	//新增門市簡介
+	//新增門市簡介
+	//新增門市簡介
+	//新增門市簡介
+	//新增門市簡介
+	@PostMapping("/updateStoreProfiles")
+	public String insertStoreProfiles(
+		@RequestParam Integer cmpid,
+		@RequestParam Integer id,
+		@RequestParam String profiles
+		
+		) {
+		
+		//驗證盼短有無錯誤
+//		new CustomerValidator().validate(bean, bindingResult);    
+//		if (bindingResult.hasErrors()) {
+//			return "_01_customer/CustomerForm";
+//		}
+		
+		if(profiles =="") {
+			Company cmp= cmpService.getCompanyById(cmpid);
+			String newProfiles = cmp.getProfiles();
+			stoService.updateProfiles(id, newProfiles);
+		}else {
+			stoService.updateProfiles(id, profiles);
+		}
+		//如果有找到就更新
+		
+		
+//		if (sto.getId() != null ) {
+//			stoService.update(sto);
+//		} 
+//		System.out.println("沒有update");
+//		stoService.addStore(sto);
+		return "redirect:/company/StoreRegister_Service";
+	}
 
+	@GetMapping("/ShowStore/{id}")
+	public String editCustomerForm(Model model, @PathVariable Integer id) {
+		Store sto = stoService.getStoreById(id);
+		model.addAttribute("storeBean", sto);
+		return "/company/StoreUpdate";
+	}
+	//門市修改
+	@PostMapping("/updateStore")
+	public String updateStoreData(
+		@ModelAttribute("storeBean") Store sto 
+//		,@RequestParam String openhour
+//		,@RequestParam String closehour
+		///////////////////
+		, RedirectAttributes ra
+		///////////////////
+//		, BindingResult bindingResult 
+		) {
+		
+		//驗證有無錯誤
+//		new CustomerValidator().validate(bean, bindingResult);    
+//		if (bindingResult.hasErrors()) {
+//			return "_01_customer/CustomerForm";
+//		}
+		
+		//如果有找到就更新
+		if (sto.getId() != null ) {
+			stoService.update(sto);
+		} 
+		System.out.println("沒有update");
+		stoService.addStore(sto);
+		/////////////////////////////////
+		ra.addFlashAttribute("storeBean", sto);
+		
+		/////////////////////////////////
+		return "XXXXXXXXXXXXXXXXXXXXXXXXX";
+	}
 	
 }

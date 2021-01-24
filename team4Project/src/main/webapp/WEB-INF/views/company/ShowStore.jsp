@@ -28,9 +28,8 @@
             <th nowrap="nowrap">門市名稱</th>
             <th nowrap="nowrap">地區</th>
             <th nowrap="nowrap">地址</th>
-            <th nowrap="nowrap">開店狀態</th>
-            <th nowrap="nowrap">宣傳圖片</th>
-            <th nowrap="nowrap">票券細節</th>
+            <th nowrap="nowrap">開店狀態</th> 
+            <th nowrap="nowrap">詳細資料</th>
           </tr>
         </thead>
         <tbody>
@@ -40,12 +39,12 @@
               <td>${Sto.storeArea}</td>
               <td>${Sto.storeAddress}</td>
               <td>${Sto.status}</td>
-              <td><img height="150px" src="<c:url value='/geteventimage/${Sto.id}'/>" /></td>
+              
               <td>
 <%--                 <input type="hidden" name="typeId" value="${event.typeId}" /> --%>
 <!--                 <input type="hidden" name="companyId" value="1" /> -->
 <%--                 <input type="hidden" name="eventId" value="${event.id}" /> --%>
-                <button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventShow/${event.id}" />'">See More</button>
+                <button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/ShowStore/${Sto.id}" />'">修改</button>
 
               </td>
             </tr>

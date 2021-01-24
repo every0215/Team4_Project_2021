@@ -80,5 +80,28 @@ public class StoreDaoImpl implements StoreDao {
 		queryObj.executeUpdate();
 		return true;
 	}
+	@Override
+	public boolean updateProfiles(Integer id,String profiles) {
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("更新門市簡介");
+		System.out.println(id);
+		Query queryObj = session.createQuery("UPDATE Store SET  Profiles = :newProfiles WHERE Id = :Sid")
+				.setParameter("Sid", id)
+				.setParameter("newProfiles", profiles);
+		
+		queryObj.executeUpdate();
+		return true;
+	}
+
+	@Override
+	public Store getStoreById(Integer id) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Store where Id = :newId";
+		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);
+		queryObj.setParameter("newId", id);
+		return queryObj.uniqueResult();
+		
+	}
 
 }

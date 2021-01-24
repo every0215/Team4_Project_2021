@@ -116,9 +116,9 @@
 .col-md-9 {
 	width: 100%;
 }
-
+/* 修改Footer寬度 */
 .col-md-3 {
-	width: 40%;
+	width: 25%;
 }
 
 .col-md-6 {

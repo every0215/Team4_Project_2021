@@ -142,7 +142,7 @@
 				</h4>
 			</div>
 
-			<img class="indexclassbb" src="img/indexclass/food12.png" alt="img">
+			<img class="indexclassbb" src="<c:url value='/img/indexclass/store.jpg'/>" alt="img">
 			<div class="indexclassspan">
 <!-- 				<span>當地特色</span> -->
 				<h4>
@@ -1757,7 +1757,7 @@
         <div class="col-md-12">
           <div class="aa-footer-top-area">
             <div class="row">
-              <div class="col-md-3 col-sm-6">
+              <div class="col-md-3 col-sm-6" style="width:25%">
                 <div class="aa-footer-widget">
                   <h3>Main Menu</h3>
                   <ul class="aa-footer-nav">
@@ -1769,7 +1769,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6">
+              <div class="col-md-3 col-sm-6" style="width:25%">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
                     <h3>Company</h3>
@@ -1782,7 +1782,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6">
+              <div class="col-md-3 col-sm-6" style="width:25%">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
                     <h3>customer</h3>
@@ -1796,7 +1796,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6">
+              <div class="col-md-3 col-sm-6" style="width:25%">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
                     <h3>About us</h3>
