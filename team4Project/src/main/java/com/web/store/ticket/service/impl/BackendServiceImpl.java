@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.web.store.company.dao.impl.CompanyDaoImpl;
+import com.web.store.company.model.Company;
 import com.web.store.ticket.dao.impl.AttractionDao;
 import com.web.store.ticket.dao.impl.BankDao;
 import com.web.store.ticket.dao.impl.CreditCardDao;
@@ -53,7 +55,8 @@ public class BackendServiceImpl implements BackendService {
 	EventTypeDao eventTypeDao;
 	@Autowired
 	BankDao bankDao;
-	
+	@Autowired
+	CompanyDaoImpl companyDao;
 	
 	@SuppressWarnings("null")
 	@Override
@@ -290,6 +293,12 @@ public class BackendServiceImpl implements BackendService {
 			creditCardList.add(bank);
 		}
 		return creditCardList;
+	}
+
+	@Override
+	public Company queryCompany(int companyId) {
+		Company company = companyDao.getCompanyById(companyId);
+		return company;
 	}
 	
 	

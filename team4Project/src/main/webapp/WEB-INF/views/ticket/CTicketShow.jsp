@@ -79,19 +79,19 @@
         </div>
 
         <!-- 購買票券主頁面START -->
-        <div class="ticket-content">
+        <div class="ticket-content" style="margin-bottom:10px">
           <div class="side-bar well" style="height:600px;width:170px">
             <div class="well">
               <p>票券種類</p>
-              <p><a href="#">展覽</a></p>
-              <p><a href="#">樂園與景點</a></p>
-              <p><a href="#">運動賽事</a></p>
+              <p><a href="<c:url value='/TicketType/1'/>">展覽</a></p>
+              <p><a href="<c:url value='/TicketType/2'/>">樂園與景點</a></p>
+              <p><a href="<c:url value='/TicketType/3'/>">運動賽事</a></p>
             </div>
             <div class="well">
-              <p>經銷便利店</p>
-              <p><a href="#">全家</a></p>
-              <p><a href="#">7-11</a></p>
-              <p><a href="#">萊爾富</a></p>
+              <p>經銷店面</p>
+              <p><a href="<c:url value='/TicketCompany/1'/>">全家便利店</a></p>
+              <p><a href="<c:url value='/TicketCompany/3'/>">統一超商</a></p>
+              <p><a href="<c:url value='/TicketCompany/2'/>">萊爾富</a></p>
             </div>
           </div>
   
@@ -101,21 +101,21 @@
            <div class="panel-body">
            <img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"style="width:500px;float:left;border-right:5px #ffffff solid" alt="Image">
            <p style="text-align:left;font-size:20px;">${event.eventName}</p>
-           <p style="text-align:left">經銷便利店:${event.companyId}</p>
+           <p style="text-align:left">經銷便利店:${company.companyName}</p>
            <p style="text-align:left">場地/地區:${event.eventLocation}</p>
            
            <c:choose>
              <c:when test="${event.typeId==1}">
-             <p style="text-align:left">售票期間:${exhibition.onSaleDate}~${exhibition.offSaleDate}</p>
+             <p style="text-align:left">售票期間:${exhibition.onSaleDate.toString().substring(0, 16)}~${exhibition.offSaleDate.toString().substring(0, 16)}</p>
              <p style="text-align:left">展出期間:${exhibition.commDate}~${exhibition.dueDate}</p>
              <p style="text-align:left">優惠信用卡與折扣數:${creditCard.cardName}/&nbsp;${exhibition.discountRatio*10}折</p>
              </c:when>
              <c:when test="${event.typeId==2}">
-             <p style="text-align:left">售票期間:${attraction.onSaleDate}~${attraction.offSaleDate}</p>
+             <p style="text-align:left">售票期間:${attraction.onSaleDate.toString().substring(0, 16)}~${attraction.offSaleDate.toString().substring(0, 16)}</p>
              <p style="text-align:left">展出期間:${attraction.commDate}~${attraction.dueDate}</p>
              </c:when>
             <c:otherwise>
-            <p style="text-align:left">售票期間:${sport.onSaleDate}~${sport.offSaleDate}</p>
+            <p style="text-align:left">售票期間:${sport.onSaleDate.toString().substring(0, 16)}~${sport.offSaleDate.toString().substring(0, 16)}</p>
             <p style="text-align:left">優惠信用卡與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
             </c:otherwise>
             </c:choose>
@@ -124,6 +124,42 @@
             
            </div>
 				 <div id="accordion" class="ticket-info-title">
+	    <h3>票價</h3>
+        <div>
+            <c:choose>
+             	<c:when test="${event.typeId==1}">
+             		<c:forEach var="price" items="${priceList}" varStatus="status">
+             			<p>${price.name}:${price.cost}元</p>
+             		</c:forEach>
+             	</c:when>
+             	<c:when test="${event.typeId==2}">
+             		<c:forEach var="price" items="${priceList}" varStatus="status">
+             			<p>${price.name}:${price.cost}元</p>
+             		</c:forEach>
+             	</c:when>
+            	<c:otherwise>
+            <table style="margin: auto;width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>
+			<thead>
+				<tr><th colspan="5">票價表:</th></tr>
+				<tr><th rowspan="2"><th colspan="2">內野區</th><th colspan="2">外野區</th></tr>
+				<tr><th>A區</th><th>B區</th><th>A區</th><th>B區</th></tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>票價</td>
+				<c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach>
+			</tr>
+			</tbody>
+		</table>
+            </c:otherwise>
+            </c:choose>
+        </div>
+        <c:if test="${event.typeId==3}">
+         <h3>場次表</h3>
+        <div >
+            <c:forEach var="session" items="${sessionList}"><td>${session.kickOfTime}</td></c:forEach>
+        </div>
+        </c:if>
         <h3>票券介紹</h3>
         <div >
             <p>
@@ -145,17 +181,16 @@
             <p>
             請於訂票完成前再次確認您的場次票價是否正確，若於訂票完成後需作更換，須另付手續費用，詳請請參閱退換票方式。訂票完成後，請自行先至會員專區即可查詢消費紀錄確認交易是否成功，以避免重複訂票；透過信用卡交易者，交易成功後銀行會直接自消費者指定之信用卡扣款。
             </p>
-            <p>票券因故須郵寄退票，請洽ibon客服：0800-016138(不補回郵資)，逾七日鑑賞期辦退，需酌收10%作業處理費。</p>
+            <p>票券因故須郵寄退票，請洽大滿滿平台客服：(02)6631-6666(不補回郵資)，逾七日鑑賞期辦退，需酌收10%作業處理費。</p>
             
         </div>
         <h3>注意事項</h3>
         <div>
         <ul style="list-style-type:circle">
                 <li>本票券僅限使用乙次，憑票入場，不得轉售。票券若經毀損或遺失視同無效，逾期作廢，恕不補發；本票券為無記名之有價票券，嚴禁公開販售、轉售，若經發現將依法處理。</li>
-                <li> 如遇人潮眾多，展場將進行入場人流控管，請依工作人員指示排隊進場；展場內無提供洗手間，如臨時需離場，請於出口處蓋手章後出場，並於入口處重新排隊入場。</li>
+                <li> 如遇人潮眾多，將進行入場人流控管，請依工作人員指示排隊進場。</li>
                 <li>為維護觀展品質，展場內不可攜帶嬰兒車、長柄雨傘(短柄雨傘請收納至肩背包)、自拍棒、大型行李、寵物(導盲犬除外)入場，如需寄放物品，請至場館提供之置物櫃；主辦單位僅提供停放區，恕不負保管之責。</li>
-                <li>場內禁止飲食(包含水)、奔跑、嬉戲、抽菸或嚼食口香糖、檳榔，如未遵守展場規則且經勸導後無意改善，主辦單位有權要求違規者離場，恕不退還或補償門票費用。</li>
-                <li>請勿擅自拍打或觸碰展品，如有損壞須照原價賠償。</li>
+                <li>禁止抽菸或嚼食口香糖、檳榔，如未遵守規則且經勸導後無意改善，主辦單位有權要求違規者離場，恕不退還或補償門票費用。</li>
                 <li>本注意事項若有未盡事宜，概以主辦單位之規定、解釋為準；主辦單位保留修改、增加、取消活動及注意事項之權利，詳情及票券使用相關資訊及規定，請洽主辦單位。</li>
             </ul>
         </div>

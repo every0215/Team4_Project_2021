@@ -174,5 +174,29 @@ public class Event {
 		this.eMultipartFile = eMultipartFile;
 	}
 
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public Exhibition getExhibition() {
+		return exhibition;
+	}
+
+	public void setExhibition(Exhibition exhibition) {
+		this.exhibition = exhibition;
+	}
+
+	public Sport getSport() {
+		return sport;
+	}
+
+	public void setSport(Sport sport) {
+		this.sport = sport;
+	}
+
 
 }
