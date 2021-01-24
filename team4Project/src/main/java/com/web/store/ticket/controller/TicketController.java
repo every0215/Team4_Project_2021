@@ -48,7 +48,11 @@ public class TicketController {
 		List<Integer> eList = getRandom(eSize);
 		for(int i=0;i<eList.size();i++) {
 			Integer no = eList.get(i);
-			smallexhibtion.add(exhibitions.get(no));
+			
+			Event event = exhibitions.get(no);
+			Exhibition exhibition = backendService.selectExhibitionByEvent(event.getId());
+			event.setExhibition(exhibition);
+			smallexhibtion.add(event);
 		}
 		
 		ArrayList<Event> attractions = backendService.getEventsBytypeId(2);
@@ -116,7 +120,6 @@ public class TicketController {
 			 }
 			 model.addAttribute("creditCard",creditCard);
 			 model.addAttribute("sport",sport);
-			 System.out.println(sport.getDiscountRatio());
 			 model.addAttribute("sessionList",sessionList);
 			 model.addAttribute("sessionSeatList",sessionSeatList);
 			 
@@ -125,13 +128,28 @@ public class TicketController {
 		return "/ticket/CTicketShow";
 		
 	}
+	@GetMapping("/TicketType/{typeId}")
+	public String sortByType(@PathVariable int typeId,Model model) {
+		EventType eventType = backendService.queryEventType(typeId);
+		ArrayList<Event> events = backendService.getEventsBytypeId(typeId);
+		int totalCount = events.size();
+		model.addAttribute("events", events);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("eventType", eventType);
+		model.addAttribute("queryType",2);
+		return "/ticket/CTicketSort";
+
+	}
 	
-	public String sortByType(@PathVariable int eventId,Model model) {
-		
-		
-		return null;
-		
-	
+	@GetMapping("/TicketCompany/{companyId}")
+	public String sortByCompany(@PathVariable int companyId,Model model) {
+		ArrayList<Event> events = backendService.queryAll(companyId);
+		int totalCount = events.size();
+		model.addAttribute("events", events);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("queryType",1);
+		return "/ticket/CTicketSort";
+
 	}
 	
 	
@@ -166,8 +184,8 @@ public class TicketController {
 		Random r = new Random();
 		List<Integer> list = new ArrayList<>();
 		
-		while(list.size()<3){ //總共10個數字
-			int n=r.nextInt(size); //產生0~9數字
+		while(list.size()<3){ //總共3個數字
+			int n=r.nextInt(size); //產生的數字(看總共幾筆)
 			if(list.contains(n)) 
 				continue;     //重複的不加入
 			else

@@ -5,9 +5,10 @@
       <html lang="en">
       <c:import url="/layout/head" />
       <style>
-        .more-link{
-          padding-right:15px;
+        .more-link {
+          padding-right: 15px;
         }
+
         .search-bar {
           clear: both;
           padding: 10px;
@@ -70,25 +71,58 @@
         <div class="ticket-content">
           <div class="side-bar well" style="height:600px;width:170px">
             <div class="well">
-              <p>票券種類</p>
-              <p><a href="#">展覽</a></p>
-              <p><a href="#">樂園與景點</a></p>
-              <p><a href="#">運動賽事</a></p>
+               <p>票券種類</p>
+              <p><a href="<c:url value='/TicketType/1'/>">展覽</a></p>
+              <p><a href="<c:url value='/TicketType/2'/>">樂園與景點</a></p>
+              <p><a href="<c:url value='/TicketType/3'/>">運動賽事</a></p>
             </div>
             <div class="well">
-              <p>經銷便利店</p>
-              <p><a href="#">全家</a></p>
-              <p><a href="#">7-11</a></p>
-              <p><a href="#">萊爾富</a></p>
+              <p>經銷店面</p>
+              <p><a href="<c:url value='/TicketCompany/1'/>">全家</a></p>
+              <p><a href="<c:url value='/TicketCompany/3'/>">7-11</a></p>
+              <p><a href="<c:url value='/TicketCompany/2'/>">萊爾富</a></p>
             </div>
           </div>
-  
-  
+===============================================================================
+
           <div class="container text-center">
             <!-- 第一行 -->
             <div class="sub-title">
-              <span class="inner">我是第一行分割線</span>
+              <span class="inner">${eventType.typeName}</span>
             </div>
+<!-- 開始放資料 -->
+            <c:forEach var="event" items="${events}" begin="1" end="9" varStatus="status">
+<!--               每三筆資料放進row中 -->
+           <div class="row" style="height:330px">
+              <div class="col-sm-4">
+                <div class="panel panel-primary" onclick="location.href = '<c:url value=" ../TicketShow/${event.id}" />'">
+                <div class="panel-heading">${event.eventName}</div>
+                <div class="panel-body">
+                  <img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
+                    style="width:100%;height:164px" alt="${event.eventName}">
+                </div>
+                <div class="panel-footer" style="text-align:left">${event.companyId}</div>
+              </div>
+              </div>
+          </div>
+        
+        </c:forEach>
+
+===========================================OLD==========
+<div class="container text-center">
+            <!-- 第一行 -->
+            <div class="sub-title">
+              <span class="inner">
+              <c:if test="${queryType==1}">
+              按公司區分
+              </c:if>
+              <c:if test="${queryType==2}">
+              ${eventType.typeName}
+              </c:if>
+              </span>
+            </div>
+            
+            
             <div class="row" style="height:330px">
               <div class="col-sm-4">
                 <div class="panel panel-primary">
@@ -205,11 +239,123 @@
               </div>
             </div>
             <br>
+          </div> container text-center end
+        </div> ticket-content end
+=====================================OLD END=================
+
+
+
+
+         <div class="row" style="height:330px"> 
+          <div class="col-sm-4">
+            <div class="panel panel-primary">
+              <div class="panel-heading">BLACK FRIDAY DEAL</div>
+              <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                  style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+            </div>
           </div>
+          <div class="col-sm-4">
+            <div class="panel panel-danger">
+              <div class="panel-heading">BLACK FRIDAY DEAL</div>
+              <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                  style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="panel panel-success">
+              <div class="panel-heading">BLACK FRIDAY DEAL</div>
+              <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                  style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <!-- 第二行 -->
+        <!--
+        <div class="row" style="height:330px">
+          <div class="col-sm-4">
+            <div class="panel panel-primary">
+              <div class="panel-heading">BLACK FRIDAY DEAL</div>
+              <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                  style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="panel panel-danger">
+              <div class="panel-heading">BLACK FRIDAY DEAL</div>
+              <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                  style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="panel panel-success">
+              <div class="panel-heading">BLACK FRIDAY DEAL</div>
+              <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                  style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+            </div>
+          </div>
+        </div>
+        <br>
+	-->
+        <!-- 第三行 -->
+        <!--<div class="row" style="height:330px">
+          <div class="col-sm-4">
+            <div class="panel panel-primary">
+              <div class="panel-heading">BLACK FRIDAY DEAL</div>
+              <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                  style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="panel panel-danger">
+              <div class="panel-heading">BLACK FRIDAY DEAL</div>
+              <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                  style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="panel panel-success">
+              <div class="panel-heading">BLACK FRIDAY DEAL</div>
+              <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive"
+                  style="width:100%" alt="Image"></div>
+              <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+            </div>
+          </div>
+          <div class="more-link">
+            <button id="showMore" class="btn btn-info" role="button" style="float:right"><svg
+                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                <path fill-rule="evenodd"
+                  d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+              </svg>&nbsp;&nbsp;See More
+            </button>
+          </div>
+        </div>
+        <br>
+        -->
+        </div>
         </div>
         
 
 
+        <script>
+          $("#showMore").click(function () {
+            $(this).before(
+              '=========='
+            );
+          });
+        </script>
 
 
 

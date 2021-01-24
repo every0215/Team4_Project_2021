@@ -79,7 +79,7 @@
         </div>
 
         <!-- 購買票券主頁面START -->
-        <div class="ticket-content">
+        <div class="ticket-content" style="margin-bottom:10px">
           <div class="side-bar well" style="height:600px;width:170px">
             <div class="well">
               <p>票券種類</p>
@@ -124,6 +124,36 @@
             
            </div>
 				 <div id="accordion" class="ticket-info-title">
+	    <h3>票價</h3>
+        <div>
+            <c:choose>
+             	<c:when test="${event.typeId==1}">
+             		<c:forEach var="price" items="${priceList}" varStatus="status">
+             			<p>${price.name}:${price.cost}元</p>
+             		</c:forEach>
+             	</c:when>
+             	<c:when test="${event.typeId==2}">
+             		<c:forEach var="price" items="${priceList}" varStatus="status">
+             			<p>${price.name}:${price.cost}元</p>
+             		</c:forEach>
+             	</c:when>
+            	<c:otherwise>
+            <table style="margin: auto;width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>
+			<thead>
+				<tr><th colspan="5">票價表:</th></tr>
+				<tr><th rowspan="2"><th colspan="2">內野區</th><th colspan="2">外野區</th></tr>
+				<tr><th>A區</th><th>B區</th><th>A區</th><th>B區</th></tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>票價</td>
+				<c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach>
+			</tr>
+			</tbody>
+		</table>
+            </c:otherwise>
+            </c:choose>
+        </div>
         <h3>票券介紹</h3>
         <div >
             <p>

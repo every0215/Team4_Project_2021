@@ -130,11 +130,11 @@
 				</h4>
 			</div>
 
-			<img class="indexclassbb" src="img/indexclass/food11.png" alt="img">
+			<img class="indexclassbb" src="img/indexclass/UpdatedTicket.png" alt="img">
 			<div class="indexclassspan">
 				<span>優惠促銷</span>
 				<h4>
-					<a class="indexclassa" href="<c:url value='/ticket/CTicketIndex' />">票券專區-11</a>
+					<a class="indexclassa" href="<c:url value='/CTicketIndex' />">票券專區-11</a>
 				</h4>
 			</div>
 
