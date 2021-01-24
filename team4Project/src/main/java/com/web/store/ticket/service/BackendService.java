@@ -3,6 +3,7 @@ package com.web.store.ticket.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.web.store.company.model.Company;
 import com.web.store.ticket.model.Attraction;
 import com.web.store.ticket.model.Bank;
 import com.web.store.ticket.model.CreditCard;
@@ -41,6 +42,7 @@ public interface BackendService {
 	public void add(Event bean);
 	public CreditCard queryCreditCard(int creditCardId);
 	public EventType queryEventType(int eventTypeId);
+	public Company queryCompany(int companyId);
 	public void deleteSessionList(int sportId);
 	public void deleteSeatList(int sessionId);
 	public ArrayList<Bank> queryAllBank();

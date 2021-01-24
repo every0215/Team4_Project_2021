@@ -69,7 +69,7 @@
         <!-- 購買票券主頁面START -->
         <div class="ticket-content">
           <div class="side-bar well" style="height:600px;width:170px">
-            <div class="well">
+           <div class="well">
               <p>票券種類</p>
               <p><a href="<c:url value='/TicketType/1'/>">展覽</a></p>
               <p><a href="<c:url value='/TicketType/2'/>">樂園與景點</a></p>
@@ -77,8 +77,8 @@
             </div>
             <div class="well">
               <p>經銷店面</p>
-              <p><a href="<c:url value='/TicketCompany/1'/>">全家</a></p>
-              <p><a href="<c:url value='/TicketCompany/3'/>">7-11</a></p>
+              <p><a href="<c:url value='/TicketCompany/1'/>">全家便利店</a></p>
+              <p><a href="<c:url value='/TicketCompany/3'/>">統一超商</a></p>
               <p><a href="<c:url value='/TicketCompany/2'/>">萊爾富</a></p>
             </div>
           </div>
@@ -98,7 +98,7 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer" style="text-align:left">${event.companyId}&nbsp;售票期間：${event.exhibition.onSaleDate.substring(0, 19)}~${event.exhibition.offSaleDate.substring(0, 19)}</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px;"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.exhibition.onSaleDate.toString().substring(0, 16)}~${event.exhibition.offSaleDate.toString().substring(0, 16)}</div>
                 </div>
               </div>
 </c:forEach>              
@@ -131,7 +131,7 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer" style="text-align:left">${event.companyId}</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.attraction.onSaleDate.toString().substring(0, 16)}~${event.attraction.offSaleDate.toString().substring(0, 16)}</div>
                 </div>
               </div>
 </c:forEach>              
@@ -162,7 +162,8 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer" style="text-align:left">${event.companyId}</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.sport.onSaleDate.toString().substring(0, 16)}~${event.sport.offSaleDate.toString().substring(0, 16)}</div>
+                
                 </div>
               </div>
 </c:forEach>              
