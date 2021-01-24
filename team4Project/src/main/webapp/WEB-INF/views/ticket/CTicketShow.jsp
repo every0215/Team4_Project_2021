@@ -146,8 +146,12 @@
 			</thead>
 			<tbody>
 			<tr>
-				<td>票價</td>
+				<td>原價</td>
 				<c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach>
+			</tr>
+			<tr>
+				<td>信用卡優惠價</td>
+				<c:forEach var="price" items="${priceList}"><td>${price.cost*sport.discountRatio}</td></c:forEach>
 			</tr>
 			</tbody>
 		</table>
@@ -157,7 +161,9 @@
         <c:if test="${event.typeId==3}">
          <h3>場次表</h3>
         <div >
-            <c:forEach var="session" items="${sessionList}"><td>${session.kickOfTime}</td></c:forEach>
+        <table>
+            <c:forEach var="session" items="${sessionList}"><tr><td>${session.kickOfTime.toString().substring(0, 16)}</td></tr></c:forEach>
+        </table>
         </div>
         </c:if>
         <h3>票券介紹</h3>

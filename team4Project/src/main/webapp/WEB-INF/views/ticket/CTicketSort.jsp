@@ -136,7 +136,9 @@
                 </c:if>
               </c:forEach>
               
-              <c:if test="${totalCount>9}">
+              
+            </div>
+            <c:if test="${totalCount>9}">
               
               <div class="more-link">
                 <a id="showMoreEvent" class="btn btn-info" role="button" style="float:right">
@@ -148,9 +150,9 @@
               </div>
               
               </c:if>
-            </div>
             <br>
-            
+            <br>
+            <br>
           </div>
         </div>
         
