@@ -1,4 +1,4 @@
-package com.web.store.account.dao;
+package com.web.store.account.dao.impl;
 
 
 import java.sql.SQLException;
@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.store.account.common.HibernateUtil;
+import com.web.store.account.dao.MemberLoginHistoryDao;
 import com.web.store.account.javabean.MemberLoginHistory;
 
 @Repository

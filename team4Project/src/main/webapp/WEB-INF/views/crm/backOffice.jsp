@@ -134,7 +134,7 @@
                         </a>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a href="<c:url value='/campaign/boIndex/1' />">
                             <i class="fa fa-bullhorn"></i>
                             <span>活動管理</span>
                         </a>

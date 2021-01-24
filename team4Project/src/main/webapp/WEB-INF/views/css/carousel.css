@@ -12,8 +12,7 @@
             height:var(--perPicHeight);
             overflow: hidden;
             margin:150px auto 30px;
-            cursor:pointer;
-            border-radius: 10px;   
+            cursor:pointer; 
         }
         .wrapper ul{
             margin:0;

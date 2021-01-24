@@ -39,7 +39,7 @@ ul.functionBar {
 }
 
 ul.functionBar li {
-	padding: 0px 20px;
+	padding: 0px 10px;
 	vertical-align: bottom;
 	line-height: 1.7;
 }
@@ -105,11 +105,11 @@ tr>td>button {
 
 <body>
 <!-- 	存放companyId -->
-	<form:form modelAttribute="searchBean" action="${pageContext.request.contextPath}/campaign/search/${1}/1" method="GET">
+	<form:form modelAttribute="searchBean" action="${pageContext.request.contextPath}/campaign/search/1" method="GET">
 		<input id="companyId" type="hidden" value="1">  
 		<ul class="functionBar">
 			
-			<li><button id="addBtn" class="btn btn-self" type="button">新增活動</button></li>
+			
 			
 			<li><label>查詢活動:</label><form:input type="text" path="searchStr" placeholder="Search.."/></li>
 			
@@ -120,6 +120,7 @@ tr>td>button {
 					<form:option value="1">上架</form:option>
 					<form:option value="2">下架</form:option>
 					<form:option value="3">進行中</form:option>
+					<form:option value="4">已過期</form:option>
 				</form:select>
 			</li>
 	
@@ -133,9 +134,9 @@ tr>td>button {
 				<form:input id="endDate" type="date" path="endDateStr"/>
 			</li>
 	
-			
+			<li><label>依日期</label><form:checkbox path="byDate" value="true"/></li>
 			<li><button id="queryBtn" class="btn btn-self" type="submit">查詢</button></li>
-			
+			<li><button id="addBtn" class="btn btn-self" type="button">新增活動</button></li>
 		</ul>
 	</form:form>
 	<div id="container" class="container">
@@ -145,6 +146,7 @@ tr>td>button {
 			<thead>
 				<tr>
 					<th>活動名稱</th>
+					<th>類型</th>
 					<th>開始時間</th>
 					<th>結束時間</th>
 					<th>狀態</th>
@@ -157,7 +159,14 @@ tr>td>button {
 			
 			<c:forEach items="${page.content}" var="camp">
 				<tr>
-					<td>${camp.name}</td>
+					<td><a href="<c:url value='/campaign/boDetail/'/>${camp.id}">${camp.name}</a></td>
+					<td>
+						<c:choose>
+							<c:when test="${camp.discountParams.type==0}">未指定</c:when>
+							<c:when test="${camp.discountParams.type==1}">折扣</c:when>
+							<c:when test="${camp.discountParams.type==2}">滿額送</c:when>
+						</c:choose>
+					</td>
 					<td><fmt:formatDate value="${camp.startDateTime}" pattern='yyyy-MM-dd HH:mm:ss'/></td>
 					<td><fmt:formatDate value="${camp.endDateTime}" pattern='yyyy-MM-dd HH:mm:ss'/></td>
 					<c:if test="${camp.status && !camp.expired}"><td>進行中</td></c:if>
@@ -170,7 +179,9 @@ tr>td>button {
 					<td style="font-size:0;">
 						<input type="hidden" value='${camp.id}'/>
 						<button class="btn btn-self" onclick="location.href='<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>'">編輯</button>
-						<button class="btn btn-self">套用</button>
+						<c:if test="${camp.discountParams.type==1}">
+							<button class="btn btn-self" onclick="location.href='<c:url value="/campaign/applyPage/${camp.id}"/>'">套用</button>
+						</c:if>					
 					</td>
 				</tr>
 			</c:forEach>
@@ -183,10 +194,10 @@ tr>td>button {
 				<li class="page-item"><a id="preBtn" class="page-link" href="#">上一頁</a></li>
 				<c:forEach var="count" begin="1" end="${page.totalpage}">
 					<c:if test="${empty isSearch}">
-						<li class="page-item"><a class="page-link pageNum" href="<c:url value='/campaign/showCampaign/'/>${1}/${count}">${count}</a></li>
+						<li class="page-item"><a class="page-link pageNum" href="<c:url value='/campaign/boIndex/'/>${count}">${count}</a></li>
 					</c:if>
 					<c:if test="${!empty isSearch}">
-						<li class="page-item"><a class="page-link pageNum" href="<c:url value='/campaign/search/'/>${1}/${count}?${pageContext.request.queryString}">${count}</a></li>
+						<li class="page-item"><a class="page-link pageNum" href="<c:url value='/campaign/search/'/>${count}?${pageContext.request.queryString}">${count}</a></li>
 					</c:if>
 				</c:forEach> 
 				<li class="page-item"><a id="nextBtn"class="page-link" href="#">下一頁</a></li>

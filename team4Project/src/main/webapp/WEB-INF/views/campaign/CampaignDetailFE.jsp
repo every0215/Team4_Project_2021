@@ -8,13 +8,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
   <title>活動頁面</title>
 
   <style>
@@ -116,23 +114,22 @@
 
 <body>
         
-       <!-- wpf loader Two -->
-        <div id="wpf-loader-two">
-          <div class="wpf-loader-two-inner">
-            <span>Loading</span>
-          </div>
-        </div>
-        <!-- / wpf loader Two -->
-        <!-- SCROLL TOP BUTTON -->
-        <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
-        <!-- END SCROLL TOP BUTTON -->
+  <div id="wpf-loader-two">
+     <div class="wpf-loader-two-inner">
+       <span>Loading</span>
+     </div>
+  </div>
+   <!-- / wpf loader Two -->
+   <!-- SCROLL TOP BUTTON -->
+   <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
+   <!-- END SCROLL TOP BUTTON -->
 
-        <c:import url="/layout/header" />
+   <c:import url="/layout/header" />
         
   <section class="camp-section">
     <div class="container" id="container">
       <div class="row">
-        <div class="col-9">
+        <div class="col-sm-9">
           <div class="img-part">
             <img src="${camp.picturePath}" alt="">
           </div>
@@ -150,7 +147,7 @@
           </div>
         </div>
 
-        <div class="col-3">
+        <div class="col-sm-3">
           <h2  class="side-title" style="">更多優惠</h2>
           <c:forEach items="${sideCamps}" var="sideCamp">
 	          <div class="side-camp">

@@ -82,7 +82,7 @@
             <div class="form-group">
                 <label >活動類型:</label>
                 <select name="type" class="form-select need" aria-label="Default select example ">
-                    <option value="0">請選擇</option>
+                    <option value="0">不指定活動類型</option>
                     <c:if test="${camp.discountParams.type==1}">
                     	<option value="1" selected>折扣</option>
                     	<option value="2">滿額折</option>
@@ -193,10 +193,6 @@
                         isOk = false;
                     }
 
-                    //如果沒有選擇類型
-                    if($("select[name='type'] option").filter(':selected').val()==0){
-                        isOk = false;
-                    }
                 }) 
                 // -----------------------------------------------------------------------------------------------
                 if (!isOk) {

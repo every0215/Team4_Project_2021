@@ -544,9 +544,12 @@
 	        }
 	        
 	      	//password2的check
-	        if( pwdVal != pwdVal2 ){
-	        		msg2 = "密碼不一致"; check2 = false;
-	        }
+	        if (pwdVal2 == "") {
+  	            msg2 = "不可為空白"; check2 = false;
+  	        }
+  	      	else if( pwdVal != pwdVal2 ){
+  	        	msg2 = "密碼不一致"; check2 = false;
+  	        }
 	
 	        hidePwdImgMsg();
 	

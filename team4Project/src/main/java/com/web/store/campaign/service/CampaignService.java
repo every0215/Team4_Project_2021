@@ -6,6 +6,7 @@ import java.util.Map;
 import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.Page;
 import com.web.store.campaign.model.SearchBean;
+import com.web.store.product.model.Product;
 
 public interface CampaignService {
 
@@ -44,5 +45,6 @@ public interface CampaignService {
 	List<Campaign> getRandomCampaignbyCompany(int companyId, int count);
 	
 	Page<Campaign> getActiveCampaignPageByCompany(Page<Campaign> page,int companyId);
-
+	
+	double checkProductDiscountById(int productId);
 }

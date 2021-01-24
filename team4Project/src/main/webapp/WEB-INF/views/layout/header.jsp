@@ -49,7 +49,7 @@
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="<c:url value='/account/dashboard' />">我的帳號</a></li>
+                  <li><a href="<c:url value='/member/dashboard' />">我的帳號</a></li>
                   <li class="hidden-xs"><a href="wishlist.html">通知</a></li>
                   <li class="hidden-xs"><a href="cart.html">購物車</a></li>
                   <c:choose>

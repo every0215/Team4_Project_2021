@@ -64,13 +64,11 @@ public class AccountController {
 		
 		return new ModelAndView("redirect:/");
 	}
-	
-	@RequestMapping("/account/dashboard")
-	public String dashboard() {
-		return "account/dashboard"; 
+
+	@RequestMapping("/account/forgotPassword")
+	public String changePwd() {
+		return "account/forgotPassword"; 
 	}
-	
-	
 
 	@PostMapping("/account/login")
 	public ModelAndView login(@ModelAttribute("member") MemberBean member,
@@ -132,19 +130,23 @@ public class AccountController {
 			return "account/register";
 		}
 		
-		// 
+		//待調整
 		member.setEmailVerifCode("NnV9W");
 		
 		//組Email內容並發送
 		SendInBlueMail mailSender = new SendInBlueMail();
-		mailSender.setEmailTo("Java20201019@gmail.com");
+		mailSender.setEmailTo(member.getEmail());
 		mailSender.setSubject("滿滿大平台{{params.subject}}");
-		mailSender.setHtmlContent("<html><body><h1>{{params.subject}}:{{params.parameter}}</h1></body></html>");
+		mailSender.setHtmlContent("<html><body><h1>{{params.subject}}: {{params.parameter}}</h1></body></html>");
 		Properties params = new Properties();
         params.setProperty("parameter", member.getEmailVerifCode());
-        params.setProperty("subject", "註冊驗證碼 ");
+        params.setProperty("subject", "註冊驗證碼");
 		mailSender.setProperties(params);
-		//mailSender.SendEmail();
+		mailSender.SendEmail();
+		
+		//發送備份信
+		mailSender.setEmailTo("Java20201019@gmail.com");
+		mailSender.SendEmail();
 		
 		accountService.insert(member);
 		
@@ -171,7 +173,7 @@ public class AccountController {
 		
 		MemberBean currentUser = (MemberBean)session.getAttribute("currentUser");
 		if(!verificationCode.equals(currentUser.getEmailVerifCode())) {
-			model.addAttribute("msg", "驗證碼驗證失敗");
+			model.addAttribute("msg", "驗證碼錯誤");
 			return new ModelAndView("account/verifyAccount");
 		}
 		

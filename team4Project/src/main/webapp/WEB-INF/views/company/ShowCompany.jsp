@@ -28,7 +28,7 @@
                 <div class="thumbnail" style="width: 320px; height: 340px">
                     <div class="caption">
                         <p>
-                        <img height="300px" src="<c:url value='/getCompanyimage/${Cmp.account}'/>" />
+                        <img height="300px" src="<c:url value='/getCompanyimage/${Cmp.id}'/>" />
 <%--                             <b style='font-size: 16px;'>${Company.title}</b> --%>
                         </p>
                         <p>${Cmp.companyName}</p>

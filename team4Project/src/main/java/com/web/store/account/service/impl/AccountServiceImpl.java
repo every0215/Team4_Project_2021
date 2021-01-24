@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.web.store.account.dao.MemberCreditCardDao;
 import com.web.store.account.dao.MemberDao;
 import com.web.store.account.dao.MemberLoginHistoryDao;
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.javabean.MemberCreditCard;
 import com.web.store.account.javabean.MemberLoginHistory;
 import com.web.store.account.service.AccountService;
 
@@ -23,9 +25,18 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	MemberLoginHistoryDao mlhDao;
 	
+	@Autowired
+	MemberCreditCardDao mCreditCardDao;
+	
 	@Override
 	public void insert(MemberBean member) throws Exception {
 		memberDao.insert(member);
+
+	}
+	
+	@Override
+	public void update(MemberBean member) throws Exception {
+		memberDao.update(member);
 
 	}
 	
@@ -59,8 +70,15 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public int update(MemberBean member) throws Exception {
-		int result = memberDao.updateNickName(member);
+	public int updatePassword(MemberBean member) throws Exception {
+		int result = memberDao.updatePassword(member);
+
+		return result;
+	}
+	
+	@Override
+	public int updateNickname(MemberBean member) throws Exception {
+		int result = memberDao.updateNickname(member);
 
 		return result;
 	}
@@ -95,5 +113,39 @@ public class AccountServiceImpl implements AccountService {
 		return mlhDao.selectAll();
 	}
 
+	//
+	// 會員信用卡功能
+	//
+	@Override
+	public void insert(MemberCreditCard mCreditCard) throws Exception {
+		mCreditCardDao.insert(mCreditCard);
+
+	}
+
 	
+	@Override
+	public int deleteMemberCreditCardById(int memberCreditCardId) throws Exception {
+		int result = mCreditCardDao.deleteById(memberCreditCardId);
+
+		return result;
+	}
+	
+	//
+	// 會員儲值
+	//
+//	@Override
+//	public void insert(MCoinTopUpDetail mCoinTopUpDetail) throws Exception {
+//		mCreditCardDao.insert(mCreditCard);
+//
+//	}
+//	
+//	
+//	@Override
+//	public int deleteMCoinTopUpDetailById(int mCoinTopUpDetailId) throws Exception {
+//		int result = mCreditCardDao.deleteById(mCoinTopUpDetailId);
+//
+//		return result;
+//	}
+
+
 }
