@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.javabean.MemberSubscription;
 
 public interface MemberDao {
 	List<MemberBean> selectAll() throws SQLException;
@@ -17,4 +18,5 @@ public interface MemberDao {
 	int updateVerified(MemberBean m) throws SQLException;
 	int updateActive(MemberBean m) throws SQLException;
 	int updatePassword(MemberBean m) throws SQLException;
+	void delete(MemberSubscription memberSubscription);
 }

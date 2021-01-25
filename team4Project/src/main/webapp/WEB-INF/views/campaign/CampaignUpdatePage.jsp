@@ -98,19 +98,19 @@
 				<c:if test="${camp.discountParams.type==1}">
 					<div class="offField form-group noShow">
 						<label for="comment">折數:</label> 
-						<input name="OffParam"
-							class="form-control" type="text" placeholder="幾折" value="${camp.discountParams.offParam}"></input>
+						<input name="offParam"
+							class="form-control need" type="text" placeholder="1.0、0.9..." value="${camp.discountParams.offParam}"></input>
 					</div>
 				</c:if>
 
 				<c:if test="${camp.discountParams.type==2}">
 					<div class="upToAmmountFiled form-group noShow">
-						<label for="comment">滿額:</label> <input name="AmountUpTo"
-							class="form-control" type="text" placeholder="滿多少元"></input>
+						<label for="comment">滿額:</label> <input name="amountUpTo"
+						value="${camp.discountParams.amountUpTo}" class="form-control need" type="text" placeholder="滿多少元"></input>
 					</div>
 					<div class="upToAmmountFiled form-group noShow">
-						<label for="comment">折多少:</label> <input name="AmountOffParam"
-							class="form-control" type="text" placeholder="折多少元"></input>
+						<label for="comment">折多少:</label> <input name="amountOffParam"
+						value="${camp.discountParams.amountOffParam}" class="form-control need" type="text" placeholder="折多少元"></input>
 					</div>
 				</c:if>
             </div>
@@ -155,7 +155,7 @@
             </div>
 
             <div class="form-group">
-            	<img style="width:300px;height:150px" src="${camp.picturePath}"/><br>
+            	<img id="picPreview" style="width:100%;height:150px" src="${camp.picturePath}"/><br>
                 <label for="fileUpload">活動圖檔:</label>
                 <input class="form-control" id="fileUpload" name="picture" type="file">
 
@@ -176,7 +176,9 @@
     <script>
         $(function () {
 
-   
+        	$("#fileUpload").change(function(){
+                readURL(this); 
+              });
 
             $("#addCamp").click(function (event) {
                
@@ -273,7 +275,16 @@
                 }
                 
             });
-
+			
+            function readURL(input){
+          	  if(input.files && input.files[0]){
+          	    var reader = new FileReader();
+          	    reader.onload = function (e) {
+          	       $("#picPreview").attr('src', e.target.result);
+          	    }
+          	    reader.readAsDataURL(input.files[0]);
+          	  }
+          	}
 
             //獲取當前日期
             function setDate () {

@@ -147,6 +147,8 @@ public class CampaignDaoImpl implements CampaignDao {
 		if(searchStr.trim().equals("")) {
 			switch(search.getStatus()) {
 				case 0:
+					System.out.println("-------------1");
+					System.out.println(hql);
 					query = session.createQuery(hql,Campaign.class);
 					break;
 				case 1:					
@@ -204,14 +206,11 @@ public class CampaignDaoImpl implements CampaignDao {
 		
 		query.setParameter("companyId", companyId);
 		
+
 		int totalResult = query.list().size();
-		System.out.println(totalResult);
 		int pageSize = page.getPageSize();
-		int totalPage = (int)Math.ceil((double)totalResult/pageSize);
-		System.out.println(totalPage);
-		
+		int totalPage = (int)Math.ceil((double)totalResult/pageSize);	
 		List<Campaign> camps = query.setMaxResults(page.getPageSize()).setFirstResult((page.getCurrentPage()-1)*page.getPageSize()).list();
-		
 		page.setContent(camps);
 		page.setTotalpage(totalPage);
 		page.setTotalResultCount(totalResult);

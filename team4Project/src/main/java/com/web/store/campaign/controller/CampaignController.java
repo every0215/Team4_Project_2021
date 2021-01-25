@@ -137,8 +137,8 @@ public class CampaignController {
 		//為2是滿額塞入滿額參數
 		DiscountParams discountParams = new DiscountParams();
 		discountParams.setType(type);
+		
 		if(type==1) {
-			offParam = offParam/10;
 			discountParams.setOffParam(offParam);
 		}else if(type==2) {		
 			discountParams.setAmountUpTo(amountUpTo);
@@ -161,7 +161,7 @@ public class CampaignController {
 		Company company = (Company)model.getAttribute("company");
 		Campaign camp = new Campaign(name, picUrl, description, content, StartDateTimeStamp, endDateTimeStamp, launchStatus, false, currentTime, currentTime, company, discountParams);
 		discountParams.setCampaign(camp);
-		
+		camp.setDiscountParams(discountParams);
 		//寫入圖片檔案部分
 
 		
@@ -173,13 +173,12 @@ public class CampaignController {
 		
 		camp.convertTimestampToString();
 		redirectAttributes.addFlashAttribute("camp", camp);
+		redirectAttributes.addFlashAttribute("isInsert", true);
 		
 		if(!isOk) {
 			return "redirect:/campaign/insertPage";
 		}
-		
-		model.addAttribute("isInsert", true);
-		
+
 		return "redirect:/campaign/campaignAddComfirm";
 		
 	}
@@ -242,7 +241,7 @@ public class CampaignController {
 		DiscountParams discountParams = campOrigin.getDiscountParams();
 		discountParams.setType(type);
 		if (type == 1) {
-			offParam = offParam/10;
+			System.out.println(offParam);
 			discountParams.setOffParam(offParam);
 		} else if (type == 2) {
 			discountParams.setAmountUpTo(amountUpTo);
@@ -250,6 +249,7 @@ public class CampaignController {
 		}
 		
 		campOrigin.setDiscountParams(discountParams);
+		discountParams.setCampaign(campOrigin);
 		
 		if (!picture.isEmpty()) {
 			String originFileName = picture.getOriginalFilename();
@@ -364,7 +364,7 @@ public class CampaignController {
 		Company company = (Company)model.getAttribute("company");
 		
 		if(company==null) {
-			return "redirect:/index";
+			return "redirect:/";
 		}
 		
 		campService.getCampaignPageOfCompany(page,company.getId());
@@ -396,7 +396,6 @@ public class CampaignController {
 			@PathVariable int companyId,
 			@PathVariable int page,
 			HttpServletResponse response) {
-//		response.setHeader("Access-Control-Allow-Origin", "*");
 		Page<Campaign> pageResult = new Page<Campaign>();
 		search.convertStringToTimestamp();
 		pageResult.setCurrentPage(page);
@@ -413,7 +412,7 @@ public class CampaignController {
 		
 		Company company = (Company)model.getAttribute("company");
 		if(company==null) {
-			return "redirect:/index";
+			return "redirect:/";
 		}
 		
 		SearchValidator validator = new SearchValidator();
@@ -432,8 +431,11 @@ public class CampaignController {
 		model.addAttribute("page", page);
 		model.addAttribute("search",searchBean);
 		model.addAttribute("isSearch",true);
+		new String();
 		return "campaign/CampaignShowPage";
 	}
+	
+	
 	
 	@GetMapping("/index")
 	public String campaignUserIndex(Model model) {

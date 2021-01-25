@@ -67,9 +67,6 @@
             margin-top:10px;
             /* border:solid 1px black; */
             border-radius: 10px;
-            height: 0;
-            overflow:hidden;
-            transition:1s;
         }
 
         .functionRow{
@@ -187,9 +184,6 @@
             
         $(function(){
 
-            setTimeout(function(){
-                $(".container").addClass("show")
-            },500)
 
             //動態綁定每列資料的click事件，點擊變黑，其他列還原
             $(".panel").on("click","tbody>tr",function(){

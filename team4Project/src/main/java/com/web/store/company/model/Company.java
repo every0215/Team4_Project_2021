@@ -1,6 +1,9 @@
 package com.web.store.company.model;
 
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -15,16 +18,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.codec.binary.Base64;
 import org.hibernate.annotations.GeneratorType;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.store.ticket.model.Event;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.store.campaign.model.Campaign;
 
 
 @Entity
 @Table(name="Company")
-public class Company {
+public class Company implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name= "Id")
@@ -34,7 +40,11 @@ public class Company {
 	
 	
 	@Column(name= "Logo")
+	@JsonIgnore
 	private Blob logo;
+	
+	@Transient
+	private String logoBase64;
 	
 	@Column(name = "logoName")
 	 private String logoName;
@@ -56,6 +66,7 @@ public class Company {
 	@Column(name= "Phone")
 	private String phone;
 	@Column(name= "BusRC")
+	@JsonIgnore
 	private Blob busRC;
 	
 	@Column(name = "busRCName")
@@ -66,11 +77,11 @@ public class Company {
 	@Column(name= "Status")
 	private Boolean status =true;//企業的上下架狀態，只有1或0
 	
-	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
+	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Campaign> campaigns;
 	
 	@Transient
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="COMPANY", cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="COMPANY", cascade=CascadeType.ALL)
 	 private Set<Event> events = new LinkedHashSet<Event>();
 	
 	public Company() {
@@ -264,5 +275,19 @@ public class Company {
 	public void setCampaigns(Set<Campaign> campaigns) {
 		this.campaigns = campaigns;
 	}
+
+	public String getLogoBase64() throws SQLException, UnsupportedEncodingException {
+		if(this.logo != null && this.logoBase64 == null) {
+			byte[] encodeBase64 = Base64.encodeBase64(this.logo.getBytes(1, (int) this.logo.length()));
+			this.logoBase64 = new String(encodeBase64, "UTF-8");
+		}
+		return logoBase64;
+	}
+
+	public void setLogoBase64(String logoBase64)  {
+		this.logoBase64 = logoBase64;
+	}
+	
+	
 	
 }

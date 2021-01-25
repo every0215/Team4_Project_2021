@@ -140,6 +140,7 @@
             </div>
 
             <div class="form-group">
+            	<img id="picPreview" style="width:100%;height:200px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
                 <label for="fileUpload">活動圖檔:</label>
                 <input class="form-control need" id="fileUpload" name="picture" type="file">
 
@@ -162,6 +163,10 @@
         $(function () {
 
             setDate(); //將開始日期設定為今天後一天的日期，結束日期為後兩天
+            
+            $("#fileUpload").change(function(){
+               readURL(this); 
+             });
 
             $("#addCamp").click(function (event) {
                         
@@ -220,7 +225,7 @@
                 var paramTemplate = ""; //html模板
 
                 if (choiceVal == 1) {
-                    paramTemplate = "<div class='offField form-group '><label for='comment'>折數:</label><input name='offParam' class='form-control need' type='text' placeholder='幾折'></input></div>";
+                    paramTemplate = "<div class='offField form-group '><label for='comment'>折數:</label><input name='offParam' class='form-control need' type='text' placeholder='1.0、0.9...'></input></div>";
                     $("#paramField").html(paramTemplate);
                 } else if (choiceVal == 2) {
                     paramTemplate = '<div class="upToAmmountFiled form-group "><label for="comment">滿額:</label><input name="amountUpTo" class="form-control need" type="text" placeholder="滿多少元"></input></div><div class="upToAmmountFiled form-group"><label for="comment">折多少:</label><input name="amountOffParam" class="form-control need" type="text" placeholder="折多少元"></input></div>';
@@ -251,7 +256,7 @@
                 $("select[name='type']").trigger("change");
 
                 if(type==1){
-                    $("input[name='offParam']").val(9);
+                    $("input[name='offParam']").val(0.9);
                 }
                 
             });
@@ -270,6 +275,16 @@
                     today.setDate(today.getDate()+1);
                     endDate.value = today.toISOString().substr(0, 10);
                 }          
+            }
+            
+            function readURL(input){
+            	  if(input.files && input.files[0]){
+            	    var reader = new FileReader();
+            	    reader.onload = function (e) {
+            	       $("#picPreview").attr('src', e.target.result);
+            	    }
+            	    reader.readAsDataURL(input.files[0]);
+            	  }
             }
 
             

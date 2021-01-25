@@ -33,6 +33,9 @@
 		<li data-toggle="collapse" data-target="#creditCard" class="collapsed">
 			<a href="<c:url value='/member/creditCard' />"><i class="fa fa-car fa-lg"></i><b>信用卡管理</b></a>
 		</li>
+		<li data-toggle="collapse" data-target="#creditCard" class="collapsed">
+			<a href="<c:url value='/member/subscription' />"><i class="fa fa-car fa-lg"></i><b>訂閱管理</b></a>
+		</li>
 		
 		<li data-toggle="collapse" data-target="#changePassword" class="collapsed">
 			<a href="<c:url value='/member/changePassword' />" ><i class="fa fa-globe fa-lg"></i><b>密碼變更</b></a>
