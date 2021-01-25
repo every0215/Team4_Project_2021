@@ -69,17 +69,17 @@
         <!-- 購買票券主頁面START -->
         <div class="ticket-content">
           <div class="side-bar well" style="height:600px;width:170px">
-            <div class="well">
+           <div class="well">
               <p>票券種類</p>
-              <p><a href="#">展覽</a></p>
-              <p><a href="#">樂園與景點</a></p>
-              <p><a href="#">運動賽事</a></p>
+              <p><a href="<c:url value='/TicketType/1'/>">展覽</a></p>
+              <p><a href="<c:url value='/TicketType/2'/>">樂園與景點</a></p>
+              <p><a href="<c:url value='/TicketType/3'/>">運動賽事</a></p>
             </div>
             <div class="well">
-              <p>經銷便利店</p>
-              <p><a href="#">全家</a></p>
-              <p><a href="#">7-11</a></p>
-              <p><a href="#">萊爾富</a></p>
+              <p>經銷店面</p>
+              <p><a href="<c:url value='/TicketCompany/1'/>">全家便利店</a></p>
+              <p><a href="<c:url value='/TicketCompany/3'/>">統一超商</a></p>
+              <p><a href="<c:url value='/TicketCompany/2'/>">萊爾富</a></p>
             </div>
           </div>
   
@@ -98,14 +98,14 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px;"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.exhibition.onSaleDate.toString().substring(0, 16)}~${event.exhibition.offSaleDate.toString().substring(0, 16)}</div>
                 </div>
               </div>
 </c:forEach>              
 <!--             ======================================= -->              
 
               <div class="more-link">
-                <a href="#" class="btn btn-info" role="button" style="float:right"><svg xmlns="http://www.w3.org/2000/svg"
+                <a href = "<c:url value='/TicketType/1'/>" class="btn btn-info" role="button" style="float:right"><svg xmlns="http://www.w3.org/2000/svg"
                     width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                       d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
@@ -131,13 +131,13 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.attraction.onSaleDate.toString().substring(0, 16)}~${event.attraction.offSaleDate.toString().substring(0, 16)}</div>
                 </div>
               </div>
 </c:forEach>              
 <!--             ======================================= -->     
               <div class="more-link">
-                <a href="#" class="btn btn-info" role="button" style="float:right"><svg xmlns="http://www.w3.org/2000/svg"
+                <a href = "<c:url value='/TicketType/2'/>"  class="btn btn-info" role="button" style="float:right"><svg xmlns="http://www.w3.org/2000/svg"
                     width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                       d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
@@ -162,13 +162,14 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.sport.onSaleDate.toString().substring(0, 16)}~${event.sport.offSaleDate.toString().substring(0, 16)}</div>
+                
                 </div>
               </div>
 </c:forEach>              
 <!--             ======================================= -->     
               <div class="more-link">
-                <a href="#" class="btn btn-info" role="button" style="float:right"><svg xmlns="http://www.w3.org/2000/svg"
+                <a href = "<c:url value='/TicketType/3'/>" class="btn btn-info" role="button" style="float:right"><svg xmlns="http://www.w3.org/2000/svg"
                     width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                       d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />

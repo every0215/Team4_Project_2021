@@ -238,23 +238,13 @@
               </li>
               <li><a href="<c:url value='/showCompany' />">合作企業</a></li>      
               <li><a href="contact.html">聯絡我們</a></li>
-              <li><a href="#">票劵購買 <span class="caret"></span></a>
+              <li><a href="<c:url value='/CTicketIndex' />">票劵購買 <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>
-                  <li><a href="#">Standard</a></li>                                                
-                  <li><a href="#">T-Shirts</a></li>
-                  <li><a href="#">Shirts</a></li>
-                  <li><a href="#">Jeans</a></li>
-                  <li><a href="#">Trousers</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>                                      
-                    </ul>
-                  </li>
+                  <li><a href="<c:url value='/TicketType/1'/>">展覽</a></li>
+                  <li><a href="<c:url value='/TicketType/2'/>">樂園與景點</a></li>
+                  <li><a href="<c:url value='/TicketType/3'/>">運動賽事</a></li>
+                 
+                  
                 </ul>
               </li>
               <li><a href="#">智慧客服</a></li>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.web.store.company.model.Company;
 import com.web.store.ticket.model.Attraction;
 import com.web.store.ticket.model.CreditCard;
 import com.web.store.ticket.model.Event;
@@ -24,7 +25,8 @@ import com.web.store.ticket.model.Sport;
 import com.web.store.ticket.model.SportSeat;
 import com.web.store.ticket.model.SportSession;
 import com.web.store.ticket.service.BackendService;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 @SessionAttributes(names = {"member"}) ////存取session屬性
 public class TicketController {
@@ -48,7 +50,11 @@ public class TicketController {
 		List<Integer> eList = getRandom(eSize);
 		for(int i=0;i<eList.size();i++) {
 			Integer no = eList.get(i);
-			smallexhibtion.add(exhibitions.get(no));
+			
+			Event event = exhibitions.get(no);
+			Exhibition exhibition = backendService.selectExhibitionByEvent(event.getId());
+			event.setExhibition(exhibition);
+			smallexhibtion.add(event);
 		}
 		
 		ArrayList<Event> attractions = backendService.getEventsBytypeId(2);
@@ -57,7 +63,11 @@ public class TicketController {
 		System.out.println(aList.size());
 		for(int i=0;i<aList.size();i++) {
 			Integer no = aList.get(i);
-			smallattraction.add(attractions.get(no));
+			
+			Event event = attractions.get(no);
+			Attraction attraction = backendService.selectAttractionByEvent(event.getId());
+			event.setAttraction(attraction);
+			smallattraction.add(event);
 		}
 		
 		ArrayList<Event> sports = backendService.getEventsBytypeId(3);
@@ -66,7 +76,11 @@ public class TicketController {
 		System.out.println(sList.size());
 		for(int i=0;i<sList.size();i++) {
 			Integer no = sList.get(i);
-			smallsport.add(sports.get(no));
+			
+			Event event = sports.get(no);
+			Sport sport = backendService.selectSportByEvent(event.getId());
+			event.setSport(sport);
+			smallsport.add(event);
 		}
 		model.addAttribute("smallexhibtion", smallexhibtion);
 		model.addAttribute("smallattraction", smallattraction);
@@ -79,10 +93,11 @@ public class TicketController {
 	public String showTicket(@PathVariable int eventId,Model model) {
 		
 		Event event = backendService.queryOneEvent(eventId);
-		
+		Company company = backendService.queryCompany(event.getCompanyId());
 		EventType eventType = backendService.queryEventType(event.getTypeId());
 		List<Price> priceList = backendService.selectPriceList(eventId);
 		model.addAttribute("event",event);
+		model.addAttribute("company",company);
 		model.addAttribute("eventType", eventType);
 		model.addAttribute("priceList",priceList);
 		int priceSize = priceList.size();
@@ -116,7 +131,6 @@ public class TicketController {
 			 }
 			 model.addAttribute("creditCard",creditCard);
 			 model.addAttribute("sport",sport);
-			 System.out.println(sport.getDiscountRatio());
 			 model.addAttribute("sessionList",sessionList);
 			 model.addAttribute("sessionSeatList",sessionSeatList);
 			 
@@ -125,13 +139,50 @@ public class TicketController {
 		return "/ticket/CTicketShow";
 		
 	}
+	@GetMapping("/TicketType/{typeId}")
+	public String sortByType(@PathVariable int typeId,Model model) throws JsonProcessingException {
+		EventType eventType = backendService.queryEventType(typeId);
+		ArrayList<Event> events = backendService.getEventsBytypeId(typeId);
+		for(Event event:events) {
+			if(event.getTypeId()==1) {
+				event.setExhibition(backendService.selectExhibitionByEvent(event.getId()));
+			}else if(event.getTypeId()==2) {
+				event.setAttraction(backendService.selectAttractionByEvent(event.getId()));
+			}else {
+				event.setSport(backendService.selectSportByEvent(event.getId()));
+			}
+		}
+		int totalCount = events.size();
+		model.addAttribute("events", events);
+		model.addAttribute("eventsJSON", new ObjectMapper().writeValueAsString(events));
+		
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("eventType", eventType);
+		model.addAttribute("queryType",2);
+		return "/ticket/CTicketSort";
+
+	}
 	
-	public String sortByType(@PathVariable int eventId,Model model) {
-		
-		
-		return null;
-		
-	
+	@GetMapping("/TicketCompany/{companyId}")
+	public String sortByCompany(@PathVariable int companyId,Model model) throws JsonProcessingException {
+		ArrayList<Event> events = backendService.queryAll(companyId);
+		Company company = backendService.queryCompany(companyId);
+		for(Event event:events) {
+			if(event.getTypeId()==1) {
+				event.setExhibition(backendService.selectExhibitionByEvent(event.getId()));
+			}else if(event.getTypeId()==2) {
+				event.setAttraction(backendService.selectAttractionByEvent(event.getId()));
+			}else {
+				event.setSport(backendService.selectSportByEvent(event.getId()));
+			}
+		}
+		int totalCount = events.size();
+		model.addAttribute("events", events);
+		model.addAttribute("eventsJSON", new ObjectMapper().writeValueAsString(events));
+		model.addAttribute("company", company);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("queryType",1);
+		return "/ticket/CTicketSort";
 	}
 	
 	
@@ -166,8 +217,8 @@ public class TicketController {
 		Random r = new Random();
 		List<Integer> list = new ArrayList<>();
 		
-		while(list.size()<3){ //總共10個數字
-			int n=r.nextInt(size); //產生0~9數字
+		while(list.size()<3){ //總共3個數字
+			int n=r.nextInt(size); //產生的數字(看總共幾筆)
 			if(list.contains(n)) 
 				continue;     //重複的不加入
 			else
