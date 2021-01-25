@@ -38,7 +38,7 @@ public class Store {
 		@Column(name= "Closehour")
 		private String closehour;
 		//寫company的關聯
-		@Transient
+//		@Transient
 		@Column(name= "CompanyId")
 		private Integer companyId;
 	
@@ -67,6 +67,23 @@ public class Store {
 			
 		}
 		
+		public Store(String storeName, String storeArea, String storeAddress, String phone, String fex,
+				Boolean businessHour, String openhour, String closehour, Integer companyId, String profiles,
+				Boolean status) {
+			super();
+			
+			this.storeName = storeName;
+			this.storeArea = storeArea;
+			this.storeAddress = storeAddress;
+			this.phone = phone;
+			this.fex = fex;
+			this.businessHour = businessHour;
+			this.openhour = openhour;
+			this.closehour = closehour;
+			this.companyId = companyId;
+			this.profiles = profiles;
+			this.status = status;
+		}
 		public Store(Integer id, String storeName, String storeArea, String storeAddress, String phone, String fex,
 				Boolean businessHour, String openhour, String closehour, Integer companyId, String profiles,
 				Boolean status) {
