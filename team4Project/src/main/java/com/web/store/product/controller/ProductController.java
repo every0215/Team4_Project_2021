@@ -45,24 +45,22 @@ public class ProductController {
 	ServletContext context;
 	@Autowired
 	CompanyService cService;
+//-----------------------後台顯示商品
 	@RequestMapping("/ProductIndex")
 	public String View(Model model) {
 		List<Product> list = pService.selectAll();
 		for (Product pb : list) {
-			System.out.println(pb.getproductName());
+			System.out.println(pb.getProductName());
 		}
 		model.addAttribute("ProductList", list);
 		return "/product/ProductIndex";
 	}
-	@GetMapping("/ProductIndex/{companyName}")
-	public String ViewIndex(@PathVariable String companyName,Model model) {
-		List<Product> list = pService.selectbyCompanyName(companyName);
-		for (Product pb : list) {
-			System.out.println(pb.getproductName());
-		}
-		model.addAttribute("ProductList", list);
-		return "/";
-	}
+//	@GetMapping("/ProductIndex/{companyName}")
+//	public String ViewIndex(@PathVariable String companyName,Model model) {
+//		List<Product> list = pService.selectbyCompanyName(companyName);
+//		model.addAttribute("ProductList", list);
+//		return "/";
+//	}
 //	------------------------
 	@GetMapping("/product/ProductInsert")
 	public String productInsert() {
@@ -81,7 +79,7 @@ public class ProductController {
 		return "product/productimage";
 	}
 	
-	
+//	------------------------------輸入商品
 	@PostMapping(value="/product/ProductInsert")
 	public String porductIn(
 			@RequestParam String productName,
@@ -125,6 +123,7 @@ public class ProductController {
 		return "redirect:/ProductIndex";
 
 	}
+//	--------------------------------------變更商品
 	@GetMapping(value="/product/productAlter/{productId}")
 	public String porductAlter(@PathVariable int productId,Model model){
 		Product product  = pService.selectbyid(productId);
@@ -132,43 +131,53 @@ public class ProductController {
 		return "/product/ProductAlter";
 
 	}	
+//----------------------------------------首頁商品類別		
+	@GetMapping(value="/productShow/{productType}")
+	public String porductShow(@PathVariable String productType,Model model){
+		System.out.println(productType);
+		List<Product> list  = pService.selectbyType(productType);
+		model.addAttribute("ProductList",list);
+		System.out.println("成功"+productType);
 		
-	
+		return "/product/productShow";
+	}	
+//	@GetMapping(value="/productShow")
+//	public String porductShow(){
+//		
+//		return "/productShow";
+//	}	
 //-----------------輸出圖
-	@GetMapping(value = "/getimage/{productId}")
-	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer ProductId)  {
+	@GetMapping(value = "/getproductimage/{productId}")
+	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer productId)  {
 		String filePath = "/images/NoImage.jpg";
-
+		
 		byte[] media = null;
 		HttpHeaders headers = new HttpHeaders();
 		String logoname = "";
 		
 		int len = 0;
-		Product pb = pService.getProduct(ProductId);
-		
+		Product pb = pService.getProduct(productId);
+		System.out.println(pb.getPicName());
 		if (pb != null) {
 			
-			Blob logoblob = pb.getproductPic();
+			Blob logoblob = pb.getProductPic();
 			
 			logoname = pb.getPicName();
 			
 			if (logoblob != null) {
-				
+				System.out.println("HI");
 				try {
 					len = (int) logoblob.length();
 //					System.out.println(len);
 					media = logoblob.getBytes(1, len);
 //					System.out.println(media);
 				} catch (SQLException e) {
-					throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
+					throw new RuntimeException(e.getMessage());
 				}
 			} else {
 				media = toByteArray(filePath);
 				logoname = filePath;
 			}
-		} else {
-			media = toByteArray(filePath);
-			logoname = filePath;
 		}
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		System.out.println("media"+media);

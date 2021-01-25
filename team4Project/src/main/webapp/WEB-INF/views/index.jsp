@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" >
+<head> <meta charset="UTF-8"></head>
    <c:import url="/layout/head" />
   <body>
 <!--   企業登入連結 -->
@@ -51,81 +53,83 @@
   <!-- Start Promo section -->
 	<div class="indexclass">
 		<div class="indexclassaa1">
-			<img class="indexclassbb" src="img/indexclass/food1.png" alt="img">
+		<a href="<c:url value="/productShow/保健"/>">
+			<img class="indexclassbb" src="img/indexclass/food1.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>買一送一</span>
 				<h4>
-					<a class="indexclassa" href="#">蔬菜水果-1</a>
+					<a class="indexclassa" href="<c:url value="/productShow/保健"/>">保健</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food2.png" alt="img">
+			<a href="<c:url value="/productShow/泡麵"/>">
+			<img class="indexclassbb" src="img/indexclass/food2.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>早鳥促銷</span>
 				<h4>
-					<a class="indexclassa" href="#">生鮮魚肉-2</a>
+					<a class="indexclassa" href="<c:url value="/productShow/泡麵"/>">泡麵</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food3.png" alt="img">
+			<a href="<c:url value="/productShow/清潔"/>">
+			<img class="indexclassbb" src="img/indexclass/food3.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>全面95折</span>
 				<h4>
-					<a class="indexclassa" href="#">電器3C-3</a>
+					<a class="indexclassa" href="<c:url value="/productShow/清潔"/>">清潔</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food4.png" alt="img">
+			<a href="<c:url value="/productShow/甜點"/>">
+			<img class="indexclassbb" src="img/indexclass/food4.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>20:00後6折</span>
 				<h4>
-					<a class="indexclassa" href="#">烘培輕食-4</a>
+					<a class="indexclassa" href="<c:url value="/productShow/甜點"/>">甜點</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food5.png" alt="img">
+			<a href="<c:url value="/productShow/生鮮"/>">
+			<img class="indexclassbb" src="img/indexclass/food5.png" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>Exclusive Item</span> -->
 				<h4>
-					<a class="indexclassa" href="#">蛋品-5</a>
+					<a class="indexclassa" href="<c:url value="/productShow/生鮮"/>">生鮮</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food6.png" alt="img">
+			<a href="<c:url value="/productShow/調味"/>">
+			<img class="indexclassbb" src="img/indexclass/food6.png" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>Exclusive Item</span> -->
 				<h4>
-					<a class="indexclassa" href="#">冷藏飲品-6</a>
+					<a class="indexclassa" href="<c:url value="/productShow/調味"/>">調味</a>
 				</h4>
 			</div>
 
 		</div>
 
 		<div class="indexclassaa2">
-			<img class="indexclassbb" src="img/indexclass/food7.png" alt="img">
+		<a href="<c:url value="/productShow/零食"/>">
+			<img class="indexclassbb" src="img/indexclass/food7.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>夏日必選</span>
 				<h4>
-					<a class="indexclassa" href="#">冷凍食品-7</a>
+					<a class="indexclassa" href="<c:url value="/productShow/零食"/>">零食</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food8.png" alt="img">
+			<a href="<c:url value="/productShow/飲料"/>">
+			<img class="indexclassbb" src="img/indexclass/food8.png" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>Exclusive Item</span> -->
 				<h4>
-					<a class="indexclassa" href="#">五穀雜糧-8</a>
+					<a class="indexclassa" href="<c:url value="/productShow/飲料"/>">飲料</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food9.png" alt="img">
+			<a href="<c:url value="/productShow/餐廚"/>">
+			<img class="indexclassbb" src="img/indexclass/food9.png" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>Exclusive Item</span> -->
 				<h4>
-					<a class="indexclassa" href="#">罐頭調味-9</a>
+					<a class="indexclassa" href="<c:url value="/productShow/餐廚"/>">餐廚</a>
 				</h4>
 			</div>
-
+			
 			<img class="indexclassbb" src="img/indexclass/food10.png" alt="img">
 			<div class="indexclassspan">
 				<span>不容錯過</span>

@@ -50,8 +50,6 @@ public class ProductDaoimpl implements ProductDao {
 	}
 	public int alterbyid(Product pb) throws SQLException{
 		Session session = sessionFactory.getCurrentSession();
-		
-	
 		Product pbg = session.get(Product.class, pb.getproductId());
 		if(pbg!=null) {
 			session.update(pbg);
@@ -85,6 +83,17 @@ public class ProductDaoimpl implements ProductDao {
 		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
 		queryObj.setParameter("companyName", companyName);
 		return queryObj.list();
+	}
+
+
+	@Override
+	public List<Product> selectbyType(String productType) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Product where productType = :productType";
+		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
+		queryObj.setParameter("productType", productType);
+		return queryObj.list();	
 	}
 
 

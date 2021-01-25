@@ -15,5 +15,6 @@ public interface ProductDao {
 	int insert(Product pb) throws SQLException;
 	int deletebyid(int id) throws SQLException;
 	int alterbyid(Product pb) throws SQLException;
+	List<Product> selectbyType(String productType);
 	
 }
