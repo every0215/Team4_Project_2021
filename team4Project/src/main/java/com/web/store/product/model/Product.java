@@ -116,19 +116,19 @@ public class Product implements Serializable{
 	public void setproductId(Integer productId) {
 		this.productId = productId;
 	}
-	public String getproductName() {
+	public String getProductName() {
 		return productName;
 	}
 	public void setproductName(String productName) {
 		this.productName = productName;
 	}
-	public String getproductType() {
+	public String getProductType() {
 		return productType;
 	}
 	public void setproductType(String productType) {
 		this.productType = productType;
 	}
-	public String getproductDescript() {
+	public String getProductDescript() {
 		return productDescript;
 	}
 	public void setproductDescript(String productDescript) {
@@ -140,13 +140,13 @@ public class Product implements Serializable{
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	public Integer getproductStuck() {
+	public Integer getProductStuck() {
 		return productStuck;
 	}
 	public void setproductStuck(Integer productStuck) {
 		this.productStuck = productStuck;
 	}
-	public Integer getproductPrice() {
+	public Integer getProductPrice() {
 		return productPrice;
 	}
 	public void setproductPrice(Integer productPrice) {
@@ -159,7 +159,7 @@ public class Product implements Serializable{
 	public void setdiscount(Integer discount) {
 		this.discount = discount;
 	}
-	public Blob getproductPic() {
+	public Blob getProductPic() {
 		return productPic;
 	}
 	public void setproductPic(Blob productPic) {

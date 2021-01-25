@@ -63,4 +63,7 @@ public class ProductServiceimpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDao.selectbyCompanyName(companyName);
 	}
+	public List<Product> selectbyType(String productType){
+		return productDao.selectbyType(productType);
+	}
 }
