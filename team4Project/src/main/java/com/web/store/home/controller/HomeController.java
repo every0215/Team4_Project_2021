@@ -95,14 +95,14 @@ public class HomeController {
 		return "crm/backOffice";
 	}
 	
-	@RequestMapping("/CmpRegi")
+	@RequestMapping("/company/CmpRegi")
 	public String companyRegister() {
 		return "company/CompanyRegister";
 	}
-	@RequestMapping("/CmpLog")
-	public String companyLogin() {
-		return "company/CompanyLogin";
-	}
+//	@RequestMapping("/CmpLog")
+//	public String companyLogin() {
+//		return "company/CompanyLogin";
+//	}
 	
 	//Report.Jsp頁面連結
 	@RequestMapping("/reportindex")

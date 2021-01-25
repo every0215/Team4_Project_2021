@@ -24,6 +24,11 @@ public class CompanyViewController {
 //		System.out.println("redirect");
 //		return "/company/ShowStore";
 //	}
+	@GetMapping("/company/CompanyProfiles")
+	public String Companyprofiles() {
+		System.out.println("redirect");
+		return "/company/CompanyProfiles";
+	}
 	
 	@GetMapping("/company/StoreRegister_Profile")
 	public String storeRegister_Profile() {
@@ -35,5 +40,6 @@ public class CompanyViewController {
 		System.out.println("redirect");
 		return "/company/StoreRegister_Service";
 	}
+	
 	
 }
