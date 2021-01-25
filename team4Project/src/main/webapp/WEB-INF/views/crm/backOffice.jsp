@@ -99,7 +99,7 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <ul class="nav navbar-nav navbar-right"></ul>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="https://demo.opencart.com/image/cache/profile-45x45.png" alt="demo demo" title="demo" id="user-profile" class="img-circle" height="45" /> &nbsp;&nbsp;demo demo <i class="fa fa-caret-down fa-fw"></i></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="<c:url value='/company/getCompanyimage/${sessionScope.company.id}'/>" alt="demo demo" title="demo" id="user-profile" class="img-circle" height="45" /> &nbsp;&nbsp;${sessionScope.company.companyName} <i class="fa fa-caret-down fa-fw"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="#"><i class="fa fa-book fa-fw" aria-hidden="true"></i>你的帳號</a></li>
                                 <li role="separator" class="divider"></li>
