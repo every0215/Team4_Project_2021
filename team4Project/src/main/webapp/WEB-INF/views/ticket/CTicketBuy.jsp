@@ -99,48 +99,83 @@
           <div class="container text-center">
            <div class="ticket-info">
            <div class="panel-body">
-           <img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"style="width:500px;float:left;border-right:5px #ffffff solid" alt="Image">
+           
            <p style="text-align:left;font-size:20px;">${event.eventName}</p>
            <p style="text-align:left">經銷便利店:${company.companyName}</p>
            <p style="text-align:left">場地/地區:${event.eventLocation}</p>
            
            <c:choose>
              <c:when test="${event.typeId==1}">
-             <p style="text-align:left">售票期間:${exhibition.onSaleDate.toString().substring(0, 16)}~${exhibition.offSaleDate.toString().substring(0, 16)}</p>
+             
              <p style="text-align:left">展出期間:${exhibition.commDate}~${exhibition.dueDate}</p>
              <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${exhibition.discountRatio*10}折</p>
+             <p style="text-align:left;font-size:13px">*若購買卡友優惠票，僅能使用指定信用卡結帳</p>
              </c:when>
              <c:when test="${event.typeId==2}">
-             <p style="text-align:left">售票期間:${attraction.onSaleDate.toString().substring(0, 16)}~${attraction.offSaleDate.toString().substring(0, 16)}</p>
+             
              <p style="text-align:left">票券有效期:${attraction.commDate}~${attraction.dueDate}</p>
              </c:when>
             <c:otherwise>
-            <p style="text-align:left">售票期間:${sport.onSaleDate.toString().substring(0, 16)}~${sport.offSaleDate.toString().substring(0, 16)}</p>
+            
             <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
             </c:otherwise>
             </c:choose>
-            <c:if test="${event.typeId!=3}">    
+            <c:if test="${event.typeId==1}">    
             		<form action="<c:url value='/TicketBuy/${eventId}'/>" method="post">
             			<input type="hidden" name="eventId" value="${event.id}" />
             			
-            			<button type="submit" class="btn btn-info">Buy Now</button>
+            			<button type="submit" class="btn btn-info">NEXT</button>
             		</form>       
         </c:if>
            </div>
 				 <div id="accordion" class="ticket-info-title">
-	    <h3>票價</h3>
+				 
+				 
+				 
+	    <h4>數量與金額</h4>
         <div>
             <c:choose>
              	<c:when test="${event.typeId==1}">
+             		<label class="t1" for="">優惠選擇:</label>
+				<select name="discount" id="discount" required>
+					<option value="0" selected>無</option>
+					<option value="1">指定信用卡優惠</option>			
+				</select>
+             	<table style="cellpadding:'10px'; border:3px #ffffff solid">
+             	
+             		<thead><tr><td>票券名稱</td><td>價格</td><td>數量</td><td>金額</td></tr></thead>
+             		<tbody>
              		<c:forEach var="price" items="${priceList}" varStatus="status">
-             			<p>${price.name}:${price.cost}元</p>
+             			<tr>
+             				<td>${price.name}</td>
+             				<td class="cost" priceId="${price.id}">${price.cost}</td>
+             				<td>
+        					<input type="text" 
+		        					class="spinner"
+		        					target="subtotal-${price.id}" 
+		        					name="${price.id}" 
+		        					price="${price.cost}"
+		        					style="width: 20px;height:18px"/>
+        					</td>
+        					<td name="subtotal-${price.id}" class="subtotal">0</td>
+             			</tr>
              		</c:forEach>
+             		<tr ><td colspan="3">總價</td><td id="totalAmount" name="totalAmount">0</td></tr>
+             		</tbody>
+             	
+             	</table>
+
              	</c:when>
              	<c:when test="${event.typeId==2}">
              		<c:forEach var="price" items="${priceList}" varStatus="status">
              			<p>${price.name}:${price.cost}元</p>
              		</c:forEach>
              	</c:when>
+             	
+             	
+             	
+             	
+             	
             	<c:otherwise>
             <table style="margin: auto;width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>
 			<thead>
@@ -161,58 +196,6 @@
 		</table>
             </c:otherwise>
             </c:choose>
-        </div>
-        <c:if test="${event.typeId==3}">
-         <h3>場次表</h3>
-        <div >
-        <table style="width: 400px;border:3px #ffffff solid;text-align:center; " cellpadding="10" border='1'>
-            <c:forEach var="session" items="${sessionList}"><tr>
-            	<td>${session.kickOfTime.toString().substring(0, 16)}</td>
-            	<td>
-            		<form action="<c:url value='XXXXXXXXXX'/>" method="post">
-            			<input type="hidden" name="eventId" value="${event.id}" />
-            			<input type="hidden" name="sessionId" value="${session.id}" />
-            			<button type="button" class="btn btn-info">Buy Now</button>
-            		</form>
-            	</td>
-            	</tr></c:forEach>
-        </table>
-        
-        </div>
-        </c:if>
-        <h3>票券介紹</h3>
-        <div >
-            <p>
-            <c:choose>
-             <c:when test="${event.typeId==1}">
-             ${exhibition.description}
-             </c:when>
-             <c:when test="${event.typeId==2}">
-             ${attraction.description}
-             </c:when>
-            <c:otherwise>
-            ${sport.description}
-            </c:otherwise>
-            </c:choose>
-            </p>
-        </div>
-        <h3>購票須知</h3>
-        <div>
-            <p>
-            請於訂票完成前再次確認您的場次票價是否正確，若於訂票完成後需作更換，須另付手續費用，詳請請參閱退換票方式。訂票完成後，請自行先至會員專區即可查詢消費紀錄確認交易是否成功，以避免重複訂票；透過信用卡交易者，交易成功後銀行會直接自消費者指定之信用卡扣款。
-            </p>
-            <p>票券因故須郵寄退票，請洽大滿滿平台客服：(02)6631-6666(不補回郵資)，逾七日鑑賞期辦退，需酌收10%作業處理費。</p>
-            
-        </div>
-        <h3>注意事項</h3>
-        <div>
-        <ul style="list-style-type:circle">
-                <li>本票券僅限使用乙次，憑票入場，不得轉售。票券若經毀損或遺失視同無效，逾期作廢，恕不補發；本票券為無記名之有價票券，嚴禁公開販售、轉售，若經發現將依法處理。</li>
-                <li> 如遇人潮眾多，將進行入場人流控管，請依工作人員指示排隊進場。</li>
-                <li>為維護觀展品質，展場內不可攜帶嬰兒車、長柄雨傘(短柄雨傘請收納至肩背包)、自拍棒、大型行李、寵物(導盲犬除外)入場，如需寄放物品，請至場館提供之置物櫃；主辦單位僅提供停放區，恕不負保管之責。</li>
-                <li>禁止抽菸或嚼食口香糖、檳榔，如未遵守規則且經勸導後無意改善，主辦單位有權要求違規者離場，恕不退還或補償門票費用。</li>
-                <li>本注意事項若有未盡事宜，概以主辦單位之規定、解釋為準；主辦單位保留修改、增加、取消活動及注意事項之權利，詳情及票券使用相關資訊及規定，請洽主辦單位。</li>
-            </ul>
         </div>
     </div>
            </div>
@@ -350,17 +333,78 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
      
     <script>
-        $( function() {
-            var icons = {
-                header: "ui-icon-caret-1-s",
-                activeHeader: "ui-icon-caret-1-n"
-            };
-            $( "#accordion" ).accordion({
-                icons: icons,
-                heightStyle:"content",
-                event: "click"
-            });
-        });
+    function updateTotalAmount(){
+    	$('.spinner').each(function(){
+  		targetElement = $(this).attr("target");
+  		let priceId = $(this).attr("name");
+  		$('td[name="'+targetElement+'"]').html(
+  				
+  				$(this).spinner('value')* $('td[priceId="'+priceId+'"]').html()		
+  		)})
+  		let total=0;
+  		const elements = document.getElementsByClassName('subtotal');
+  		$(".subtotal").html()
+  		for(const key of elements){
+  			
+  			console.log(key.innerHTML);
+  			total+= +key.innerHTML;
+  			console.log(total);
+  		}
+  		$('#totalAmount').html(total);
+	}
+    
+    function updatePriceByDiscount(){
+		console.log($("option:selected").html());
+		if($("option:selected").html()=="指定信用卡優惠"){
+			$('.cost').each(function(){
+				$(this).html(+$(this).html()*${exhibition.discountRatio})
+				let price=$(this).html();		
+			})
+			
+		}else{
+			$('.cost').each(function(){
+				$(this).html(+$(this).html()/${exhibition.discountRatio})
+				let price=$(this).html();
+			})
+		}
+	}
+
+   	
+    let config={
+            min: 0,
+            max: 10,
+            step: 1
+            }
+   
+    $('.spinner').spinner(config);
+    
+   
+	$('#discount').change(function(){
+		updatePriceByDiscount()
+		updateTotalAmount()
+	});
+
+	$('.spinner').on("spinstop", function(){
+
+  		targetElement = $(this).attr("target");
+  		let priceId = $(this).attr("name");
+  		$('td[name="'+targetElement+'"]').html(
+  				
+  				$(this).spinner('value')* $('td[priceId="'+priceId+'"]').html()		
+  		)
+  		let total=0;
+  		const elements = document.getElementsByClassName('subtotal');
+  		$(".subtotal").html()
+  		for(const key of elements){
+  			
+  			console.log(key.innerHTML);
+  			total+= +key.innerHTML;
+  			console.log(total);
+  		}
+  		$('#totalAmount').html(total);
+	});
+	
+
     </script>
       </body>
 

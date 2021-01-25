@@ -2,6 +2,7 @@ package com.web.store.ticket.dao;
 
 import java.util.ArrayList;
 
+import com.web.store.ticket.model.Price;
 import com.web.store.ticket.model.SportSeat;
 
 public interface ISportSeatDao {
@@ -14,4 +15,5 @@ public interface ISportSeatDao {
 	ArrayList<SportSeat> selectBySession(int sportSessionId);
 	
 	void delete(int id);
+
 }

@@ -300,6 +300,18 @@ public class BackendServiceImpl implements BackendService {
 		Company company = companyDao.getCompanyById(companyId);
 		return company;
 	}
+
+	@Override
+	public List<Price> selectPriceListBySessionId(int sessionId) {
+		ArrayList<SportSeat> seatList = sportSeatDao.selectBySession(sessionId);
+		List<Price> priceList = new ArrayList<>();
+		for(SportSeat seat:seatList) {
+			Integer priceId = seat.getPriceId();
+			Price price = priceDao.queryPrice(priceId);
+			priceList.add(price);
+		}
+		return priceList;
+	}
 	
 	
 	
