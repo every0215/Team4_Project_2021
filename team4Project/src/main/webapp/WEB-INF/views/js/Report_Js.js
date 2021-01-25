@@ -17,6 +17,8 @@ $(function(){
 // 		    });
 // 		});
 
+
+
 // Tab1-年度各區業績
 		$("#queryAreaSales").ready(function(){
 	console.log("queryAreaSales");
@@ -109,6 +111,7 @@ $(function(){
 			    success: function(rep6){
 					setDataTable6(rep6);
 			    	console.log(rep6);
+		
 		   	    }
 		    });
 		});	
@@ -126,6 +129,12 @@ $(function(){
 		   	    }
 		    });
 		});
+			
+			//Tab8-商品前五名排行(廣告)
+			$("#rep_adv").click(function(){
+			//$("#rep_tab_8,#rep_tab_2,#rep_data").toggle();
+			});
+		
 			
 	});
 	
@@ -163,7 +172,7 @@ $(function(){
 	//範本
  	function setDataTable(ting123){
  		
- 		let str = `<thead class='rep_table_font'>
+ 		let str = `<table><thead class='rep_table_font'>
 				<tr>
 				<th>title1</th>
 				<th>title2</th>
@@ -181,14 +190,14 @@ $(function(){
 				"<td>"+data.storearea+"</td>"+
 			"</tr>";	
 		}
-		str += "</tbody>";
+		str += "</tbody></table>";
 		$("#rep_table").html(str);
  	}
  	
 	//Tab1-年度各區業績(明細)
  	function setDataTable1(datas){
  		
- 		let str = `<thead class='rep_table_font'>
+ 		let str = `<table><thead class='rep_table_font'>
 				<tr>
 				<th>地區</th>
 				<th>地區總業績</th>
@@ -199,17 +208,38 @@ $(function(){
 		for(const data of datas){
 			console.log(data);
 			str+="<tr>"+
-				"<td>"+data[0]+"</td>"+
+				"<td >"+data[0]+"</td>"+
 				"<td>"+data[1]+"</td>"+
 
 			"</tr>";	
 		}
-		str += "</tbody>";
-		$("#rep_table").html(str);
+		str += "</tbody></table>";
+//		$("#rep_table").html(str);
+		$("#tabs_1").html(str);
+//		codeInsert()
+		$('#tabs_1 > table').DataTable({
+			scrollY: 120,
+			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
+			buttons: [
+           {
+                extend: 'excelHtml5',
+                title: 'Data export',
+                bom:true
+            },
+            ,{
+                extend: 'csvHtml5',
+                title: 'Data export',
+                bom:true
+            }
+				,'copy'
+            
+            ],
+		});
 		
 	 	//Tab1-年度各區業績(圖)	
 			$("#rep_tab_2").html('<canvas id="myChart_2" width="200px" height="50%"></canvas>');
 	 	console.log(datas,$("#rep_tab_2").html());
+
 	 	
 	new Chart(document.getElementById('myChart_2'), {
 		type : 'doughnut',
@@ -233,7 +263,7 @@ $(function(){
  	//Tab2-年度品類銷售(明細)
  	function setDataTable2(datas){
  		
- 		let str = `<thead class='rep_table_font'>
+ 		let str = `<table><thead class='rep_table_font'>
 				<tr>
 				<th>品類</th>
 				<th>品類銷售數量</th>
@@ -252,13 +282,35 @@ $(function(){
 				"<td>"+data[3]+"</td>"+
 			"</tr>";	
 		}
-		str += "</tbody>";
-		$("#rep_table").html(str);
-		
+		str += "</tbody></table>";
+//		$("#rep_table").html(str);
+		$("#tabs_1").html(str);
+		$('#tabs_1 > table').DataTable({
+			scrollY: 120,
+			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
+			buttons: [
+           {
+                extend: 'excelHtml5',
+                title: 'Data export',
+                bom:true
+            },
+            ,{
+                extend: 'csvHtml5',
+                title: 'Data export',
+                bom:true
+            }
+				,'copy'
+            
+            ],
+		});
+	
+			 	
 	 	//Tab2-年度品類銷售(圖)	
 			$("#rep_tab_2").html('<canvas id="myChart_2" width="200px" height="50%"></canvas>');
 	 	console.log(datas,$("#rep_tab_2").html());
-	 	
+		
+	
+	
 	new Chart(document.getElementById('myChart_2'), {
 		type : 'bar',
 		data : {
@@ -298,7 +350,7 @@ $(function(){
  	
  // Tab3-年度活動銷售(明細)
  	function setDataTable3(datas){
- 		let str = `<thead class='rep_table_font'>
+ 		let str = `<table><thead class='rep_table_font'>
 				<tr>
 				<th>活動名稱</th>
 				<th>活動銷售數量</th>
@@ -317,8 +369,27 @@ $(function(){
 				"<td>"+data[3]+"</td>"+
 			"</tr>";	
 		}
-		str += "</tbody>";
-		$("#rep_table").html(str);
+		str += "</tbody></table>";
+		//$("#rep_table").html(str);
+				$("#tabs_1").html(str);
+		$('#tabs_1 > table').DataTable({
+			scrollY: 120,
+			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
+			buttons: [
+           {
+                extend: 'excelHtml5',
+                title: 'Data export',
+                bom:true
+            },
+            ,{
+                extend: 'csvHtml5',
+                title: 'Data export',
+                bom:true
+            }
+				,'copy'
+            
+            ],
+		});
 		
 		// Tab3-年度活動銷售(圖)	
 			$("#rep_tab_2").html('<canvas id="myChart_3" width="200px" height="50%"></canvas>');
@@ -363,7 +434,7 @@ $(function(){
 
  	 // Tab4-各店年度業績/折扣(明細)
  	function setDataTable4(datas){
- 		let str = `<thead class='rep_table_font'>
+ 		let str = `<table><thead class='rep_table_font'>
 				<tr>
 				<th>門市地區</th>
 				<th>門市名稱</th>
@@ -382,8 +453,27 @@ $(function(){
 				"<td>"+data[3]+"</td>"+
 			"</tr>";	
 		}
-		str += "</tbody>";
-		$("#rep_table").html(str);
+		str += "</tbody></table>";
+		//$("#rep_table").html(str);
+				$("#tabs_1").html(str);
+		$('#tabs_1 > table').DataTable({
+			scrollY: 120,
+			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
+			buttons: [
+           {
+                extend: 'excelHtml5',
+                title: 'Data export',
+                bom:true
+            },
+            ,{
+                extend: 'csvHtml5',
+                title: 'Data export',
+                bom:true
+            }
+				,'copy'
+            
+            ],
+		});
 		
 		// Tab4-各店年度業績/折扣(圖)	
 			$("#rep_tab_2").html('<canvas id="myChart_4" width="200px" height="50%"></canvas>');
@@ -456,7 +546,7 @@ $(function(){
 				}
 			});
 			console.log('被過濾後的資料',filteredDatas);
-			let str = `<thead class='rep_table_font'>
+			let str = `<table><thead class='rep_table_font'>
 					<tr>
 					<th>門市名稱</th>
 					<th>活動名稱</th>
@@ -476,8 +566,27 @@ $(function(){
 					"<td>"+data[4]+"</td>"+
 				"</tr>";
 			}
-			str += "</tbody>";
-			$("#rep_table").html(str);
+			str += "</tbody></table>";
+			//$("#rep_table").html(str);
+			$("#tabs_1").html(str);
+			$('#tabs_1 > table').DataTable({
+			scrollY: 120,
+			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
+			buttons: [
+           {
+                extend: 'excelHtml5',
+                title: 'Data export',
+                bom:true
+            },
+            ,{
+                extend: 'csvHtml5',
+                title: 'Data export',
+                bom:true
+            }
+				,'copy'
+            
+            ],
+		});
 			
 			$("#myChart_5").html('<canvas width="200px" height="50%"></canvas>')
 			new Chart($('#myChart_5 > canvas'), {
@@ -530,77 +639,127 @@ $(function(){
 	
  // Tab6-各店付款方式(明細)
  	function setDataTable6(datas){
- 		let str = `<thead class='rep_table_font'>
-				<tr>
+			// Tab6-各店付款方式(圖)	
+		let paymentDict = {}
+		let paymentList = [];
+		for(const data of datas){
+			paymentDict[data[1]] = 1;
+			paymentList.push(data[1]);
+		}
+		paymentNameHtml = Object.keys(paymentDict).map(function(paymentName, i){
+			return '<input type="checkbox" id="checkbox_'+i+'" name="checkboxPaymentName" value="'+paymentName+'" checked>'
+					+'<label for="checkboxname_'+i+'">'+paymentName+'</label><br>';
+		}).join('');
+		
+		$("#rep_tab_2").html(paymentNameHtml+'<br><div id="myChart_6"></div>');
+	 	
+	 	
+		function drawChart6(){
+			console.log('所有的資料是這樣',datas);
+			console.log('選了的活動是這樣',Object.keys(paymentDict));
+			
+			let filteredDatas = datas.filter(function(data){
+				if(paymentList.indexOf(data[1]) != -1){
+					return true;
+				}else{
+					return false;
+				}
+			});
+			console.log('被過濾後的資料',filteredDatas);
+			let str = `<table><thead class='rep_table_font'>
+					<tr>
 				<th>門市名稱</th>
 				<th>付款方式</th>
 				<th>銷售數量</th>
 				<th>總業績</th>
 				<th>總折扣金額</th>
-			</tr>
-			</thead>
-			<tbody class="rep_table_font">
-		`;
-		for(const data of datas){
-			console.log(data);
-			str+="<tr>"+
-				"<td>"+data[0]+"</td>"+
-				"<td>"+data[1]+"</td>"+
-				"<td>"+data[2]+"</td>"+
-				"<td>"+data[3]+"</td>"+
-				"<td>"+data[4]+"</td>"+
-			"</tr>";	
-		}
-		str += "</tbody>";
-		$("#rep_table").html(str);
-		
-		// Tab6-各店付款方式(圖)	
-			$("#rep_tab_2").html('<canvas id="myChart_6" width="200px" height="50%"></canvas>');
-	 	console.log(datas,$("#rep_tab_2").html());
-	 	
-		new Chart(document.getElementById('myChart_6'), {
-			type : 'bar',
-			data : {
-				labels : datas.map(function(d){
-						return d[0]+d[1]
-				}),
-				datasets : [ {
-					
-					backgroundColor :datas.map(function(d){
-						return 'rgba('+rand()+','+rand()+','+rand()+',0.8)';
-					}),
- 						
-					borderWidth : 1,
-					label : '總業績',
-					data : datas.map(function(d){
-						return d[3]
-					}),
-				},{
-							
-					backgroundColor :coloarArr3,
-					borderWidth : 1,
-					label : '總折扣金額',
-					data : datas.map(function(d){
-						return d[4]
-					}),
-				}]
-			},
-		options: {
-	        scales: {
-	            xAxes: [{
-	                stacked: true
-	            }],
-	            yAxes: [{
-	                stacked: true
-	            }]
-	        }
-	    }	
+				</tr>
+				</thead>
+				<tbody class="rep_table_font">
+			`;
+			for(const data of filteredDatas){
+				str+="<tr>"+
+					"<td>"+data[0]+"</td>"+
+					"<td>"+data[1]+"</td>"+
+					"<td>"+data[2]+"</td>"+
+					"<td>"+data[3]+"</td>"+
+					"<td>"+data[4]+"</td>"+
+				"</tr>";
+			}
+			str += "</tbody></table>";
+			//$("#rep_table").html(str);
+					$("#tabs_1").html(str);
+		$('#tabs_1 > table').DataTable({
+			scrollY: 120,
+			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
+			buttons: [
+           {
+                extend: 'excelHtml5',
+                title: 'Data export',
+                bom:true
+            },
+            ,{
+                extend: 'csvHtml5',
+                title: 'Data export',
+                bom:true
+            }
+				,'copy'
+            
+            ],
 		});
-	 	}	
+			
+			$("#myChart_6").html('<canvas width="200px" height="50%"></canvas>')
+			new Chart($('#myChart_6 > canvas'), {
+				type : 'bar',
+				data : {
+					
+					labels : filteredDatas.map(function(d){
+							return d[0]+d[1]
+					}),
+					datasets : [ {
+						backgroundColor :filteredDatas.map(function(d){
+							return 'rgba('+rand()+','+rand()+','+rand()+',0.8)';
+						}),
+						borderWidth : 1,
+						label : '總業績',
+						data : filteredDatas.map(function(d){
+							return d[3]
+						}),
+					},{
+						backgroundColor :coloarArr3,
+						borderWidth : 1,
+						label : '總折扣金額',
+						data : filteredDatas.map(function(d){
+							return d[4]
+						}),
+					}]
+				},
+				options: {
+			        scales: {
+			            xAxes: [{
+			                stacked: true
+			            }],
+			            yAxes: [{
+			                stacked: true
+			            }]
+			        }
+			    }	
+			});
+		}
+		
+		$("input[name='checkboxPaymentName']").click(function(){
+	 		paymentList = [];
+			$("input[name='checkboxPaymentName']:checked").each(function(i,element){
+				paymentList.push($(element).val());
+			});
+			drawChart6();
+		});
+		drawChart6();
+	 }
  	
  // Tab7-各店無庫存項數(明細)
  	function setDataTable7(datas){
- 		let str = `<thead class='rep_table_font'>
+ 		let str = `<table><thead class='rep_table_font'>
 				<tr>
 				<th>門市名稱</th>
 				<th>庫存數</th>
@@ -615,8 +774,27 @@ $(function(){
 				"<td>"+data[1]+"</td>"+
 			"</tr>";	
 		}
-		str += "</tbody>";
-		$("#rep_table").html(str);
+		str += "</tbody></table>";
+		//$("#rep_table").html(str);
+		$("#tabs_1").html(str);
+		$('#tabs_1 > table').DataTable({
+			scrollY: 120,
+			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
+			buttons: [
+           {
+                extend: 'excelHtml5',
+                title: 'Data export',
+                bom:true
+            },
+            ,{
+                extend: 'csvHtml5',
+                title: 'Data export',
+                bom:true
+            }
+				,'copy'
+            
+            ],
+		});
 		
 		// Tab7-各店無庫存項數(圖)	
 			$("#rep_tab_2").html('<canvas id="myChart_7" width="200px" height="50%"></canvas>');
@@ -648,6 +826,9 @@ $(function(){
 	    }	
 		});
 	 	}	
+	 	
+	 	
+	 	
 	 	
 	 	
 	 	//範本

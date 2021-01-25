@@ -13,13 +13,49 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- ajax -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- 外掛dataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<style>
+/* datatable按鈕 */
+.dataTables_wrapper .dataTables_paginate {
+	float:none;
+}
+div.dt-buttons {
+    position: relative;
+    float: right;
+    margin-top: 5px;
+}
+@media (max-width: 767px)
+.main-sidebar, .left-side {
+    -ms-transform: unset;
+    -o-transform: unset;
+}
+</style>
+<!-- li的藍色標籤 -->
 <script>
-$(function() {
-    $("#rep_liaction li").click(function() {
-        console.log(this);
-        $(this).siblings().removeClass("active").end().addClass("active");
-    });
-})
+	$(function() {
+		
+		$("#rep_liaction li").click(function() {
+			console.log($(this).hasClass('last-element'));
+			$(".tab-pane").removeClass("active");
+			if($(this).hasClass('last-element')){
+				$(".tab-pane.tab-2").addClass("active");
+			}else{
+				$(".tab-pane.tab-1").addClass("active");
+			}
+			$(this).siblings().removeClass("active").end().addClass("active");
+// 			$("#rep_tab_2,#rep_data").removeClass("rep_display_none").end().addClass("rep_display_block");
+				});
+
+	})
+
+    
 </script>
 </head>
 <body>
@@ -55,7 +91,7 @@ $(function() {
 						<!-- small box -->
 						<div class="small-box bg-green">
 							<div class="inner">
-								<h3>${singlesales}</h3>
+								<h3>${singlesales}1</h3>
 								<p>年度累計銷售金額</p>
 							</div>
 							<div class="icon">
@@ -97,21 +133,21 @@ $(function() {
 				<!-- Main row -->
 				<!-- START CUSTOM TABS選擇區 -->
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-8" >
 						<!-- Custom Tabs -->
-						<div class="nav-tabs-custom">
+						<div class="nav-tabs-custom" >
 							<ul class="nav nav-tabs" id="rep_liaction">
 								<li class="active">
 									<a id="queryAreaSales">年度各區業績(各店)</a>
 								</li>
-								<li  id="rep_123">
+								<li id="rep_123">
 									<a id="queryProdustClass">年度品類銷售</a>
 								</li>
-								<li >
+								<li>
 									<a id="queryActiveSales">年度活動銷售</a>
 								</li>
 
-								<li  class="dropdown">
+								<li class="dropdown">
 									<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 										各店項目報表
 										<span class="caret"></span>
@@ -127,24 +163,31 @@ $(function() {
 											<a id="queryAllStorePayment">各店付款方式</a>
 										</li>
 										<li>
-											<a id="queryAllStoreStock">各店無庫存項數</a>
+											<a id="queryAllStoreStock">各店無庫存項數(<5)</a>
 											<!-- 											<a id="ReporyQueryAllData">全部明細</a> -->
 										</li>
 									</ul>
 								</li>
-								<li>
-									<a href="#rep_tab_8" data-toggle="tab">商品前十名排行(廣告)</a>
+								<li class='last-element'>
+									<a id="rep_adv" href="#rep_tab_8" data-toggle="tab">商品前五名排行(廣告)</a>
 								</li>
 							</ul>
+							
 							<!-- 圖表區 -->
 							<div class="tab-content">
-								<div class="tab-pane active" id="rep_tab_1"></div>
-								<!-- /.tab-pane -->
-								<div id="rep_tab_2"></div>
+								<div class="tab-pane tab-1 active" id="rep_tab_1">
+									<div id="rep_tab_2" ></div>
+								</div>
 								<!-- 								<div id="chart_container"> -->
 								<%-- 									<canvas id="myChart" width="200px" height="50%"></canvas> --%>
 								<!-- 								</div> -->
-								<div class="tab-pane" id="rep_tab_8"><jsp:include page="ReportRanking.jsp" flush="true" /></div>
+								<div class="tab-pane tab-2">
+									<div id="rep_tab_8">
+									<jsp:include page="ReportRanking.jsp" flush="true" />
+									<jsp:include page="Report_Adv.jsp" flush="true" />
+								</div>
+								</div>
+								
 								<!-- /.tab-pane -->
 							</div>
 							<!-- /.tab-content -->
@@ -153,10 +196,9 @@ $(function() {
 					</div>
 					<!-- /.col -->
 
-
 					<!-- 資料區 -->
 					<!-- Left col -->
-					<div class="col-md-8">
+					<div class="col-md-8" id="rep_data">
 						<!-- MAP & BOX PANE -->
 						<div class="box box-success">
 							<div class="box-header with-border">
@@ -173,15 +215,16 @@ $(function() {
 									<div class="col-md-9 col-sm-8">
 										<div class="pad">
 											<!-- Map will be created here -->
-											<div id="world-map-markers" style="height: 200px;">
+											<div id="world-map-markers">
 												<!-- 資料表區 -->
 												<!-- 全部明細 -->
 												<div>
-													<fieldset class="rep_tabs_db" " style="overflow: scroll; height: 170px; margin-bottom: 0px;">
+													<fieldset class="rep_tabs_db" " style=" height: 170px; margin-bottom: 0px;">
 														<div id="tabs_1">
 															<table id="rep_table" class="table table-striped" style="margin-bottom: 0px; text-align: center;">
-															
+
 															</table>
+															
 														</div>
 													</fieldset>
 												</div>
@@ -193,15 +236,6 @@ $(function() {
 							</div>
 							<!-- /.box-body -->
 							<!-- ↑資料表區截止 -->
-							<!-- 下載區 -->
-							<div class="rep_downloadbutton">
-								<select>
-									<option value=" ">請選擇下載格式</option>
-									<option value="downloadJson">Json</option>
-									<option value="downloadPDF">PDF</option>
-									<option value="downloadXml">Xml</option>
-								</select>
-								<input type="submit" value="下載">
 
 							</div>
 						</div>
@@ -215,8 +249,45 @@ $(function() {
 
 	</div>
 
-<!-- 外掛JS檔-顯示圖與ajax -->
-<script src="js/Report_Js.js"></script>
+	<!-- 外掛JS檔-顯示圖與ajax -->
+	<script src="js/Report_Js.js"></script>
+	
+	<script type="text/javascript">
+	$(function(){	
+		$("#rep_adv").click(function(){
+			console.log("rep_adv")
+		})
+	});
+// 	function codeInsert(){
+// 		$('#tabs_1 > table').DataTable({
+// 			defaultStyle: {
+// 			    font: 'msyh'
+// 			},
+// 			scrollY: 120,
+// 			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
+// 			buttons: [
+//             {
+//                 extend: 'pdfHtml5',
+//                 title: 'Data export',
+// 				bom:true
+            
+//             },{
+//                 extend: 'excelHtml5',
+//                 title: 'Data export',
+//                 bom:true
+//             },
+//             ,{
+//                 extend: 'csvHtml5',
+//                 title: 'Data export',
+//                 bom:true
+//             }
+// 				,'copy'
+            
+//             ],
+// 		});
+//	}
+	</script>
+
 
 </body>
 </html>

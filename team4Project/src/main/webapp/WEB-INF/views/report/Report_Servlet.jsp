@@ -130,7 +130,7 @@
 									</ul>
 								</li>
 								<li>
-									<a href="#tab_4" data-toggle="tab">商品前十名排行(廣告)</a>
+									<a href="#tab_4" data-toggle="tab">商品前五名排行(廣告)</a>
 								</li>
 							</ul>
 							<!-- 圖表區 -->

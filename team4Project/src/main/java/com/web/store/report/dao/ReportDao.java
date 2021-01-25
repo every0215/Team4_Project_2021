@@ -37,7 +37,7 @@ public interface ReportDao {
 	List<Report> queryAllStorePayment(int companyid);
 	//Tab7-各店-各店無庫存項數
 	List<Report> queryAllStoreStock(int companyid);
-	//Tab8-商品前十名排行
+	//Tab8-商品前五名排行
 	List<Report> queryProductRanking(int companyid);
 	//新增廣告排行榜商品
 	void insert(Report report);

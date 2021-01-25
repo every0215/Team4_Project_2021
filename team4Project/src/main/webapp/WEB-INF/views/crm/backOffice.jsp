@@ -153,7 +153,7 @@
                     </li>
 
                     <li class="treeview">
-                        <a href="<c:url value='/reportindex' />">
+                        <a href="<c:url value='/reportin' />">
                         
                             <i class="fa fa-files-o"></i>
                             <span>報表管理</span>
