@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商品套用頁</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <style>
@@ -114,22 +118,14 @@
 
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>商品編號</td>
-                            <td>商品名稱</td>
-                            <td>商品價格</td>
-                        </tr>
-                        <tr>
-                            <td>商品編號</td>
-                            <td>商品名稱</td>
-                            <td>商品價格</td>
-                        </tr>
-                        <tr>
-                            <td>商品編號</td>
-                            <td>商品名稱</td>
-                            <td>商品價格</td>
-                        </tr>
-                    </tbody>
+						<c:forEach items="${productsInCamp}" var="product"> 
+							<tr>
+								<td class="productId">${product.productId}</td>
+								<td>${product.productName}</td>
+								<td>${product.productPrice}</td>
+							</tr>
+					    </c:forEach>
+					</tbody>
                 </table>
             </div>
             <div id="rightBar" class="functionBar">
@@ -149,21 +145,13 @@
 
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>商品編號</td>
-                            <td>商品名稱</td>
-                            <td>商品價格</td>
-                        </tr>
-                        <tr>
-                            <td>商品編號</td>
-                            <td>商品名稱</td>
-                            <td>商品價格</td>
-                        </tr>
-                        <tr>
-                            <td>商品編號</td>
-                            <td>商品名稱</td>
-                            <td>商品價格</td>
-                        </tr>
+                        <c:forEach items="${productsNotInCamp}" var="product"> 
+							<tr>
+								<td class="productId">${product.productId}</td>
+								<td>${product.productName}</td>
+								<td>${product.productPrice}</td>
+							</tr>
+					    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -174,7 +162,7 @@
         </div>
         <div class="row functionRow">
             <div class="functionBar">
-                <button class=" btn btn-outline-dark" type="button">確定</button>
+                <button id="comfirm" class=" btn btn-outline-dark" type="button">確定</button>
                 <button class=" btn btn-outline-dark" type="button">取消</button>
             </div>          
         </div>
@@ -183,17 +171,43 @@
     <script>
             
         $(function(){
-
-
+			
+        	var applyBean = {};
+        	var productIncamp =[];
+        	var productNotIncamp =[];
+        	
+			$("#comfirm").click(function(){
+				
+				readTheProductId();
+			
+				$.ajax({
+					url:"<c:url value='/campaign/applyCampaign/'/>"+${campaignId},
+					type:"POST",
+					dataType : 'text',
+					contentType : 'application/json;charset=UTF-8',
+					data:JSON.stringify(applyBean),
+					success:function(result){
+						if(result=="success"){
+							alert("已成功套用");
+						}else{
+							alert("套用失敗");
+						}
+					}
+				})
+			});
             //動態綁定每列資料的click事件，點擊變黑，其他列還原
             $(".panel").on("click","tbody>tr",function(){
 
                 if($(this).css("background-color")=="rgb(0, 0, 0)"){
                     $(this).css("background-color","")
                     $(this).css("color","rgb(0, 0, 0)")
+                    $(this).css("border","")
+                    
                 }else{
                     $(this).css("background-color","rgb(0, 0, 0)")
-                    $(this).css("color","white")
+                    $(this).css("color","rgb(255, 255, 255)")
+                    $(this).css("border-color","rgb(0, 0, 0)")
+                    $(this).css("border","rgb(255, 255, 255) solid 2px")
                 }
                   
                 // $(this).siblings().css("background-color","")
@@ -207,7 +221,7 @@
                $(".productNotInCampPanel tr").each(function(){           
                    if($(this).css("background-color")=="rgb(0, 0, 0)"){
                         //如果被選取，則clone到對面框框，並對其色彩予以還原
-                        $(this).css({"background-color":"","color":""});
+                        $(this).css({"background-color":"","color":"","border":""});
                         $(".productInCampPanel tbody").append($(this).clone())
                         $(this).remove();
                    }
@@ -224,9 +238,24 @@
                         }
                     })
                 })
-
+                
+//      =========================function==================================
+			
+			function readTheProductId(){
+            	$(".productInCampPanel .productId").each(function(){
+					productIncamp.push($(this).html());
+				});
+				
+				$(".productNotInCampPanel .productId").each(function(){
+					productNotIncamp.push($(this).html());
+				});
+				
+				applyBean.productsIdInCamp = productIncamp;
+				applyBean.productsIdNotInCamp = productNotIncamp;
+            }
         })
-            
+        
+                
     </script>
 </body>
 </html>
