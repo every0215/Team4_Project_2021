@@ -6,7 +6,7 @@ import com.web.store.company.model.Store;
 
 public interface StoreService {
 	//查詢秀門市
-	List<Store> getAllStoreByCompanyId(Integer id);
+	List<Store> getAllStoreByCompanyId(Integer companyId);
 	//新增門市
 	boolean addStore(Store sto);
 	//改變上架狀態

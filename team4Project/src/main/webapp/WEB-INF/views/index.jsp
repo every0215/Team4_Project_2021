@@ -142,7 +142,7 @@
 				</h4>
 			</div>
 
-			<img class="indexclassbb" src="<c:url value='/img/indexclass/store.jpg'/>" alt="img">
+			<img class="indexclassbb" src="<c:url value='/img/indexclass/store1.jpg'/>" alt="img">
 			<div class="indexclassspan">
 <!-- 				<span>當地特色</span> -->
 				<h4>

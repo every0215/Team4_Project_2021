@@ -57,7 +57,7 @@ import com.web.store.ticket.model.Event;
 
 
 @Controller
-@SessionAttributes("company") 
+//@SessionAttributes("company") 
 public class CompanyController {
 	
 	@Autowired
@@ -143,11 +143,13 @@ public class CompanyController {
 			@RequestParam(value="busRCA",required=false)MultipartFile busRC,
 //			HttpServletResponse response
 			//
-			SessionStatus sessionStatus,
+//			SessionStatus sessionStatus,
+			HttpSession session,
 			Model model
 			) throws IOException {
-		System.out.println("HELLO");
-		sessionStatus.setComplete();
+		
+//		sessionStatus.setComplete();
+		session.removeAttribute("company");
 		
 		
 		/////////////////存圖片轉成Byte陣列////////////////////
@@ -170,6 +172,8 @@ public class CompanyController {
 			cmpService.updateCompany(cmp);
 			//更新之後要重設Session
 			model.addAttribute("company", cmp);
+			session.setAttribute("company", cmp);
+			session.setMaxInactiveInterval(60 * 60 * 24* 3);
 		} catch (SerialException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -282,7 +286,10 @@ public class CompanyController {
 			session.setAttribute("company", cmp);
 			session.setMaxInactiveInterval(60 * 60 * 24* 3);
 			//////////////////////////
-			System.out.println("controller");
+			Company company=(Company)session.getAttribute("company");
+			int companyId = company.getId();
+			System.out.println("登入companyId:"+companyId);
+			
 			return "redirect:/crm/backOffice";
 		}else {
 			return "/company/CompanyLogin";
@@ -302,8 +309,9 @@ public class CompanyController {
 	}
 	//登出
 	@GetMapping(value="/Logout")
-	public String Logout(SessionStatus sessionStatus) {
-		sessionStatus.setComplete();
+	public String Logout(HttpSession session) {
+		session.removeAttribute("company");
+//		sessionStatus.setComplete();
 		return "/index";
 	}
 	 
@@ -392,12 +400,14 @@ public class CompanyController {
 	/////////////////////////////////////////門市部分/////////////////////////////////////////
 	
 	
-	@GetMapping(value="/ShowStore")
+	@GetMapping(value="/company/ShowStore")
 	public String showAllStore(
-			Model model
+			Model model,
+			HttpSession session
 			) {
-		Company company=(Company)model.getAttribute("company");
+		Company company=(Company)session.getAttribute("company");
 		int companyId = company.getId();
+		System.out.println("companyId:"+companyId);
 		List<Store> sto = stoService.getAllStoreByCompanyId(companyId);
 		
 		model.addAttribute("storeList", sto);
@@ -414,7 +424,7 @@ public class CompanyController {
 	//新增門市
 	//新增門市
 	//新增門市
-	@GetMapping("/storeRegister")
+	@GetMapping("/company/storeRegister")
 	public String showStoreForm(Model model) {
 		
 		Store sto = new Store();
@@ -428,7 +438,7 @@ public class CompanyController {
 		return "/company/StoreRegister";
 	}
 	// 
-	@PostMapping("/storeRegister")
+	@PostMapping("/company/storeRegister")
 	public String insertStoreData(
 		@ModelAttribute("storeBean") Store sto 
 //		,@RequestParam String openhour
@@ -444,12 +454,25 @@ public class CompanyController {
 //		if (bindingResult.hasErrors()) {
 //			return "_01_customer/CustomerForm";
 //		}
+//		System.out.println(sto.getId());
+//		System.out.println(sto.getStoreName());
+//		System.out.println(sto.getStoreArea());
+//		System.out.println(sto.getStoreAddress());
+//		System.out.println(sto.getPhone());
+//		System.out.println(sto.getFex());
+//		System.out.println(sto.getBusinessHour());
+//		System.out.println(sto.getOpenhour());
+//		System.out.println(sto.getClosehour());
+//		System.out.println(sto.getCompanyId());
+//		System.out.println(sto.getProfiles());
+//		System.out.println(sto.getStatus());
+		
 		
 		//如果有找到就更新
 		if (sto.getId() != null ) {
 			stoService.update(sto);
 		} 
-		System.out.println("沒有update");
+		
 		stoService.addStore(sto);
 		/////////////////////////////////
 		ra.addFlashAttribute("storeBean", sto);
@@ -460,10 +483,10 @@ public class CompanyController {
 	
 	//新增門市簡介
 	//新增門市簡介
+	//新增門市簡介/company/company
 	//新增門市簡介
 	//新增門市簡介
-	//新增門市簡介
-	@PostMapping("/updateStoreProfiles")
+	@PostMapping("/company/updateStoreProfiles")
 	public String insertStoreProfiles(
 		@RequestParam Integer cmpid,
 		@RequestParam Integer id,
@@ -495,14 +518,14 @@ public class CompanyController {
 		return "redirect:/company/StoreRegister_Service";
 	}
 
-	@GetMapping("/ShowStore/{id}")
+	@GetMapping("/company/ShowStore/{id}")
 	public String editCustomerForm(Model model, @PathVariable Integer id) {
 		Store sto = stoService.getStoreById(id);
 		model.addAttribute("storeBean", sto);
 		return "/company/StoreUpdate";
 	}
 	//門市修改
-	@PostMapping("/updateStore")
+	@PostMapping("/company/updateStore")
 	public String updateStoreData(
 		@ModelAttribute("storeBean") Store sto 
 //		,@RequestParam String openhour
@@ -521,15 +544,16 @@ public class CompanyController {
 		
 		//如果有找到就更新
 		if (sto.getId() != null ) {
+			System.out.println("update資料");
 			stoService.update(sto);
 		} 
-		System.out.println("沒有update");
-		stoService.addStore(sto);
+		
+//		stoService.addStore(sto);
 		/////////////////////////////////
 		ra.addFlashAttribute("storeBean", sto);
 		
 		/////////////////////////////////
-		return "XXXXXXXXXXXXXXXXXXXXXXXXX";
+		return "/company/StoreRegister_Service";
 	}
 	
 }
