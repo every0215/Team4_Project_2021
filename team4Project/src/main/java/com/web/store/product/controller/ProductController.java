@@ -45,9 +45,8 @@ public class ProductController {
 	ServletContext context;
 	@Autowired
 	CompanyService cService;
-	
 	@RequestMapping("/ProductIndex")
-	public String ProductView(Model model) {
+	public String View(Model model) {
 		List<Product> list = pService.selectAll();
 		for (Product pb : list) {
 			System.out.println(pb.getproductName());
@@ -55,20 +54,31 @@ public class ProductController {
 		model.addAttribute("ProductList", list);
 		return "/product/ProductIndex";
 	}
+	@GetMapping("/ProductIndex/{companyName}")
+	public String ViewIndex(@PathVariable String companyName,Model model) {
+		List<Product> list = pService.selectbyCompanyName(companyName);
+		for (Product pb : list) {
+			System.out.println(pb.getproductName());
+		}
+		model.addAttribute("ProductList", list);
+		return "/";
+	}
 //	------------------------
 	@GetMapping("/product/ProductInsert")
 	public String productInsert() {
 		return "product/ProductInsert";
 	}
-
+	
+	
 	@ModelAttribute("Product")
 	public Product setProduct(Product pb) {
 		return pb;
 	}
 	//---------------------------------
-	@GetMapping("/product/productImage")
+	
+	@GetMapping("/product/productimage")
 	public String ShowPage() {
-		return "product/productImage";
+		return "product/productimage";
 	}
 	
 	
@@ -115,12 +125,18 @@ public class ProductController {
 		return "redirect:/ProductIndex";
 
 	}
-		
+	@GetMapping(value="/product/productAlter/{productId}")
+	public String porductAlter(@PathVariable int productId,Model model){
+		Product product  = pService.selectbyid(productId);
+		model.addAttribute("product",product);
+		return "/product/ProductAlter";
+
+	}	
 		
 	
 //-----------------輸出圖
 	@GetMapping(value = "/getimage/{productId}")
-	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable String ProductId) {
+	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer ProductId)  {
 		String filePath = "/images/NoImage.jpg";
 
 		byte[] media = null;
@@ -134,7 +150,7 @@ public class ProductController {
 			
 			Blob logoblob = pb.getproductPic();
 			
-			logoname = pb.getproductName();
+			logoname = pb.getPicName();
 			
 			if (logoblob != null) {
 				
@@ -165,7 +181,8 @@ public class ProductController {
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}
-	//輸出圖片裡會用到的方法
+	
+	
 	private byte[] toByteArray(String filepath) {
 		byte[] b = null;
 		String realPath = context.getRealPath(filepath);  

@@ -9,7 +9,7 @@ public interface ProductService {
 
 	List<Product> selectAll();
 
-	List<Product> selectbyid(int ProductId);
+	Product selectbyid(int ProductId);
 
 	
 	int insert(Product pb) throws SQLException;
@@ -18,6 +18,6 @@ public interface ProductService {
 
 	int alterbyid(Product pb) throws SQLException;
 
-	Product getProduct(String productId);
-
+	Product getProduct(Integer productId);
+	List<Product> selectbyCompanyName(String companyName);
 }

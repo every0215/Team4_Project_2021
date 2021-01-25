@@ -523,7 +523,7 @@ public class CampaignController {
 	public @ResponseBody Map<String,String> applyCampaign(@RequestBody List<Integer> productIds														 
 			){
 		for(int i:productIds) {
-			Product product = productService.getProduct(String.valueOf(i));
+			Product product = productService.getProduct(i);
 		}
 		return null;
 	}
