@@ -13,6 +13,7 @@ import com.web.store.account.dao.MemberLoginHistoryDao;
 import com.web.store.account.javabean.MemberBean;
 import com.web.store.account.javabean.MemberCreditCard;
 import com.web.store.account.javabean.MemberLoginHistory;
+import com.web.store.account.javabean.MemberSubscription;
 import com.web.store.account.service.AccountService;
 
 @Service
@@ -128,6 +129,12 @@ public class AccountServiceImpl implements AccountService {
 		int result = mCreditCardDao.deleteById(memberCreditCardId);
 
 		return result;
+	}
+	
+	@Override
+	public void delete(MemberSubscription memberSubscription) throws Exception {
+		memberDao.delete(memberSubscription);
+
 	}
 	
 	//

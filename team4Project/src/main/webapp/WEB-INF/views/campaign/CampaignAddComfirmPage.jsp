@@ -52,8 +52,8 @@
         }
 
         .picturdField img{
-            width: 300px;
-            height: 150px;
+            width: 100%;
+            height: 200px;
         }
         
     </style>

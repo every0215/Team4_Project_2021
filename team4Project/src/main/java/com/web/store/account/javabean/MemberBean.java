@@ -106,7 +106,9 @@ public class MemberBean implements Serializable {
 	@OneToOne(fetch=FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 	private MCoin mCoin;
 	
-
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	private Set<MemberSubscription> memberSubscriptionList;
+	
 
 	public MemberBean(String fullname, String nickname,String qid, String email,byte[] password) {
 		this.fullname = fullname;
@@ -398,4 +400,14 @@ public class MemberBean implements Serializable {
 	public void setmCoin(MCoin mCoin) {
 		this.mCoin = mCoin;
 	}
+
+	public Set<MemberSubscription> getMemberSubscriptionList() {
+		return memberSubscriptionList;
+	}
+
+	public void setMemberSubscriptionList(Set<MemberSubscription> memberSubscriptionList) {
+		this.memberSubscriptionList = memberSubscriptionList;
+	}
+	
+	
 }
