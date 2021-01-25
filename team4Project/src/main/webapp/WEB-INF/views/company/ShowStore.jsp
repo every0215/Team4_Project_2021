@@ -12,7 +12,7 @@
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-<a href="<c:url value='/storeRegister' />">新增門市</a>
+<a href="<c:url value='/company/storeRegister' />">新增門市</a>
 
 
 <link rel="stylesheet" href="<c:url value='https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css' />">
@@ -44,7 +44,7 @@
 <%--                 <input type="hidden" name="typeId" value="${event.typeId}" /> --%>
 <!--                 <input type="hidden" name="companyId" value="1" /> -->
 <%--                 <input type="hidden" name="eventId" value="${event.id}" /> --%>
-                <button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/ShowStore/${Sto.id}" />'">修改</button>
+                <button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/company/ShowStore/${Sto.id}" />'">修改</button>
 
               </td>
             </tr>

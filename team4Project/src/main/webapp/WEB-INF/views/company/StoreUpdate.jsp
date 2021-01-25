@@ -11,8 +11,8 @@
 <body>
 
 把Store的Bean全部顯示
-
-<form:form method='POST' modelAttribute="storeBean"  action="<c:url value='/updateStore'/>" >
+<%-- <c:url value='/updateStore'/> --%>
+<form:form method='POST' modelAttribute="storeBean"  action="${pageContext.request.contextPath}/company/updateStore" >
 			
 			<c:if test='${Store.id != null}'>
                  <form:hidden path="id" />
@@ -67,7 +67,7 @@
 						<td align='right'>Fex<font size='-3' color='blue'>(yyyy-MM-dd)</font>：
 						</td>
 						<td><form:input path="fex"  type="text" />
-						 <form:hidden path="companyId" value="${company.id}"/>
+						 <form:hidden path="companyId" value="${sessionScope.company.id}"/>
 						</td>
 					</tr>
 					
@@ -81,6 +81,6 @@
 			</fieldset>
 		</form:form>
 
-<a href="<c:url value='/ShowStore'/> " >回門市管理頁</a>
+<a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
 </body>
 </html>
