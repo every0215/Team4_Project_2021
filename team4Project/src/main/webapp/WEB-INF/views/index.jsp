@@ -187,26 +187,26 @@
                         <!-- 小七 -->
                         <!-- 小七 -->
                         <!-- start single product item -->
-                     
-                        <c:forEach var="product" begin="0" end="2" items="${ProductList}">
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="<c:url value='/getproductimage/${product.productId}'/>" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                              <figcaption>
-                              <h4 class="aa-product-title"><a href="#">${product.productName}</a></h4>
-                              <span class="aa-product-price">${product.productPrice}</span><span class="aa-product-price"></span>
-                            </figcaption>
-                          </figure>                        
-                          <div class="aa-product-hvr-content ii">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                     							
+<%--                         <c:forEach var="product" begin="0" end="2" items="${ProductList}"> --%>
+<!--                         <li> -->
+<!--                           <figure> -->
+<%--                             <a class="aa-product-img" href="#"><img class="imga" src="<c:url value='/getproductimage/${product.productId}'/>" alt="polo shirt img"></a> --%>
+<!--                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a> -->
+<!--                               <figcaption> -->
+<%--                               <h4 class="aa-product-title"><a href="#">${product.productName}</a></h4> --%>
+<%--                               <span class="aa-product-price">${product.productPrice}</span><span class="aa-product-price"></span> --%>
+<!--                             </figcaption> -->
+<!--                           </figure>                         -->
+<!--                           <div class="aa-product-hvr-content ii"> -->
+<!--                             <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a> -->
                             
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">優惠中!</span>
-                        </li>
-                        </c:forEach>
+<!--                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                           -->
+<!--                           </div> -->
+<!--                           product badge -->
+<!--                           <span class="aa-badge aa-sale" href="#">優惠中!</span> -->
+<!--                         </li> -->
+<%--                         </c:forEach> --%>
                         
                         
                         <!-- start single product item -->
