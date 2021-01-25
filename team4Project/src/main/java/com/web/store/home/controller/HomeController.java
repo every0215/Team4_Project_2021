@@ -47,6 +47,10 @@ public class HomeController {
 		return "layout/head"; //
 	}
 
+	@RequestMapping("/layout/footer")
+	public String layoutFooter() {
+		return "layout/footer"; //
+	}
 	
 	@RequestMapping("/layout/accountMenu")
 	public String accountMenu() {

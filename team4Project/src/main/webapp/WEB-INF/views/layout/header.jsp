@@ -264,5 +264,28 @@
         </div>
       </div>       
     </div>
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4>企業登入</h4>
+          <form class="aa-login-form" action="CompanyLogin" method="post">
+            <label for="">帳號(或Email)<span>*</span></label>
+            <input type="text" name="account" placeholder="Username (or email)" value="familymart">
+            <label for="">密碼<span>*</span></label>
+            <input type="password" name="password" placeholder="Password" value="123">
+            <button class="aa-browse-btn" type="submit" name="enter" >登入</button>
+            <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
+            <p class="aa-lost-password"><a href="#">忘記密碼</a></p>
+            <div class="aa-register-now">
+              
+              <a href="<c:url value='/CmpRegi' />">企業註冊</a>
+            </div>
+          </form>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
   </section>
   <!-- / menu -->

@@ -51,11 +51,22 @@ public class StoreServiceImpl implements StoreService {
 		
 		return stoDao.updateStatus(id, status);
 	}
+	@Override
+	public boolean updateProfiles(Integer id, String profiles) {
+		
+		return stoDao.updateProfiles(id, profiles);
+	}
 
 	@Override
 	public boolean update(Store sto) {
 		
 		return stoDao.update(sto);
+	}
+
+	@Override
+	public Store getStoreById(Integer id) {
+		
+		return stoDao.getStoreById(id);
 	}
 
 	

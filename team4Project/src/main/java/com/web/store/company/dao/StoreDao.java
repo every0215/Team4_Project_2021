@@ -30,7 +30,9 @@ public interface StoreDao {
 	//待寫
 	boolean updateStatus(Integer id,Boolean status);
 	
+	boolean updateProfiles(Integer id,String profiles);
 	
+	Store getStoreById(Integer id);
 	
 	
 	/////////////////////門市刪除功能////////////////////////
