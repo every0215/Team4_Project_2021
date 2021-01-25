@@ -130,23 +130,26 @@
 				</h4>
 			</div>
 			
-			<img class="indexclassbb" src="img/indexclass/food14.png" alt="img">
+			<a href="<c:url value='/campaign/index'/>">
+			<img class="indexclassbb" src="img/indexclass/food14.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>不容錯過</span>
 				<h4>
 					<a class="indexclassa" href="#">活動專區</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/UpdatedTicket.png" alt="img">
+			
+			<a href="<c:url value='/CTicketIndex'/>">
+			<img class="indexclassbb" src="img/indexclass/UpdatedTicket.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>優惠促銷</span>
 				<h4>
 					<a class="indexclassa" href="<c:url value='/CTicketIndex' />">票券專區</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="<c:url value='/img/indexclass/store1.jpg'/>" alt="img">
+			
+			<a href="<c:url value='#'/>">
+			<img class="indexclassbb" src="<c:url value='/img/indexclass/store1.jpg'/>" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>當地特色</span> -->
 				<h4>
