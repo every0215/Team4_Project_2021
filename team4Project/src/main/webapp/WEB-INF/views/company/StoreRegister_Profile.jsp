@@ -11,14 +11,16 @@
 <fieldset>
 	<legend >門市簡介</legend> 
 	
-		<form action="<c:url value='updateStoreProfile'/>" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="status" value="true">
+		<form action="<c:url value='/company/updateStoreProfiles'/>" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="cmpid" value="${sessionScope.company.id}">
+		<input type="hidden" name="id" value="${storeBean.id}">
 	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
 	<tr>
 		<td >
 
 			<div style="padding:5px">
-			門市簡介:<input type="text" name="companyName" placeholder="請輸入簡介(不輸入預設企業簡介)" autocomplete="off" required="required" value=""/><br/>
+			門市簡介:<br/>
+			<textarea rows="4" cols="50" placeholder="請輸入簡介(不輸入預設企業簡介)" name="profiles"></textarea>
 			</div>
 
 	
@@ -32,5 +34,6 @@
 	
 			</form>
 </fieldset>
+<a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
 </body>
 </html>

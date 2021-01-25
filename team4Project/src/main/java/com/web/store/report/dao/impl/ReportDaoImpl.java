@@ -97,7 +97,6 @@ public class ReportDaoImpl implements ReportDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryAreaSales(int companyid) {
-
 		String hqlstr = "select storearea,sum((productprice-productdiscountprice)*salesamount) AS Count FROM Report WHERE companyid=:comp group by storearea ";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
@@ -175,7 +174,7 @@ public class ReportDaoImpl implements ReportDao {
 		return list;
 			}
 	
-	// Tab8-商品前十名排行
+	// Tab8-商品前五名排行
 	@Override
 	public List<Report> queryProductRanking(int companyid) {
 

@@ -47,6 +47,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.web.store.campaign.model.ApplyBean;
 import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.DiscountParams;
 import com.web.store.campaign.model.Page;
@@ -515,17 +516,32 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/applyPage/{campaignId}")
-	public String applyCampaignPage(Model model, @PathVariable Integer campaignId) {
+	public String applyCampaignPage(Model model, @PathVariable int campaignId) {
+		
+		Company company = (Company)model.getAttribute("company");
+		
+		if(company == null) {
+			return "redirect:/";
+		}
+		
+		Map<String,List<Product>> classify = campService.classifyProductIncamp(campaignId, company.getCompanyName());
+		
+		model.addAttribute("productsInCamp", classify.get("productsInCamp"));
+		model.addAttribute("productsNotInCamp", classify.get("productsNotInCamp"));
+		model.addAttribute("campaignId", campaignId);
 		return "campaign/CampaignApplyPage";
 	}
 	
-	@PostMapping("/applyCampaign")
-	public @ResponseBody Map<String,String> applyCampaign(@RequestBody List<Integer> productIds														 
-			){
-		for(int i:productIds) {
-			Product product = productService.getProduct(String.valueOf(i));
+	@PostMapping("/applyCampaign/{campaignId}")
+	public @ResponseBody String applyCampaign(@RequestBody ApplyBean apply,@PathVariable Integer campaignId){
+		try {
+			campService.applyProductWithCamp(apply, campaignId);
+			return "success";
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return "fail";
 		}
-		return null;
+		
 	}
 	
 	@ModelAttribute(name = "searchBean")

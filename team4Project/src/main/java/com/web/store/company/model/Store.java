@@ -1,7 +1,7 @@
 package com.web.store.company.model;
 
 import java.sql.Blob;
-import java.util.Date;
+import java.sql.Time;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,11 +34,11 @@ public class Store {
 		@Column(name= "BusinessHour")
 		private Boolean businessHour;//true是24hr false是要填時間
 		@Column(name= "Openhour")
-		private Date openhour;
+		private String openhour;
 		@Column(name= "Closehour")
-		private Date closehour;
+		private String closehour;
 		//寫company的關聯
-		@Transient
+//		@Transient
 		@Column(name= "CompanyId")
 		private Integer companyId;
 	
@@ -46,6 +46,9 @@ public class Store {
 		private String profiles;
 		@Column(name= "Status")
 		private Boolean status=true;
+		
+		
+		
 		
 		public Store() {
 			
@@ -57,8 +60,32 @@ public class Store {
 			this.status = status;
 		}
 		
+		public Store(Integer id, String profiles) {
+			super();
+			this.id = id;
+			this.profiles = profiles;
+			
+		}
+		
+		public Store(String storeName, String storeArea, String storeAddress, String phone, String fex,
+				Boolean businessHour, String openhour, String closehour, Integer companyId, String profiles,
+				Boolean status) {
+			super();
+			
+			this.storeName = storeName;
+			this.storeArea = storeArea;
+			this.storeAddress = storeAddress;
+			this.phone = phone;
+			this.fex = fex;
+			this.businessHour = businessHour;
+			this.openhour = openhour;
+			this.closehour = closehour;
+			this.companyId = companyId;
+			this.profiles = profiles;
+			this.status = status;
+		}
 		public Store(Integer id, String storeName, String storeArea, String storeAddress, String phone, String fex,
-				Boolean businessHour, Date openhour, Date closehour, Integer companyId, String profiles,
+				Boolean businessHour, String openhour, String closehour, Integer companyId, String profiles,
 				Boolean status) {
 			super();
 			this.id = id;
@@ -118,16 +145,16 @@ public class Store {
 		public void setBusinessHour(Boolean businessHour) {
 			this.businessHour = businessHour;
 		}
-		public Date getOpenhour() {
+		public String getOpenhour() {
 			return openhour;
 		}
-		public void setOpenhour(Date openhour) {
+		public void setOpenhour(String openhour) {
 			this.openhour = openhour;
 		}
-		public Date getClosehour() {
+		public String getClosehour() {
 			return closehour;
 		}
-		public void setClosehour(Date closehour) {
+		public void setClosehour(String closehour) {
 			this.closehour = closehour;
 		}
 		public Integer getCompanyId() {

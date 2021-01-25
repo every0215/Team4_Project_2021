@@ -19,11 +19,21 @@ public class CompanyViewController {
 		System.out.println("redirect");
 		return "/index";
 	}
+//	@GetMapping("/company/ShowStore")
+//	public String ShowStore() {
+//		System.out.println("redirect");
+//		return "/company/ShowStore";
+//	}
 	
 	@GetMapping("/company/StoreRegister_Profile")
 	public String storeRegister_Profile() {
 		System.out.println("redirect");
 		return "/company/StoreRegister_Profile";
+	}
+	@GetMapping("/company/StoreRegister_Service")
+	public String storeRegister_Service() {
+		System.out.println("redirect");
+		return "/company/StoreRegister_Service";
 	}
 	
 }

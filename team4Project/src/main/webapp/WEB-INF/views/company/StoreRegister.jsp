@@ -12,20 +12,21 @@
 
 
 
-<form:form method='POST' modelAttribute="storeBean" action="<c:url value='StoreRegister'/>">
+<form:form method='POST' modelAttribute="storeBean" >
+			
 			<c:if test='${Store.id != null}'>
                  <form:hidden path="id" />
 			</c:if>
 			<fieldset class="fieldset-auto-width">
-				<legend>門市資料</legend>
+				<legend>門市資料${sessionScope.company.id}</legend>
 				<table>
 					<tr>
 						<td align='right'>門市名稱：</td>
-						<td><form:input path="storeName"  type="text" />						</td>
+						<td><form:input path="storeName"  type="text" /></td>
 						<td align='right'>24hr Y/N：</td>
 						<td><form:select path="businessHour" >
-							<form:option value="0">24hr</form:option>
-							<form:option value="1">其他</form:option>
+							<form:option value="1">24hr</form:option>
+							<form:option value="0">其他</form:option>
 							</form:select>
 						</td>
 					</tr>
@@ -38,7 +39,9 @@
 							</form:select>
 						</td>
 						<td align='right'>開店時間：</td>
-						<td><form:input path="openhour"  type="text" />
+						<td>
+						<form:input path="openhour"  type="time" />
+<!-- 						<input type="time" name="openhour" /> -->
 						</td>
 						
 						
@@ -48,7 +51,9 @@
 						<td><form:input path="storeAddress"  type="text" />
 						</td>
 						<td align='right'>關店時間：</td>
-						<td><form:input path="closehour"  type="text" />
+						<td>
+						<form:input path="closehour"  type="time" />
+<!-- 						<input type="time" name="closehour" /> -->
 						</td>
 						
 						
@@ -62,6 +67,7 @@
 						<td align='right'>Fex<font size='-3' color='blue'>(yyyy-MM-dd)</font>：
 						</td>
 						<td><form:input path="fex"  type="text" />
+						 <form:hidden path="companyId" value="${sessionScope.company.id}"/>
 						</td>
 					</tr>
 					
@@ -75,7 +81,7 @@
 			</fieldset>
 		</form:form>
 
-
+<a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
 
 </body>
 </html>

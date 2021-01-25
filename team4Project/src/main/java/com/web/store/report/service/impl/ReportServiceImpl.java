@@ -31,24 +31,32 @@ public class ReportServiceImpl implements ReportService {
 	public List<Report> queryMember() {
 		List<Report> list = reportDao.queryMember();
 		return list;
+		
+//		return reportDao.queryMember();
 	}
 	//年度累計銷售金額
 	@Override
 	public String querySales(int companyid) {
 		String list = reportDao.querySales(companyid);
 		return list;
+		
+//		return reportDao.querySales(companyid);
 	}
 	//目前門市數量
 	@Override
 	public String queryStore(int companyid) {
 		String list = reportDao.queryStore(companyid);
 		return list;
+		
+//		return reportDao.queryStore(companyid);
 	}
 		
 	//已銷售商品項目數量
 	public String queryClass(int companyid) {
 		String list = reportDao.queryClass(companyid);
 		return list;
+		
+//		return reportDao.queryClass(companyid);
 	}	
 	
 	//Tab1-年度各區業績(各店)
@@ -93,7 +101,7 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.queryAllStoreStock(companyid);
 	}
 	
-	//Tab8-商品前十名排行
+	//Tab8-商品前五名排行
 	@Override
 	public List<Report> queryProductRanking(int companyid) {
 		return reportDao.queryProductRanking(companyid);

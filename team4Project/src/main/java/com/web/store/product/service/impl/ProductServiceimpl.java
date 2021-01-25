@@ -27,7 +27,7 @@ public class ProductServiceimpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> selectbyid(int ProductId) {
+	public Product selectbyid(int ProductId) {
 		return productDao.selectbyid(ProductId);
 
 	};
@@ -53,8 +53,17 @@ public class ProductServiceimpl implements ProductService {
 	}
 
 	@Override
-	public Product getProduct(String productId) {
+	public Product getProduct(Integer productId) {
 		// TODO Auto-generated method stub
 		return productDao.getProduct(productId);
+	}
+
+	@Override
+	public List<Product> selectbyCompanyName(String companyName) {
+		// TODO Auto-generated method stub
+		return productDao.selectbyCompanyName(companyName);
+	}
+	public List<Product> selectbyType(String productType){
+		return productDao.selectbyType(productType);
 	}
 }

@@ -15,7 +15,7 @@ public interface StoreDao {
 	
 	/////////////////////門市查詢功能////////////////////////
 	//查詢全部門市
-	List<Store> getAllStoreByCompanyId(Integer id);
+	List<Store> getAllStoreByCompanyId(Integer companyId);
 	
 	//查詢依地區
 	List<Store> getStoreByArea(String storeArea);
@@ -30,7 +30,9 @@ public interface StoreDao {
 	//待寫
 	boolean updateStatus(Integer id,Boolean status);
 	
+	boolean updateProfiles(Integer id,String profiles);
 	
+	Store getStoreById(Integer id);
 	
 	
 	/////////////////////門市刪除功能////////////////////////

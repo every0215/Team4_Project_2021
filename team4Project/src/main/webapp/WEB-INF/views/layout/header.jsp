@@ -177,19 +177,19 @@
               <li><a href="index.html">關於我們</a></li>
               <li><a href="#">商品 <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>
-                  <li><a href="#">Standard</a></li>                                                
-                  <li><a href="#">T-Shirts</a></li>
-                  <li><a href="#">Shirts</a></li>
-                  <li><a href="#">Jeans</a></li>
-                  <li><a href="#">Trousers</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
+                  <li><a href="<c:url value="/productShow/保健"/>">保健</a></li>
+                  <li><a href="<c:url value="/productShow/泡麵"/>">泡麵</a></li>
+                  <li><a href="<c:url value="/productShow/清潔"/>">清潔</a></li>
+                  <li><a href="<c:url value="/productShow/甜點"/>">甜點</a></li>                                                
+                  <li><a href="<c:url value="/productShow/生鮮"/>">生鮮</a></li>
+                  <li><a href="<c:url value="/productShow/調味"/>">調味</a></li>
+                  <li><a href="<c:url value="/productShow/零食"/>">零食</a></li>
+                  <li><a href="<c:url value="/productShow/飲料"/>">飲料</a></li>
+                  <li><a href="">其他.. <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>                                      
+                      <li><a href="<c:url value="/productShow/餐廚"/>">餐廚</a></li>
+                      
+                                                        
                     </ul>
                   </li>
                 </ul>
@@ -264,5 +264,28 @@
         </div>
       </div>       
     </div>
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4>企業登入</h4>
+          <form class="aa-login-form" action="CompanyLogin" method="post">
+            <label for="">帳號(或Email)<span>*</span></label>
+            <input type="text" name="account" placeholder="Username (or email)" value="familymart">
+            <label for="">密碼<span>*</span></label>
+            <input type="password" name="password" placeholder="Password" value="123">
+            <button class="aa-browse-btn" type="submit" name="enter" >登入</button>
+            <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
+            <p class="aa-lost-password"><a href="#">忘記密碼</a></p>
+            <div class="aa-register-now">
+              
+              <a href="<c:url value='/CmpRegi' />">企業註冊</a>
+            </div>
+          </form>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
   </section>
   <!-- / menu -->

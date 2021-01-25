@@ -3,12 +3,10 @@
 .indexclass {
 	margin: 30px 120px 0px 100px;
 	height: 400px;
-	/*             display:inline; */
 }
 
 .indexclassspan {
 	display: inline;
-	/*         float:left; */
 }
 
 .indexclassaa1 {
@@ -30,7 +28,7 @@
 }
 
 .indexclassbb:hover {
-	width: 50%;
+	width: 55%;
 	height: 60%;
 	background: rgba(255, 255, 255, 0.6);
 	border-radius: 20px 20px 20px 20px;
@@ -68,7 +66,6 @@
 
 .rep_reportarea {
 	background-color: transparent;
-	/* 	display: inline-block; */
 	position: absolute;
 	width: calc(100vw - 15px);
 	height: calc(100vh - 80px);
@@ -76,6 +73,7 @@
 	right: 0px;
 }
 
+/* 後臺的side縮放記得刪 */
 .content-wrapper {
 	margin-left: 200px;
 }
@@ -102,11 +100,12 @@
 
 .rep_table_font {
 	text-align: center;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .rep_downloadbutton {
 	float: right;
+	margin-top: 10px;
 }
 
 .col-md-8 {
@@ -117,8 +116,9 @@
 	width: 100%;
 }
 
+/* 修改Footer寬度 */
 .col-md-3 {
-	width: 40%;
+	width: 25%;
 }
 
 .col-md-6 {
@@ -131,3 +131,15 @@ th{
 .main-header .navbar-custom-menu, .main-header .navbar-right {
 	height:500px;
 	}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button{
+	padding: 3px;
+}
+
+.pad{
+	height:250px;
+}
+.main-sidebar{
+	height: 926px;
+}
+

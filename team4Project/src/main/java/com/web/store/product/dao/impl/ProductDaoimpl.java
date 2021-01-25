@@ -9,10 +9,10 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.web.store.campaign.model.Campaign;
 import com.web.store.company.model.Company;
 import com.web.store.product.dao.ProductDao;
 import com.web.store.product.model.Product;
+import com.web.store.ticket.model.Event;
 @Repository
 public class ProductDaoimpl implements ProductDao {
 	@Autowired
@@ -26,11 +26,9 @@ public class ProductDaoimpl implements ProductDao {
 	}
 		
 	
-	public List<Product> selectbyid(int ProductId){
+	public Product selectbyid(int ProductId){
 		Session session = sessionFactory.getCurrentSession();
-		String hqlstr = "from Product where ProductId=:ProductId";
-		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
-		return queryObj.setParameter("ProductId", ProductId).list();
+		return session.get(Product.class, ProductId);
 		
 	};
 	
@@ -52,8 +50,6 @@ public class ProductDaoimpl implements ProductDao {
 	}
 	public int alterbyid(Product pb) throws SQLException{
 		Session session = sessionFactory.getCurrentSession();
-		
-	
 		Product pbg = session.get(Product.class, pb.getproductId());
 		if(pbg!=null) {
 			session.update(pbg);
@@ -69,13 +65,35 @@ public class ProductDaoimpl implements ProductDao {
 
 
 	@Override
-	public Product getProduct(String productId) {
+	public Product getProduct(Integer productId) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "from Product where productId = :productId";
 		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
-		queryObj.setParameter("productId", Integer.parseInt(productId));
+		queryObj.setParameter("productId", productId);
 		return queryObj.uniqueResult();
+	}
+
+
+	@Override
+	public List<Product> selectbyCompanyName(String companyName) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Product where companyName = :companyName";
+		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
+		queryObj.setParameter("companyName", companyName);
+		return queryObj.list();
+	}
+
+
+	@Override
+	public List<Product> selectbyType(String productType) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Product where productType = :productType";
+		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
+		queryObj.setParameter("productType", productType);
+		return queryObj.list();	
 	}
 
 

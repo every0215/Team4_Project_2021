@@ -23,7 +23,7 @@
 				<caption>
 					<span style="font-weight: bolder; font-size: 20px;">廣告精選商品排行榜</span>
 					<span style="display: inline;float:right;">
-						銷售前十名<input type="button" value="匯入" name="queryadddata">
+						銷售前五名<input type="button" value="匯入" name="queryadddata">
 					</span>
 
 				</caption>

@@ -204,15 +204,34 @@ public class CompanyDaoImpl implements CompanyDao {
 		Query<Company> queryObj = session.createQuery(hqlstr,Company.class);
 		queryObj.setParameter("id", id);
 		Company cmp = queryObj.uniqueResult();
-		boolean chk = cmp.getStatus();
 		
-		if(chk) {
-			return true;
-			
-		}else {
+		if(cmp == null) {
 			return false;
+		}else {
+			boolean chk = cmp.getStatus();
+			
+			if(chk) {
+				return true;
+				
+			}else {
+				return false;
+				
+			}
 			
 		}
+
+//		boolean chk = cmp.getStatus();
+//		
+//		
+//		
+//		
+//		if(chk) {
+//			return true;
+//			
+//		}else {
+//			return false;
+//			
+//		}
 	}
 	
 }

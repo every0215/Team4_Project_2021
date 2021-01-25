@@ -26,6 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.product.service.ProductService;
 
 
 //import mvc.examples.model.Cat;
@@ -35,8 +36,9 @@ public class HomeController {
 
 	@Autowired
 	ServletContext servletContext;
-
-
+	@Autowired
+	ProductService pService;
+	
 	@RequestMapping("/")
 	public String index() {
 		return "index";
@@ -47,6 +49,10 @@ public class HomeController {
 		return "layout/head"; //
 	}
 
+	@RequestMapping("/layout/footer")
+	public String layoutFooter() {
+		return "layout/footer"; //
+	}
 	
 	@RequestMapping("/layout/accountMenu")
 	public String accountMenu() {
