@@ -45,15 +45,23 @@ public class ProductController {
 	ServletContext context;
 	@Autowired
 	CompanyService cService;
-	
 	@RequestMapping("/ProductIndex")
-	public String ProductView(Model model) {
+	public String View(Model model) {
 		List<Product> list = pService.selectAll();
 		for (Product pb : list) {
 			System.out.println(pb.getproductName());
 		}
 		model.addAttribute("ProductList", list);
 		return "/product/ProductIndex";
+	}
+	@GetMapping("/ProductIndex/{companyName}")
+	public String ViewIndex(@PathVariable String companyName,Model model) {
+		List<Product> list = pService.selectbyCompanyName(companyName);
+		for (Product pb : list) {
+			System.out.println(pb.getproductName());
+		}
+		model.addAttribute("ProductList", list);
+		return "/";
 	}
 //	------------------------
 	@GetMapping("/product/ProductInsert")

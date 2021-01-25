@@ -57,4 +57,10 @@ public class ProductServiceimpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDao.getProduct(productId);
 	}
+
+	@Override
+	public List<Product> selectbyCompanyName(String companyName) {
+		// TODO Auto-generated method stub
+		return productDao.selectbyCompanyName(companyName);
+	}
 }

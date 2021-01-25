@@ -19,5 +19,5 @@ public interface ProductService {
 	int alterbyid(Product pb) throws SQLException;
 
 	Product getProduct(Integer productId);
-
+	List<Product> selectbyCompanyName(String companyName);
 }
