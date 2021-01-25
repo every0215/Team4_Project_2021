@@ -236,7 +236,7 @@
 <!--                   </li> -->
 <!--                 </ul> -->
               </li>
-              <li><a href="<c:url value='/showCompany' />">合作企業</a></li>      
+              <li><a href="<c:url value='/company/showCompany' />">合作企業</a></li>      
               <li><a href="contact.html">聯絡我們</a></li>
               <li><a href="<c:url value='/CTicketIndex' />">票劵購買 <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
@@ -270,7 +270,8 @@
         <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4>企業登入</h4>
-          <form class="aa-login-form" action="CompanyLogin" method="post">
+          
+          <form class="aa-login-form" action="<c:url value='/company/CompanyLogin' />" method="post">
             <label for="">帳號(或Email)<span>*</span></label>
             <input type="text" name="account" placeholder="Username (or email)" value="familymart">
             <label for="">密碼<span>*</span></label>
@@ -280,7 +281,7 @@
             <p class="aa-lost-password"><a href="#">忘記密碼</a></p>
             <div class="aa-register-now">
               
-              <a href="<c:url value='/CmpRegi' />">企業註冊</a>
+              <a href="<c:url value='/company/CmpRegi' />">企業註冊</a>
             </div>
           </form>
         </div>

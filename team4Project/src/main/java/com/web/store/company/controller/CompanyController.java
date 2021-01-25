@@ -72,8 +72,10 @@ public class CompanyController {
 	@Autowired
 	ServletContext context;
 	///////////////////////////////////////企業新增///////////////////////////////////////////
+	
+	
 	//註冊企業資料包含文字 圖片
-	@PostMapping(value="/CompanyRegister")
+	@PostMapping(value="/company/CompanyRegister")
 	public String companyRegister(
 			@RequestParam String companyName,
 			@RequestParam String uniformNumbers,
@@ -129,7 +131,7 @@ public class CompanyController {
 	////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////
-	@PostMapping(value="/updateCompany")
+	@PostMapping(value="/company/updateCompany")
 	public String updateCompany(
 			@RequestParam Integer id,
 			@RequestParam String companyName,
@@ -193,7 +195,7 @@ public class CompanyController {
 		return "\\company\\ShowCompanyInfo";
 	}
 	
-	@GetMapping(value = "/getCompanyimage/{id}")
+	@GetMapping(value = "/company/getCompanyimage/{id}")
 	public ResponseEntity<byte[]> getPictureById(HttpServletResponse resp, @PathVariable Integer id) {
 		String filePath = "/images/NoImage.jpg";
 
@@ -266,7 +268,13 @@ public class CompanyController {
 	}
 	///////////////////////////////////////企業新增///////////////////////////////////////////
 	///////////////////////////////////////企業登入///////////////////////////////////////////
-	@PostMapping(value="/CompanyLogin")
+	
+//	@RequestMapping("/company/CompanyLogin")
+//	public String companyLogin() {
+//		return "company/CompanyLogin";
+//	}
+	
+	@PostMapping(value="/company/CompanyLogin")
 	public String Login(
 			@RequestParam String account,
 			@RequestParam String password,
@@ -308,17 +316,18 @@ public class CompanyController {
 	        return cmp;
 	}
 	//登出
-	@GetMapping(value="/Logout")
+	@GetMapping(value="/company/Logout")
 	public String Logout(HttpSession session) {
 		session.removeAttribute("company");
 //		sessionStatus.setComplete();
-		return "/index";
+		return "redirect:/";
+//		/index
 	}
 	 
 	///////////////////////////////////////企業登入///////////////////////////////////////////
 	///////////////////////////////////////秀合作企業///////////////////////////////////////////
 	//秀合作企業
-	@RequestMapping("/showCompany")
+	@RequestMapping("/company/showCompany")
 	public String showCompany(Model model) {
 
 		List<Company> list = cmpService.getAllCompany();
@@ -330,20 +339,24 @@ public class CompanyController {
 	}
 	///////////////////////////////////////秀合作企業///////////////////////////////////////////
 	
-	@GetMapping("/CompanyInfo")
-	public String companyInfo() {
-		return "/company/CompanyRegister";
-	}
+//	@GetMapping("/CompanyInfo")
+//	public String companyInfo() {
+//		return "/company/CompanyRegister";
+//	}
 	
 	///////////////////////////////////////企業服務///////////////////////////////////////////
-	
-	@PostMapping(value="/serviceRegister")
+	@GetMapping("/company/CompanyServiceRegister")
+	public String companyServiceRegister() {
+		return "/company/CompanyServiceRegister";
+	}
+	//新增企業服務
+	@PostMapping(value="/company/serviceRegister")
 	public String serviceRegister(
 			
 			@RequestParam(value="ServiceP",required=false)MultipartFile spServiceImg,
-			@RequestParam(value="Ser")String spService
+			@RequestParam(value="Ser")String spService,
 //			HttpServletResponse response
-			
+			Model model
 			) throws IOException {
 		
 		/////////////////存圖片轉成Byte陣列////////////////////
@@ -363,7 +376,7 @@ public class CompanyController {
 		   CmpService cmpsv = new CmpService(spService, svblob, svImgName);
 		   //呼叫Service新增到資料庫
 		   cmpsvService.addService(cmpsv);
-		   
+		   model.addAttribute("respsv", "新增成功!!!");
 	   
 		  } catch (SerialException e) {
 		   // TODO Auto-generated catch block
@@ -376,14 +389,94 @@ public class CompanyController {
 		/////////////////存圖片轉成Byte陣列////////////////////
 		//密碼洩漏問題
 		//有可能抓不到SESSION
-		return "redirect:/company/ServiceRegister";
+		return "/company/CompanyServiceRegister";
 		
 		
 	}
+	//企業簡介修改
+	@PostMapping("/company/updateCompanyProfile")
+	public String insertCompanyProfiles(
+		
+		@RequestParam Integer id,
+		@RequestParam String profiles,
+		Model model
+		,HttpSession session
+		) {
+		
+		//
+		Company company=(Company)session.getAttribute("company");
+		//
+		System.out.println("profiles:"+profiles);
+		if(profiles.equals(null) || profiles.equals("")) {
+//			Company cmp= cmpService.getCompanyById(cmpid);
+//			String newProfiles = cmp.getProfiles();
+//			System.out.println("cmp.getId()"+cmp.getId());
+//			System.out.println("企業簡介"+newProfiles);
+//			stoService.updateProfiles(id, newProfiles);
+			model.addAttribute("resp", "請輸入簡介!!!");
+			return "/company/CompanyProfiles";
+		}else {
+			cmpService.updateProfiles(id,profiles);
+			//
+			company.setProfiles(profiles);
+			session.setAttribute("company", company);
+			//
+		}
+		//如果有找到就更新
+		
+		
+//		if (sto.getId() != null ) {
+//			stoService.update(sto);
+//		} 
+//		System.out.println("沒有update");
+//		stoService.addStore(sto);
+		return "redirect:/crm/backOffice";
+	}
 	
 	
-	
-	
+//	//新增企業服務
+//	@PostMapping(value="/companyServiceRegister")
+//	public String companyServiceRegister(
+//			@RequestParam String spsv,
+//			@RequestParam(value="brand",required=false)MultipartFile logo,
+////			HttpServletResponse response
+//			
+//			) throws IOException {
+//		
+//		/////////////////存圖片轉成Byte陣列////////////////////
+//
+//		//用getBytes方法把上傳的MultipartFile logo 轉成 byte[]
+//		byte[] logoB = logo.getBytes();
+//		
+//
+//		  try {
+//		   //再把Byte[]轉成Blob物件
+//		   Blob logoblob = new javax.sql.rowset.serial.SerialBlob(logoB);
+//		  
+//		   //取得logo 的Filename
+//		   String logoName = logo.getOriginalFilename();
+//		   //得到的參數塞到建構子                  Blob物件  Filename
+//		   Company cmp = new Company(companyName,logoblob,logoName,uniformNumbers,categories,account,password,email,phone,busRCblob,busRCName);
+//		   //呼叫Service新增到資料庫
+//		   cmpService.addCompany(cmp);
+//	   
+//		  } catch (SerialException e) {
+//		   // TODO Auto-generated catch block
+//		   e.printStackTrace();
+//		  } catch (SQLException e) {
+//		   // TODO Auto-generated catch block
+//		   e.printStackTrace();
+//		  }
+//		  
+//		/////////////////存圖片轉成Byte陣列////////////////////
+//		//密碼洩漏問題
+//		
+//		return "redirect:/index";
+//		
+//		
+//	}
+//	
+//	
 	
 	///////////////////////////////////////企業服務///////////////////////////////////////////
 	
@@ -483,7 +576,7 @@ public class CompanyController {
 	
 	//新增門市簡介
 	//新增門市簡介
-	//新增門市簡介/company/company
+	//新增門市簡介
 	//新增門市簡介
 	//新增門市簡介
 	@PostMapping("/company/updateStoreProfiles")
@@ -491,18 +584,25 @@ public class CompanyController {
 		@RequestParam Integer cmpid,
 		@RequestParam Integer id,
 		@RequestParam String profiles
-		
+//		,HttpSession session
 		) {
 		
-		//驗證盼短有無錯誤
+		//驗證判斷有無錯誤
 //		new CustomerValidator().validate(bean, bindingResult);    
 //		if (bindingResult.hasErrors()) {
 //			return "_01_customer/CustomerForm";
 //		}
 		
-		if(profiles =="") {
+		
+//		Company company=(Company)session.getAttribute("company");
+//		int companyId = company.getId();
+//		System.out.println("companyId:"+companyId);
+		System.out.println("profiles:"+profiles);
+		if(profiles.equals(null) || profiles.equals("")) {
 			Company cmp= cmpService.getCompanyById(cmpid);
 			String newProfiles = cmp.getProfiles();
+			System.out.println("cmp.getId()"+cmp.getId());
+			System.out.println("企業簡介"+newProfiles);
 			stoService.updateProfiles(id, newProfiles);
 		}else {
 			stoService.updateProfiles(id, profiles);
