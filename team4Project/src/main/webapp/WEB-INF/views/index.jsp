@@ -54,7 +54,7 @@
 	<div class="indexclass">
 		<div class="indexclassaa1">
 		<a href="<c:url value="/productShow/保健"/>">
-			<img class="indexclassbb" src="img/indexclass/food1.png" alt="img"></a>
+			<img class="indexclassbb" src="img/indexclass/food13.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>買一送一</span>
 				<h4>
@@ -62,7 +62,7 @@
 				</h4>
 			</div>
 			<a href="<c:url value="/productShow/泡麵"/>">
-			<img class="indexclassbb" src="img/indexclass/food2.png" alt="img"></a>
+			<img class="indexclassbb" src="img/indexclass/food9.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>早鳥促銷</span>
 				<h4>
@@ -70,7 +70,7 @@
 				</h4>
 			</div>
 			<a href="<c:url value="/productShow/清潔"/>">
-			<img class="indexclassbb" src="img/indexclass/food3.png" alt="img"></a>
+			<img class="indexclassbb" src="img/indexclass/food12.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>全面95折</span>
 				<h4>
@@ -78,7 +78,7 @@
 				</h4>
 			</div>
 			<a href="<c:url value="/productShow/甜點"/>">
-			<img class="indexclassbb" src="img/indexclass/food4.png" alt="img"></a>
+			<img class="indexclassbb" src="img/indexclass/food7.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>20:00後6折</span>
 				<h4>
@@ -94,7 +94,7 @@
 				</h4>
 			</div>
 			<a href="<c:url value="/productShow/調味"/>">
-			<img class="indexclassbb" src="img/indexclass/food6.png" alt="img"></a>
+			<img class="indexclassbb" src="img/indexclass/food8.png" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>Exclusive Item</span> -->
 				<h4>
@@ -106,7 +106,7 @@
 
 		<div class="indexclassaa2">
 		<a href="<c:url value="/productShow/零食"/>">
-			<img class="indexclassbb" src="img/indexclass/food7.png" alt="img"></a>
+			<img class="indexclassbb" src="img/indexclass/food11.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>夏日必選</span>
 				<h4>
@@ -114,7 +114,7 @@
 				</h4>
 			</div>
 			<a href="<c:url value="/productShow/飲料"/>">
-			<img class="indexclassbb" src="img/indexclass/food8.png" alt="img"></a>
+			<img class="indexclassbb" src="img/indexclass/food10.png" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>Exclusive Item</span> -->
 				<h4>
@@ -122,7 +122,7 @@
 				</h4>
 			</div>
 			<a href="<c:url value="/productShow/餐廚"/>">
-			<img class="indexclassbb" src="img/indexclass/food9.png" alt="img"></a>
+			<img class="indexclassbb" src="img/indexclass/food3.png" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>Exclusive Item</span> -->
 				<h4>
@@ -130,11 +130,11 @@
 				</h4>
 			</div>
 			
-			<img class="indexclassbb" src="img/indexclass/food10.png" alt="img">
+			<img class="indexclassbb" src="img/indexclass/food14.png" alt="img">
 			<div class="indexclassspan">
 				<span>不容錯過</span>
 				<h4>
-					<a class="indexclassa" href="#">活動專區-10</a>
+					<a class="indexclassa" href="#">活動專區</a>
 				</h4>
 			</div>
 
@@ -142,7 +142,7 @@
 			<div class="indexclassspan">
 				<span>優惠促銷</span>
 				<h4>
-					<a class="indexclassa" href="<c:url value='/CTicketIndex' />">票券專區-11</a>
+					<a class="indexclassa" href="<c:url value='/CTicketIndex' />">票券專區</a>
 				</h4>
 			</div>
 
@@ -150,7 +150,7 @@
 			<div class="indexclassspan">
 <!-- 				<span>當地特色</span> -->
 				<h4>
-					<a class="indexclassa" href="#">各地門市-12</a>
+					<a class="indexclassa" href="#">各地門市</a>
 				</h4>
 			</div>
 
