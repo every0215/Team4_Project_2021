@@ -21,6 +21,7 @@ import com.web.store.account.common.HibernateUtil;
 import com.web.store.account.common.Utility;
 import com.web.store.account.dao.MemberDao;
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.javabean.MemberNotification;
 import com.web.store.account.javabean.MemberSubscription;
 
 @Repository
@@ -165,9 +166,22 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	@Override
+	public void delete(MemberBean member) {
+		Session session = factory.getCurrentSession();
+		session.delete(member);
+	}
+	@Override
 	public void delete(MemberSubscription memberSubscription) {
 		Session session = factory.getCurrentSession();
 		session.delete(memberSubscription);
+			
+
+	}
+	
+	@Override
+	public void delete(MemberNotification memberNotification) {
+		Session session = factory.getCurrentSession();
+		session.delete(memberNotification);
 			
 
 	}

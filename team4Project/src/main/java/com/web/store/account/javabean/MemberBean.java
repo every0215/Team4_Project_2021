@@ -109,6 +109,9 @@ public class MemberBean implements Serializable {
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
 	private Set<MemberSubscription> memberSubscriptionList;
 	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	private Set<MemberNotification> memberNotificationList;
+
 
 	public MemberBean(String fullname, String nickname,String qid, String email,byte[] password) {
 		this.fullname = fullname;
@@ -408,6 +411,13 @@ public class MemberBean implements Serializable {
 	public void setMemberSubscriptionList(Set<MemberSubscription> memberSubscriptionList) {
 		this.memberSubscriptionList = memberSubscriptionList;
 	}
-	
+
+	public Set<MemberNotification> getMemberNotificationList() {
+		return memberNotificationList;
+	}
+
+	public void setMemberNotificationList(Set<MemberNotification> memberNotificationList) {
+		this.memberNotificationList = memberNotificationList;
+	}
 	
 }

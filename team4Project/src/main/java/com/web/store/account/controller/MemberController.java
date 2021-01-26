@@ -89,8 +89,15 @@ public class MemberController {
 	}
 
 	@RequestMapping("/review")
-	public String review() {
+	public String review() throws Exception {
+
 		return "account/review";
+	}
+	
+	@RequestMapping("/notification")
+	public String notification() throws Exception {
+
+		return "account/notification";
 	}
 
 	@GetMapping("/list")
@@ -202,15 +209,20 @@ public class MemberController {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
 
 		// =========================
-		PayPalOrderDetail orderDetail = new PayPalOrderDetail("購買M幣", String.valueOf(mCoinTopUpDetail.getTopUpAmount()),
-				"0", "0", String.valueOf(mCoinTopUpDetail.getTopUpAmount()));
-
+		session.setAttribute("mCoinTopUpDetail", mCoinTopUpDetail);
 		try {
-			PayPalPaymentServices paymentServices = new PayPalPaymentServices();
-			String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-			String approvalLink = paymentServices.authorizePayment(orderDetail, baseUrl);
-
-			return "redirect:" + approvalLink;
+			if (mCoinTopUpDetail.getPaymentMethod() == 1) {
+				return "redirect:/member/review";
+			} else {
+				PayPalOrderDetail orderDetail = new PayPalOrderDetail("購買M幣",
+						String.valueOf(mCoinTopUpDetail.getTopUpAmount()), "0", "0",
+						String.valueOf(mCoinTopUpDetail.getTopUpAmount()));
+				PayPalPaymentServices paymentServices = new PayPalPaymentServices();
+				String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+				String approvalLink = paymentServices.authorizePayment(orderDetail, baseUrl);
+				
+				return "redirect:" + approvalLink;
+			}
 
 		} catch (PayPalRESTException ex) {
 			model.addAttribute("verified", false);
@@ -219,25 +231,9 @@ public class MemberController {
 			return "account/myWallet";
 		}
 
-		// =========================
-//		mCoinTopUpDetail.setMember(currentUser);
-//		mCoinTopUpDetail.setPaymentMethod(1);
-//		mCoinTopUpDetail.setPaymentAmount(mCoinTopUpDetail.getTopUpAmount());
-//		mCoinTopUpDetail.setTopupDate(new Timestamp(System.currentTimeMillis()));
-//		mCoinTopUpDetail.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-//		currentUser.getmCoinTopupDetailList().add(mCoinTopUpDetail);
 //
 //		
-//		
-//		if(currentUser.getmCoin() == null) {
-//			MCoin mCoin = new MCoin();
-//			mCoin.setBalance(new BigDecimal(0));
-//			mCoin.setMember(currentUser);
-//			currentUser.setmCoin(mCoin);
-//		}
-//		else {
-//			currentUser.getmCoin().setBalance(currentUser.getmCoin().getBalance().add(mCoinTopUpDetail.getTopUpAmount()));
-//		}
+//
 //		
 //		try {
 //			accountService.update(currentUser);
@@ -253,25 +249,39 @@ public class MemberController {
 	}
 
 	// 會員儲值M幣點數
-	@PostMapping("/executePayment")
+	@GetMapping("/executePayment")
 	public String executePayment(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,
 			Model model, HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-
+		MCoinTopUpDetail mCoinTopUpDetail = (MCoinTopUpDetail) session.getAttribute("mCoinTopUpDetail");
+		String paymentMethodStr = "信用卡";
 		try {
-			PayPalPaymentServices paymentServices = new PayPalPaymentServices();
-			Payment payment = paymentServices.executePayment(paymentId, payerId);
-//			PayerInfo payerInfo = payment.getPayer().getPayerInfo();
-//			Transaction transaction = payment.getTransactions().get(0);
+			mCoinTopUpDetail.setMember(currentUser);
+			mCoinTopUpDetail.setPaymentMethod(mCoinTopUpDetail.getPaymentMethod());
+			mCoinTopUpDetail.setPaymentAmount(mCoinTopUpDetail.getTopUpAmount());
+			mCoinTopUpDetail.setTopupDate(new Timestamp(System.currentTimeMillis()));
+			mCoinTopUpDetail.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+			
+			if (mCoinTopUpDetail.getPaymentMethod() == 2) {
+				PayPalPaymentServices paymentServices = new PayPalPaymentServices();
+				Payment payment = paymentServices.executePayment(paymentId, payerId);
+//				PayerInfo payerInfo = payment.getPayer().getPayerInfo();
+//				Transaction transaction = payment.getTransactions().get(0);
+				if (payment.getState().equals("approved")) {
+					paymentMethodStr = "PayPal";
+				}
 
-			if (payment.getState().equals("approved")) {
-				model.addAttribute("verified", true);
-				model.addAttribute("msg", "儲值成功");
 			}
+			accountService.mCoinTopUp(currentUser, mCoinTopUpDetail);
+			currentUser.getmCoinTopupDetailList().add(mCoinTopUpDetail);
+			accountService.update(currentUser);
+			session.setAttribute("currentUser", currentUser);
+			model.addAttribute("verified", true);
+			model.addAttribute("msg", paymentMethodStr+"儲值成功");
 
 		} catch (Exception ex) {
 			model.addAttribute("verified", false);
-			model.addAttribute("msg", "儲值失敗");
+			model.addAttribute("msg", paymentMethodStr+"儲值失敗");
 		}
 
 		return "account/myWallet";
@@ -336,18 +346,18 @@ public class MemberController {
 		return companyList;
 	}
 
-	@GetMapping(value="/getMemberSubscriptions", produces="application/json")
+	@GetMapping(value = "/getMemberSubscriptions", produces = "application/json")
 	public @ResponseBody int[] getMemberSubscriptions(HttpSession session) throws Exception {
 
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-		
+
 		if (currentUser.getMemberSubscriptionList() == null) {
 			currentUser.setMemberSubscriptionList(new LinkedHashSet<MemberSubscription>());
 		}
-		
+
 		int[] subscribedCompanyIds = new int[currentUser.getMemberSubscriptionList().size()];
 		int i = 0;
-		for (MemberSubscription memberSubscription: currentUser.getMemberSubscriptionList()) {
+		for (MemberSubscription memberSubscription : currentUser.getMemberSubscriptionList()) {
 			subscribedCompanyIds[i] = memberSubscription.getCompany().getId();
 			i++;
 		}
@@ -359,29 +369,32 @@ public class MemberController {
 	public String updateMemberSubscriptions(@RequestParam("subscribeCompany") String subscribeCompany, Model model,
 			HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-		
+
 		Set<MemberSubscription> memberSubscriptionList = new LinkedHashSet<MemberSubscription>();
 		String[] subscribeCompanyIds = subscribeCompany.split(",");
 		for (Company company : companyService.getAllCompany()) {
-			//需要訂閱此公司
-			if(Arrays.asList(subscribeCompanyIds).contains(String.valueOf(company.getId()))) {
-				//此公司尚未訂閱
-				if(!currentUser.getMemberSubscriptionList().stream().anyMatch( obj -> obj.getCompany().getId() == company.getId())){
+			// 需要訂閱此公司
+			if (Arrays.asList(subscribeCompanyIds).contains(String.valueOf(company.getId()))) {
+				// 此公司尚未訂閱
+				if (!currentUser.getMemberSubscriptionList().stream()
+						.anyMatch(obj -> obj.getCompany().getId() == company.getId())) {
 					MemberSubscription memberSubscription = new MemberSubscription();
 					memberSubscription.setMember(currentUser);
 					memberSubscription.setCompany(company);
 					currentUser.getMemberSubscriptionList().add(memberSubscription);
 				}
-				
+
 			}
-			//沒有要訂閱此公司
+			// 沒有要訂閱此公司
 			else {
-				if (currentUser.getMemberSubscriptionList()!=null &&currentUser.getMemberSubscriptionList().size() > 0) {
-					Optional<MemberSubscription> mSubscription = currentUser.getMemberSubscriptionList().stream().filter(obj -> obj.getCompany().getId()==company.getId()).findFirst();
-					if(!mSubscription.isEmpty()) {
+				if (currentUser.getMemberSubscriptionList() != null
+						&& currentUser.getMemberSubscriptionList().size() > 0) {
+					Optional<MemberSubscription> mSubscription = currentUser.getMemberSubscriptionList().stream()
+							.filter(obj -> obj.getCompany().getId() == company.getId()).findFirst();
+					if (!mSubscription.isEmpty()) {
 						currentUser.getMemberSubscriptionList().remove(mSubscription.get());
 						accountService.delete(mSubscription.get());
-						
+
 					}
 				}
 			}
