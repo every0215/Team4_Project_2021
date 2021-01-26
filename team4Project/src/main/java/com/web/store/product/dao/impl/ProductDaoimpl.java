@@ -97,6 +97,17 @@ public class ProductDaoimpl implements ProductDao {
 	}
 
 
+	@Override
+	public List<Product>  selectbyName(String productName) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Product where productName =:productName like '%productName%'";
+		Query<Product> queryObj = session.createQuery(hqlstr,Product.class);
+		queryObj.setParameter("productName", productName);		
+		return queryObj.list();	
+	}
+
+
 
 
 }

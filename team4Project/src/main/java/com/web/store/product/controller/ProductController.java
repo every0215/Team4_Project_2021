@@ -146,6 +146,17 @@ public class ProductController {
 //		
 //		return "/productShow";
 //	}	
+//-----------	搜尋
+	@GetMapping(value="/ProductSearch/{name}")
+	public String porductSearch(@PathVariable String name,Model model){
+		System.out.println(name);
+		List<Product> list  = pService.selectbyType(name);
+		model.addAttribute("ProductList",list);
+		System.out.println("成功"+name);
+		
+		return "/product/PorductSearch";
+	}	
+	
 //-----------------輸出圖
 	@GetMapping(value = "/getproductimage/{productId}")
 	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer productId)  {
