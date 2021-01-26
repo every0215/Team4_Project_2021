@@ -3,6 +3,7 @@ package com.web.store.campaign.service;
 import java.util.List;
 import java.util.Map;
 
+import com.web.store.campaign.model.ApplyBean;
 import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.Page;
 import com.web.store.campaign.model.SearchBean;
@@ -46,5 +47,9 @@ public interface CampaignService {
 	
 	Page<Campaign> getActiveCampaignPageByCompany(Page<Campaign> page,int companyId);
 	
+	Map<String,List<Product>> classifyProductIncamp(int campId,String companyName);
+	
 	double checkProductDiscountById(int productId);
+	
+	int applyProductWithCamp(ApplyBean apply, int campaignId);
 }

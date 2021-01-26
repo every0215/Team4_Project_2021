@@ -1,9 +1,11 @@
 package com.web.store.campaign.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.transaction.Transactional;
 
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.web.store.campaign.dao.CampaignDao;
+import com.web.store.campaign.model.ApplyBean;
 import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.Page;
 import com.web.store.campaign.model.SearchBean;
@@ -138,8 +141,7 @@ public class CampaignServiceImpl implements CampaignService {
 
 	@Override
 	public double checkProductDiscountById(int productId) {
-		String productIdStr = String.valueOf(productId);
-		Product product = productService.getProduct(productIdStr);
+		Product product = productService.getProduct(productId);
 		Hibernate.initialize(product);
 		Set<Campaign> campOfProduct = product.getCampaigns();
 		double lowestDiscount = 1;
@@ -157,5 +159,79 @@ public class CampaignServiceImpl implements CampaignService {
 		}
 		return lowestDiscount;
 	}
+
+	@Override
+	//分類商品，傳入campaignId、productName，
+	//傳回map，已套用和未套用該活動的商品
+	public Map<String, List<Product>> classifyProductIncamp(int campId,String companyName) {
+		
+		Map<String, List<Product>> classify= new HashMap<String, List<Product>>();
+		List<Product> productsInCamp = new ArrayList<Product>();
+		List<Product> productsNotInCamp = new ArrayList<Product>();
+		List<Product> products = productService.selectbyCompanyName(companyName);
+		
+		for(Product product:products) {
+			boolean flag = true;
+			for(Campaign campaign:product.getCampaigns()) {
+				if(campaign.getId()==campId) {
+					productsInCamp.add(product);
+					flag = false;
+					break;
+				}
+			}
+			if(flag) {
+				productsNotInCamp.add(product);
+			}
+		}
+		
+		classify.put("productsInCamp",productsInCamp);
+		classify.put("productsNotInCamp",productsNotInCamp);
+		
+		return classify;
+		
+	}
+
+	@Override
+	//套用活動商品方法
+	public int applyProductWithCamp(ApplyBean apply, int campaignId) {
+		Campaign camp = getCampaignById(campaignId);
+		Set<Product> cueerntProductsInCamp = camp.getProducts();
+		//將活動關聯的商品遍歷出來
+		System.out.println("遍歷目前套用商品------ ");
+		//若collection利用迴圈新增刪除後同時讀取會造成ConcurrentModificationException
+		//因此利用CopyOnWriteArrayListc來clone一個collection來進行遍歷,實際上是修改原來的collection
+		CopyOnWriteArrayList<Product> cueerntProductsInCampClone = new CopyOnWriteArrayList<Product>(cueerntProductsInCamp);
+		
+		for(Product productIncamp:cueerntProductsInCampClone) {
+			System.out.println("\t遍歷商品------ id: "+productIncamp.getproductId());
+			//檢查活動未套用的商品id的list，如果有跟目前關聯商品相同，則刪除
+			for(int productsIdNotInCamp:apply.getProductsIdNotInCamp()) {
+				if(productsIdNotInCamp==productIncamp.getproductId()) {
+					cueerntProductsInCamp.remove(productIncamp);
+					System.out.println("刪除關聯商品: "+productIncamp.getCompanyName());
+				}
+			}
+		}
+		
+		System.out.println("遍歷欲套用商品id------");
+		for(int productsIdInCamp:apply.getProductsIdInCamp()) {
+			System.out.println("\t欲套用商品id: "+productsIdInCamp);
+			boolean flag = true;
+			for(Product productIncamp:cueerntProductsInCampClone) {
+				if(productIncamp.getproductId()==productsIdInCamp) {
+					flag = false;
+					break;			
+				}			
+			}
+			if(flag) {		
+				Product product = productService.selectbyid(productsIdInCamp);
+				System.out.println("套用商品:"+product.getproductId());
+				cueerntProductsInCamp.add(product);
+			}		
+		}
+		return 0;
+	}
+	
+	
 		
 }

@@ -204,15 +204,48 @@ public class CompanyDaoImpl implements CompanyDao {
 		Query<Company> queryObj = session.createQuery(hqlstr,Company.class);
 		queryObj.setParameter("id", id);
 		Company cmp = queryObj.uniqueResult();
-		boolean chk = cmp.getStatus();
 		
-		if(chk) {
-			return true;
-			
-		}else {
+		if(cmp == null) {
 			return false;
+		}else {
+			boolean chk = cmp.getStatus();
+			
+			if(chk) {
+				return true;
+				
+			}else {
+				return false;
+				
+			}
 			
 		}
+
+//		boolean chk = cmp.getStatus();
+//		
+//		
+//		
+//		
+//		if(chk) {
+//			return true;
+//			
+//		}else {
+//			return false;
+//			
+//		}
+	}
+
+	@Override
+	public boolean updateProfiles(Integer id, String profiles) {
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("更新企業簡介");
+		System.out.println(id);
+		Query queryObj = session.createQuery("UPDATE Company SET  Profiles = :newProfiles WHERE Id = :Cid")
+				.setParameter("Cid", id)
+				.setParameter("newProfiles", profiles);
+		
+		queryObj.executeUpdate();
+		return true;
+		
 	}
 	
 }

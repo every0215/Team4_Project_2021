@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.store.ticket.dao.ISportSeatDao;
+import com.web.store.ticket.model.Price;
 import com.web.store.ticket.model.SportSeat;
 
 @Repository
@@ -54,5 +55,6 @@ public class SportSeatDao implements ISportSeatDao {
 			session.delete(sportSeat);
 		}
 	}
+
 
 }

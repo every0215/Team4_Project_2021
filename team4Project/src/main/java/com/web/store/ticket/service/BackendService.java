@@ -32,7 +32,8 @@ public interface BackendService {
 	public Exhibition queryOneExhibition(int id);
 	public Exhibition selectExhibitionByEvent(int eventId);
 	public void addPrice(Price price);
-	public List<Price> selectPriceList(int eventid);
+	public List<Price> selectPriceList(int eventId);
+	public List<Price> selectPriceListBySessionId(int sessionId);
 	public void deletePriceList(int eventId);
 	public Sport selectSportByEvent(int eventId);
 	public void addSportSession(Sport sport,SportSession sportSession);

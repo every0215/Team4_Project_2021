@@ -108,20 +108,24 @@
              <c:when test="${event.typeId==1}">
              <p style="text-align:left">售票期間:${exhibition.onSaleDate.toString().substring(0, 16)}~${exhibition.offSaleDate.toString().substring(0, 16)}</p>
              <p style="text-align:left">展出期間:${exhibition.commDate}~${exhibition.dueDate}</p>
-             <p style="text-align:left">優惠信用卡與折扣數:${creditCard.cardName}/&nbsp;${exhibition.discountRatio*10}折</p>
+             <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${exhibition.discountRatio*10}折</p>
              </c:when>
              <c:when test="${event.typeId==2}">
              <p style="text-align:left">售票期間:${attraction.onSaleDate.toString().substring(0, 16)}~${attraction.offSaleDate.toString().substring(0, 16)}</p>
-             <p style="text-align:left">展出期間:${attraction.commDate}~${attraction.dueDate}</p>
+             <p style="text-align:left">票券有效期:${attraction.commDate}~${attraction.dueDate}</p>
              </c:when>
             <c:otherwise>
             <p style="text-align:left">售票期間:${sport.onSaleDate.toString().substring(0, 16)}~${sport.offSaleDate.toString().substring(0, 16)}</p>
-            <p style="text-align:left">優惠信用卡與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
+            <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
             </c:otherwise>
             </c:choose>
-            
-            
-            
+            <c:if test="${event.typeId!=3}">    
+            		<form action="<c:url value='/TicketBuy/${eventId}'/>" method="post">
+            			<input type="hidden" name="eventId" value="${event.id}" />
+            			
+            			<button type="submit" class="btn btn-info">Buy Now</button>
+            		</form>       
+        </c:if>
            </div>
 				 <div id="accordion" class="ticket-info-title">
 	    <h3>票價</h3>
@@ -146,8 +150,12 @@
 			</thead>
 			<tbody>
 			<tr>
-				<td>票價</td>
+				<td>原價</td>
 				<c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach>
+			</tr>
+			<tr>
+				<td>信用卡優惠價</td>
+				<c:forEach var="price" items="${priceList}"><td>${price.cost*sport.discountRatio}</td></c:forEach>
 			</tr>
 			</tbody>
 		</table>
@@ -157,7 +165,19 @@
         <c:if test="${event.typeId==3}">
          <h3>場次表</h3>
         <div >
-            <c:forEach var="session" items="${sessionList}"><td>${session.kickOfTime}</td></c:forEach>
+        <table style="width: 400px;border:3px #ffffff solid;text-align:center; " cellpadding="10" border='1'>
+            <c:forEach var="session" items="${sessionList}"><tr>
+            	<td>${session.kickOfTime.toString().substring(0, 16)}</td>
+            	<td>
+            		<form action="<c:url value='XXXXXXXXXX'/>" method="post">
+            			<input type="hidden" name="eventId" value="${event.id}" />
+            			<input type="hidden" name="sessionId" value="${session.id}" />
+            			<button type="button" class="btn btn-info">Buy Now</button>
+            		</form>
+            	</td>
+            	</tr></c:forEach>
+        </table>
+        
         </div>
         </c:if>
         <h3>票券介紹</h3>

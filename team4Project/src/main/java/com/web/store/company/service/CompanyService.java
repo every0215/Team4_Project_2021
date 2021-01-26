@@ -20,4 +20,6 @@ public interface CompanyService {
 	
 	boolean statusCheck(Integer id);
 	
+	boolean updateProfiles(Integer id,String profiles);
+	
 }

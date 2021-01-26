@@ -11,8 +11,8 @@
 <fieldset>
 	<legend >門市簡介</legend> 
 	
-		<form action="<c:url value='/updateStoreProfiles'/>" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="cmpid" value="${company.id}">
+		<form action="<c:url value='/company/updateStoreProfiles'/>" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="cmpid" value="${sessionScope.company.id}">
 		<input type="hidden" name="id" value="${storeBean.id}">
 	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
 	<tr>
@@ -34,6 +34,6 @@
 	
 			</form>
 </fieldset>
-<a href="<c:url value='/ShowStore'/> " >回門市管理頁</a>
+<a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
 </body>
 </html>

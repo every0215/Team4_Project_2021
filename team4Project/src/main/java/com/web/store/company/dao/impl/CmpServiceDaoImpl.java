@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.web.store.company.dao.CmpServiceDao;
 
 import com.web.store.company.model.CmpService;
+import com.web.store.company.model.Company;
 @Repository
 public class CmpServiceDaoImpl implements CmpServiceDao {
 
@@ -45,11 +46,27 @@ public class CmpServiceDaoImpl implements CmpServiceDao {
 	}
 
 	@Override
-	public List<CmpService> getAllService() {
+	public List<CmpService> getAllServiceBycmpId(Integer cmpId) {
 		Session session = sessionFactory.getCurrentSession();
-		String hqlstr = "from Service";
+		String hqlstr = "from CmpService where CompanyId = :CmpId";
 		Query<CmpService> queryObj = session.createQuery(hqlstr,CmpService.class); 			
+		queryObj.setParameter("CmpId", cmpId);
 		return queryObj.list();
+	}
+
+	@Override
+	public CmpService getCmpsvById(Integer id,Integer cmpId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from CmpService where Id = :id and CompanyId = :companyId"; 
+		Query<CmpService> queryObj = session.createQuery(hqlstr,CmpService.class);
+		queryObj.setParameter("id", id);
+		queryObj.setParameter("companyId", cmpId);
+		CmpService cmpsv = queryObj.uniqueResult();
+		
+		return cmpsv;
+		
+		
+	
 	}
 
 }

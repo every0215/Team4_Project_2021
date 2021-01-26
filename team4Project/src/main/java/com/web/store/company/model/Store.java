@@ -2,14 +2,25 @@ package com.web.store.company.model;
 
 import java.sql.Blob;
 import java.sql.Time;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.web.store.product.model.Product;
 
 @Entity
 @Table(name="Store")
@@ -37,15 +48,31 @@ public class Store {
 		private String openhour;
 		@Column(name= "Closehour")
 		private String closehour;
-		//寫company的關聯
-		@Transient
-		@Column(name= "CompanyId")
-		private Integer companyId;
+		//get的時候會用到
+		//////////////////////////////
+//		@Transient
+//		@Column(name= "CompanyId")
+//		private Integer companyId;
+		//////////////////////////////
+		
+//		@Transient
+		@JoinColumn(name = "CompanyId")
+		@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//		@JsonIgnore
+		private Company company;
+		
 	
 		@Column(name= "Profiles")
 		private String profiles;
 		@Column(name= "Status")
 		private Boolean status=true;
+		
+//		@Transient
+		@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		@JoinTable(name = "StoreService", joinColumns = {
+	            @JoinColumn(name = "StoreId", referencedColumnName = "Id") }, inverseJoinColumns = {
+	                    @JoinColumn(name = "ServiceId", referencedColumnName = "Id") })
+		private Set<CmpService> cmpServiceS=new HashSet<CmpService>();;
 		
 		
 		
@@ -67,8 +94,25 @@ public class Store {
 			
 		}
 		
+		public Store(String storeName, String storeArea, String storeAddress, String phone, String fex,
+				Boolean businessHour, String openhour, String closehour, Company company, String profiles,
+				Boolean status) {
+			super();
+			
+			this.storeName = storeName;
+			this.storeArea = storeArea;
+			this.storeAddress = storeAddress;
+			this.phone = phone;
+			this.fex = fex;
+			this.businessHour = businessHour;
+			this.openhour = openhour;
+			this.closehour = closehour;
+			this.company = company;
+			this.profiles = profiles;
+			this.status = status;
+		}
 		public Store(Integer id, String storeName, String storeArea, String storeAddress, String phone, String fex,
-				Boolean businessHour, String openhour, String closehour, Integer companyId, String profiles,
+				Boolean businessHour, String openhour, String closehour, Company company, String profiles,
 				Boolean status) {
 			super();
 			this.id = id;
@@ -80,10 +124,47 @@ public class Store {
 			this.businessHour = businessHour;
 			this.openhour = openhour;
 			this.closehour = closehour;
-			this.companyId = companyId;
+			this.company = company;
 			this.profiles = profiles;
 			this.status = status;
 		}
+		
+		
+//用companyId的方法		
+//		public Store(String storeName, String storeArea, String storeAddress, String phone, String fex,
+//				Boolean businessHour, String openhour, String closehour, Integer companyId, String profiles,
+//				Boolean status) {
+//			super();
+//			
+//			this.storeName = storeName;
+//			this.storeArea = storeArea;
+//			this.storeAddress = storeAddress;
+//			this.phone = phone;
+//			this.fex = fex;
+//			this.businessHour = businessHour;
+//			this.openhour = openhour;
+//			this.closehour = closehour;
+//			this.companyId = companyId;
+//			this.profiles = profiles;
+//			this.status = status;
+//		}
+//		public Store(Integer id, String storeName, String storeArea, String storeAddress, String phone, String fex,
+//				Boolean businessHour, String openhour, String closehour, Integer companyId, String profiles,
+//				Boolean status) {
+//			super();
+//			this.id = id;
+//			this.storeName = storeName;
+//			this.storeArea = storeArea;
+//			this.storeAddress = storeAddress;
+//			this.phone = phone;
+//			this.fex = fex;
+//			this.businessHour = businessHour;
+//			this.openhour = openhour;
+//			this.closehour = closehour;
+//			this.companyId = companyId;
+//			this.profiles = profiles;
+//			this.status = status;
+//		}
 		
 		
 		public Integer getId() {
@@ -140,12 +221,12 @@ public class Store {
 		public void setClosehour(String closehour) {
 			this.closehour = closehour;
 		}
-		public Integer getCompanyId() {
-			return companyId;
-		}
-		public void setCompanyId(Integer companyId) {
-			this.companyId = companyId;
-		}
+//		public Integer getCompanyId() {
+//			return companyId;
+//		}
+//		public void setCompanyId(Integer companyId) {
+//			this.companyId = companyId;
+//		}
 
 		public String getProfiles() {
 			return profiles;
@@ -158,5 +239,21 @@ public class Store {
 		}
 		public void setStatus(Boolean status) {
 			this.status = status;
+		}
+
+		public Company getCompany() {
+			return company;
+		}
+
+		public void setCompany(Company company) {
+			this.company = company;
+		}
+
+		public Set<CmpService> getCmpServiceS() {
+			return cmpServiceS;
+		}
+
+		public void setCmpServiceS(Set<CmpService> cmpServiceS) {
+			this.cmpServiceS = cmpServiceS;
 		}
 }

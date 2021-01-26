@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.store.campaign.model.Campaign;
 import com.web.store.company.dao.StoreDao;
 import com.web.store.company.model.Company;
 import com.web.store.company.model.Store;
@@ -23,25 +24,57 @@ public class StoreDaoImpl implements StoreDao {
 	@Override
 	public void addStore(Store sto) {
 		Session session = sessionFactory.getCurrentSession();
-
+		
 		session.save(sto);
 
 	}
 
 	@Override
 	public boolean update(Store sto) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("StoreDao-Company物件轉Id"+sto.getCompany());
+		Query queryObj = session.createQuery("UPDATE Store SET  StoreName = :newStoreName , StoreArea = :newStoreArea , StoreAddress = :newStoreAddress , Phone = :newPhone ,Fex = :newFex , BusinessHour = :newBusinessHour ,Openhour = :newOpenhour ,Closehour = :newClosehour ,CompanyId = :newCompanyId ,Profiles = :newProfiles ,Status = :newStatus WHERE id = :Sid")
+				.setParameter("Sid", sto.getId())
+				.setParameter("newStoreName",sto.getStoreName() )
+				.setParameter("newStoreArea", sto.getStoreArea())
+				.setParameter("newStoreAddress",sto.getStoreAddress() )
+				.setParameter("newPhone", sto.getPhone())
+				.setParameter("newFex", sto.getFex())
+				.setParameter("newBusinessHour", sto.getBusinessHour())
+				.setParameter("newOpenhour", sto.getOpenhour())
+				.setParameter("newClosehour", sto.getClosehour())
+				////////////////////////////////////////////////////////
+				.setParameter("newCompanyId", sto.getCompany())
+				.setParameter("newProfiles", sto.getProfiles())
+				.setParameter("newStatus", sto.getStatus());
+				
+				queryObj.executeUpdate();
+				return true;
+
+		
+//		Store queryResult = null;
+//		if(sto.getId()!=null) {
+//			queryResult = session.get(Store.class, sto.getId());
+//			session.evict(queryResult); //清除session的緩存，因為get
+//		}
+//		
+//		if(queryResult != null) {
+//			session.update(sto);
+//			return true;
+//		}
+//		
+//		return false;
+		
 	}
 
 	@Override
-	public List<Store> getAllStoreByCompanyId(Integer id) {
+	public List<Store> getAllStoreByCompanyId(Integer companyId) {
 		
 
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "from Store where CompanyId = :CompanyId";
 		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);
-		queryObj.setParameter("CompanyId", id);
+		queryObj.setParameter("CompanyId", companyId);
 		
 		return queryObj.list();	
 		

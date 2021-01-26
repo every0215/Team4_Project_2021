@@ -66,4 +66,10 @@ public class CompanyServiceImpl implements CompanyService {
 		return cmpDao.statusCheck(id);
 	}
 
+	@Override
+	public boolean updateProfiles(Integer id, String profiles) {
+		
+		return cmpDao.updateProfiles(id,profiles);
+	}
+
 }

@@ -9,27 +9,29 @@
 <c:import url="/layout/head" />
 <c:import url="/layout/header" />
 <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.js"></script>
-  <!-- SmartMenus jQuery plugin -->
-  <script type="text/javascript" src="js/jquery.smartmenus.js"></script>
-  <!-- SmartMenus jQuery Bootstrap Addon -->
-  <script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>
-  <!-- To Slider JS -->
-  <script src="js/sequence.js"></script>
-  <script src="js/sequence-theme.modern-slide-in.js"></script>
-  <!-- Product view slider -->
-  <script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
-  <script type="text/javascript" src="js/jquery.simpleLens.js"></script>
-  <!-- slick slider -->
-  <script type="text/javascript" src="js/slick.js"></script>
-  <!-- Price picker slider -->
-  <script type="text/javascript" src="js/nouislider.js"></script>
-  <!-- Custom js -->
-  <script src="js/custom.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="<c:url value='/js/bootstrap.js' />"></script>
+        <!-- SmartMenus jQuery plugin -->
+        <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.js' />"></script>
+        <!-- SmartMenus jQuery Bootstrap Addon -->
+        <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.bootstrap.js' />"></script>
+        <!-- To Slider JS -->
+        <script src="<c:url value='/js/sequence.js' />"></script>
+        <script src="<c:url value='/js/sequence-theme.modern-slide-in.js' />"></script>
+        <!-- Product view slider -->
+        <script type="text/javascript" src="<c:url value='/js/jquery.simpleGallery.js' />"></script>
+        <script type="text/javascript" src="<c:url value='/js/jquery.simpleLens.js' />"></script>
+        <!-- slick slider -->
+        <script type="text/javascript" src="<c:url value='/js/slick.js' />"></script>
+        <!-- Price picker slider -->
+        <script type="text/javascript" src="<c:url value='/js/nouislider.js' />"></script>
+        <!-- Custom js -->
+        <script src="<c:url value='/js/custom.js' />"></script>
+
+        <script src="<c:url value='/js/luke_js.js' />"></script>
+        <!-- script src="https://code.jquery.com/jquery-3.5.1.min.js"></script-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	
 </head>
 
@@ -51,7 +53,7 @@
 	
 	<c:forEach var="product" items="${ProductList}">
 	
-		<div class="col-sm-4"  style="width:250px; float:right; ">
+		<div class="col-sm-4"  style="width:250px; float:left; ">
 			<div class="panel panel-primary" onclick="location.href = '*'">
 				<div class="panel-heading"  style="height:60px; text-align: center;">${product.productName}</div>
 				<div class="panel-body">

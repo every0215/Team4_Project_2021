@@ -27,12 +27,12 @@ public class StoreServiceImpl implements StoreService {
 	CompanyService cmpService;
 	
 	@Override
-	public List<Store> getAllStoreByCompanyId(Integer id) {
-		boolean chk = cmpService.statusCheck(id);
+	public List<Store> getAllStoreByCompanyId(Integer companyId) {
+		boolean chk = cmpService.statusCheck(companyId);
 		
 		if(chk) {
 			System.out.println("企業上架中");
-			return stoDao.getAllStoreByCompanyId(id);
+			return stoDao.getAllStoreByCompanyId(companyId);
 			
 		}else {
 			return null;
@@ -41,6 +41,7 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public boolean addStore(Store sto) {
+		
 		stoDao.addStore(sto);
 		return true;
 		

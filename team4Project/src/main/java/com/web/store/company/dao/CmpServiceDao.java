@@ -11,5 +11,7 @@ public interface CmpServiceDao {
 	
 	boolean update(CmpService sv);
 	
-	List<CmpService> getAllService();
+	List<CmpService> getAllServiceBycmpId(Integer cmpId);
+	
+	CmpService getCmpsvById(Integer id,Integer cmpId);
 }

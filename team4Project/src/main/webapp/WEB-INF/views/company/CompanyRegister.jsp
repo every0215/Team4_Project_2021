@@ -24,7 +24,7 @@ select option[value="-1"] {
 		<fieldset>
 	<legend >註冊企業資料</legend> 
 	<h1>我是沒登入</h1>
-		<form action="<c:url value='CompanyRegister'/>" method="post" enctype="multipart/form-data">
+		<form action="<c:url value='/company/CompanyRegister'/>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="status" value="true">
 	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
 	<tr>
@@ -86,6 +86,8 @@ select option[value="-1"] {
 	
 			</form>
 </fieldset>
+<br>
+<a href="<c:url value='/'/> " >回主頁</a>
 	
 	
 	
@@ -101,9 +103,9 @@ select option[value="-1"] {
 		<fieldset>
 	<legend >企業資料</legend> 
 	
-		<form action="<c:url value='updateCompany'/>" method="post" enctype="multipart/form-data">
+		<form action="<c:url value='/company/updateCompany'/>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="status" value="true">
-		<input type="hidden" name="id" value="${company.id}">
+		<input type="hidden" name="id" value="${sessionScope.company.id}">
 	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
 	<tr>
 		<td >
@@ -111,16 +113,16 @@ select option[value="-1"] {
 <!-- 			企業編號:<input type="text" name="companyId" /><br/> -->
 <!-- 			<!-- 	設流水號 -->
 			<div style="padding:5px">
-			企業名稱:<input type="text" name="companyName"  autocomplete="off" required="required" value="${company.companyName}"/><br/>
+			企業名稱:<input type="text" name="companyName"  autocomplete="off" required="required" value="${sessionScope.company.companyName}"/><br/>
 			</div>
 			<!-- 	驗證 -->
 			<div style="padding:5px">
-			統一編號:<input type="text" name="uniformNumbers" required="required" value="${company.uniformNumbers}"/><br/>
+			統一編號:<input type="text" name="uniformNumbers" required="required" value="${sessionScope.company.uniformNumbers}"/><br/>
 			</div>
 			<!-- 	驗證 -->
 			<div style="padding:5px">
 			行業類別:<select class="form-control" name="categories" required="required">
-				<option value="-1" selected>${company.categories}</option>
+				<option value="-1" selected>${sessionScope.company.categories}</option>
 				<option value="1">一般服務業</option>
 				<option value="2">批發/零售</option>
 				<option value="3">餐飲服務</option>
@@ -131,24 +133,24 @@ select option[value="-1"] {
 			</div>
 			<!-- 	radio用選的 -->
 			<div style="padding:5px">
-			&emsp;&emsp;帳號:<input type="text" name="account" autocomplete="off" required="required" value="${company.account}"/><br/>
+			&emsp;&emsp;帳號:<input type="text" name="account" autocomplete="off" required="required" value="${sessionScope.company.account}"/><br/>
 			</div>
 			<!-- 	驗證 -->
 			<div style="padding:5px">
-			&emsp;&emsp;密碼:<input type="password" name="password" autocomplete="off" required="required" value="${company.password}"/><br/>
+			&emsp;&emsp;密碼:<input type="password" name="password" autocomplete="off" required="required" value="${sessionScope.company.password}"/><br/>
 			</div>
 			<!-- 	驗證 -->
 			<div style="padding:5px">
-			&emsp;&emsp;信箱:<input type="text" name="email" autocomplete="off" required="required" value="${company.email}"/><br/>
+			&emsp;&emsp;信箱:<input type="text" name="email" autocomplete="off" required="required" value="${sessionScope.company.email}"/><br/>
 			</div>
 			<!-- 	驗證 -->
 			<div style="padding:5px">
-			公司電話:<input type="text" name="phone" required="required" value="${company.phone}"/><br/>
+			公司電話:<input type="text" name="phone" required="required" value="${sessionScope.company.phone}"/><br/>
 			</div>
 			<!-- 	驗證 -->
 	
 		</td>
-		<td style="border:1px solid #64A600;border-radius:10px;padding:10px">${company.logo}
+		<td style="border:1px solid #64A600;border-radius:10px;padding:10px">${sessionScope.company.logo}
 <!-- 			放圖片 -->
 <%-- <img height="300px" src="<c:url value='/getCompanyimage/${Cmp.account}'/>" /> --%>
 			品牌圖示:	
@@ -167,6 +169,8 @@ select option[value="-1"] {
 	
 			</form>
 </fieldset>
+<br>
+<a href="<c:url value='/crm/backOffice'/> " >回前頁</a>
 	
     </c:otherwise>
 </c:choose>
@@ -179,9 +183,8 @@ select option[value="-1"] {
 
 
 
-<br>
-<a href="<c:url value='/views/index'/> " >回前頁</a>
-<a href="<c:url value='/views/index'/>" >測試圖片顯示</a>
+
+<%-- <a href="<c:url value='/views/index'/>" >測試圖片顯示</a> --%>
 
 </body>
 </html>

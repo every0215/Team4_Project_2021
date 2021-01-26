@@ -10,6 +10,8 @@ public interface IPriceDao {
 	
 	void updatePrice(Price price);
 	
+	Price queryPrice(int id);
+	
 	List<Price> queryPriceList();
 	
 	List<Price> select(int eventId);

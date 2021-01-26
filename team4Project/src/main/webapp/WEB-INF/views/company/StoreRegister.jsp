@@ -18,7 +18,7 @@
                  <form:hidden path="id" />
 			</c:if>
 			<fieldset class="fieldset-auto-width">
-				<legend>門市資料</legend>
+				<legend>門市資料${sessionScope.company.id}</legend>
 				<table>
 					<tr>
 						<td align='right'>門市名稱：</td>
@@ -67,7 +67,7 @@
 						<td align='right'>Fex<font size='-3' color='blue'>(yyyy-MM-dd)</font>：
 						</td>
 						<td><form:input path="fex"  type="text" />
-						 <form:hidden path="companyId" value="${company.id}"/>
+<%-- 						 <form:hidden path="company" value="${sessionScope.company}"/> --%>
 						</td>
 					</tr>
 					
@@ -81,7 +81,7 @@
 			</fieldset>
 		</form:form>
 
-<a href="<c:url value='/ShowStore'/> " >回門市管理頁</a>
+<a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
 
 </body>
 </html>

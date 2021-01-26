@@ -147,14 +147,14 @@ public class ProductController {
 //		return "/productShow";
 //	}	
 //-----------	搜尋
-	@GetMapping(value="/ProductSearch/{name}")
-	public String porductSearch(@PathVariable String name,Model model){
-		System.out.println(name);
-		List<Product> list  = pService.selectbyType(name);
+	@GetMapping(value="/ProductSearch/{search}")
+	public String porductSearch(@PathVariable String search,Model model){
+		System.out.println(search);
+		List<Product> list  = pService.selectbyName(search);
 		model.addAttribute("ProductList",list);
-		System.out.println("成功"+name);
+		System.out.println("成功"+search);
 		
-		return "/product/PorductSearch";
+		return "/product/ProductSearch";
 	}	
 	
 //-----------------輸出圖
