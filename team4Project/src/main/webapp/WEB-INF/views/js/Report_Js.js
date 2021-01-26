@@ -130,10 +130,10 @@ $(function(){
 		    });
 		});
 			
-			//Tab8-商品前五名排行(廣告)
-			$("#rep_adv").click(function(){
-			//$("#rep_tab_8,#rep_tab_2,#rep_data").toggle();
-			});
+//			//Tab8-商品前五名排行(廣告)
+//			$("#rep_adv").click(function(){
+//			//$("#rep_tab_8,#rep_tab_2,#rep_data").toggle();
+//			});
 		
 			
 	});
