@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -14,6 +15,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -78,12 +82,31 @@ public class Company  {
 	@Column(name= "Status")
 	private Boolean status =true;//企業的上下架狀態，只有1或0
 	
+	
+	
 	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Campaign> campaigns;
 	
 	@Transient
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="COMPANY", cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="company", cascade=CascadeType.ALL)
 	 private Set<Event> events = new LinkedHashSet<Event>();
+	
+//	@Transient
+	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
+	private Set<Store> stores;
+	
+	@Transient
+	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
+	private Set<CmpService> cmpServiceC;
+	
+//	
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "CompanyService", joinColumns = {
+//            @JoinColumn(name = "CompanyId", referencedColumnName = "Id") }, inverseJoinColumns = {
+//                    @JoinColumn(name = "ServiceId", referencedColumnName = "Id") })	
+//	private Set<CmpService> cmpService = new HashSet<CmpService>();;
+	
+	
 	
 	public Company() {
 		
@@ -287,6 +310,22 @@ public class Company  {
 
 	public void setLogoBase64(String logoBase64)  {
 		this.logoBase64 = logoBase64;
+	}
+
+	public Set<Store> getStores() {
+		return stores;
+	}
+
+	public void setStores(Set<Store> stores) {
+		this.stores = stores;
+	}
+
+	public Set<CmpService> getCmpServiceC() {
+		return cmpServiceC;
+	}
+
+	public void setCmpServiceC(Set<CmpService> cmpServiceC) {
+		this.cmpServiceC = cmpServiceC;
 	}
 	
 	

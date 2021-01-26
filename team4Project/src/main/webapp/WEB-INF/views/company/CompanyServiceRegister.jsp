@@ -14,7 +14,7 @@
 			${respsv}
 			</div>
 		<form action="<c:url value='/company/serviceRegister'/>" method="post" enctype="multipart/form-data">
-<!-- 		<input type="hidden" name="id" value=""> -->
+		<input type="hidden" name="CompanyId" value="${sessionScope.company.id}">
 	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
 	<tr>
 		<td >

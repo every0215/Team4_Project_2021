@@ -41,7 +41,7 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public boolean addStore(Store sto) {
-		System.out.println("Service:"+sto.getCompanyId());
+		
 		stoDao.addStore(sto);
 		return true;
 		

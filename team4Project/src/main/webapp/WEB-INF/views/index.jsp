@@ -1759,57 +1759,8 @@
 <c:import url="/layout/footer" />
 
 
-  <!-- Login Modal -->
-  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4>企業登入</h4>
-          
-          
-          <form class="aa-login-form" action="<c:url value='/company/CompanyLogin' />" method="post">
-<!--           <form class="aa-login-form" action="CompanyLogin" method="post"> -->
-            <label for="">帳號(或Email)<span>*</span></label>
-            <input type="text" name="account" placeholder="Username (or email)" value="familymart">
-            <label for="">密碼<span>*</span></label>
-            <input type="password" name="password" placeholder="Password" value="123">
-            <button class="aa-browse-btn" type="submit" name="enter" >登入</button>
-            <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-            <p class="aa-lost-password"><a href="#">忘記密碼</a></p>
-            <div class="aa-register-now">
-              
-              <a href="<c:url value='/company/CmpRegi' />">企業註冊</a>
-            </div>
-          </form>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div>
 
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.js"></script>
-  <!-- SmartMenus jQuery plugin -->
-  <script type="text/javascript" src="js/jquery.smartmenus.js"></script>
-  <!-- SmartMenus jQuery Bootstrap Addon -->
-  <script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>
-  <!-- To Slider JS -->
-  <script src="js/sequence.js"></script>
-  <script src="js/sequence-theme.modern-slide-in.js"></script>
-  <!-- Product view slider -->
-  <script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
-  <script type="text/javascript" src="js/jquery.simpleLens.js"></script>
-  <!-- slick slider -->
-  <script type="text/javascript" src="js/slick.js"></script>
-  <!-- Price picker slider -->
-  <script type="text/javascript" src="js/nouislider.js"></script>
-  <!-- Custom js -->
-  <script src="js/custom.js"></script>
 
-<!--   自定義js -->
-  <script type="text/javascript" src="js/Carousel.js"></script>
-  <script src="<c:url value='/js/luke_js.js' />"></script> 
+
   </body>
 </html>
