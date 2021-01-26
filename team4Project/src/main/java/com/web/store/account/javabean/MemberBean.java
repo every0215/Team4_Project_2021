@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +15,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,7 +45,17 @@ public class MemberBean implements Serializable {
 	@Column(name="Email")
 	private String email;
 	@Column(name="Password")
-	private String password;
+	private byte[] password;
+	
+	@Transient
+	private String origpwd;
+	
+	@Transient
+	private String pwd;
+	
+	@Transient
+	private String pwd2;
+
 	@Column(name="MobileVerifCode")
 	private String mobileVerifCode;
 	@Column(name="EmailVerifCode")
@@ -60,17 +73,44 @@ public class MemberBean implements Serializable {
 	@JsonIgnore
 	private byte[] profileImage3;
 	
-	@Column(name="Active")
-	private boolean active;
+	@Transient
+	private String profileImage1Base64;
+	@Transient
+	private String profileImage1Path;
+	
+	@Transient
+	private String profileImage2Base64;
+
+	@Transient
+	private String profileImage3Base64;
+	
+	@Column(name="Verified", nullable = false, columnDefinition = "BIT", length = 1)
+	private Boolean verified;
+
+	@Column(name="Active", nullable = false, columnDefinition = "BIT", length = 1)
+	private Boolean active;
+	
 	@Column(name="CreatedDate")
 	private Timestamp createdDate;
 	@Column(name="ModifiedDate")
 	private Timestamp modifiedDate;
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
-	private List<MemberLoginHistory> memberLoginHistory;
+	private Set<MemberLoginHistory> memberLoginHistoryList;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	private Set<MemberCreditCard> memberCreditCardList;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	private Set<MCoinTopUpDetail> mCoinTopupDetailList;
+	
+	@OneToOne(fetch=FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	private MCoin mCoin;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	private Set<MemberSubscription> memberSubscriptionList;
 	
 
-	public MemberBean(String fullname, String nickname,String qid, String email,String password) {
+	public MemberBean(String fullname, String nickname,String qid, String email,byte[] password) {
 		this.fullname = fullname;
 		this.nickname = nickname;
 		this.qid = qid;
@@ -174,15 +214,38 @@ public class MemberBean implements Serializable {
 	}
 
 
-	public String getPassword() {
+	public byte[] getPassword() {
 		return password;
 	}
 
 
-	public void setPassword(String password) {
+	public void setPassword(byte[] password) {
 		this.password = password;
 	}
+	
+	public String getOrigpwd() {
+		return origpwd;
+	}
 
+	public void setOrigpwd(String origpwd) {
+		this.origpwd = origpwd;
+	}
+
+	public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+	
+	public String getPwd2() {
+		return pwd2;
+	}
+
+	public void setPwd2(String pwd2) {
+		this.pwd2 = pwd2;
+	}
 
 	public String getMobileVerifCode() {
 		return mobileVerifCode;
@@ -213,6 +276,14 @@ public class MemberBean implements Serializable {
 		this.profileImage1 = profileImage1;
 	}
 
+	public String getProfileImage1Path() {
+		return profileImage1Path;
+	}
+
+	public void setProfileImage1Path(String profileImage1Path) {
+		this.profileImage1Path = profileImage1Path;
+	}
+
 
 	public byte[] getProfileImage2() {
 		return profileImage2;
@@ -233,14 +304,49 @@ public class MemberBean implements Serializable {
 		this.profileImage3 = profileImage3;
 	}
 
-
-	public boolean isActive() {
-		return active;
+	public String getProfileImage1Base64() {
+		return profileImage1Base64;
 	}
 
+	public void setProfileImage1Base64(String profileImage1Base64) {
+		this.profileImage1Base64 = profileImage1Base64;
+	}
 
-	public void setActive(boolean active) {
+	public String getProfileImage2Base64() {
+		return profileImage2Base64;
+	}
+
+	public void setProfileImage2Base64(String profileImage2Base64) {
+		this.profileImage2Base64 = profileImage2Base64;
+	}
+
+	public String getProfileImage3Base64() {
+		return profileImage3Base64;
+	}
+
+	public void setProfileImage3Base64(String profileImage3Base64) {
+		this.profileImage3Base64 = profileImage3Base64;
+	}
+
+	
+	public Boolean isVerified() {
+		if(verified == null) verified = false;
+		return this.verified;
+	}
+
+	public void setVerified(Boolean verified) {
+		this.verified = verified;
+		if(verified == null) this.verified = false;
+	}
+	
+	public Boolean isActive() {
+		if(active == null) active = false;
+		return this.active;
+	}
+
+	public void setActive(Boolean active) {
 		this.active = active;
+		if(active == null) this.active = false;
 	}
 
 
@@ -263,13 +369,45 @@ public class MemberBean implements Serializable {
 		this.modifiedDate = modifiedDate;
 	}
 	
+	public Set<MemberLoginHistory> getMemberLoginHistoryList() {
+		return memberLoginHistoryList;
+	}
+
+	public void setMemberLoginHistoryList(Set<MemberLoginHistory> memberLoginHistoryList) {
+		this.memberLoginHistoryList = memberLoginHistoryList;
+	}
+
+	public Set<MemberCreditCard> getMemberCreditCardList() {
+		return memberCreditCardList;
+	}
+
+	public void setMemberCreditCardList(Set<MemberCreditCard> memberCreditCardList) {
+		this.memberCreditCardList = memberCreditCardList;
+	}
+
+	public Set<MCoinTopUpDetail> getmCoinTopupDetailList() {
+		return mCoinTopupDetailList;
+	}
+
+	public void setmCoinTopupDetailList(Set<MCoinTopUpDetail> mCoinTopupDetailList) {
+		this.mCoinTopupDetailList = mCoinTopupDetailList;
+	}
+
+	public MCoin getmCoin() {
+		return mCoin;
+	}
+
+	public void setmCoin(MCoin mCoin) {
+		this.mCoin = mCoin;
+	}
+
+	public Set<MemberSubscription> getMemberSubscriptionList() {
+		return memberSubscriptionList;
+	}
+
+	public void setMemberSubscriptionList(Set<MemberSubscription> memberSubscriptionList) {
+		this.memberSubscriptionList = memberSubscriptionList;
+	}
 	
-	public List<MemberLoginHistory> getMemberLoginHistory() {
-		return memberLoginHistory;
-	}
-
-	public void setMemberLoginHistory(List<MemberLoginHistory> memberLoginHistory) {
-		this.memberLoginHistory = memberLoginHistory;
-	}
-
+	
 }

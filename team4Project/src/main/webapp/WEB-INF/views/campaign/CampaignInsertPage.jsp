@@ -76,13 +76,13 @@
         <form id="campForm" action="${pageContext.request.contextPath}/campaign/insert" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">活動名稱:</label>
-                <input type="text" class="form-control need" id="name" name="name" value="" >
+                <input type="text" class="form-control need" id="name" name="name" value="${camp.name}" >
             </div>
 
             <div class="form-group">
                 <label >活動類型:</label>
                 <select name="type" class="form-select need" aria-label="Default select example ">
-                    <option value="0">請選擇</option>
+                    <option value="0">不指定活動類型</option>
                     <option value="1">折扣</option>
                     <option value="2">滿額折</option>
                 </select>
@@ -108,14 +108,14 @@
             
             <div class="form-group">
                 <label for="strdate">開始時間:</label>
-                <input type="date" name="startDate" id="strDate" class="form-control" > 
+                <input type="date" name="startDate" id="strDate" class="form-control"> 
                 <input type="time" name="startTime" class="form-control need" value="00:00">
 
             </div>
 
             <div class="form-group">
                 <label for="usr">結束時間:</label>
-                <input type="date"  id="endDate" name="endDate" class="form-control" value=""> 
+                <input type="date"  id="endDate" name="endDate" class="form-control"> 
                 <input type="time" name="endTime" class="form-control need" value="00:00">
 
             </div>
@@ -140,6 +140,7 @@
             </div>
 
             <div class="form-group">
+            	<img id="picPreview" style="width:100%;height:200px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
                 <label for="fileUpload">活動圖檔:</label>
                 <input class="form-control need" id="fileUpload" name="picture" type="file">
 
@@ -161,14 +162,14 @@
     <script>
         $(function () {
 
-            
-
             setDate(); //將開始日期設定為今天後一天的日期，結束日期為後兩天
+            
+            $("#fileUpload").change(function(){
+               readURL(this); 
+             });
 
             $("#addCamp").click(function (event) {
-               
-               
-               
+                        
                 var isOk = true;//flag
 
                 // 資料驗證區塊------------------------------------------------------------------------------------
@@ -177,11 +178,6 @@
                 $(".need").each(function () {
                     console.log($(this).val())
                     if ($(this).val() == "" || $.trim($(this).val()) == "") {
-                        isOk = false;
-                    }
-
-                    //如果沒有選擇類型
-                    if($("select[name='type'] option").filter(':selected').val()==0){
                         isOk = false;
                     }
                 }) 
@@ -205,13 +201,13 @@
                         cancelButtonText: "取消",
                         confirmButtonText: '确定',
                     }).then(function () {
-                        swal(
-                            '成功新增!',
-                            '您的活動已成功新增',
-                            'success'
-                        );
+                        swal({
+                        	title:'成功新增!',
+                        	text:'您的活動已成功新增',
+                        	type:'success',
+                        });
                         
-                        setTimeout(()=>{$("#campForm").submit()},2000) 
+                        setTimeout(()=>{$("#campForm").submit()},500) 
                         
                     })
 
@@ -229,7 +225,7 @@
                 var paramTemplate = ""; //html模板
 
                 if (choiceVal == 1) {
-                    paramTemplate = "<div class='offField form-group '><label for='comment'>折數:</label><input name='offParam' class='form-control need' type='text' placeholder='幾折'></input></div>";
+                    paramTemplate = "<div class='offField form-group '><label for='comment'>折數:</label><input name='offParam' class='form-control need' type='text' placeholder='1.0、0.9...'></input></div>";
                     $("#paramField").html(paramTemplate);
                 } else if (choiceVal == 2) {
                     paramTemplate = '<div class="upToAmmountFiled form-group "><label for="comment">滿額:</label><input name="amountUpTo" class="form-control need" type="text" placeholder="滿多少元"></input></div><div class="upToAmmountFiled form-group"><label for="comment">折多少:</label><input name="amountOffParam" class="form-control need" type="text" placeholder="折多少元"></input></div>';
@@ -260,7 +256,7 @@
                 $("select[name='type']").trigger("change");
 
                 if(type==1){
-                    $("input[name='offParam']").val(9);
+                    $("input[name='offParam']").val(0.9);
                 }
                 
             });
@@ -269,13 +265,26 @@
             //獲取當前日期
             function setDate () {
                 var strDate = document.querySelector("#strDate");
-                var endDate = document.querySelector("#endDate");                 
-                var today = new Date();
-                console.log(today.toISOString());
-                today.setDate(today.getDate()+1);
-                strDate.value = today.toISOString().substr(0, 10);
-                today.setDate(today.getDate()+1);
-                endDate.value = today.toISOString().substr(0, 10);
+                var endDate = document.querySelector("#endDate"); 
+                if(strDate.value == "" && endDate.value == ""){
+                	console.log(111)
+                	var today = new Date();
+                    console.log(today.toISOString());
+                    today.setDate(today.getDate()+1);
+                    strDate.value = today.toISOString().substr(0, 10);
+                    today.setDate(today.getDate()+1);
+                    endDate.value = today.toISOString().substr(0, 10);
+                }          
+            }
+            
+            function readURL(input){
+            	  if(input.files && input.files[0]){
+            	    var reader = new FileReader();
+            	    reader.onload = function (e) {
+            	       $("#picPreview").attr('src', e.target.result);
+            	    }
+            	    reader.readAsDataURL(input.files[0]);
+            	  }
             }
 
             

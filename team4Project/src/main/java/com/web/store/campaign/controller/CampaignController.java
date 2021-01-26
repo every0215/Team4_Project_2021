@@ -1,5 +1,6 @@
 package com.web.store.campaign.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,15 +8,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.http.HttpResponse;
+import java.sql.Blob;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -25,10 +33,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +49,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.DiscountParams;
+import com.web.store.campaign.model.Page;
+import com.web.store.campaign.model.SearchBean;
 import com.web.store.campaign.service.CampaignService;
+import com.web.store.campaign.validator.SearchValidator;
+import com.web.store.company.model.Company;
+import com.web.store.company.service.CompanyService;
+import com.web.store.product.model.Product;
+import com.web.store.product.service.ProductService;
+import com.web.store.utils.ImgurAPI;
 
 
 
@@ -52,6 +70,10 @@ public class CampaignController {
 	CampaignService campService;
 	@Autowired
 	ServletContext context;
+	@Autowired
+	CompanyService companyService;
+	@Autowired
+	ProductService productService;
 	
 	@GetMapping("/show")
 	public String showAllCamp(Model model) {
@@ -65,6 +87,8 @@ public class CampaignController {
 		campService.deleteById(campId);
 		return "redirect:/CampaignShow";
 	}
+	
+	
 	
 	@PostMapping("/insert")
 	public String insertCamp(@RequestParam String name,
@@ -87,10 +111,106 @@ public class CampaignController {
 
 		Timestamp endDateTimeStamp = Timestamp.valueOf(endDate+" "+endTime+":00");
 		
-		boolean isOk = true;//flag
+		Date date = new Date();
+//		後端驗證區塊↓	
+		HashMap<String,String> errMsg = new HashMap<String,String>();
+		boolean isOk = true;
+//		
+//		
+//		if(StartDateTimeStamp.compareTo(date)<0) {
+//			errMsg.put("startAfterCurrentErr","開始時間不得小於當前時間");
+//			isOk = false;
+//		}
+//		
+//		if(StartDateTimeStamp.compareTo(endDateTimeStamp)>0) {
+//			errMsg.put("startAfterEndErr","結束時間必須大於開始時間");
+//			isOk = false;
+//		}
+//		
+				
+//		後端驗證區塊↑		
 		
 		
+		Timestamp currentTime = new Timestamp(date.getTime());//獲取當前時間的TimeStamp物件
+			
+		//如果為1，是折扣塞入折扣參數
+		//為2是滿額塞入滿額參數
+		DiscountParams discountParams = new DiscountParams();
+		discountParams.setType(type);
 		
+		if(type==1) {
+			discountParams.setOffParam(offParam);
+		}else if(type==2) {		
+			discountParams.setAmountUpTo(amountUpTo);
+			discountParams.setAmountOffParam(amountOffParam);
+		}
+		
+		String picUrl="";
+		if (!picture.isEmpty()) {
+			String originFileName = picture.getOriginalFilename();
+			try {
+				byte[] picBytes = picture.getBytes();
+				picUrl = ImgurAPI.upload(picBytes, originFileName);
+				System.out.println(picUrl);
+			} catch (IOException e) {
+				System.out.println("圖片存取失敗----------------");
+				e.printStackTrace();
+			}
+		}
+
+		Company company = (Company)model.getAttribute("company");
+		Campaign camp = new Campaign(name, picUrl, description, content, StartDateTimeStamp, endDateTimeStamp, launchStatus, false, currentTime, currentTime, company, discountParams);
+		discountParams.setCampaign(camp);
+		camp.setDiscountParams(discountParams);
+		//寫入圖片檔案部分
+
+		
+		try {
+			campService.insert(camp);
+		}catch(Exception e){
+			throw new RuntimeException("新增到資料庫失敗\n"+e.toString());
+		}
+		
+		camp.convertTimestampToString();
+		redirectAttributes.addFlashAttribute("camp", camp);
+		redirectAttributes.addFlashAttribute("isInsert", true);
+		
+		if(!isOk) {
+			return "redirect:/campaign/insertPage";
+		}
+
+		return "redirect:/campaign/campaignAddComfirm";
+		
+	}
+	
+	
+	@PostMapping("/update/{campaignId}")
+	public String updateCamp(@RequestParam String name,
+			@RequestParam String startDate,
+			@RequestParam String startTime,
+			@RequestParam Integer type,
+			@RequestParam(required = false) Double offParam,
+			@RequestParam(required = false) Integer amountUpTo,
+			@RequestParam(required = false) Integer amountOffParam,
+			@RequestParam String endDate,
+			@RequestParam String endTime,
+			@RequestParam Boolean launchStatus,
+			@RequestParam String description,
+			@RequestParam String content,
+			@RequestParam(required = false) MultipartFile picture,
+			@PathVariable Integer campaignId,
+			Model model,
+			RedirectAttributes redirectAttributes ) {
+
+		Timestamp StartDateTimeStamp = Timestamp.valueOf(startDate+" "+startTime+":00");
+		Timestamp endDateTimeStamp = Timestamp.valueOf(endDate+" "+endTime+":00");
+		
+		Campaign campOrigin = campService.getCampaignById(campaignId);
+		Date date = new Date();
+//		後端驗證區塊↓		
+//		boolean isOk = true;
+//		
+//		
 //		if(StartDateTimeStamp.compareTo(date)<0) {
 //			model.addAttribute("timeAfterCurrentErr","開始時間不得小於當前時間");
 //			isOk = false;
@@ -99,78 +219,60 @@ public class CampaignController {
 //			model.addAttribute("startAfterEndErr","結束時間必須大於開始時間");
 //			isOk = false;
 //		}
+//		
+//		if(!isOk) {
+//			return "campaign/CampaignInsertPage";
+//		}
 		
-		if(!isOk) {
-			return "CampaignAdd";
-		}
+//		後端驗證區塊↑	
 		
-		Date date = new Date();
-		Timestamp currentTime = new Timestamp(date.getTime());//獲取當前時間的TimeStamp物件
 		
-		String rootPath = context.getRealPath("/");//取得應用程式檔案系統目錄
-		String uploadFileName = picture.getOriginalFilename();
-		//活動名稱+亂數取得檔案名稱
-		String storeFileName = name+"_"+(int)(2147483647*Math.random())+uploadFileName.substring(uploadFileName.lastIndexOf("."));
-		String picDir = "campaign_Img"; //存放圖片的資料夾
-		String picPath = rootPath + picDir + "/" + storeFileName;//圖片儲存路徑
+		
+		campOrigin.setName(name);
+		campOrigin.setStartDateTime(StartDateTimeStamp);
+		campOrigin.setEndDateTime(endDateTimeStamp);
+		campOrigin.setDescription(description);
+		campOrigin.setLaunchStatus(launchStatus);
+		campOrigin.setContent(content);
+		campOrigin.setUpdateTime(new Timestamp(date.getTime()));
 		
 		//如果為1，是折扣塞入折扣參數
 		//為2是滿額塞入滿額參數
-		DiscountParams discountParams = new DiscountParams();
+		DiscountParams discountParams = campOrigin.getDiscountParams();
 		discountParams.setType(type);
-		if(type==1) {
+		if (type == 1) {
+			System.out.println(offParam);
 			discountParams.setOffParam(offParam);
-		}else if(type==2) {		
+		} else if (type == 2) {
 			discountParams.setAmountUpTo(amountUpTo);
 			discountParams.setAmountOffParam(amountOffParam);
 		}
 		
-		//Company目前是null，之後會從session抓取塞入
-		Campaign camp = new Campaign(name, picPath, description, content, StartDateTimeStamp, endDateTimeStamp, launchStatus, true, currentTime, currentTime, null, discountParams);		
-		discountParams.setCampaign(camp);
+		campOrigin.setDiscountParams(discountParams);
+		discountParams.setCampaign(campOrigin);
 		
-		//寫入圖片檔案部分
-		File dir = new File(rootPath+"/"+picDir);//存在應用程式跟目錄webapp底下
-		if(!dir.exists()) {
-			dir.mkdir();
-		}
-		File pic = new File(dir,storeFileName);
-		try (OutputStream os = new FileOutputStream(pic); 
-				InputStream is = picture.getInputStream()){
-			byte[] buff = new byte[81920];
-			int len = 0;
-			while( (len = is.read(buff))!=-1) {
-				os.write(buff, 0, len);
+		if (!picture.isEmpty()) {
+			String originFileName = picture.getOriginalFilename();
+			try {
+				String picUrl = ImgurAPI.upload(picture.getBytes(), originFileName);
+				campOrigin.setPicturePath(picUrl);
+			} catch (IOException e) {
+				System.out.println("圖片存取失敗----------------");
+				e.printStackTrace();
 			}
-			
-			System.out.println("寫入成功");
-			
-		} catch (IOException e) {
-			throw new RuntimeException("寫入Server失敗"+e.toString());
 		}
+		
 		
 		try {
-			campService.insert(camp);
+			campService.update(campOrigin);
 		}catch(Exception e){
-			throw new RuntimeException("新增到資料庫失敗\n"+e.toString());
+			throw new RuntimeException("更新到資料庫失敗\n"+e.toString());
 		}
 		
-		redirectAttributes.addFlashAttribute("camp", camp);
+		redirectAttributes.addFlashAttribute("camp", campOrigin);
+		redirectAttributes.addFlashAttribute("isUpdate", true);
 		
 		return "redirect:/campaign/campaignAddComfirm";
-		
-	}
-	
-	//取得公司活動單獨頁面資料
-	@GetMapping(value="/getPageByCompany/{companyId}/{page}", produces = {"application/json; charset=UTF-8"})
-	public @ResponseBody Map<String,Object> getPageByCompany(@PathVariable int page,
-																	@PathVariable int companyId) {		
-		Map<String,Object> map = new HashMap<String,Object>();
-		int totalPage = campService.getTotalPageByCompanyId(companyId);
-		List<Campaign> camps = campService.getSinglePageResultByCompayId(page, companyId);
-		map.put("totalPage",totalPage);
-		map.put("page", camps);
-		return map;
 		
 	}
 	
@@ -252,16 +354,185 @@ public class CampaignController {
 	}
 	
 	
-	@GetMapping("/getFirstPageByCompany/{companyId}")
-	public String getFirstPage(@PathVariable int companyId,Model model) {
-		List<Campaign> camps= campService.getSinglePageResultByCompayId(1,companyId);
+	@GetMapping("/boIndex/{pageNum}")
+	public String BoCampaignPage(Model model,
+			@PathVariable int pageNum) {
 		
-		for(Campaign camp:camps) {
-			System.out.println(camp.getName());
+		
+		Page<Campaign> page = new Page<Campaign>();
+		page.setCurrentPage(pageNum);
+		Company company = (Company)model.getAttribute("company");
+		
+		if(company==null) {
+			return "redirect:/";
 		}
 		
-		model.addAttribute("camps", camps);
+		campService.getCampaignPageOfCompany(page,company.getId());
+		List<Campaign> camps = page.getContent();
+		for(Campaign camp:camps) {			
+			camp.isActive();
+		}
+		model.addAttribute("page", page);
 		return "campaign/CampaignShowPage";
 	}
-
+	
+	@GetMapping("/boDetail/{campaignId}")
+	public String boCampaignDeatail(@PathVariable Integer campaignId,Model model) {
+		Campaign camp = campService.getCampaignById(campaignId);
+		model.addAttribute("camp", camp);
+		return "campaign/CampaignAddComfirmPage";
+	}
+	
+	@GetMapping("/ShowUpdatePage/{campaignId}")
+	public String showUpdatePage(@PathVariable int campaignId,Model model) {
+		Campaign camp= campService.getCampaignById(campaignId);
+		camp.convertTimestampToString();
+		model.addAttribute("camp", camp);
+		return "campaign/CampaignUpdatePage";
+	}
+	
+	@GetMapping(value="/searchAjax/{companyId}/{page}",produces = "application/json; charset=UTF-8")
+	public @ResponseBody Page<Campaign> searchCampaignAjax(@ModelAttribute SearchBean search, 
+			@PathVariable int companyId,
+			@PathVariable int page,
+			HttpServletResponse response) {
+		Page<Campaign> pageResult = new Page<Campaign>();
+		search.convertStringToTimestamp();
+		pageResult.setCurrentPage(page);
+		pageResult = campService.searchCampaignOfCompany(companyId, search, pageResult);
+		return pageResult;
+	}
+	
+	@GetMapping(value="/search/{pageNum}")
+	public String searchCampaign(@ModelAttribute SearchBean searchBean	,
+									@PathVariable Integer pageNum,
+									Model model,
+									BindingResult result
+			) {
+		
+		Company company = (Company)model.getAttribute("company");
+		if(company==null) {
+			return "redirect:/";
+		}
+		
+		SearchValidator validator = new SearchValidator();
+		validator.validate(searchBean, result);
+		if(result.hasErrors()) {
+			return "campaign/CampaignShowPage";
+		}
+		Page<Campaign> page = new Page<Campaign>();
+		searchBean.convertStringToTimestamp();
+		page.setCurrentPage(pageNum);
+		page = campService.searchCampaignOfCompany(company.getId(), searchBean, page);
+		List<Campaign> camps = page.getContent();
+		for(Campaign camp:camps) {			
+			camp.isActive();
+		}
+		model.addAttribute("page", page);
+		model.addAttribute("search",searchBean);
+		model.addAttribute("isSearch",true);
+		new String();
+		return "campaign/CampaignShowPage";
+	}
+	
+	
+	
+	@GetMapping("/index")
+	public String campaignUserIndex(Model model) {
+		List<Company> companys = companyService.getAllCompany();
+		for(Company company:companys) {
+			//篩選企業，狀態為false則continue
+			if(company.getStatus()==false) {
+				
+				companys.remove(company);
+				continue;
+				
+			}
+			
+			List<Campaign> camps = campService.getRandomCampaignbyCompany(company.getId(), 3);
+			Set<Campaign> campsSet = new HashSet<Campaign>(camps);
+			company.setCampaigns(campsSet);
+		}
+		model.addAttribute("companys", companys);
+		return "campaign/CampaignIndex";
+	}
+	
+	@GetMapping("/index/{companyId}")
+	public String ComapnyCampaignFP(@PathVariable int companyId,
+			Model model) {
+		Page<Campaign> page = new Page<Campaign>();
+		page.setCurrentPage(1);
+		campService.getActiveCampaignPageByCompany(page,companyId);
+		model.addAttribute("page", page);
+		model.addAttribute("comp", companyService.getCompanyById(companyId));
+		return "/campaign/CampaignOfCompany";
+	}
+	
+	@PostMapping("/companyCampPage/{companyId}")
+	public @ResponseBody Page<Campaign> ComapnyCampaignPage (@ModelAttribute Page<Campaign> page,
+																@PathVariable Integer companyId
+			){
+		campService.getActiveCampaignPageByCompany(page,companyId);
+		for(Campaign camp :page.getContent()) {
+			camp.convertTimestampToString();
+		}
+		return page;
+	}
+	
+	@GetMapping("/getIndexCamp")
+	public @ResponseBody List<Campaign> CampaignOfIndex(){
+		
+		List<Campaign> resultCamps = new ArrayList<Campaign>();//要傳到首頁的活動
+		List<Campaign> AllCamps = campService.getAllCampaign();//全部活動
+		List<Campaign> activeCamp = new ArrayList<Campaign>();//進行中的活動容器
+		
+		//篩選進行中的活動
+		for(Campaign camp:AllCamps) {
+			if(camp.getStatus() && !camp.getExpired()) {
+				activeCamp.add(camp);
+			}
+		}
+		
+		//當活動數量小於6並且進行中得活動大於0則繼續取
+		while(resultCamps.size()<6 && activeCamp.size()>0) {
+			int randomNum = (int)(Math.random()*activeCamp.size());
+			resultCamps.add(activeCamp.get(randomNum));
+			activeCamp.remove(randomNum);//刪除已經取得的活動，避免重複
+		}
+		
+		return resultCamps;
+	}
+	
+	@GetMapping("/detail/{campId}")
+	public String CampDetailPage(@PathVariable Integer campId,
+									Model model
+			) {
+		Campaign camp = campService.getCampaignById(campId);
+		List<Campaign> sideCamps = campService.getRandomCampaignbyCompany(camp.getCompany().getId(), 3);
+		model.addAttribute("camp", camp);
+		model.addAttribute("sideCamps", sideCamps);
+		return "/campaign/CampaignDetailFE";
+	}
+	
+	@GetMapping("/applyPage/{campaignId}")
+	public String applyCampaignPage(Model model, @PathVariable Integer campaignId) {
+		return "campaign/CampaignApplyPage";
+	}
+	
+	@PostMapping("/applyCampaign")
+	public @ResponseBody Map<String,String> applyCampaign(@RequestBody List<Integer> productIds														 
+			){
+		for(int i:productIds) {
+			Product product = productService.getProduct(i);
+		}
+		return null;
+	}
+	
+	@ModelAttribute(name = "searchBean")
+	public SearchBean getSearchbean() {
+		SearchBean searchbean = new SearchBean();
+		searchbean.setStatus(0);
+		return searchbean;
+	}
+	
 }

@@ -28,13 +28,9 @@ public class ViewController {
 		return "campaign/CampaignShowPage";
 	}
 	
-	
-	@ModelAttribute
-	public void getDate(Model model) {
-		Date date = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String dateStr = dateFormat.format(date);
-		model.addAttribute("date",dateStr);//將當前日期傳給前端date表單
+	@GetMapping("/CampaignUpdate")
+	public String CampaigUpdate() {
+		return "campaign/CampaignUpdatePage";
 	}
 	
 }

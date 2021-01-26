@@ -1,6 +1,9 @@
 package com.web.store.company.model;
 
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -15,27 +18,45 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.codec.binary.Base64;
 import org.hibernate.annotations.GeneratorType;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.store.ticket.model.Event;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.store.campaign.model.Campaign;
 
 
 @Entity
 @Table(name="Company")
-public class Company {
+public class Company implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name= "Id")
-	private int Id;
-	@Column(name= "Company")
-	private String company;
+	private Integer id;
+	@Column(name= "CompanyName")
+	private String companyName;
+	
+	
 	@Column(name= "Logo")
+	@JsonIgnore
 	private Blob logo;
+	
+	@Transient
+	private String logoBase64;
+	
+	@Column(name = "logoName")
+	 private String logoName;
+
+	 @Transient
+	 MultipartFile eMultipartFile;
+	 
+	 
 	@Column(name= "UniformNumbers")
 	private String uniformNumbers;
 	@Column(name= "Categories")
-	private String categories;
+	private Integer categories;
 	@Column(name= "Account")
 	private String account;
 	@Column(name= "Password")
@@ -45,119 +66,121 @@ public class Company {
 	@Column(name= "Phone")
 	private String phone;
 	@Column(name= "BusRC")
+	@JsonIgnore
 	private Blob busRC;
+	
+	@Column(name = "busRCName")
+	 private String busRCName;
 
 	@Column(name= "Profiles")
-	private String Profiles;
+	private String profiles;
 	@Column(name= "Status")
-	private boolean Status =true;//企業的上下架狀態，只有1或0
+	private Boolean status =true;//企業的上下架狀態，只有1或0
 	
-	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
+	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Campaign> campaigns;
 	
 	@Transient
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="COMPANY", cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="COMPANY", cascade=CascadeType.ALL)
 	 private Set<Event> events = new LinkedHashSet<Event>();
 	
 	public Company() {
 		
 	}
-	//以下可以先註解掉
-	//以下可以先註解掉
-	//以下可以先註解掉
-	//以下可以先註解掉
-	//以下可以先註解掉
-	//以下可以先註解掉
-	//以下可以先註解掉
 	
+	public Company( Integer id,String companyName, Blob logo, String logoName, String uniformNumbers, Integer categories,
+			String account, String password, String email, String phone, Blob busRC, String busRCName
+			) {
+		super();
+		this.id = id;
+		this.companyName = companyName;
+		this.logo = logo;
+		this.logoName = logoName;
+		this.uniformNumbers = uniformNumbers;
+		this.categories = categories;
+		this.account = account;
+		this.password = password;
+		this.email = email;
+		this.phone = phone;
+		this.busRC = busRC;
+		this.busRCName = busRCName;
+		
+	}
+	public Company( String companyName, Blob logo, String logoName, String uniformNumbers, Integer categories,
+			String account, String password, String email, String phone, Blob busRC, String busRCName
+			) {
+		super();
+		
+		this.companyName = companyName;
+		this.logo = logo;
+		this.logoName = logoName;
+		this.uniformNumbers = uniformNumbers;
+		this.categories = categories;
+		this.account = account;
+		this.password = password;
+		this.email = email;
+		this.phone = phone;
+		this.busRC = busRC;
+		this.busRCName = busRCName;
 	
-	//Query
-//	public Company(int Id, String company, String uniformNumbers, String categories,
-//			String account, String password, String email, String phone, int bankId) {
-//		super();
-//		this.Id = Id;
-//		this.company = company;
-//		
-//		this.uniformNumbers = uniformNumbers;
-//		this.categories = categories;
-//		this.account = account;
-//		this.password = password;
-//		this.email = email;
-//		this.phone = phone;
-//		
-//		this.bankId = bankId;
-//	}
-//	
-//	public Company(String companyName) {
-//		super();
-//		
-//		this.companyName = companyName;
-//	}
-//	
-//	public Company(int companyId, String companyName, Blob logo, String uniformNumbers, String categories,
-//			String account, String password, String email, String phone, Blob busRC, int bankId) {
-//		super();
-//		this.companyId = companyId;
-//		this.companyName = companyName;
-//		this.logo = logo;
-//		this.uniformNumbers = uniformNumbers;
-//		this.categories = categories;
-//		this.account = account;
-//		this.password = password;
-//		this.email = email;
-//		this.phone = phone;
-//		this.busRC = busRC;
-//		this.bankId = bankId;
-//	}
-//
-//	public Company(String companyName, String uniformNumbers, String categories,
-//			String account, String password, String email, String phone, int bankId) {
-//		super();
-//		
-//		this.companyName = companyName;
-//		
-//		this.uniformNumbers = uniformNumbers;
-//		this.categories = categories;
-//		this.account = account;
-//		this.password = password;
-//		this.email = email;
-//		this.phone = phone;
-//		
-//		this.bankId = bankId;
-//	}
-//	//驗證帳密
-//	public Company(	 String password,String account) {
-//		super();
-//		this.account = account;
-//		this.password = password;
-//	}
-////	public CompanyJavabean(String companyName, Blob logo, String uniformNumbers, String categories,
-////			String account, String password, String email, String phone, Blob busRC, int bankId) {
-////		super();
-////		
-////		this.companyName = companyName;
-////		this.logo = logo;
-////		this.uniformNumbers = uniformNumbers;
-////		this.categories = categories;
-////		this.account = account;
-////		this.password = password;
-////		this.email = email;
-////		this.phone = phone;
-////		this.busRC = busRC;
-////		this.bankId = bankId;
-////	}
-	//以上可以先註解
+	}
+	public Company( String companyName, Blob logo, String logoName, String uniformNumbers, Integer categories,
+			String account, String password, String email, String phone, Blob busRC, String busRCName, String profiles,
+			Boolean status) {
+		super();
+		
+		this.companyName = companyName;
+		this.logo = logo;
+		this.logoName = logoName;
+		this.uniformNumbers = uniformNumbers;
+		this.categories = categories;
+		this.account = account;
+		this.password = password;
+		this.email = email;
+		this.phone = phone;
+		this.busRC = busRC;
+		this.busRCName = busRCName;
+		this.profiles = profiles;
+		this.status = status;
+	}
+	public Company(Integer id, String companyName, Blob logo, String logoName, String uniformNumbers, Integer categories,
+			String account, String password, String email, String phone, Blob busRC, String busRCName, String profiles,
+			Boolean status) {
+		super();
+		this.id = id;
+		this.companyName = companyName;
+		this.logo = logo;
+		this.logoName = logoName;
+		this.uniformNumbers = uniformNumbers;
+		this.categories = categories;
+		this.account = account;
+		this.password = password;
+		this.email = email;
+		this.phone = phone;
+		this.busRC = busRC;
+		this.busRCName = busRCName;
+		this.profiles = profiles;
+		this.status = status;
+	}
+	public Company(	String account, String password) {
+		super();
+		
+		this.account = account;
+		this.password = password;
+		
+	}
+
 	public int getId() {
-		return Id;
+		return id;
 	}
-	public void setId(int id) {
-		Id = id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public String getCompany() {
-		return company;
+	public String getCompanyName() {
+		return companyName;
 	}
-	public void setCompany(String company) {
-		this.company = company;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 	public Blob getLogo() {
 		return logo;
@@ -171,10 +194,10 @@ public class Company {
 	public void setUniformNumbers(String uniformNumbers) {
 		this.uniformNumbers = uniformNumbers;
 	}
-	public String getCategories() {
+	public Integer getCategories() {
 		return categories;
 	}
-	public void setCategories(String categories) {
+	public void setCategories(Integer categories) {
 		this.categories = categories;
 	}
 	public String getAccount() {
@@ -209,16 +232,16 @@ public class Company {
 	}
 
 	public String getProfiles() {
-		return Profiles;
+		return profiles;
 	}
 	public void setProfiles(String profiles) {
-		Profiles = profiles;
+		this.profiles = profiles;
 	}
-	public boolean isStatus() {
-		return Status;
+	public Boolean getStatus() {
+		return status;
 	}
-	public void setStatus(boolean status) {
-		Status = status;
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 	public Set<Event> getEvents() {
 		return events;
@@ -226,6 +249,45 @@ public class Company {
 	public void setEvents(Set<Event> events) {
 		this.events = events;
 	}
+	public String getLogoName() {
+		return logoName;
+	}
+	public void setLogoName(String logoName) {
+		this.logoName = logoName;
+	}
+	public MultipartFile geteMultipartFile() {
+		return eMultipartFile;
+	}
+	public void seteMultipartFile(MultipartFile eMultipartFile) {
+		this.eMultipartFile = eMultipartFile;
+	}
+	public String getBusRCName() {
+		return busRCName;
+	}
+	public void setBusRCName(String busRCName) {
+		this.busRCName = busRCName;
+	}
+
+	public Set<Campaign> getCampaigns() {
+		return campaigns;
+	}
+
+	public void setCampaigns(Set<Campaign> campaigns) {
+		this.campaigns = campaigns;
+	}
+
+	public String getLogoBase64() throws SQLException, UnsupportedEncodingException {
+		if(this.logo != null && this.logoBase64 == null) {
+			byte[] encodeBase64 = Base64.encodeBase64(this.logo.getBytes(1, (int) this.logo.length()));
+			this.logoBase64 = new String(encodeBase64, "UTF-8");
+		}
+		return logoBase64;
+	}
+
+	public void setLogoBase64(String logoBase64)  {
+		this.logoBase64 = logoBase64;
+	}
+	
 	
 	
 }

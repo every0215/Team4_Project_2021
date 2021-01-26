@@ -50,7 +50,7 @@ select option[value="0"] {
 			<input type="text" name="eventName" required="required"><br> <br>
 		<label class="t1" for="">賽事地點:</label>
 			<input type="text" name="eventLocation" required="required"><br> <br>
-			<input type="hidden" name="companyId" value="1" />
+			
 		<label class="t1" for="">賽事宣傳圖片:</label>
 			<input id="image_input" type="file" name="eventImage"><br><br>
 
@@ -80,57 +80,31 @@ select option[value="0"] {
 		</select><br> <br> <label class="t1" for="">優惠信用卡:</label> <select
 			name="cardId" id="card" required>
 		</select><br> <br> <label class="t1" for="">信用卡優惠折扣:</label> <input
-			type="text" name="discountRatio" required="required"
-			placeholder="請輸入"><br> <br>
+			type="text" name="discountRatio" required="required" placeholder="ex 0.8 表8折"><br> <br>
 
-		<script>
-	let bankInfo = [
-		  {
-		   name: '中國信託商業銀行',
-		   id: 1,
-		   cardInfo: [{name: 'LINE PAY信用卡',cardId: 1},
-		    		  {name: '中油聯名卡',		cardId: 2},
-		   			  {name: '中信兄弟聯名卡',	cardId: 3},
-		    		  {name: '酷玩卡',			cardId: 4}]
-		  },
-		  {
-		   name: '玉山商業銀行',
-		   id: 2,
-		   cardInfo: [{name: '統一時代悠遊聯名卡',cardId: 5},
-		    		  {name: '臺北南山廣場聯名卡',cardId: 6},
-		    		  {name: '玉山 Pi 拍錢包信用卡',cardId: 7}]
-		  },
-		  {
-			name: '台北富邦商業銀行',
-			id: 3,
-			cardInfo: [{name: '富邦數位生活卡',cardId: 8},
-			 		   {name: 'momo卡',		  cardId: 9},
-			 		   {name: '中信兄弟聯名卡',cardId: 10},
-			 			{name: '酷玩卡',cardId: 11}]
-			},
-			{
-			name: '國泰世華商業銀行',
-			id: 4,
-			cardInfo: [{name: 'KOKO COMBO icash聯名卡',cardId: 12},
-				       {name: '長榮航空聯名卡',cardId: 13},
-				   	   {name: 'Costco聯名卡',cardId: 14}]
-			},
-			{
-			name: '台新國際商業銀行',
-			id: 6,
-			cardInfo: [{name: '@GOGO卡', cardId: 15},
-						{name: 'FlyGo卡',cardId: 16},
-						{name: '玫瑰卡',cardId: 17},
-						{name: '街口聯名卡',cardId: 18}]
-			}
-	]
+<script>
+		
+		$(function(){	
+			$.ajax({
+			    type: 'GET',
+			    url: "/proj/combobox",
+			    data: {todo:"ajaxexample1"}, 
+			    success: function(data){
+			    	bankInfo = data;
+			    	console.log(bankInfo)
+			    }
+			});
+			
+			refreshData();
+		});
+
 	
 	 function renew(index){
-		  const selectedBnak = bankInfo.find(bank => bank.id == index)
-		  const creditCardInfo = selectedBnak.cardInfo
+		  const selectedBank = bankInfo.find(bank => bank.id == index)
+		  const creditCardInfo = selectedBank.cards
 
 		  for (let i = 0; i < creditCardInfo.length; i++)
-		   document.myForm.cardId.options[i] = new Option(creditCardInfo[i].name, creditCardInfo[i].cardId) // 設定新選項
+		   document.myForm.cardId.options[i] = new Option(creditCardInfo[i].cardName, creditCardInfo[i].id) // 設定新選項
 
 		  document.myForm.cardId.length = creditCardInfo.length // 刪除多餘的選項
 
@@ -142,15 +116,15 @@ select option[value="0"] {
 		<table style="width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>
 			<thead>
 				<tr><th rowspan="2"><th colspan="2">內野區</th><th colspan="2">外野區</th></tr>
-				<tr><th>全票</th><th>半票</th><th>全票</th><th>半票</th></tr>
+				<tr><th>A區</th><th>B區</th><th>A區</th><th>B區</th></tr>
 			</thead>
 			<tbody>
 			<tr>
 				<td>票價</td>
-				<td><input type="hidden" name="priceName" value="內野全票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="內野半票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="內野全票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="內野半票" /><input type="text" name="priceCost" required="required"></td>
+				<td><input type="hidden" name="priceName" value="內野A區票" /><input type="text" name="priceCost" required="required"></td>
+				<td><input type="hidden" name="priceName" value="內野B區票" /><input type="text" name="priceCost" required="required"></td>
+				<td><input type="hidden" name="priceName" value="外野A區票" /><input type="text" name="priceCost" required="required"></td>
+				<td><input type="hidden" name="priceName" value="外野B區票" /><input type="text" name="priceCost" required="required"></td>
 			</tr>
 			<tr>
 				<td>座位數</td>
@@ -195,16 +169,12 @@ select option[value="0"] {
             //當dateTime1 onblur時 他會進行一個箭頭函數 箭頭函數內包含checkDateTime函式
             document.getElementById("dateTime1").onblur= () => { checkDateTime('dateTime1', 'datetimesp1') }
         	document.getElementById("dateTime2").onblur= () => { checkDateTime('dateTime2', 'datetimesp2') }
-        	window.onload = function () {
-				getMethod()
-			}
 		</script>
 
 		
-		<a href="../TicketIndex">回主頁</a>
+		
 		<input type="submit" name="sumbmit" id="s1"> 
-		<a href="serviceShowEventServlet.do" class="btn btn-success"
-			role="button">查詢所有票券</a>
 	</form>
+	<a href="../TicketIndex" class="btn btn-success" role="button">回主頁</a>
 </body>
 </html>

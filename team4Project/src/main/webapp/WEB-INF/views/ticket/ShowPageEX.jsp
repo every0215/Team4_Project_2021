@@ -15,33 +15,31 @@
 <div class="jumbotron text-center">
   <h1>E-Ticket票券系統</h1>
 </div>
-<form>
+
 <h2>您輸入的資訊:</h2><br>
 
-<input type="hidden" name="typeId" value="${event.typeId}"/>
 <table style="margin: auto;width: 800px;border:3px #cccccc solid;" cellpadding="10" border='1'>
 <tr><td>序號</td> <td>${event.id}</td></tr>
-<tr><td>種類</td> <td>${event.typeId}</td></tr>
+<tr><td>種類</td> <td>${eventType.typeName}</td></tr>
 <tr><td>名稱</td> <td>${event.eventName}</td></tr>
 <tr><td>地點</td> <td>${event.eventLocation}</td></tr>
 <tr><td>售票期間</td> <td>${exhibition.onSaleDate} ~ ${exhibition.offSaleDate}</td></tr>
 <tr><td>展出期間 </td> <td>${exhibition.commDate} ~ ${exhibition.dueDate}</td></tr>
 <tr><td>展覽介紹</td> <td>${exhibition.description}</td></tr>
-<tr><td>優惠信用卡代碼</td> <td>${exhibition.cardId}</td></tr>
+<tr><td>優惠信用卡</td> <td>${creditCard.cardName}</td></tr>
 <tr><td>優惠信用卡折扣</td> <td>${exhibition.discountRatio}</td></tr>
 </table>
-<br><br>
-
-<img alt="" src="" id="img" width="400px;"><br>
-
+<br>
+<img height="300px" src="<c:url value='/geteventimage/${event.id}'/>" style="display:block; margin:auto;"/>
+<br>
 <table style="margin: auto;width: 800px;border:3px #cccccc solid;" cellpadding="10" border='1'>
 <tr><td>票券名稱</td> <c:forEach var="price" items="${priceList}"><td>${price.name}</td></c:forEach></tr>
 <tr><td>票券價格</td> <c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach></tr>
 </table>
 
 
-<input type="submit" name="sumbmit" value="修改">
-</form>
-<a href="../TicketIndex" class="btn btn-success" role="button">查詢所有票券</a>	
+<a href="../EventUpdate/${event.id}" class="btn btn-success" role="button">修改</a>	
+<a href="../EventDel/${event.id}" class="btn btn-success" role="button">刪除</a>	
+<a href="../TicketIndex" class="btn btn-success" role="button">回主頁</a>
 </body>
 </html>

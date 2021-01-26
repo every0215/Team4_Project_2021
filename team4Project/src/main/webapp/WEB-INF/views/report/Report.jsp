@@ -1,5 +1,4 @@
 <jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -7,14 +6,68 @@
 <head>
 <meta charset="UTF-8">
 <title>Report Management</title>
-<!-- 外掛css Button Styles -->
 
 <!-- 引入的自定義css -->
 <link href="css/styles1.css" rel="stylesheet">
+<!-- 外掛Chart.js cdn -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- 外掛dataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<style>
+/* datatable按鈕 */
+.dataTables_wrapper .dataTables_paginate {
+	float: none;
+}
 
-<!-- Table連動 -->
+div.dt-buttons {
+	position: relative;
+	float: right;
+	margin-top: 5px;
+}
 
+@media ( max-width : 767px) .main-sidebar , . left-side {
+	-ms-transform
+	:
+	 
+	unset
+	;
+	
+    
+	-o-transform
+	:
+	 
+	unset
+	;
+	
 
+}
+</style>
+<!-- li的藍色標籤 -->
+<script>
+	$(function() {
+
+		$("#rep_liaction li").click(function() {
+// 			console.log($(this).hasClass('last-element'));
+			$(".tab-pane").removeClass("active");
+			if ($(this).hasClass('last-element')) {
+// 				$(".tab-pane.tab-2").addClass("active").css("display","inline-block");		
+				$(".tab-pane.tab-2").addClass("active");		
+			} else {
+				$(".tab-pane.tab-1").addClass("active");
+			}
+			$(this).siblings().removeClass("active").end().addClass("active");
+		});
+
+	})
+</script>
 </head>
 <body>
 	<div class="rep_reportarea">
@@ -35,7 +88,7 @@
 						<!-- small box -->
 						<div class="small-box bg-yellow">
 							<div class="inner">
-								<h3>200</h3>
+								<h3>${singlemember}</h3>
 								<p>累計會員數</p>
 							</div>
 							<div class="icon">
@@ -49,7 +102,7 @@
 						<!-- small box -->
 						<div class="small-box bg-green">
 							<div class="inner">
-								<h3>5000萬</h3>
+								<h3>${singlesales}</h3>
 								<p>年度累計銷售金額</p>
 							</div>
 							<div class="icon">
@@ -63,7 +116,7 @@
 						<!-- small box -->
 						<div class="small-box bg-red">
 							<div class="inner">
-								<h3>10</h3>
+								<h3>${singlestore}</h3>
 								<p>目前門市數量</p>
 							</div>
 							<div class="icon">
@@ -77,8 +130,8 @@
 						<!-- small box -->
 						<div class="small-box bg-aqua">
 							<div class="inner">
-								<h3>72</h3>
-								<p>商品項目數量</p>
+								<h3>${queryclass}</h3>
+								<p>已銷售商品項目數量</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-bag"></i>
@@ -89,86 +142,65 @@
 					<!-- /.row -->
 				</div>
 				<!-- Main row -->
-
 				<!-- START CUSTOM TABS選擇區 -->
 				<div class="row">
 					<div class="col-md-8">
 						<!-- Custom Tabs -->
 						<div class="nav-tabs-custom">
-							<ul class="nav nav-tabs">
+							<ul class="nav nav-tabs" id="rep_liaction">
 								<li class="active">
-									<a href="#tab_1" data-toggle="tab">年度各區業績(各店)</a>
+									<a id="queryAreaSales">年度各區業績(各店)</a>
+								</li>
+								<li id="rep_123">
+									<a id="queryProdustClass">年度品類銷售</a>
 								</li>
 								<li>
-									<a href="#tab_2" data-toggle="tab">年度品類銷售</a>
+									<a id="queryActiveSales">年度活動銷售</a>
 								</li>
-								<li>
-									<a href="#tab_3" data-toggle="tab">年度活動銷售</a>
-								</li>
-								<li>
-									<a href="#tab_4" data-toggle="tab">商品前十名排行(廣告)</a>
-								</li>
+
 								<li class="dropdown">
 									<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-										單項項目報表
+										各店項目報表
 										<span class="caret"></span>
 									</a>
 									<ul class="dropdown-menu">
-										<li role="presentation">
-											<a role="menuitem" tabindex="-1" href="#tab_5">各店年度業績</a>
+										<li>
+											<a id="queryAllStoreSales">各店年度業績/折扣</a>
 										</li>
-										<li role="presentation">
-											<a role="menuitem" tabindex="-1" href="#tab_6">各店年度折扣</a>
+										<li>
+											<a id="queryAllActiveSales">各店活動業績</a>
 										</li>
-										<li role="presentation">
-											<a role="menuitem" tabindex="-1" href="#tab_7">各店會員數</a>
+										<li>
+											<a id="queryAllStorePayment">各店付款方式</a>
 										</li>
-										<li role="presentation">
-											<a role="menuitem" tabindex="-1" href="#tab_8">各店無庫存項數</a>
-										</li>
-										<li role="presentation">
-											<a role="menuitem" tabindex="-1" href="#tab_9">各店付款方式</a>
+										<li>
+											<a id="queryAllStoreStock">各店無庫存項數(<5)</a>
+											<!-- 											<a id="ReporyQueryAllData">全部明細</a> -->
 										</li>
 									</ul>
 								</li>
+								<li class='last-element'>
+<!-- 									<a id="rep_adv" href="#rep_tab_8" data-toggle="tab">商品前五名排行(廣告)</a> -->
+									<a id="rep_adv" data-toggle="tab">商品前五名排行(廣告)</a>
+								</li>
 							</ul>
-							<div class="tab-content">
-								<div class="tab-pane active" id="tab_1">
-									<b>How to use:</b>
-									<p>
-										Exactly like the original bootstrap tabs except you should use the custom wrapper
-										<code>.nav-tabs-custom</code>
-										to achieve this style.
-									</p>
-									A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with
-									my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls
-									like mine. I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I
-									neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I
-									never was a greater artist than now.
-								</div>
-								<!-- /.tab-pane -->
-								<div class="tab-pane" id="tab_2">The European languages are members of the same family. Their separate
-									existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in
-									their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be
-									desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform
-									grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language
-									is more simple and regular than that of the individual languages.</div>
-								<!-- /.tab-pane -->
-								<div class="tab-pane" id="tab_3">tab_3</div>
-								<!-- /.tab-pane -->
-								<div class="tab-pane" id="tab_4">tab_4</div>
-								<!-- /.tab-pane -->
-								<div class="tab-pane" id="tab_5">tab_5</div>
-								<!-- /.tab-pane -->
-								<div class="tab-pane" id="tab_6">tab_6</div>
-								<!-- /.tab-pane -->
-								<div class="tab-pane" id="tab_7">tab_7</div>
-								<!-- /.tab-pane -->
-								<div class="tab-pane" id="tab_8">tab_8</div>
-								<!-- /.tab-pane -->
-								<div class="tab-pane" id="tab_9">tab_9</div>
-								<!-- /.tab-pane -->
 
+							<!-- 圖表區 -->
+							<div class="tab-content">
+								<div class="tab-pane tab-1 active" id="rep_tab_1">
+									<div id="rep_tab_2"></div>
+								</div>
+								<!-- 								<div id="chart_container"> -->
+								<%-- 									<canvas id="myChart" width="200px" height="50%"></canvas> --%>
+								<!-- 								</div> -->
+								<div class="tab-pane tab-2" >
+									<div id="rep_tab_8">
+										<jsp:include page="ReportRanking.jsp" flush="true" />
+										<jsp:include page="Report_Adv.jsp" flush="true" />
+									</div>
+								</div>
+
+								<!-- /.tab-pane -->
 							</div>
 							<!-- /.tab-content -->
 						</div>
@@ -176,10 +208,9 @@
 					</div>
 					<!-- /.col -->
 
-
-					<!-- 圖表區 -->
+					<!-- 資料區 -->
 					<!-- Left col -->
-					<div class="col-md-8">
+					<div class="col-md-8" id="rep_data">
 						<!-- MAP & BOX PANE -->
 						<div class="box box-success">
 							<div class="box-header with-border">
@@ -196,128 +227,81 @@
 									<div class="col-md-9 col-sm-8">
 										<div class="pad">
 											<!-- Map will be created here -->
-											<div id="world-map-markers" style="height: 200px;">
+											<div id="world-map-markers">
 												<!-- 資料表區 -->
+												<!-- 全部明細 -->
 												<div>
-													<fieldset class="rep_tabs_db">
+													<fieldset class="rep_tabs_db" " style="height: 170px; margin-bottom: 0px;">
 														<div id="tabs_1">
-															<table class="table table-striped">
-																<thead class="rep_table_font">
-																	<tr>
-																		<th>報表id</th>
-																		<th>公司id</th>
-																		<th>門市id</th>
-																		<th>門市地區</th>
-																		<th>門市名稱</th>
-																		<th>商品類別</th>
-																		<th>商品id</th>
-																		<th>商品名稱</th>
-																		<th>銷售日期</th>
-																		<th>商品定價</th>
-																		<th>商品折扣後價</th>
-																		<th>商品銷售數量</th>
-																		<th>商品庫存數量</th>
-																		<th>付款方式</th>
-																		<th>活動項目</th>
-																		<th>商品狀態</th>
-																	</tr>
-																</thead>
-
-																<tbody class="rep_table_font">
-																	<c:forEach var="lista" items="${list}">
-																		<tr>
-																			<td>${lista.reportid}</td>
-																			<td>${lista.companyid}</td>
-																			<td>${lista.storeid}</td>
-																			<td>${lista.storearea}</td>
-																			<td>${lista.storename}</td>
-																			<td>${lista.productclass}</td>
-																			<td>${lista.productname}</td>
-																			<td>${lista.salesdate}</td>
-																			<td>${lista.salesamount}</td>
-																			<td>${lista.productprice}</td>
-																			<td>${lista.payment}</td>
-																			<td>${lista.activeitem}</td>
-																		</tr>
-																	</c:forEach>
-																</tbody>
+															<table id="rep_table" class="table table-striped" style="margin-bottom: 0px; text-align: center;">
 
 															</table>
-															<span>table1</span>
-														</div>
-<!-- 														<div id="tabs_2"> -->
-<!-- 															<table class="table table-striped"> -->
-<!-- 																<thead class="rep_table_font"> -->
-<!-- 																	<tr> -->
-<!-- 																		<th>報表id</th> -->
-<!-- 																		<th>公司id</th> -->
-<!-- 																		<th>門市id</th> -->
-<!-- 																		<th>門市地區</th> -->
-<!-- 																		<th>門市名稱</th> -->
-<!-- 																		<th>商品類別</th> -->
-<!-- 																		<th>商品id</th> -->
-<!-- 																		<th>商品名稱</th> -->
-<!-- 																		<th>銷售日期</th> -->
-<!-- 																		<th>商品定價</th> -->
-<!-- 																		<th>商品折扣後價</th> -->
-<!-- 																		<th>商品銷售數量</th> -->
-<!-- 																		<th>商品庫存數量</th> -->
-<!-- 																		<th>付款方式</th> -->
-<!-- 																		<th>活動項目</th> -->
-<!-- 																		<th>商品狀態</th> -->
-<!-- 																	</tr> -->
-<!-- 																</thead> -->
 
-<!-- 																<tbody class="rep_table_font"> -->
-<%-- 																	<c:forEach var="lista" items="${list}"> --%>
-<!-- 																		<tr> -->
-<%-- 																			<td>${lista.reportid}</td> --%>
-<%-- 																			<td>${lista.companyid}</td> --%>
-<%-- 																			<td>${lista.storeid}</td> --%>
-<%-- 																			<td>${lista.storearea}</td> --%>
-<%-- 																			<td>${lista.storename}</td> --%>
-<%-- 																			<td>${lista.productclass}</td> --%>
-<%-- 																			<td>${lista.productname}</td> --%>
-<%-- 																			<td>${lista.salesdate}</td> --%>
-<%-- 																			<td>${lista.salesamount}</td> --%>
-<%-- 																			<td>${lista.productprice}</td> --%>
-<%-- 																			<td>${lista.payment}</td> --%>
-<%-- 																			<td>${lista.activeitem}</td> --%>
-<!-- 																		</tr> -->
-<%-- 																	</c:forEach> --%>
-<!-- 																</tbody> -->
-<!-- 															</table> -->
-<!-- 															<span>table2</span> -->
-<!-- 														</div> -->
+														</div>
 													</fieldset>
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
 								<!-- /.row -->
 							</div>
 							<!-- /.box-body -->
-							<div class="rep_downloadbutton">
-								<select>
-									<option value=" ">請選擇下載格式</option>
-									<option value="downloadJson">Json</option>
-									<option value="downloadPDF">PDF</option>
-									<option value="downloadXml">Xml</option>
-								</select>
-								<input type="submit" value="下載">
+							<!-- ↑資料表區截止 -->
 
-							</div>
 						</div>
-						<!-- /.box -->
 					</div>
-					<!-- /.col -->
+					<!-- /.box -->
+				</div>
+				<!-- /.col -->
 			</section>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
 
 	</div>
+
+	<!-- 外掛JS檔-顯示圖與ajax -->
+	<script src="js/Report_Js.js"></script>
+
+	<script type="text/javascript">
+// 		$(function() {
+// 			$("#rep_adv").click(function() {
+// 				console.log("rep_adv")
+// 			})
+// 		});
+
+
+		// 	function codeInsert(){
+		// 		$('#tabs_1 > table').DataTable({
+		// 			defaultStyle: {
+		// 			    font: 'msyh'
+		// 			},
+		// 			scrollY: 120,
+		// 			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
+		// 			buttons: [
+		//             {
+		//                 extend: 'pdfHtml5',
+		//                 title: 'Data export',
+		// 				bom:true
+
+		//             },{
+		//                 extend: 'excelHtml5',
+		//                 title: 'Data export',
+		//                 bom:true
+		//             },
+		//             ,{
+		//                 extend: 'csvHtml5',
+		//                 title: 'Data export',
+		//                 bom:true
+		//             }
+		// 				,'copy'
+
+		//             ],
+		// 		});
+		//	}
+	</script>
+
+
 </body>
 </html>

@@ -6,60 +6,74 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style>
+select option[value="-1"] {
+ display: none;
+}
+</style>
 <title>企業註冊</title>
 </head>
 <body>
-<fieldset>
-	<legend >新增企業資料</legend> 
-		<form action="companyInf" method="post">
+<c:choose>
+
+	<c:when test="${empty company}">
+	
+	
+	
+	
+		<fieldset>
+	<legend >註冊企業資料</legend> 
+	<h1>我是沒登入</h1>
+		<form action="<c:url value='CompanyRegister'/>" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="status" value="true">
 	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
 	<tr>
 		<td >
 <!-- 			企業編號:<input type="text" name="companyId" /><br/> -->
 <!-- 			<!-- 	設流水號 -->
 			<div style="padding:5px">
-			企業名稱:<input type="text" name="companyName"  autocomplete="off"/><br/>
+			企業名稱:<input type="text" name="companyName"  autocomplete="off" required="required" value="歐虧"/><br/>
 			</div>
 			<!-- 	驗證 -->
 			<div style="padding:5px">
-			統一編號:<input type="text" name="uniformNumbers" /><br/>
+			統一編號:<input type="text" name="uniformNumbers" required="required" value="52211110"/><br/>
 			</div>
 			<!-- 	驗證 -->
 			<div style="padding:5px">
-			行業類別:<select class="form-control" name="queryType">
-				<option value="-1" label="請挑選"></option>
-				<option value="service">一般服務業</option>
-				<option value="retail">批發/零售</option>
-				<option value="catering">餐飲服務</option>
-				<option value="travel">旅遊休閒運動</option>
-				<option value="media">大眾傳播</option>
+			行業類別:<select class="form-control" name="categories" required="required">
+				<option value="-1" selected>請挑選</option>
+				<option value="1">一般服務業</option>
+				<option value="2">批發/零售</option>
+				<option value="3">餐飲服務</option>
+				<option value="4">旅遊休閒運動</option>
+				<option value="5">大眾傳播</option>
 			</select>
 			
 			</div>
 			<!-- 	radio用選的 -->
 			<div style="padding:5px">
-			&emsp;&emsp;帳號:<input type="text" name="account" autocomplete="off"/><br/>
+			&emsp;&emsp;帳號:<input type="text" name="account" autocomplete="off" required="required" value="aaa"/><br/>
 			</div>
 			<!-- 	驗證 -->
 			<div style="padding:5px">
-			&emsp;&emsp;密碼:<input type="password" name="password" autocomplete="off"/><br/>
+			&emsp;&emsp;密碼:<input type="password" name="password" autocomplete="off" required="required" value="aaa"/><br/>
 			</div>
 			<!-- 	驗證 -->
 			<div style="padding:5px">
-			&emsp;&emsp;信箱:<input type="text" name="email" autocomplete="off"/><br/>
+			&emsp;&emsp;信箱:<input type="text" name="email" autocomplete="off" required="required" value="aaa@yahoo.com"/><br/>
 			</div>
 			<!-- 	驗證 -->
 			<div style="padding:5px">
-			公司電話:<input type="text" name="phone" /><br/>
+			公司電話:<input type="text" name="phone" required="required" value="0229983849"/><br/>
 			</div>
 			<!-- 	驗證 -->
 	
 		</td>
 		<td style="border:1px solid #64A600;border-radius:10px;padding:10px">
 	
-			品牌圖示:	<input type="file" name="logo" /><br>
+			品牌圖示:	<input type="file" name="brand" value=""/><br>
 			<!-- 	上傳檔案 -->
-			營業登記證:<input type="file" name="busRC" /><br>
+			營業登記證:<input type="file" name="busR" value=""/><br>
 			<!-- 	上傳檔案 -->
 			<hr/>
 
@@ -72,7 +86,102 @@
 	
 			</form>
 </fieldset>
+	
+	
+	
+    </c:when>
+
+
+	<c:otherwise>
+	
+	<h1>我是有登入</h1>
+	
+	
+	
+		<fieldset>
+	<legend >企業資料</legend> 
+	
+		<form action="<c:url value='updateCompany'/>" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="status" value="true">
+		<input type="hidden" name="id" value="${company.id}">
+	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
+	<tr>
+		<td >
+		
+<!-- 			企業編號:<input type="text" name="companyId" /><br/> -->
+<!-- 			<!-- 	設流水號 -->
+			<div style="padding:5px">
+			企業名稱:<input type="text" name="companyName"  autocomplete="off" required="required" value="${company.companyName}"/><br/>
+			</div>
+			<!-- 	驗證 -->
+			<div style="padding:5px">
+			統一編號:<input type="text" name="uniformNumbers" required="required" value="${company.uniformNumbers}"/><br/>
+			</div>
+			<!-- 	驗證 -->
+			<div style="padding:5px">
+			行業類別:<select class="form-control" name="categories" required="required">
+				<option value="-1" selected>${company.categories}</option>
+				<option value="1">一般服務業</option>
+				<option value="2">批發/零售</option>
+				<option value="3">餐飲服務</option>
+				<option value="4">旅遊休閒運動</option>
+				<option value="5">大眾傳播</option>
+			</select>
+			
+			</div>
+			<!-- 	radio用選的 -->
+			<div style="padding:5px">
+			&emsp;&emsp;帳號:<input type="text" name="account" autocomplete="off" required="required" value="${company.account}"/><br/>
+			</div>
+			<!-- 	驗證 -->
+			<div style="padding:5px">
+			&emsp;&emsp;密碼:<input type="password" name="password" autocomplete="off" required="required" value="${company.password}"/><br/>
+			</div>
+			<!-- 	驗證 -->
+			<div style="padding:5px">
+			&emsp;&emsp;信箱:<input type="text" name="email" autocomplete="off" required="required" value="${company.email}"/><br/>
+			</div>
+			<!-- 	驗證 -->
+			<div style="padding:5px">
+			公司電話:<input type="text" name="phone" required="required" value="${company.phone}"/><br/>
+			</div>
+			<!-- 	驗證 -->
+	
+		</td>
+		<td style="border:1px solid #64A600;border-radius:10px;padding:10px">${company.logo}
+<!-- 			放圖片 -->
+<%-- <img height="300px" src="<c:url value='/getCompanyimage/${Cmp.account}'/>" /> --%>
+			品牌圖示:	
+			<input type="file" name="logoA" /><br>
+			<!-- 	上傳檔案 -->
+<!-- 			放圖片 -->
+			營業登記證:<input type="file" name="busRCA" /><br>
+			<!-- 	上傳檔案 -->
+			<hr/>
+		</td>
+	</tr>
+</table>
+				<hr/>
+			<input type="submit" value="修改"/>
+			<input type="reset" value="delete"/>
+	
+			</form>
+</fieldset>
+	
+    </c:otherwise>
+</c:choose>
+
+
+
+
+
+
+
+
+
 <br>
-<a href="<c:url value='/crm/showAllMembers'/> " >回前頁</a>
+<a href="<c:url value='/views/index'/> " >回前頁</a>
+<a href="<c:url value='/views/index'/>" >測試圖片顯示</a>
+
 </body>
 </html>

@@ -3,7 +3,7 @@
         } */
 
         :root {
-            --perPicHeight:400px;
+            --perPicHeight:500px;
         }
 
         .wrapper{
@@ -12,8 +12,7 @@
             height:var(--perPicHeight);
             overflow: hidden;
             margin:150px auto 30px;
-            cursor:pointer;
-            border-radius: 10px;   
+            cursor:pointer; 
         }
         .wrapper ul{
             margin:0;
@@ -26,12 +25,12 @@
             list-style: none;
         }
         ul.slides{
-            width: 500%;
+/*             width: 500%; */
             left: 0px;
             transition: all .5s;
         }
         ul.slides li{
-            width:calc(100%/5);
+/*             width:calc(100%/5); */
             height:var(--perPicHeight);
             overflow: hidden;
             float: left;
@@ -39,7 +38,6 @@
         ul.slides li img{
             width: 100%;
             height: 100%;
-            object-fit: cover;
         }
         .dot{
             bottom:10px;

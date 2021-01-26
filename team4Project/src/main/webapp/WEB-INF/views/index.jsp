@@ -1,55 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Daily Shop | Home</title>
 
-    <!-- Font awesome -->
-    <link href="css/font-awesome.css" rel="stylesheet">
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <!-- SmartMenus jQuery Bootstrap Addon CSS -->
-    <link href="css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
-    <!-- Product view slider -->
-    <link rel="stylesheet" type="text/css" href="css/jquery.simpleLens.css">
-    <!-- slick slider -->
-    <link rel="stylesheet" type="text/css" href="css/slick.css">
-    <!-- price picker slider -->
-    <link rel="stylesheet" type="text/css" href="css/nouislider.css">
-    <!-- Theme color -->
-    <link id="switcher" href="css/theme-color/orange-theme.css" rel="stylesheet">
-    <!-- <link id="switcher" href="css/theme-color/bridge-theme.css" rel="stylesheet"> -->
-    <!-- Top Slider CSS -->
-    <link href="css/sequence-theme.modern-slide-in.css" rel="stylesheet" media="all">
-
-    <!-- Main style sheet -->
-    <link href="css/style.css" rel="stylesheet">
-
-    <!-- Google Font -->
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-<!-- 引入的自定義css -->
-  	<link href="css/carousel.css" rel="stylesheet">
-  	<link href="css/styles1.css" rel="stylesheet" >
-
-  </head>
+<html lang="en" >
+<head> <meta charset="UTF-8"></head>
+   <c:import url="/layout/head" />
   <body>
+<!--   企業登入連結 -->
+<!--   企業登入連結 -->
+<!--   企業登入連結 -->
+<!--   企業登入連結 -->
+ 
+  
    <!-- wpf loader Two -->
     <div id="wpf-loader-two">
       <div class="wpf-loader-two-inner">
@@ -66,15 +31,10 @@
   <!-- Start slider -->
   <section id="aa-slider">
     <div class="wrapper">
-        <ul class="slides">
+        <ul class="slides" id="campContainer">
 
-            <li><a href="1"><img src="img\slider\1.jpg" alt=""></a></li>
-            <li><a href="2"><img src="img\slider\2.jpg" alt=""></a></li>
-            <li><a href="3"><img src="img\slider\3.jpg" alt=""></a></li>
-            <li><a href="4"><img src="img\slider\4.jpg" alt=""></a></li>
-            <li><a href=""><img src="img\slider\5.jpg" alt=""></a></li>
         </ul>
-        <ul class="dot">
+        <ul class="dot" id="dotContainer">
             <li id="1"></li>
             <li id="2"></li>
             <li id="3"></li>
@@ -93,110 +53,112 @@
   <!-- Start Promo section -->
 	<div class="indexclass">
 		<div class="indexclassaa1">
-			<img class="indexclassbb" src="img/indexclass/food1.png" alt="img">
+		<a href="<c:url value="/productShow/保健"/>">
+			<img class="indexclassbb" src="img/indexclass/food13.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>買一送一</span>
 				<h4>
-					<a class="indexclassa" href="#">蔬菜水果-1</a>
+					<a class="indexclassa" href="<c:url value="/productShow/保健"/>">保健</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food2.png" alt="img">
+			<a href="<c:url value="/productShow/泡麵"/>">
+			<img class="indexclassbb" src="img/indexclass/food9.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>早鳥促銷</span>
 				<h4>
-					<a class="indexclassa" href="#">生鮮魚肉-2</a>
+					<a class="indexclassa" href="<c:url value="/productShow/泡麵"/>">泡麵</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food3.png" alt="img">
+			<a href="<c:url value="/productShow/清潔"/>">
+			<img class="indexclassbb" src="img/indexclass/food12.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>全面95折</span>
 				<h4>
-					<a class="indexclassa" href="#">電器3C-3</a>
+					<a class="indexclassa" href="<c:url value="/productShow/清潔"/>">清潔</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food4.png" alt="img">
+			<a href="<c:url value="/productShow/甜點"/>">
+			<img class="indexclassbb" src="img/indexclass/food7.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>20:00後6折</span>
 				<h4>
-					<a class="indexclassa" href="#">烘培輕食-4</a>
+					<a class="indexclassa" href="<c:url value="/productShow/甜點"/>">甜點</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food5.png" alt="img">
+			<a href="<c:url value="/productShow/生鮮"/>">
+			<img class="indexclassbb" src="img/indexclass/food5.png" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>Exclusive Item</span> -->
 				<h4>
-					<a class="indexclassa" href="#">蛋品-5</a>
+					<a class="indexclassa" href="<c:url value="/productShow/生鮮"/>">生鮮</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food6.png" alt="img">
+			<a href="<c:url value="/productShow/調味"/>">
+			<img class="indexclassbb" src="img/indexclass/food8.png" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>Exclusive Item</span> -->
 				<h4>
-					<a class="indexclassa" href="#">冷藏飲品-6</a>
+					<a class="indexclassa" href="<c:url value="/productShow/調味"/>">調味</a>
 				</h4>
 			</div>
 
 		</div>
 
 		<div class="indexclassaa2">
-			<img class="indexclassbb" src="img/indexclass/food7.png" alt="img">
+		<a href="<c:url value="/productShow/零食"/>">
+			<img class="indexclassbb" src="img/indexclass/food11.png" alt="img"></a>
 			<div class="indexclassspan">
 				<span>夏日必選</span>
 				<h4>
-					<a class="indexclassa" href="#">冷凍食品-7</a>
+					<a class="indexclassa" href="<c:url value="/productShow/零食"/>">零食</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food8.png" alt="img">
+			<a href="<c:url value="/productShow/飲料"/>">
+			<img class="indexclassbb" src="img/indexclass/food10.png" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>Exclusive Item</span> -->
 				<h4>
-					<a class="indexclassa" href="#">五穀雜糧-8</a>
+					<a class="indexclassa" href="<c:url value="/productShow/飲料"/>">飲料</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food9.png" alt="img">
+			<a href="<c:url value="/productShow/餐廚"/>">
+			<img class="indexclassbb" src="img/indexclass/food3.png" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>Exclusive Item</span> -->
 				<h4>
-					<a class="indexclassa" href="#">罐頭調味-9</a>
+					<a class="indexclassa" href="<c:url value="/productShow/餐廚"/>">餐廚</a>
 				</h4>
 			</div>
-
-			<img class="indexclassbb" src="img/indexclass/food10.png" alt="img">
+			
+			<img class="indexclassbb" src="img/indexclass/food14.png" alt="img">
 			<div class="indexclassspan">
 				<span>不容錯過</span>
 				<h4>
-					<a class="indexclassa" href="#">活動專區-10</a>
+					<a class="indexclassa" href="#">活動專區</a>
 				</h4>
 			</div>
 
-			<img class="indexclassbb" src="img/indexclass/food11.png" alt="img">
+			<img class="indexclassbb" src="img/indexclass/UpdatedTicket.png" alt="img">
 			<div class="indexclassspan">
 				<span>優惠促銷</span>
 				<h4>
-					<a class="indexclassa" href="#">票券專區-11</a>
+					<a class="indexclassa" href="<c:url value='/CTicketIndex' />">票券專區</a>
 				</h4>
 			</div>
 
-			<img class="indexclassbb" src="img/indexclass/food12.png" alt="img">
+			<img class="indexclassbb" src="<c:url value='/img/indexclass/store1.jpg'/>" alt="img">
 			<div class="indexclassspan">
 <!-- 				<span>當地特色</span> -->
 				<h4>
-					<a class="indexclassa" href="#">各地門市-12</a>
+					<a class="indexclassa" href="#">各地門市</a>
 				</h4>
 			</div>
 
 		</div>
 	</div>
 	<!-- / Promo section -->
-	<a href="<c:url value='/CmpRegi' />">企業註冊</a>
-<%-- 	<c:url value='/CmpRegi' /> --%>
+
+
   <!-- Products section -->
  <section id="aa-product">
     <div class="container">
@@ -227,17 +189,17 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/50" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                              <figcaption>
-                              <h4 class="aa-product-title"><a href="#">來一客</a></h4>
-                              <span class="aa-product-price">$36.00</span><span class="aa-product-price"><del>$39.00</del></span>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">必安住水性噴霧殺蟲劑(600ml)</a></h4>
+                              <span class="aa-product-price">$200.00</span><span class="aa-product-price"><del>$220.00</del></span>
                             </figcaption>
-                          </figure>                        
+                          </figure>                         
                           <div class="aa-product-hvr-content ii">
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                             
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                           </div>
                           <!-- product badge -->
                           <span class="aa-badge aa-sale" href="#">優惠中!</span>
@@ -245,11 +207,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/man/polo-shirt-1.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/41" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">味味A</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">依必朗 防霉抗菌洗衣精補充包 加州橘子 (2000g/瓶)x8包</a></h4>
+                              <span class="aa-product-price">$41.00</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -258,16 +220,16 @@
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
                           <!-- product badge -->
-                           <span class="aa-badge aa-sold-out" href="#">售完</span>
+                           <span class="aa-badge aa-hot" href="#">熱銷</span>
                         </li>
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/man/polo-shirt-1.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/42" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">滿漢全席</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">白蘭 新動力配方洗碗精 清新檸檬 (2.8kg/瓶)x4瓶</a></h4>
+                              <span class="aa-product-price">$582.00</span><span class="aa-product-price"><del>$650.50</del></span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -279,11 +241,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/man/polo-shirt-4.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/43" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">一度讚泡麵</a></h4>
-                              <span class="aa-product-price">$65.00</span><span class="aa-product-price"><del>$55.00</del></span>
+                              <h4 class="aa-product-title"><a href="#">高露潔抗敏感長效防護牙膏-琺瑯質照護120gx2入</a></h4>
+                              <span class="aa-product-price">$238.00</span><span class="aa-product-price"><del>$65.50</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -292,18 +254,19 @@
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
                           <!-- product badge -->
-                          <span class="aa-badge aa-hot" href="#">熱銷</span>
+                          <span class="aa-badge aa-sold-out" href="#">售完</span>
                         </li>
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/man/polo-shirt-5.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/49" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">排骨雞麵</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">毛寶熱水瓶開飲機洗淨劑(25gx3入)x12盒</a></h4>
+                              <span class="aa-product-price">$666.00</span>
                             </figcaption>
-                          </figure>                          
+                          </figure>
+                         
                           <div class="aa-product-hvr-content ii">
                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                             
@@ -313,11 +276,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/man/polo-shirt-6.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/44" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">滿漢全席</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">飛柔薄荷水涼洗髮乳1000ml</a></h4>
+                              <span class="aa-product-price">$249.50</span><span class="aa-product-price"><del>$265.50</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -329,11 +292,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/45" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">滿漢全席</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">蜂膠草本抗菌皂-清新花果香(100gx4入)</a></h4>
+                              <span class="aa-product-price">$333.00</span><span class="aa-product-price"><del>$333.50</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -347,11 +310,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/man/polo-shirt-1.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/46" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">排骨雞麵</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">落建頭皮洗髮露 (400ml/瓶)x6瓶</a></h4>
+                              <span class="aa-product-price">$171.00</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -361,14 +324,15 @@
                           </div>
                           <!-- product badge -->
                            <span class="aa-badge aa-sold-out" href="#">售完</span>
-                        </li>
+                        </li>    
+                        
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-5.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/47" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">澎澎香浴乳-亮澤滋潤型850g</a></h4>
+                              <span class="aa-product-price">$140.0</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -379,11 +343,11 @@
                         </li>
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-5.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/48" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">黑人深潔倍護牙刷(纖柔+圓磨軟毛)9入</a></h4>
+                              <span class="aa-product-price">$351.00</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -391,17 +355,18 @@
                             
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
-                        </li>                        
+                        </li>
                       </ul>
                       <a class="aa-browse-btn" href="#">所有商品 <span class="fa fa-long-arrow-right"></span></a>
                     </div>
-                        <!-- 小七 -->
-                        <!-- 小七 -->
-                        <!-- 小七 -->
-                        <!-- 小七 -->
-                        <!-- 小七 -->
-                        <!-- 小七 -->
-                        <!-- 小七 -->
+                     							
+
+
+                        
+                        
+                        <!-- start single product item -->
+                       
+                   
                     <!-- / men product category -->
                     <!-- start women product category -->
                         <!-- 全家 -->
@@ -1788,96 +1753,8 @@
 <br>
 <br>
 <br>
+<c:import url="/layout/footer" />
 
-<!-- footer -->  
-<footer id="aa-footer">
-  
-    <!-- footer bottom -->
-    <div class="aa-footer-top">
-     <div class="container">
-        <div class="row">
-        <div class="col-md-12">
-          <div class="aa-footer-top-area">
-            <div class="row">
-              <div class="col-md-3 col-sm-6">
-                <div class="aa-footer-widget">
-                  <h3>Main Menu</h3>
-                  <ul class="aa-footer-nav">
-                    <li><a href="#">商品</a></li>
-                    <li><a href="#">活動</a></li>
-                    <li><a href="#">論壇</a></li>
-
-                    
-                  </ul>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="aa-footer-widget">
-                  <div class="aa-footer-widget">
-                    <h3>Company</h3>
-                    <ul class="aa-footer-nav">
-                      <li><a href="#">票卷購買</a></li>
-                      <li><a href="#">合作企業</a></li>
-                      <li><a href="#">廠商登入</a></li>
-                      
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="aa-footer-widget">
-                  <div class="aa-footer-widget">
-                    <h3>customer</h3>
-                    <ul class="aa-footer-nav">
-                      <li><a href="#">我的帳號</a></li>
-                      <li><a href="#">通知</a></li>
-                      <li><a href="#">購物車</a></li>
-                      
-                      
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="aa-footer-widget">
-                  <div class="aa-footer-widget">
-                    <h3>About us</h3>
-                    <ul class="aa-footer-nav">
-                      <li><a href="#">平台資訊</a></li>
-                      <li><a href="#">聯絡我們</a></li>
-                      <li><a href="#">智慧客服</a></li>
-                      
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-     </div>
-    </div>
-    <!-- footer-bottom -->
-    <div class="aa-footer-bottom">
-      <div class="container">
-        <div class="row">
-        <div class="col-md-12">
-          <div class="aa-footer-bottom-area">
-            <p>Designed by Team4</p>
-            <div class="aa-footer-payment">
-              <span class="fa fa-cc-mastercard"></span>
-              <span class="fa fa-cc-visa"></span>
-              <span class="fa fa-paypal"></span>
-              <span class="fa fa-cc-discover"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-  </footer>
-  <!-- / footer -->
 
   <!-- Login Modal -->
   <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -1885,17 +1762,18 @@
       <div class="modal-content">
         <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4>Login or Register</h4>
-          <form class="aa-login-form" action="">
-            <label for="">Username or Email address<span>*</span></label>
-            <input type="text" placeholder="Username or email">
-            <label for="">Password<span>*</span></label>
-            <input type="password" placeholder="Password">
-            <button class="aa-browse-btn" type="submit">Login</button>
+          <h4>企業登入</h4>
+          <form class="aa-login-form" action="CompanyLogin" method="post">
+            <label for="">帳號(或Email)<span>*</span></label>
+            <input type="text" name="account" placeholder="Username (or email)" value="familymart">
+            <label for="">密碼<span>*</span></label>
+            <input type="password" name="password" placeholder="Password" value="123">
+            <button class="aa-browse-btn" type="submit" name="enter" >登入</button>
             <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-            <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+            <p class="aa-lost-password"><a href="#">忘記密碼</a></p>
             <div class="aa-register-now">
-              Don't have an account?<a href="account.html">Register now!</a>
+              
+              <a href="<c:url value='/CmpRegi' />">企業註冊</a>
             </div>
           </form>
         </div>
@@ -1926,6 +1804,6 @@
 
 <!--   自定義js -->
   <script type="text/javascript" src="js/Carousel.js"></script>
-
+  <script src="<c:url value='/js/luke_js.js' />"></script> 
   </body>
 </html>

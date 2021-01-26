@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.web.store.campaign.model.Campaign;
+import com.web.store.campaign.model.Page;
+import com.web.store.campaign.model.SearchBean;
 import com.web.store.company.model.Company;
 
 
@@ -13,8 +15,14 @@ public interface CampaignDao {
 	int insert(Campaign camp);
 	
 	int update(Campaign camp);
+	
+	Page<Campaign> serchCampaignOfCompany(int companyId,SearchBean search,Page<Campaign> page);
 
 	Campaign getCampaignById(int campId);
+	
+	List<Campaign> getRandomCampaignbyCompany(int companyId,int count);
+	
+	Page<Campaign> getActiveCampaignPageByCompany(Page<Campaign> page ,int companyId);
 
 	List<Campaign> getAllCampaign();
 	
@@ -22,13 +30,14 @@ public interface CampaignDao {
 	
 	List<Campaign> getCampaignByLaunchStatus(boolean launchStatus);
 	
-	List<Campaign> getSinglePageResult(int page);
+	Page<Campaign> getPageByCompanyId(Page<Campaign> page,int companyId);
 	
-	List<Campaign> getSinglePageResultByCompanyId(int page,int compayId);	
+	Long getTotalCampCountOfCompany(int companyId);
 	
 	int getTotalPage();
 	
 	int getTotalPageByCompanyId(int id);
 	
 	int deleteById(int id);	
+	
 }

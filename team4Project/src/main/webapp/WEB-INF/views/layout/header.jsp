@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <!-- Start header section -->
   <header id="aa-header">
     <!-- start header top  -->
@@ -16,7 +15,7 @@
                 <div class="aa-language">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      <img src="img/flag/english.jpg" alt="english flag">ENGLISH
+                      <img src="<c:url value='/img/flag/english.jpg' />" alt="english flag">ENGLISH
                       <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -50,11 +49,34 @@
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="account.html">我的帳號</a></li>
+                  <li><a href="<c:url value='/member/dashboard' />">我的帳號</a></li>
                   <li class="hidden-xs"><a href="wishlist.html">通知</a></li>
                   <li class="hidden-xs"><a href="cart.html">購物車</a></li>
-                  <li class="hidden-xs"><a href="checkout.html">註冊</a></li>
-                  <li><a href="" data-toggle="modal" data-target="#login-modal">登入</a></li>
+                  <c:choose>
+                  	<c:when test="${ user == null }" >
+                  		<li class="hidden-xs"><a href="<c:url value='/account/register' />">註冊</a></li>
+                  		<li class="hidden-xs"><a href="<c:url value='/account/login' />">登入</a></li>
+                  		<li><a href="" data-toggle="modal" data-target="#login-modal">企業登入</a></li>
+	                </c:when>
+	                <c:otherwise>
+                  		<li id="userbox" style="width:30px;" ><img alt="img" style="margin-left:10px;margin-right:10px; " width="20" src="data:image/jpeg;base64,${user.profileImage1Base64}"/></li>
+					</c:otherwise>
+				  </c:choose>
+				  <%-- <li><a href="" data-toggle="modal" data-target="#login-modal">登出<c:out value="${sessionScope.LoggedInUser.fullname}"/>${user.fullname}</a></li> --%>
+
+                </ul>
+                <ul id="user-menu" class="usermenu_usermenu" >
+                  <li><a href="/your-work/">Dashboard</a></li>
+                  <li><a href="/lukelin311">個人資訊</a></li>
+                  <li class="UserMenuLinks_sepBefore-2dqSV"><a href="/pen/">訂單一覽</a></li>
+                  <li><a href="/project/">變更密碼</a></li>
+                  <li class="UserMenuLinks_sepAfter-yFrww"><button>New Collection</button></li>
+                  <li><a href="/assets/">Asset Manager</a></li>
+                  <li class="UserMenuLinks_sepAfter-yFrww"><a href="/embed-theme-builder">Embed Theme Builder</a></li>
+                  <li><a href="/accounts/signup">Upgrade to <span class="badge-pro svg BadgePro_svg-3Hmbx badge" data-test-id="pro-badge"><img src="https://cpwebassets.codepen.io/assets/packs/badge-pro-4d863f9a634627f269bdc611cb477b9f.svg" alt="PRO"></span></a></li>
+                  <li><a href="https://blog.codepen.io/documentation/">Documentation</a></li><li class="UserMenuLinks_sepAfter-yFrww"><a href="/support/">Support</a></li>
+                  <li><a href="/settings/"><svg width="20" height="20" class="icon icon-gear"><use xlink:href="/svgs/compiled/svgs.40016ff2.svg#gear"></use></svg>Settings</a></li>
+                  <li><a id="logout" href="<c:url value='/account/logout' />"><svg width="20" height="20" class="icon icon-log-out"><use xlink:href="/svgs/compiled/svgs.40016ff2.svg#log-out"></use></svg>Log Out</a></li>
                 </ul>
               </div>
             </div>
@@ -73,8 +95,8 @@
               <!-- logo  -->
               <div class="aa-logo" >
                 <!-- Text based logo -->
-                <a href="index.html" >
-                  <img src="img/luckycat.png" width="60" style="vertical-align: middle;  float:left;" />
+                <a href="<c:url value='/' />" >
+                  <img src="<c:url value='/img/luckycat.png' />" width="60" style="vertical-align: middle;  float:left;" />
                   <div style="float:left; vertical-align: middle;"><p><strong>滿滿</strong>大 <span>火速購買!!</span></p></div>
                 </a>
                 <!-- img based logo -->
@@ -91,7 +113,7 @@
                 <div class="aa-cartbox-summary">
                   <ul>
                     <li>
-                      <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
+                      <a class="aa-cartbox-img" href="#"><img src="<c:url value='/img/woman-small-2.jpg' />" alt="img"></a>
                       <div class="aa-cartbox-info">
                         <h4><a href="#">Product Name</a></h4>
                         <p>1 x $250</p>
@@ -99,7 +121,7 @@
                       <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
                     </li>
                     <li>
-                      <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg" alt="img"></a>
+                      <a class="aa-cartbox-img" href="#"><img src="<c:url value='/img/woman-small-1.jpg' />" alt="img"></a>
                       <div class="aa-cartbox-info">
                         <h4><a href="#">Product Name</a></h4>
                         <p>1 x $250</p>
@@ -126,7 +148,14 @@
                   <button type="submit"><span class="fa fa-search"></span></button>
                 </form>
               </div>
-              <!-- / search box -->             
+              <!-- / search box -->     
+              <div class="aa-search-box">
+						<span style="color:red;font-weight: bold;">熱銷特賣</span>
+						<span>
+						<c:forEach var="queryproducttopa" items="${queryproducttop}">
+						  <tr><td>&nbsp;&nbsp;<a href="productShow/${queryproducttopa[2]}">${queryproducttopa[0]} </a>&nbsp;&nbsp; <td></tr>
+					</c:forEach></span>	
+              </div>        
             </div>
           </div>
         </div>
@@ -155,91 +184,74 @@
               <li><a href="index.html">關於我們</a></li>
               <li><a href="#">商品 <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>
-                  <li><a href="#">Standard</a></li>                                                
-                  <li><a href="#">T-Shirts</a></li>
-                  <li><a href="#">Shirts</a></li>
-                  <li><a href="#">Jeans</a></li>
-                  <li><a href="#">Trousers</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
+                  <li><a href="<c:url value="/productShow/保健"/>">保健</a></li>
+                  <li><a href="<c:url value="/productShow/泡麵"/>">泡麵</a></li>
+                  <li><a href="<c:url value="/productShow/清潔"/>">清潔</a></li>
+                  <li><a href="<c:url value="/productShow/甜點"/>">甜點</a></li>                                                
+                  <li><a href="<c:url value="/productShow/生鮮"/>">生鮮</a></li>
+                  <li><a href="<c:url value="/productShow/調味"/>">調味</a></li>
+                  <li><a href="<c:url value="/productShow/零食"/>">零食</a></li>
+                  <li><a href="<c:url value="/productShow/飲料"/>">飲料</a></li>
+                  <li><a href="">其他.. <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>                                      
+                      <li><a href="<c:url value="/productShow/餐廚"/>">餐廚</a></li>
+                      
+                                                        
                     </ul>
                   </li>
                 </ul>
               </li>
-              <li><a href="#">活動 <span class="caret"></span></a>
-                <ul class="dropdown-menu">  
-                  <li><a href="#">Kurta & Kurti</a></li>                                                                
-                  <li><a href="#">Trousers</a></li>              
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>                
-                  <li><a href="#">Sarees</a></li>
-                  <li><a href="#">Shoes</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>
-                      <li><a href="#">And more.. <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">Rings</a></li>
-                          <li><a href="#">Earrings</a></li>
-                          <li><a href="#">Jewellery Sets</a></li>
-                          <li><a href="#">Lockets</a></li>
-                          <li class="disabled"><a class="disabled" href="#">Disabled item</a></li>                       
-                          <li><a href="#">Jeans</a></li>
-                          <li><a href="#">Polo T-Shirts</a></li>
-                          <li><a href="#">SKirts</a></li>
-                          <li><a href="#">Jackets</a></li>
-                          <li><a href="#">Tops</a></li>
-                          <li><a href="#">Make Up</a></li>
-                          <li><a href="#">Hair Care</a></li>
-                          <li><a href="#">Perfumes</a></li>
-                          <li><a href="#">Skin Care</a></li>
-                          <li><a href="#">Hand Bags</a></li>
-                          <li><a href="#">Single Bags</a></li>
-                          <li><a href="#">Travel Bags</a></li>
-                          <li><a href="#">Wallets & Belts</a></li>                        
-                          <li><a href="#">Sunglases</a></li>
-                          <li><a href="#">Nail</a></li>                       
-                        </ul>
-                      </li>                   
-                    </ul>
-                  </li>
-                </ul>
+              <li><a href="<c:url value='/campaign/index'/>">活動</a>
+<!--                 <ul class="dropdown-menu">   -->
+<!--                   <li><a href="#">全家</a></li>                                                                 -->
+<!--                   <li><a href="#">萊爾富</a></li>               -->
+<!--                   <li><a href="#">統一超商</a></li> -->
+<!--                   <li><a href="#">Sports</a></li> -->
+<!--                   <li><a href="#">Formal</a></li>                 -->
+<!--                   <li><a href="#">Sarees</a></li> -->
+<!--                   <li><a href="#">Shoes</a></li> -->
+<!--                   <li><a href="#">And more.. <span class="caret"></span></a> -->
+<!--                     <ul class="dropdown-menu"> -->
+<!--                       <li><a href="#">Sleep Wear</a></li> -->
+<!--                       <li><a href="#">Sandals</a></li> -->
+<!--                       <li><a href="#">Loafers</a></li> -->
+<!--                       <li><a href="#">And more.. <span class="caret"></span></a> -->
+<!--                         <ul class="dropdown-menu"> -->
+<!--                           <li><a href="#">Rings</a></li> -->
+<!--                           <li><a href="#">Earrings</a></li> -->
+<!--                           <li><a href="#">Jewellery Sets</a></li> -->
+<!--                           <li><a href="#">Lockets</a></li> -->
+<!--                           <li class="disabled"><a class="disabled" href="#">Disabled item</a></li>                        -->
+<!--                           <li><a href="#">Jeans</a></li> -->
+<!--                           <li><a href="#">Polo T-Shirts</a></li> -->
+<!--                           <li><a href="#">SKirts</a></li> -->
+<!--                           <li><a href="#">Jackets</a></li> -->
+<!--                           <li><a href="#">Tops</a></li> -->
+<!--                           <li><a href="#">Make Up</a></li> -->
+<!--                           <li><a href="#">Hair Care</a></li> -->
+<!--                           <li><a href="#">Perfumes</a></li> -->
+<!--                           <li><a href="#">Skin Care</a></li> -->
+<!--                           <li><a href="#">Hand Bags</a></li> -->
+<!--                           <li><a href="#">Single Bags</a></li> -->
+<!--                           <li><a href="#">Travel Bags</a></li> -->
+<!--                           <li><a href="#">Wallets & Belts</a></li>                         -->
+<!--                           <li><a href="#">Sunglases</a></li> -->
+<!--                           <li><a href="#">Nail</a></li>                        -->
+<!--                         </ul> -->
+<!--                       </li>                    -->
+<!--                     </ul> -->
+<!--                   </li> -->
+<!--                 </ul> -->
               </li>
-              <li><a href="blog-archive.html">論壇 <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="blog-archive.html">Blog Style 1</a></li>
-                  <li><a href="blog-archive-2.html">Blog Style 2</a></li>
-                  <li><a href="blog-single.html">Blog Single</a></li>                
-                </ul>
-              </li>
-              <li><a href="#">合作企業</a></li>      
+              <li><a href="<c:url value='/showCompany' />">合作企業</a></li>      
               <li><a href="contact.html">聯絡我們</a></li>
-              <li><a href="#">票劵購買 <span class="caret"></span></a>
+              <li><a href="<c:url value='/CTicketIndex' />">票劵購買 <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>
-                  <li><a href="#">Standard</a></li>                                                
-                  <li><a href="#">T-Shirts</a></li>
-                  <li><a href="#">Shirts</a></li>
-                  <li><a href="#">Jeans</a></li>
-                  <li><a href="#">Trousers</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>                                      
-                    </ul>
-                  </li>
+                  <li><a href="<c:url value='/TicketType/1'/>">展覽</a></li>
+                  <li><a href="<c:url value='/TicketType/2'/>">樂園與景點</a></li>
+                  <li><a href="<c:url value='/TicketType/3'/>">運動賽事</a></li>
+                 
+                  
                 </ul>
               </li>
               <li><a href="#">智慧客服</a></li>
@@ -259,5 +271,28 @@
         </div>
       </div>       
     </div>
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4>企業登入</h4>
+          <form class="aa-login-form" action="CompanyLogin" method="post">
+            <label for="">帳號(或Email)<span>*</span></label>
+            <input type="text" name="account" placeholder="Username (or email)" value="familymart">
+            <label for="">密碼<span>*</span></label>
+            <input type="password" name="password" placeholder="Password" value="123">
+            <button class="aa-browse-btn" type="submit" name="enter" >登入</button>
+            <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
+            <p class="aa-lost-password"><a href="#">忘記密碼</a></p>
+            <div class="aa-register-now">
+              
+              <a href="<c:url value='/CmpRegi' />">企業註冊</a>
+            </div>
+          </form>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
   </section>
   <!-- / menu -->
