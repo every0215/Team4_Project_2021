@@ -41,10 +41,10 @@
 			<a href="<c:url value='/member/changePassword' />" ><i class="fa fa-globe fa-lg"></i><b>密碼變更</b></a>
 		</li>
 
-		<li><a href="#"> <i class="fa fa-user fa-lg"></i><b>密碼變更</b>
+		<li><a href="<c:url value='/data/CreateMember' />"> <i class="fa fa-user fa-lg"></i><b>Gen會員資料</b>
 		</a></li>
 
-		<li><a href="#"> <i class="fa fa-users fa-lg"></i><b>Users</b>
+		<li><a href="<c:url value='/member/notification' />"> <i class="fa fa-users fa-lg"></i><b>Notification</b>
 		</a></li>
 	</ul>
 </div>

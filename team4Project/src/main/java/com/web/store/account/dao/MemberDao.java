@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.javabean.MemberNotification;
 import com.web.store.account.javabean.MemberSubscription;
 
 public interface MemberDao {
@@ -19,4 +20,6 @@ public interface MemberDao {
 	int updateActive(MemberBean m) throws SQLException;
 	int updatePassword(MemberBean m) throws SQLException;
 	void delete(MemberSubscription memberSubscription);
+	void delete(MemberNotification memberNotification);
+	void delete(MemberBean member);
 }

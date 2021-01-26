@@ -4,9 +4,14 @@
 
 $(document).ready(function() {
 	$("#user-menu").hide();
-
+	$("#UserNotificationBox").hide();
+	
 	$("#userbox").click(function() {
 		$("#user-menu").toggle();
+	});
+
+	$("#UserNotification").click(function() {
+		$("#UserNotificationBox").toggle();
 	});
 
 
