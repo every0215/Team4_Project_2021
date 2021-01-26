@@ -128,9 +128,53 @@ public class ProductController {
 	public String porductAlter(@PathVariable int productId,Model model){
 		Product product  = pService.selectbyid(productId);
 		model.addAttribute("product",product);
-		return "/product/ProductAlter";
+		return "product/ProductAlter";
 
-	}	
+	}
+	@PostMapping(value="/product/productAlter/{productId}")
+	public String porductAlterPost(
+			@PathVariable int productId,
+			@RequestParam String productName,
+			@RequestParam Integer productStuck,
+			@RequestParam Integer productPrice,
+			@RequestParam String productType,			
+			@RequestParam(name = "cName") String comName,						
+			@RequestParam String productDescript,
+			@RequestParam("productimage") MultipartFile pImage,
+			@RequestParam Integer status,
+			
+			SessionStatus sessionStatus,
+			Model model
+			) throws IOException {
+		
+			byte[] pic = pImage.getBytes();
+			
+
+		  try {
+		   //再把Byte[]轉成Blob物件
+		   Blob Pblob = new javax.sql.rowset.serial.SerialBlob(pic);
+		  
+		   //取得logo 的Filename
+		   String picName = pImage.getOriginalFilename();
+		  
+		
+		   //呼叫Service新增到資料庫
+		   Product pb = new Product(productId, Pblob, picName, productName, productType, productDescript, comName, productStuck, productPrice, status);
+		   pService.alterbyid(pb);
+	   
+		  } catch (SerialException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		  } catch (SQLException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		  }
+
+		sessionStatus.setComplete();
+		
+		return "redirect:/ProductIndex";
+
+	}
 //----------------------------------------首頁商品類別		
 	@GetMapping(value="/productShow/{productType}")
 	public String porductShow(@PathVariable String productType,Model model){

@@ -52,7 +52,6 @@
 	</div>
 	
 	<c:forEach var="product" items="${ProductList}">
-	
 		<div class="col-sm-4"  style="width:250px; float:left; ">
 			<div class="panel panel-primary" onclick="location.href = '*'">
 				<div class="panel-heading"  style="height:60px; text-align: center;">${product.productName}</div>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <!DOCTYPE html>
     <html>
 
@@ -23,14 +23,26 @@
             
          
         </style>
+        <script>
+        var i=null;
+        var obj = document.getElementById("DropDownList1");
+        for (i=0; i< obj.options.length; i++)
+        {
+            if (obj.options[i].value == strDefault) // strDefault == 預設值
+            {
+                obj.selectedIndex = i;
+                return;
+            }
+        }
+        </script>
     </head>
 
     <body>
 
         <h3>商品新增</h3>
-        <form  action="<c:url value='alterProduct'/> name="myForm" method="post" enctype="multipart/form-data">
+        <form  name="myForm" method="post" enctype="multipart/form-data">
             <hr />
-
+			
             <label class="t1" >商品名稱:</label>
             <input type="text" name="productName" required="required"><br> <br>
             <label class="t1" >公司名稱:</label>
@@ -45,7 +57,7 @@
             <br> <br>
             <label class="t1" >商品類別:</label>
             
-            <select style="width: 185px" class="t1" name="productType" required="required">
+            <select style="width: 185px" id ="DropDownList1" class="t1" name="productType" required="required">
 				<option value="-1" selected>商品類別</option>
 				<option value="飲料">飲料</option>
 				<option value="泡麵">泡麵</option>
@@ -79,5 +91,5 @@
         </form>
         <a href="../ProductIndex">回商品瀏覽</a>
     </body>
-
+	
     </html>

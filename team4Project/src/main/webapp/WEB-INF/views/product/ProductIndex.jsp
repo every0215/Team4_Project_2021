@@ -1,16 +1,20 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
-<%-- <jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include> --%>
+
 <head>
 <meta charset="UTF-8">
 
 <title>ProductIndex</title>
 
 <title>商品管理</title>
+<link href="css/styles1.css" rel="stylesheet">
+<!-- 外掛Chart.js cdn -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -20,6 +24,7 @@
 <script
 	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
 	</script>
+
 <script>
 		$(document).ready(function() {
 			$('#productlist').DataTable();
@@ -38,7 +43,8 @@ function ProductDelete() {
 
 
 <body>
-
+	<div class="content-wrapper">
+	</div>
 	<h1>商品管理</h1>
 	<br>
 	<div>
