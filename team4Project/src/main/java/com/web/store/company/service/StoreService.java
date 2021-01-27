@@ -19,4 +19,6 @@ public interface StoreService {
 	Store getStoreById(Integer id);
 	
 	void updated(Store sto);
+	
+	boolean combineStoreService(String[] svid,Integer stoid);
 }

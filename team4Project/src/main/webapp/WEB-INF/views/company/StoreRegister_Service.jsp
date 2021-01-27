@@ -20,15 +20,15 @@
     <section class="container">
 <%--     ${sessionScope.company.id} --%>
 	<form action="<c:url value='/company/storeServiceRegister'/>" method="post" enctype="multipart/form-data">
-        <div class="row">
+        <div class="row" >
     	<input type="hidden" name="CompanyId" value="${sessionScope.company.id}">
         <c:forEach var='Cmpsv' items='${CmpsvList}'>
-            <div class="col-sm-6 col-md-3" style="width: 200px; height: 200px">
+            <div class="col-sm-6 col-md-3" style="height:200px;width:200px;display:inline-block; float:left">
                 <div class="thumbnail" style="width: 320px; height: 340px">
                     <div class="caption">
        					<input type="hidden" name="CmpsvId" value="${Cmpsv.id}">
                         <p>
-<%--                         <img height="100px" src="<c:url value='/company/getCompanyServiceImage/${Cmpsv.id}'/>" /> --%>
+                        <img height="100px" src="<c:url value='/company/getCompanyServiceImage/${Cmpsv.id}'/>" />
                         </p>
                         <p>${Cmpsv.spService}</p>
                         <p><input type="checkbox" name="service" value="${Cmpsv.id}"></p>

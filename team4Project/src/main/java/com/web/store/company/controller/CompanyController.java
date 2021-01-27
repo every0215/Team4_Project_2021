@@ -290,7 +290,7 @@ public class CompanyController {
 		
 		if(cmp!= null) {
 //			setCompany(cmp);
-			model.addAttribute("company", cmp);//直接這樣子就可以
+//			model.addAttribute("company", cmp);//直接這樣子就可以
 			//////////////////////////
 
 			session.setAttribute("company", cmp);
@@ -588,8 +588,9 @@ public class CompanyController {
 	public String insertStoreProfiles(
 		@RequestParam Integer cmpid,
 		@RequestParam Integer id,
-		@RequestParam String profiles
-		,HttpSession session
+		@RequestParam String profiles,
+		HttpSession session
+		
 		) {
 		
 		//驗證判斷有無錯誤
@@ -615,7 +616,7 @@ public class CompanyController {
 		}
 		//如果有找到就更新
 		
-		
+		session.setAttribute("tempStoreId", id);
 //		if (sto.getId() != null ) {
 //			stoService.update(sto);
 //		} 
@@ -697,57 +698,14 @@ public class CompanyController {
 			@RequestParam(value="service") String[] id,
 			//Store的Id
 //			@RequestParam(value="Ser")String spService,
-//			HttpSession session,
+			HttpSession session,
 			Model model
 			) throws IOException {
-		Store sto = stoService.getStoreById(1);
-		//把sv的set建出來 公司所select的服務
-		Set<CmpService> set = sto.getCmpServiceS();
-//		Set<CmpService> set = new HashSet<CmpService>();
-		//id is service's id
-		for(String svId : id) {
-			CmpService cmpsv = cmpsvService.getCmpsvBysvId(Integer.valueOf(svId));
-//			Hibernate.initialize(friends);
-			set.add(cmpsv);
-		}
-		//加set到store
-//		sto.setCmpServiceS(set);
-		
-		stoService.updated(sto);
-		
-		System.out.println("新增成功");
-//		Company company=(Company)session.getAttribute("company");
-		System.out.println("接收到的checkbox value:==============================="+id);
-//		/////////////////存圖片轉成Byte陣列////////////////////
-//
-//		//用getBytes方法把上傳的MultipartFile logo 轉成 byte[]
-//		byte[] svB = spServiceImg.getBytes();
-//		
-//
-//		  try {
-//		   //再把Byte[]轉成Blob物件
-//		   Blob svblob = new javax.sql.rowset.serial.SerialBlob(svB);
-//		  
-//		   //取得logo 的Filename
-//		   String svImgName = spServiceImg.getOriginalFilename();
-//		  
-//		   //得到的參數塞到建構子                  Blob物件  Filename
-//		   CmpService cmpsv = new CmpService(spService, svblob, svImgName,company);
-//		   //呼叫Service新增到資料庫
-//		   cmpsvService.addService(cmpsv);
-//		   model.addAttribute("respsv", "新增成功!!!");
-//	   
-//		  } catch (SerialException e) {
-//		   // TODO Auto-generated catch block
-//		   e.printStackTrace();
-//		  } catch (SQLException e) {
-//		   // TODO Auto-generated catch block
-//		   e.printStackTrace();
-//		  }
-		  
-		/////////////////存圖片轉成Byte陣列////////////////////
-		//密碼洩漏問題
-		//有可能抓不到SESSION
+		Integer stoId = (Integer)session.getAttribute("tempStoreId");
+		stoService.combineStoreService( id, stoId);
+		session.removeAttribute("tempStoreId");
+
+
 		return "redirect:/company/storeRegister";
 		
 		

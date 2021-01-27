@@ -153,6 +153,7 @@ public class CompanyDaoImpl implements CompanyDao {
 		String hqlstr = "from Company";
 		Query<Company> queryObj = session.createQuery(hqlstr,Company.class); 			
 		return queryObj.list();	
+		
 	}
 
 	@Override
