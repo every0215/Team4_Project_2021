@@ -149,7 +149,8 @@ $(function(){
 	'rgba(88,201,185,0.8)',	
 	'rgba(81,157,158,0.8)',	
 	'rgba(209,182,225,0.8)',	
-	'rgba(144,85,162,0.8)',	
+	'rgba(144,85,162,0.8)',
+	'rgba(120,60,122,0.8)'	
 	]
 	let coloarArr2 = [
 	'rgba(249,65,68,0.8)',
@@ -411,7 +412,7 @@ $(function(){
 				}),
 			},{
 						
-				backgroundColor : coloarArr2,
+				backgroundColor : coloarArr3,
 				borderWidth : 1,
 				label : '活動總折扣金額',
 				data : datas.map(function(d){
@@ -486,8 +487,9 @@ $(function(){
 					return d[1]
 			}),
 			datasets : [ {
-				
-				backgroundColor : coloarArr1,
+				backgroundColor :datas.map(function(d){
+							return 'rgba('+rand()+','+rand()+','+rand()+',0.8)';
+						}),
 				borderWidth : 1,
 				label : '總業績',
 				data : datas.map(function(d){
@@ -762,7 +764,7 @@ $(function(){
  		let str = `<table><thead class='rep_table_font'>
 				<tr>
 				<th>門市名稱</th>
-				<th>庫存數</th>
+				<th>庫存不足項目數</th>
 			</tr>
 			</thead>
 			<tbody class="rep_table_font">
@@ -807,9 +809,11 @@ $(function(){
 						return d[0]
 				}),
 				datasets :  [{
-					backgroundColor :coloarArr1,
+			backgroundColor :datas.map(function(d){
+							return 'rgba('+rand()+','+rand()+','+rand()+',0.8)';
+						}),
 					borderWidth : 1,
-					label : '總業績',
+					label : '庫存不足項目數',
 					data : datas.map(function(d){
 						return d[1]
 					}),

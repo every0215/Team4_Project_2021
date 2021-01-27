@@ -33,7 +33,7 @@
 				<caption>
 					<span style="font-weight: bolder; font-size: 20px;">廣告精選商品排行榜</span>
 					<span style="display: inline; float: right;">
-						銷售前五名<input type="button" value="匯入" name="queryadddata">
+						<input type="button" value="帶入銷售前五名" name="queryadddata">
 					</span>
 
 				</caption>
@@ -48,12 +48,12 @@
 				<tbody>
 <%-- 					<c:forEach var="#Sto" items="${}"> --%>
 <!-- 						<tr> -->
-<%-- 							<td>${}</td> --%>
-<%-- 							<td>${}</td> --%>
-<%-- 							<td>${}</td> --%>
-<%-- 							<td>${}</td> --%>
-<%-- 							<td>${}</td> --%>
-<!-- 							<td><input type="button" value="修改" name="revisedata"></td> -->
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td><input type="button" value="修改" name="revisedata"></td>
 				</tbody>
 			</table>
 		</form>

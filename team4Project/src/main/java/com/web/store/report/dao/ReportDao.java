@@ -39,12 +39,11 @@ public interface ReportDao {
 	List<Report> queryAllStoreStock(int companyid);
 	//Tab8-商品前五名排行
 	List<Report> queryProductRanking(int companyid);
-	//新增廣告排行榜商品
-	void insert(Report report);
+	
+
 	//修改廣告排行榜商品
 	void update(Report report);
-	//刪除廣告排行榜商品
-	void delete(int reportid);
+
 	
 	//查詢前五名商品
 	List<Report> queryProductTop();

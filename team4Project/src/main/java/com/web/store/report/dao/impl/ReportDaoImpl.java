@@ -189,11 +189,7 @@ public class ReportDaoImpl implements ReportDao {
 
 		return null;
 	}
-	// 新增廣告排行榜商品
-	@Override
-	public void insert(Report report) {
 
-	}
 
 	// 修改廣告排行榜商品
 	@Override
@@ -201,11 +197,7 @@ public class ReportDaoImpl implements ReportDao {
 
 	}
 
-	// 刪除廣告排行榜商品
-	@Override
-	public void delete(int reportid) {
 
-	}
 
 	//查詢前五名商品
 	@SuppressWarnings("unchecked")

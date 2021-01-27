@@ -107,24 +107,14 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.queryProductRanking(companyid);
 	}
 
-	//新增廣告排行榜商品
-	@Override
-	public void insert(Report report) {
-		reportDao.insert(report);
 
-	}
 	//修改廣告排行榜商品
 	@Override
 	public void update(Report report) {
 		reportDao.update(report);
 
 	}
-	//刪除廣告排行榜商品
-	@Override
-	public void delete(int reportid) {
-		reportDao.delete(reportid);
 
-	}
 	
 	//查詢前五名商品
 	@Override

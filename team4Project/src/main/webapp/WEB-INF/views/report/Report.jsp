@@ -59,9 +59,11 @@ div.dt-buttons {
 			$(".tab-pane").removeClass("active");
 			if ($(this).hasClass('last-element')) {
 // 				$(".tab-pane.tab-2").addClass("active").css("display","inline-block");		
-				$(".tab-pane.tab-2").addClass("active");		
+				$(".tab-pane.tab-2").addClass("active");
+				$("#rep_data").hide();
 			} else {
 				$(".tab-pane.tab-1").addClass("active");
+				$("#rep_data").show();
 			}
 			$(this).siblings().removeClass("active").end().addClass("active");
 		});
@@ -174,7 +176,7 @@ div.dt-buttons {
 											<a id="queryAllStorePayment">各店付款方式</a>
 										</li>
 										<li>
-											<a id="queryAllStoreStock">各店無庫存項數(<5)</a>
+											<a id="queryAllStoreStock">各店無庫存項數(<10)</a>
 											<!-- 											<a id="ReporyQueryAllData">全部明細</a> -->
 										</li>
 									</ul>

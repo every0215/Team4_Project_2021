@@ -149,9 +149,9 @@
                 </form>
               </div>
               <!-- / search box -->     
-              <div class="aa-search-box">
+              <div class="aa-search-box" style="white-space: nowrap; overflow: hidden;">
 						<span style="color:red;font-weight: bold;">熱銷特賣</span>
-						<span>
+						<span >
 						<c:forEach var="queryproducttopa" items="${queryproducttop}">
 						  <tr><td>&nbsp;&nbsp;<a href="productShow/${queryproducttopa[2]}">${queryproducttopa[0]} </a>&nbsp;&nbsp; <td></tr>
 					</c:forEach></span>	
