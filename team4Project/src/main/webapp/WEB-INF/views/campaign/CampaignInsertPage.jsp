@@ -50,6 +50,7 @@
         }
 
     </style>
+	
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
 
