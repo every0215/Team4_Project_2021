@@ -39,6 +39,8 @@ public interface CompanyDao {
 	//驗證上架狀態
 	boolean statusCheck(Integer id);
 	
+	boolean updateProfiles(Integer id,String profiles);
+	
 	/////////////////////後台功能////////////////////////
 	
 //	簡介修改 特定Service新增

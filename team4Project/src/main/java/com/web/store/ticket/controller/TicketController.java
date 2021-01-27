@@ -5,15 +5,20 @@ import java.util.List;
 import java.util.Random;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.web.store.account.javabean.MemberBean;
 import com.web.store.company.model.Company;
 import com.web.store.ticket.model.Attraction;
 import com.web.store.ticket.model.CreditCard;
@@ -28,7 +33,7 @@ import com.web.store.ticket.service.BackendService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
-@SessionAttributes(names = {"member"}) ////存取session屬性
+//@SessionAttributes(names = {"member"}) ////存取session屬性
 public class TicketController {
 	@Autowired
 	BackendService backendService;
@@ -36,9 +41,56 @@ public class TicketController {
 	@Autowired
 	ServletContext context;
 	
+	@PostMapping("/TicketBuy/{eventId}")
+	public String buyTicket(@PathVariable int eventId,
+			@RequestParam(value="sessionId",required=false) Integer sessionId, 
+			Model model,HttpSession session,RedirectAttributes ra
+			) {
+		String s="";
+		MemberBean member = (MemberBean) session.getAttribute("currentUser");
+		if(member==null) {
+			s="redirect:/account/login";
+		}else {
+			Event event = backendService.queryOneEvent(eventId);
+			Company company = backendService.queryCompany(event.getCompanyId());
+			model.addAttribute("event", event);
+			model.addAttribute("company", company);
+			if(event.getTypeId()==1) {
+				//這是exhibition
+				Exhibition exhibition = backendService.selectExhibitionByEvent(eventId);
+				List<Price> priceList = backendService.selectPriceList(eventId);
+				CreditCard creditCard = backendService.queryCreditCard(exhibition.getCardId());
+				model.addAttribute("exhibition", exhibition);
+				model.addAttribute("priceList", priceList);
+				model.addAttribute("creditCard", creditCard);
+			}else if(event.getTypeId()==2) {
+				//這是attraction
+				Attraction attraction = backendService.selectAttractionByEvent(eventId);
+				List<Price> priceList = backendService.selectPriceList(eventId);
+				model.addAttribute("attraction", attraction);
+				model.addAttribute("priceList", priceList);
+			}else {
+				Sport sport = backendService.selectSportByEvent(eventId);
+				List<Price> priceList = backendService.selectPriceListBySessionId(sessionId);
+				List<SportSeat> seatList = backendService.selectSportSeatBySession(sessionId);
+				CreditCard creditCard = backendService.queryCreditCard(sport.getCardId());
+				model.addAttribute("sport", sport);
+				model.addAttribute("priceList", priceList);
+				model.addAttribute("seatList", seatList);
+				model.addAttribute("creditCard", creditCard);
+			}
+			
+			s="/ticket/CTicketBuy";
+			
+		}
+
+		return s;
+		
+	}
+	
 	
 	@GetMapping(value="CTicketIndex")
-	public String CTestTicketIndex(
+	public String CTicketIndex(
 			Model model
 			) {
 		ArrayList<Event> smallexhibtion = new ArrayList<>();

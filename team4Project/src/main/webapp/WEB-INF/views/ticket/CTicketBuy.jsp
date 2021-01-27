@@ -4,11 +4,21 @@
       <!DOCTYPE html>
       <html lang="en">
       <c:import url="/layout/head" />
+      <link rel="stylesheet" href="https://code.jquery.com/ui/jquery-ui-git.css">
       <style>
-        .more-link {
-          padding-right: 15px;
+     	.ticket-info-title{
+     	 text-align:left;
+     	}
+        .panel-body{
+          border:5px #ffffff solid;
+          border-radius: 5px;
+          padding:3px;
+          box-shadow:0px 0px 9px #FF7575;
+          
         }
-
+        .more-link{
+          padding-right:15px;
+        }
         .search-bar {
           clear: both;
           padding: 10px;
@@ -43,6 +53,7 @@
           border-right: 9999px solid #ccc;
           padding: 0 10px;
         }
+        
       </style>
 
       <body>
@@ -68,10 +79,7 @@
         </div>
 
         <!-- 購買票券主頁面START -->
-        
-            
-            
-        <div class="ticket-content">
+        <div class="ticket-content" style="margin-bottom:10px">
           <div class="side-bar well" style="height:600px;width:170px">
             <div class="well">
               <p>票券種類</p>
@@ -86,77 +94,116 @@
               <p><a href="<c:url value='/TicketCompany/2'/>">萊爾富</a></p>
             </div>
           </div>
-
-
+  
+  
           <div class="container text-center">
-          <!-- 第一行 -->
-            <div class="sub-title">
-              <span class="inner">
-              	<c:if test="${queryType==1}">
-              		${company.companyName}
-              	</c:if>
-              	<c:if test="${queryType==2}">
-              		${eventType.typeName}
-              	</c:if>
-              
-              </span>
-            </div>
-            <div class="row" style="height:330px">
+           <div class="ticket-info">
+           <div class="panel-body">
+           
+           <p style="text-align:left;font-size:20px;">${event.eventName}</p>
+           <p style="text-align:left">經銷便利店:${company.companyName}</p>
+           <p style="text-align:left">場地/地區:${event.eventLocation}</p>
+           
+           <c:choose>
+             <c:when test="${event.typeId==1}">
+             
+             <p style="text-align:left">展出期間:${exhibition.commDate}~${exhibition.dueDate}</p>
+             <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${exhibition.discountRatio*10}折</p>
+             <p style="text-align:left;font-size:13px">*若購買卡友優惠票，僅能使用指定信用卡結帳</p>
+             </c:when>
+             <c:when test="${event.typeId==2}">
+             
+             <p style="text-align:left">票券有效期:${attraction.commDate}~${attraction.dueDate}</p>
+             </c:when>
+            <c:otherwise>
+            
+            <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
+            </c:otherwise>
+            </c:choose>
+            <c:if test="${event.typeId==1}">    
+            		<form action="<c:url value='/TicketBuy/${eventId}'/>" method="post">
+            			<input type="hidden" name="eventId" value="${event.id}" />
+            			
+            			<button type="submit" class="btn btn-info">NEXT</button>
+            		</form>       
+        </c:if>
+           </div>
+				 <div id="accordion" class="ticket-info-title">
+				 
+				 
+				 
+	    <h4>數量與金額</h4>
+        <div>
+            <c:choose>
+             	<c:when test="${event.typeId==1}">
+             		<label class="t1" for="">優惠選擇:</label>
+				<select name="discount" id="discount" required>
+					<option value="0" selected>無</option>
+					<option value="1">指定信用卡優惠</option>			
+				</select>
+             	<table style="cellpadding:'10px'; border:3px #ffffff solid">
+             	
+             		<thead><tr><td>票券名稱</td><td>價格</td><td>數量</td><td>金額</td></tr></thead>
+             		<tbody>
+             		<c:forEach var="price" items="${priceList}" varStatus="status">
+             			<tr>
+             				<td>${price.name}</td>
+             				<td class="cost" priceId="${price.id}">${price.cost}</td>
+             				<td>
+        					<input type="text" 
+		        					class="spinner"
+		        					target="subtotal-${price.id}" 
+		        					name="${price.id}" 
+		        					price="${price.cost}"
+		        					style="width: 20px;height:18px"/>
+        					</td>
+        					<td name="subtotal-${price.id}" class="subtotal">0</td>
+             			</tr>
+             		</c:forEach>
+             		<tr ><td colspan="3">總價</td><td id="totalAmount" name="totalAmount">0</td></tr>
+             		</tbody>
+             	
+             	</table>
 
-              <c:forEach var="event" items="${events}" begin="1" end="${totalCount>9?9:totalCount}" varStatus="status">
-                  <div class="col-sm-4">
-                    <div class="panel panel-primary" onclick="location.href = '../TicketShow/${event.id}'" >
-                    	<div class="panel-heading">${event.eventName}</div>
-                    	<div class="panel-body">
-                      		<img src='../geteventimage/${event.id}' class="img-responsive" style="width:100%;height:164px" alt="${event.eventName}" />
-                    	</div>
-                    <div class="panel-footer" style="text-align:left;font-size:13px">
-                    <img height="15px" src='../getCompanyimage/${event.companyId}' />
-                      &nbsp;售票期間:
-                      <c:choose>
-                        <c:when test="${event.typeId==1}">
-                          ${event.exhibition.onSaleDate.toString().substring(0,
-                          16)}~${event.exhibition.offSaleDate.toString().substring(0, 16)}
-                        </c:when>
-                        <c:when test="${event.typeId==2}">
-                          ${event.attraction.onSaleDate.toString().substring(0,
-                          16)}~${event.attraction.offSaleDate.toString().substring(0, 16)}
-                        </c:when>
-                        <c:otherwise>
-                          ${event.sport.onSaleDate.toString().substring(0,
-                          16)}~${event.sport.offSaleDate.toString().substring(0, 16)}
-                        </c:otherwise>
-                      </c:choose>
-                    </div>
-                  </div>
-                </div>
-                <c:if test="${(status.count%3==0) && !(status.last)}">
-                  </div>
-                  <div class="row" style="height:330px">
-                </c:if>
-              </c:forEach>
-              
-              
-            </div>
-            <c:if test="${totalCount>9}">
-              
-              <div class="more-link">
-                <a id="showMoreEvent" class="btn btn-info" role="button" style="float:right">
-                	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
-                    <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
-                  </svg>&nbsp;&nbsp;See More
-                </a>
-              </div>
-              
-              </c:if>
-            <br>
-            <br>
-            <br>
+             	</c:when>
+             	<c:when test="${event.typeId==2}">
+             		<c:forEach var="price" items="${priceList}" varStatus="status">
+             			<p>${price.name}:${price.cost}元</p>
+             		</c:forEach>
+             	</c:when>
+             	
+             	
+             	
+             	
+             	
+            	<c:otherwise>
+            <table style="margin: auto;width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>
+			<thead>
+				<tr><th colspan="5">票價表:</th></tr>
+				<tr><th rowspan="2"><th colspan="2">內野區</th><th colspan="2">外野區</th></tr>
+				<tr><th>A區</th><th>B區</th><th>A區</th><th>B區</th></tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>原價</td>
+				<c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach>
+			</tr>
+			<tr>
+				<td>信用卡優惠價</td>
+				<c:forEach var="price" items="${priceList}"><td>${price.cost*sport.discountRatio}</td></c:forEach>
+			</tr>
+			</tbody>
+		</table>
+            </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+           </div>
           </div>
         </div>
         
-        
+
+
 
 
 
@@ -282,59 +329,84 @@
         <script src="<c:url value='/js/custom.js' />"></script>
 
         <script src="<c:url value='/js/luke_js.js' />"></script>
-        <script>
-        function toDateStr(date){
-        	return date.getFullYear()
-        	+ '-' +('' + (date.getMonth()+1)).padStart(2,0)
-        	+ '-' +('' + date.getDate()).padStart(2,0)
-        	+ ' ' +('' + date.getHours()).padStart(2,0)
-        	+ ':' +('' + date.getMinutes()).padStart(2,0);
-        }
-        function eventToHtmlStr(event){
-        	let activity = {};
-        	activity = event.sport ? event.sport : activity;
-   			activity = event.exhibition ? event.exhibition : activity;
-   			activity = event.attraction ? event.attraction : activity;
-        	return `<div class="col-sm-4">
-		            <div class="panel panel-primary" onclick="location.href = '../TicketShow/\${event.id}'">
-		        	<div class="panel-heading">\${event.eventName}</div>
-		        	<div class="panel-body">
-		          		<img src="../geteventimage/\${event.id}" class="img-responsive" style="width:100%;height:164px" alt="\${event.eventName}">
-		        	</div>
-		        <div class="panel-footer" style="text-align:left;font-size:13px">
-		        <img height="15px" src="../getCompanyimage/\${event.companyId}">
-		          &nbsp;售票期間:
-		              \${toDateStr(new Date(activity.onSaleDate))}~\${toDateStr(new Date(activity.offSaleDate))}
-		        </div>
-		      </div>
-		    </div>`;
-        }
-        let events = ${eventsJSON};
-        let cursor = 10;
-        
-          $("#showMoreEvent").click(function () {
-       		str = '';
-       		for(let i=cursor; i<cursor+3 && i<events.length; i++){
-       			console.log(i,events[i].eventName);
-       			
-       			str += eventToHtmlStr(events[i])
-       			//str += `<div class="col-sm-4">
-                //    \${events[i].eventName}
-                //    </div>`;
-       		}
-       		cursor+=3;
-       		
-       		htmlStr = `<div class="row" style="height:330px">\${str}</div>`;
-            $(this).before(htmlStr);
-            
-            if(cursor>=events.length){
-            	$(this).remove();
-            }
-          });
-        </script>
-      </body>
-      <script>
+        <!-- script src="https://code.jquery.com/jquery-3.5.1.min.js"></script-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+     
+    <script>
+    function updateTotalAmount(){
+    	$('.spinner').each(function(){
+  		targetElement = $(this).attr("target");
+  		let priceId = $(this).attr("name");
+  		$('td[name="'+targetElement+'"]').html(
+  				
+  				$(this).spinner('value')* $('td[priceId="'+priceId+'"]').html()		
+  		)})
+  		let total=0;
+  		const elements = document.getElementsByClassName('subtotal');
+  		$(".subtotal").html()
+  		for(const key of elements){
+  			
+  			console.log(key.innerHTML);
+  			total+= +key.innerHTML;
+  			console.log(total);
+  		}
+  		$('#totalAmount').html(total);
+	}
+    
+    function updatePriceByDiscount(){
+		console.log($("option:selected").html());
+		if($("option:selected").html()=="指定信用卡優惠"){
+			$('.cost').each(function(){
+				$(this).html(+$(this).html()*${exhibition.discountRatio})
+				let price=$(this).html();		
+			})
+			
+		}else{
+			$('.cost').each(function(){
+				$(this).html(+$(this).html()/${exhibition.discountRatio})
+				let price=$(this).html();
+			})
+		}
+	}
 
-      </script>
+   	
+    let config={
+            min: 0,
+            max: 10,
+            step: 1
+            }
+   
+    $('.spinner').spinner(config);
+    
+   
+	$('#discount').change(function(){
+		updatePriceByDiscount()
+		updateTotalAmount()
+	});
+
+	$('.spinner').on("spinstop", function(){
+
+  		targetElement = $(this).attr("target");
+  		let priceId = $(this).attr("name");
+  		$('td[name="'+targetElement+'"]').html(
+  				
+  				$(this).spinner('value')* $('td[priceId="'+priceId+'"]').html()		
+  		)
+  		let total=0;
+  		const elements = document.getElementsByClassName('subtotal');
+  		$(".subtotal").html()
+  		for(const key of elements){
+  			
+  			console.log(key.innerHTML);
+  			total+= +key.innerHTML;
+  			console.log(total);
+  		}
+  		$('#totalAmount').html(total);
+	});
+	
+
+    </script>
+      </body>
+
 
       </html>

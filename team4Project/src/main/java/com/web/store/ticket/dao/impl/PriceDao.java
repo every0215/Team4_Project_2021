@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.store.ticket.dao.IPriceDao;
+import com.web.store.ticket.model.Event;
 import com.web.store.ticket.model.Price;
 
 @Repository
@@ -54,6 +55,12 @@ public class PriceDao implements IPriceDao {
 			session.delete(price);
 		}
 
+	}
+
+	@Override
+	public Price queryPrice(int id) {
+		Session session = factory.getCurrentSession();
+		return session.get(Price.class, id);
 	}
 
 }

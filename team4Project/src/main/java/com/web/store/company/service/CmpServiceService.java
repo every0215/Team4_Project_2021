@@ -10,5 +10,7 @@ public interface CmpServiceService {
 	
 	boolean updateService(CmpService sv);
 	
-	List<CmpService> getAllService();
+	List<CmpService> getAllServiceBycmpId(Integer cmpId);
+	
+	CmpService getCmpsvById(Integer id,Integer cmpId);
 }

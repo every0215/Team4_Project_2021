@@ -98,7 +98,7 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <ul class="nav navbar-nav navbar-right"></ul>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="https://demo.opencart.com/image/cache/profile-45x45.png" alt="demo demo" title="demo" id="user-profile" class="img-circle" height="45" /> &nbsp;&nbsp;demo demo <i class="fa fa-caret-down fa-fw"></i></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="<c:url value='/company/getCompanyimage/${sessionScope.company.id}'/>" alt="demo demo" title="demo" id="user-profile" class="img-circle" height="45" /> &nbsp;&nbsp;${sessionScope.company.companyName} <i class="fa fa-caret-down fa-fw"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="#"><i class="fa fa-book fa-fw" aria-hidden="true"></i>你的帳號</a></li>
                                 <li role="separator" class="divider"></li>
@@ -108,7 +108,7 @@
                                 <li><a href="#" target="_blank"><i class="fa fa-long-arrow-left fa-fw" aria-hidden="true"></i>聯絡我們</a></li>
                             </ul>
                         </li>
-                        <li><a href="<c:url value='/Logout' />"><i class="fa fa-sign-out fa-3x"></i></a></li>
+                        <li><a href="<c:url value='/company/Logout' />"><i class="fa fa-sign-out fa-3x"></i></a></li>
                     </ul>
 
 
@@ -182,6 +182,7 @@
 <!--         測試用記得刪 -->
 <!--         測試用記得刪 -->
 <!--         測試用記得刪 -->
+<<<<<<< HEAD
 <!-- 		<div  style="top:500px;left:600px;background-color:yellow"> -->
 <%-- 		<a href="<c:url value='/CompanyInfo' />">修改企業資訊 </a> --%>
 <!-- 		</div> -->
@@ -191,6 +192,17 @@
 <!-- 		<div  style="top:500px;left:600px;background-color:yellow"> -->
 <%-- 		<a href="<c:url value='XXX' />">新增企業服務 </a> --%>
 <!-- 		</div> -->
+=======
+		<div  style="top:500px;left:600px;background-color:yellow">
+		<a href="<c:url value='/company/CmpRegi' />">修改企業資訊 </a>
+		</div>
+		<div  style="top:500px;left:600px;background-color:yellow">
+		<a href="<c:url value='/company/CompanyProfiles' />">新增企業簡介 </a>
+		</div>
+		<div  style="top:500px;left:600px;background-color:yellow">
+		<a href="<c:url value='/company/CompanyServiceRegister' />">新增企業服務 </a>
+		</div>
+>>>>>>> master
 		
         <!-- Right side column. Contains the navbar and content of the page -->
 

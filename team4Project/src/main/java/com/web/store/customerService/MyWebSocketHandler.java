@@ -30,7 +30,7 @@ public class MyWebSocketHandler extends AbstractWebSocketHandler  {
 
     protected void handleTextMessage(WebSocketSession session, WebSocketMessage<?> message)
             throws Exception {
-
+    	
         String clientMessage = (String) message.getPayload();//取得客戶信息
         System.out.println("客戶消息: "+clientMessage);
         String userId = (String)session.getAttributes().get(USER_ID);
