@@ -143,8 +143,8 @@
               <!-- / cart box -->
               <!-- search box -->
               <div class="aa-search-box">
-                <form action="<c:url value='product/ProductSearch/'/>" >
-                  <input type="text" name="search" id="search" placeholder="Search here ex. '洗髮乳' ">
+                <form action="<c:url value='ProductSearch'/>"  method="get" >
+                  <input type="text"  name="search"  placeholder="Search here ex. '洗髮乳' ">
                   <button type="submit"><span class="fa fa-search"></span></button>
                 </form>
               </div>
