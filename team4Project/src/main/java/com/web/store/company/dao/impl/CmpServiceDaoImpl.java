@@ -69,4 +69,17 @@ public class CmpServiceDaoImpl implements CmpServiceDao {
 	
 	}
 
+	@Override
+	public CmpService getCmpsvBysvId(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from CmpService where Id = :id"; 
+		Query<CmpService> queryObj = session.createQuery(hqlstr,CmpService.class);
+		queryObj.setParameter("id", id);
+		
+		CmpService cmpsv = queryObj.uniqueResult();
+		
+		return cmpsv;
+		
+	}
+
 }

@@ -43,4 +43,10 @@ public class CmpServiceServiceImpl implements CmpServiceService {
 		return cmpsvDao.getCmpsvById(id,cmpId);
 	}
 
+	@Override
+	public CmpService getCmpsvBysvId(Integer id) {
+		
+		return cmpsvDao.getCmpsvBysvId(id);
+	}
+
 }

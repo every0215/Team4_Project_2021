@@ -50,7 +50,7 @@ public class CmpService {
 	
 //	@Transient
 	@JoinColumn(name = "CompanyId")
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	@JsonIgnore
 	private Company company;
 	

@@ -70,6 +70,17 @@ public class StoreServiceImpl implements StoreService {
 		return stoDao.getStoreById(id);
 	}
 
+	@Override
+	public void updated(Store sto) {
+		
+	if(stoDao.delete(sto.getId())) {
+		stoDao.addStore(sto);
+	}else {
+	stoDao.addStore(sto);
+	}	
+		
+	}
+
 	
 	
 	

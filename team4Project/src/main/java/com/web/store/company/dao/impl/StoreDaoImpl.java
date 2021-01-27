@@ -133,8 +133,46 @@ public class StoreDaoImpl implements StoreDao {
 		String hqlstr = "from Store where Id = :newId";
 		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);
 		queryObj.setParameter("newId", id);
-		return queryObj.uniqueResult();
+		return queryObj.getSingleResult();
 		
 	}
+	
+	
+	
+	
+	
+	@Override
+	public boolean delete(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		Store queryResult = session.get(Store.class, id);
+		if(queryResult!=null) {
+			session.delete(queryResult);
+			return  true;
+		}
+		
+		return false;
+	}
+
+	
+	
+	
+	
+	
+	//沒在用
+	@Override
+	public void updated(Store sto) {
+		//成功回傳1，失敗回傳0
+		Session session = sessionFactory.getCurrentSession();
+		
+//		Store queryResult = null;
+//		if(sto.getId()!=null) {
+//			queryResult = session.get(Store.class, sto.getId());
+//			session.evict(queryResult); //清除session的緩存，因為get
+//		}
+	    session.flush();
+		session.saveOrUpdate(sto);
+		
+	}
+
 
 }

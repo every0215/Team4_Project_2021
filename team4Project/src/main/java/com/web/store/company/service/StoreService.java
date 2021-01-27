@@ -17,4 +17,6 @@ public interface StoreService {
 	boolean updateProfiles(Integer id, String profiles);
 	
 	Store getStoreById(Integer id);
+	
+	void updated(Store sto);
 }

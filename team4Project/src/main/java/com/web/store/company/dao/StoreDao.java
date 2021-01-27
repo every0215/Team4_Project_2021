@@ -34,6 +34,10 @@ public interface StoreDao {
 	
 	Store getStoreById(Integer id);
 	
+	void updated(Store sto);
+	
+	boolean delete(Integer id);
+	
 	
 	/////////////////////門市刪除功能////////////////////////
 }
