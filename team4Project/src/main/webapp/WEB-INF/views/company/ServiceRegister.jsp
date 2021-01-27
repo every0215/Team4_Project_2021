@@ -12,7 +12,7 @@
 	<legend >企業服務</legend> 
 	
 <form action="<c:url value='serviceRegister'/>" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="CompanyId" value="${company.id}">
+		<input type="hidden" name="CompanyId" value="${sessionScope.company.id}">
 	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
 	<tr>
 	</tr>

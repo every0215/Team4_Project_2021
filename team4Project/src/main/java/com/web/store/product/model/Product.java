@@ -61,6 +61,7 @@ public class Product implements Serializable{
                     @JoinColumn(name = "campaign_id", referencedColumnName = "id") })
 	Set<Campaign> campaigns=new HashSet<Campaign>();
 	
+	
 	public  Product(Integer productId,String productName,String productType,String productDescript,
 			String companyName,Integer productStuck,Integer productPrice,Integer discount,Blob productPic
 			,Integer status){
@@ -110,6 +111,21 @@ public class Product implements Serializable{
 		this.status=status;
 	}
 	
+	public Product(Integer productId,Blob productPic, String picName, String productName, String productType, String productDescript,
+			String companyName, Integer productStuck, Integer productPrice, Integer status) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.productId=productId;
+		this.productPic=productPic;
+		this.picName=picName;
+		this.productName =productName;
+		this.productType = productType;
+		this.productDescript = productDescript;
+		this.productStuck= productStuck;
+		this.productPrice =productPrice;
+		this.companyName=companyName;
+		this.status=status;
+	}
 	public Integer getproductId() {
 		return productId;
 	}

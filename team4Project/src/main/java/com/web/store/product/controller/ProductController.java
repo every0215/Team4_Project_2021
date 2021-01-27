@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -123,14 +124,65 @@ public class ProductController {
 		return "redirect:/ProductIndex";
 
 	}
+	//------------------------------購買商品
+	@GetMapping("/ProductBuy/{productId}")
+	public String BuyShowPage(@PathVariable int productId,Model model) {
+		Product product = pService.selectbyid(productId);
+		model.addAttribute("product",product);
+		return "product/ProductBuy";
+	}
 //	--------------------------------------變更商品
 	@GetMapping(value="/product/productAlter/{productId}")
 	public String porductAlter(@PathVariable int productId,Model model){
 		Product product  = pService.selectbyid(productId);
 		model.addAttribute("product",product);
-		return "/product/ProductAlter";
+		return "product/ProductAlter";
 
-	}	
+	}
+	@PostMapping(value="/product/productAlter/{productId}")
+	public String porductAlterPost(
+			@PathVariable int productId,
+			@RequestParam String productName,
+			@RequestParam Integer productStuck,
+			@RequestParam Integer productPrice,
+			@RequestParam String productType,			
+			@RequestParam(name = "cName") String comName,						
+			@RequestParam String productDescript,
+			@RequestParam("productimage") MultipartFile pImage,
+			@RequestParam Integer status,
+			
+			SessionStatus sessionStatus,
+			Model model
+			) throws IOException {
+		
+			byte[] pic = pImage.getBytes();
+			
+
+		  try {
+		   //再把Byte[]轉成Blob物件
+		   Blob Pblob = new javax.sql.rowset.serial.SerialBlob(pic);
+		  
+		   //取得logo 的Filename
+		   String picName = pImage.getOriginalFilename();
+		  
+		
+		   //呼叫Service新增到資料庫
+		   Product pb = new Product(productId, Pblob, picName, productName, productType, productDescript, comName, productStuck, productPrice, status);
+		   pService.alterbyid(pb);
+	   
+		  } catch (SerialException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		  } catch (SQLException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		  }
+
+		sessionStatus.setComplete();
+		
+		return "redirect:/ProductIndex";
+
+	}
 //----------------------------------------首頁商品類別		
 	@GetMapping(value="/productShow/{productType}")
 	public String porductShow(@PathVariable String productType,Model model){
@@ -146,6 +198,18 @@ public class ProductController {
 //		
 //		return "/productShow";
 //	}	
+//-----------	搜尋
+	
+	@GetMapping(value="/ProductSearch" )
+	public String porductSearch(@RequestParam String search,Model model){
+		System.out.println(search);
+		List<Product> list  = pService.selectbyName(search);
+		model.addAttribute("ProductList",list);
+		System.out.println("成功"+search);
+		
+		return "/product/ProductSearch";
+	}	
+	
 //-----------------輸出圖
 	@GetMapping(value = "/getproductimage/{productId}")
 	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer productId)  {

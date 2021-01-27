@@ -28,17 +28,17 @@
                 <div class="thumbnail" style="width: 320px; height: 340px">
                     <div class="caption">
                         <p>
-                        <img height="300px" src="<c:url value='/getCompanyimage/${Cmp.id}'/>" />
+                        <img height="300px" src="<c:url value='/company/getCompanyimage/${Cmp.id}'/>" />
 <%--                             <b style='font-size: 16px;'>${Company.title}</b> --%>
                         </p>
                         <p>${Cmp.companyName}</p>
                         <p>企業類別:${Cmp.categories}</p>
                         <p>簡介: ${Cmp.profiles}</p>
                         <p>
-                         <a href="<c:url value='/product?id=${Cmp.id}' />"
-    						class="btn btn-primary">
-    						<span class="glyphicon-info-sigh glyphicon"></span>詳細資料-OK
- 						</a>
+<%--                          <a href="<c:url value='/product?id=${Cmp.id}' />" --%>
+<!--     						class="btn btn-primary"> -->
+<!--     						<span class="glyphicon-info-sigh glyphicon"></span>詳細資料-OK -->
+<!--  						</a> -->
                         </p>
                     </div>
                 </div>

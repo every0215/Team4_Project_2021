@@ -24,7 +24,7 @@ public class StoreDaoImpl implements StoreDao {
 	@Override
 	public void addStore(Store sto) {
 		Session session = sessionFactory.getCurrentSession();
-		System.out.println("Dao:"+sto.getCompanyId());
+		
 		session.save(sto);
 
 	}
@@ -32,7 +32,7 @@ public class StoreDaoImpl implements StoreDao {
 	@Override
 	public boolean update(Store sto) {
 		Session session = sessionFactory.getCurrentSession();
-		
+		System.out.println("StoreDao-Company物件轉Id"+sto.getCompany());
 		Query queryObj = session.createQuery("UPDATE Store SET  StoreName = :newStoreName , StoreArea = :newStoreArea , StoreAddress = :newStoreAddress , Phone = :newPhone ,Fex = :newFex , BusinessHour = :newBusinessHour ,Openhour = :newOpenhour ,Closehour = :newClosehour ,CompanyId = :newCompanyId ,Profiles = :newProfiles ,Status = :newStatus WHERE id = :Sid")
 				.setParameter("Sid", sto.getId())
 				.setParameter("newStoreName",sto.getStoreName() )
@@ -43,7 +43,8 @@ public class StoreDaoImpl implements StoreDao {
 				.setParameter("newBusinessHour", sto.getBusinessHour())
 				.setParameter("newOpenhour", sto.getOpenhour())
 				.setParameter("newClosehour", sto.getClosehour())
-				.setParameter("newCompanyId", sto.getCompanyId())
+				////////////////////////////////////////////////////////
+				.setParameter("newCompanyId", sto.getCompany())
 				.setParameter("newProfiles", sto.getProfiles())
 				.setParameter("newStatus", sto.getStatus());
 				

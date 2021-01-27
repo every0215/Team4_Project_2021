@@ -233,5 +233,19 @@ public class CompanyDaoImpl implements CompanyDao {
 //			
 //		}
 	}
+
+	@Override
+	public boolean updateProfiles(Integer id, String profiles) {
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("更新企業簡介");
+		System.out.println(id);
+		Query queryObj = session.createQuery("UPDATE Company SET  Profiles = :newProfiles WHERE Id = :Cid")
+				.setParameter("Cid", id)
+				.setParameter("newProfiles", profiles);
+		
+		queryObj.executeUpdate();
+		return true;
+		
+	}
 	
 }
