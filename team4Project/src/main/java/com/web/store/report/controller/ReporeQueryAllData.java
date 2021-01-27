@@ -33,15 +33,17 @@ public class ReporeQueryAllData {
 				return reportService.queryAll();
 		}
 	
-	//查詢-年度累計/門市數量/已銷售商品項目
+	//查詢-年度累計/門市數量/已銷售商品項目/會員數
 	@RequestMapping(value="/reportin", method = RequestMethod.GET,produces = {"application/json; charset=UTF-8"})
 	public String queryItem(Model model) {
 	
 		//取session companyid
 		Company company = (Company)model.getAttribute("company");
 		int companyid=company.getId();
-//		System.out.println("222222222222:");
-//		System.out.println(companyid);
+		
+		// 年度累計會員數 
+		String singleMember = reportService.queryMember(companyid);
+		model.addAttribute("singlemember", singleMember);
 		
 		// 年度累計銷售金額 
 		String singleSales = reportService.querySales(companyid);
@@ -53,8 +55,20 @@ public class ReporeQueryAllData {
 		String queryClass = reportService.queryClass(companyid);
 		model.addAttribute("queryclass", queryClass);
 		
+//		List<Report> queryProductTop = reportService.queryProductTop();
+//		model.addAttribute("queryproducttop", queryProductTop);
+		
 		return "report/Report";
 		}
+	
+//	@RequestMapping(value="/", method = RequestMethod.GET,produces = {"application/json; charset=UTF-8"})
+//	public String queryProductTop(Model model) {	
+//	List<Report> queryProductTop = reportService.queryProductTop();
+//	model.addAttribute("queryproducttop", queryProductTop);
+////	System.out.println(queryProductTop);
+//	
+//	return "layout/header";
+//	}
 	
 	// Tab1-年度各區業績
 	@RequestMapping(value="/queryAreaSales",produces = {"application/json; charset=UTF-8"})
@@ -136,6 +150,6 @@ public class ReporeQueryAllData {
 		
 		return reportService.queryAllStoreStock(companyid);
 		}
-	}
+	
 
-
+}
