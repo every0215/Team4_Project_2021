@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -38,7 +39,8 @@ public class Product implements Serializable{
 	private String productType;
 	@Column(name= "ProductDescript")
 	private String productDescript;
-	@Column(name= "CompanyName")
+	@ManyToOne(cascade=CascadeType.ALL)    // javax.persistence.CascadeType;
+	@JoinColumn(name= "CompanyName")
 	private String companyName;
 	@Column(name= "productStuck")
 	private Integer productStuck;
