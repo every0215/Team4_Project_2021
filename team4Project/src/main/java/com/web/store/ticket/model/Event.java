@@ -41,6 +41,9 @@ public class Event {
 	private Blob eventImage;
 	@Column(name = "imageName")
 	private String imageName;
+	
+	@Column(name = "status")
+	private Integer status; //0下架 1上架
 
 	@Transient
 	MultipartFile eMultipartFile;
@@ -72,8 +75,10 @@ public class Event {
 	public Event() {
 	}
 
+
+
 	public Event(Integer id, Integer typeId, String eventName, String eventLocation, Blob eventImage, String imageName,
-			Integer companyId) {
+			Integer companyId,Integer status) {
 		this.id = id;
 		this.typeId = typeId;
 		this.eventName = eventName;
@@ -81,16 +86,19 @@ public class Event {
 		this.eventImage = eventImage;
 		this.imageName=imageName;
 		this.companyId = companyId;
+		this.status=status;
 
 	}
-
-	public Event(Integer typeId, String eventName, String eventLocation, Blob eventImage, String imageName,Integer companyId) {
+	
+	
+	public Event(Integer typeId, String eventName, String eventLocation, Blob eventImage, String imageName,Integer companyId,Integer status) {
 		this.typeId = typeId;
 		this.eventName = eventName;
 		this.eventLocation = eventLocation;
 		this.eventImage = eventImage;
 		this.imageName=imageName;
 		this.companyId = companyId;
+		this.status=status;
 
 	}
 
@@ -198,5 +206,14 @@ public class Event {
 		this.sport = sport;
 	}
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	
+	
 
 }

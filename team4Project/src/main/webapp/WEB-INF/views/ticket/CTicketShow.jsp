@@ -169,10 +169,10 @@
             <c:forEach var="session" items="${sessionList}"><tr>
             	<td>${session.kickOfTime.toString().substring(0, 16)}</td>
             	<td>
-            		<form action="<c:url value='XXXXXXXXXX'/>" method="post">
+            		<form action="<c:url value='/TicketBuy/${eventId}'/>" method="post">
             			<input type="hidden" name="eventId" value="${event.id}" />
             			<input type="hidden" name="sessionId" value="${session.id}" />
-            			<button type="button" class="btn btn-info">Buy Now</button>
+            			<button type="submit" class="btn btn-info">Buy Now</button>
             		</form>
             	</td>
             	</tr></c:forEach>
