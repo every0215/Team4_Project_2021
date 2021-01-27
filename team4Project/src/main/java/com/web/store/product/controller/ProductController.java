@@ -123,6 +123,13 @@ public class ProductController {
 		return "redirect:/ProductIndex";
 
 	}
+	//------------------------------購買商品
+	@GetMapping("/ProductBuy/{productId}")
+	public String BuyShowPage(@PathVariable int productId,Model model) {
+		Product product = pService.selectbyid(productId);
+		model.addAttribute("product",product);
+		return "product/ProductBuy";
+	}
 //	--------------------------------------變更商品
 	@GetMapping(value="/product/productAlter/{productId}")
 	public String porductAlter(@PathVariable int productId,Model model){
