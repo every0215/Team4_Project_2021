@@ -247,7 +247,7 @@
                   
                 </ul>
               </li>
-              <li><a href="#">智慧客服</a></li>
+              <li><a href="<c:url value='/cs/clientLogin'/>">智慧客服</a></li>
              <li><a href="#">Digital <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
                   <li><a href="#">Camera</a></li>

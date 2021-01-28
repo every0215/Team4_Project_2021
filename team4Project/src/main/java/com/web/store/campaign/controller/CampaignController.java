@@ -363,17 +363,23 @@ public class CampaignController {
 		Page<Campaign> page = new Page<Campaign>();
 		page.setCurrentPage(pageNum);
 		Company company = (Company)model.getAttribute("company");
-		
+		System.out.println("company獲取完成");
 		if(company==null) {
 			return "redirect:/";
 		}
 		
 		campService.getCampaignPageOfCompany(page,company.getId());
+		System.out.println("Dao執行完成");
+		
 		List<Campaign> camps = page.getContent();
-		for(Campaign camp:camps) {			
+		System.out.println("檢查活動中");
+		for(Campaign camp:camps) {
+			System.out.println("檢查活動-------");
 			camp.isActive();
 		}
+		System.out.println("檢查完成---");
 		model.addAttribute("page", page);
+		System.out.println("導向頁面---");
 		return "campaign/CampaignShowPage";
 	}
 	
