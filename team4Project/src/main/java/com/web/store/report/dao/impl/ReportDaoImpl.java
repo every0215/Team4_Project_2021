@@ -40,8 +40,18 @@ public class ReportDaoImpl implements ReportDao {
 
 	// 查詢累計會員數
 	@Override
-	public List<Report> queryMember() {
-		return null;
+	public String queryMember(int companyid) {
+		String Count = "";
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			String hql = "Select count(memberid) AS Count FROM MemberSubscription WHERE companyid=:comp";
+			@SuppressWarnings("rawtypes") // 抑制單型別的警告
+			List obj = session.createQuery(hql).setParameter("comp", companyid).getResultList();
+			Count = obj.get(0).toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Count;
 	}
 
 	// 年度累計銷售金額
@@ -50,7 +60,7 @@ public class ReportDaoImpl implements ReportDao {
 		String Count = "";
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			String hql = "Select sum((productprice-productdiscountprice)*salesamount) AS Count FROM Report WHERE companyid=:comp";
+			String hql = "Select sum((productprice*salesamount)-productdiscountprice) AS Count FROM Report WHERE companyid=:comp";
 			@SuppressWarnings("rawtypes") // 抑制單型別的警告
 			List obj = session.createQuery(hql).setParameter("comp", companyid).getResultList();
 //			System.out.println("obj ==> " + obj.get(0));
@@ -97,7 +107,7 @@ public class ReportDaoImpl implements ReportDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryAreaSales(int companyid) {
-		String hqlstr = "select storearea,sum((productprice-productdiscountprice)*salesamount) AS Count FROM Report WHERE companyid=:comp group by storearea ";
+		String hqlstr = "select storearea,sum((productprice*salesamount)-productdiscountprice) AS Count FROM Report WHERE companyid=:comp group by storearea ";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
@@ -108,7 +118,7 @@ public class ReportDaoImpl implements ReportDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryProdustClass(int companyid) {
-		String hqlstr = "select productclass,sum(salesamount) as amount,sum((productprice-productdiscountprice)*salesamount) AS Count,sum(productdiscountprice*salesamount) AS discount FROM Report WHERE companyid=:comp group by productclass";
+		String hqlstr = "select productclass,sum(salesamount) as amount,sum((productprice*salesamount)-productdiscountprice) AS Count,sum(productdiscountprice) AS discount FROM Report WHERE companyid=:comp group by productclass";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
@@ -119,7 +129,7 @@ public class ReportDaoImpl implements ReportDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryActiveSales(int companyid) {
-		String hqlstr = "select activeitem,sum(salesamount) as amount,sum((productprice-productdiscountprice)*salesamount) AS Count ,sum(productdiscountprice*salesamount) as discount FROM Report WHERE companyid=:comp group by activeitem";
+		String hqlstr = "select activeitem,sum(salesamount) as amount,sum((productprice*salesamount)-productdiscountprice) AS Count ,sum(productdiscountprice) as discount FROM Report WHERE companyid=:comp group by activeitem";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
@@ -131,7 +141,7 @@ public class ReportDaoImpl implements ReportDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryAllStoreSales(int companyid) {
-		String hqlstr = "select storearea,storename ,sum((productprice-productdiscountprice)*salesamount) AS Count ,sum(productdiscountprice*salesamount) as discount FROM Report WHERE companyid=:comp group by storename,storearea";
+		String hqlstr = "select storearea,storename ,sum((productprice*salesamount)-productdiscountprice) AS Count ,sum(productdiscountprice) as discount FROM Report WHERE companyid=:comp group by storename,storearea";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
@@ -142,7 +152,7 @@ public class ReportDaoImpl implements ReportDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryAllActiveSales(int companyid) {
-		String hqlstr = "select storename,activeitem,sum(salesamount) as amount,sum((productprice-productdiscountprice)*salesamount) AS Count ,sum(productdiscountprice*salesamount) as discount FROM Report WHERE (companyid=:comp) and (Activeitem<>'null') group by storename,activeitem";
+		String hqlstr = "select storename,activeitem,sum(salesamount) as amount,sum((productprice*salesamount)-productdiscountprice) AS Count ,sum(productdiscountprice) as discount FROM Report WHERE (companyid=:comp) and (Activeitem<>'null') group by storename,activeitem";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
@@ -155,7 +165,7 @@ public class ReportDaoImpl implements ReportDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryAllStorePayment(int companyid) {
-		String hqlstr = "select storename,payment,sum(salesamount) as amount,sum((productprice-productdiscountprice)*salesamount) AS Count ,sum(productdiscountprice*salesamount) as discount FROM Report WHERE companyid=:comp group by storename,payment";
+		String hqlstr = "select storename,payment,sum(salesamount) as amount,sum((productprice*salesamount)-productdiscountprice) AS Count ,sum(productdiscountprice) as discount FROM Report WHERE companyid=:comp group by storename,payment";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
@@ -166,8 +176,7 @@ public class ReportDaoImpl implements ReportDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryAllStoreStock(int companyid) {
-		// String hqlstr = "select Storename, count(Stockamount) as stock from Report where (Companyid=:comp) and (Stockamount<5) group by Storename";
-		String hqlstr = "select storename, count(stockamount) as stock from Report where companyid=:comp and (stockamount<5) group by storename";// and (Stockamount<5)";
+		String hqlstr = "select storename, count(stockamount) as stock from Report where companyid=:comp and (stockamount<10) group by storename";// and (Stockamount<5)";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
@@ -180,11 +189,7 @@ public class ReportDaoImpl implements ReportDao {
 
 		return null;
 	}
-	// 新增廣告排行榜商品
-	@Override
-	public void insert(Report report) {
 
-	}
 
 	// 修改廣告排行榜商品
 	@Override
@@ -192,10 +197,16 @@ public class ReportDaoImpl implements ReportDao {
 
 	}
 
-	// 刪除廣告排行榜商品
+
+
+	//查詢前五名商品
+	@SuppressWarnings("unchecked")
 	@Override
-	public void delete(int reportid) {
-
+	public	List<Report> queryProductTop(){
+		String hqlstr = "select productname,count(salesamount) as totalsales,productid from Report group by productname,productid order by  totalsales desc";
+		List<Report> list = new ArrayList<Report>();
+		Session session = sessionFactory.getCurrentSession();
+		list = session.createQuery(hqlstr).setMaxResults(5).list();
+		return list;
 	}
-
 }

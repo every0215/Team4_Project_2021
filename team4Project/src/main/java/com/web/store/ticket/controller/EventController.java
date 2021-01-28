@@ -68,13 +68,21 @@ public class EventController {
 		return backendService.queryAllBank();
 	}
 	
-	//刪除票券 應該改為上下架
+	//刪除票券
 	@GetMapping("/EventDel/{eventId}")
 	public String deleteEvent(@PathVariable int eventId) {
 		System.out.println("========================================="+eventId);
 		backendService.delete(eventId);
 		return "redirect:/ticket/TicketIndex";
 	}
+	
+	//上下架
+		@GetMapping("/EventUpdateStatus/{eventId}")
+		public String updateEventStatus(@PathVariable int eventId) {
+			System.out.println("========================================="+eventId);
+			backendService.updateStatusEvent(eventId);
+			return "redirect:/ticket/TicketIndex";
+		}
 	
 	//更新票券
 	@GetMapping("/EventUpdate/{eventId}")
@@ -217,7 +225,7 @@ public class EventController {
 			Model model,
 //			@RequestParam(value="companyId")Integer companyId,
 			@RequestParam(value="eventImage")MultipartFile eventImage,
-			
+			@RequestParam(value="status")Integer status,
 			@RequestParam(value="exhibitionId",required=false)Integer exhibitionId,
 			@RequestParam(value="onSaleDate")String onSaleDate,
 			@RequestParam(value="offSaleDate")String offSaleDate,
@@ -240,7 +248,7 @@ public class EventController {
 			Company company = (Company)model.getAttribute("company");
 			int companyId = company.getId();
 				if(id==null) {
-					Map<String, Object> map = addEx(typeId,eventName,eventLocation,companyId,blob,imageName, onSaleDate,offSaleDate,commDate,dueDate,description,cardId,discountRatio,priceName,priceCost);		
+					Map<String, Object> map = addEx(typeId,eventName,eventLocation,companyId,blob,imageName, status, onSaleDate,offSaleDate,commDate,dueDate,description,cardId,discountRatio,priceName,priceCost);		
 					Event event = (Event) map.get("event");
 					EventType eventType = backendService.queryEventType(event.getTypeId());
 					Exhibition exhibition = (Exhibition) map.get("exhibition");
@@ -253,7 +261,7 @@ public class EventController {
 					ra.addFlashAttribute("creditCard",creditCard);
 					
 				}else {
-					Map<String, Object> map = updateEx(id,typeId,eventName,eventLocation,companyId,blob,imageName,exhibitionId, onSaleDate,offSaleDate,commDate,dueDate,description,cardId,discountRatio,priceName,priceCost);
+					Map<String, Object> map = updateEx(id,typeId,eventName,eventLocation,companyId,blob,imageName,status, exhibitionId, onSaleDate,offSaleDate,commDate,dueDate,description,cardId,discountRatio,priceName,priceCost);
 					Event event = (Event) map.get("event");
 					EventType eventType = backendService.queryEventType(event.getTypeId());
 					Exhibition exhibition = (Exhibition) map.get("exhibition");
@@ -289,6 +297,7 @@ public class EventController {
 			Model model,
 //			@RequestParam(value="companyId")Integer companyId,
 			@RequestParam(value="eventImage")MultipartFile eventImage,
+			@RequestParam(value="status")Integer status,
 			
 			@RequestParam(value="attractionId",required=false)Integer attractionId,
 			@RequestParam(value="onSaleDate")String onSaleDate,
@@ -308,7 +317,7 @@ public class EventController {
 			int companyId = company.getId();
 				
 			if(id==null) {
-				Map<String, Object> map = addAt(typeId,eventName,eventLocation,companyId,blob,imageName,onSaleDate,offSaleDate,commDate,dueDate,description,priceName,priceCost);		
+				Map<String, Object> map = addAt(typeId,eventName,eventLocation,companyId,blob,imageName,status,onSaleDate,offSaleDate,commDate,dueDate,description,priceName,priceCost);		
 				Event event = (Event) map.get("event");
 				EventType eventType = backendService.queryEventType(event.getTypeId());
 				ra.addFlashAttribute("event", map.get("event"));
@@ -317,7 +326,7 @@ public class EventController {
 				ra.addFlashAttribute("priceList", map.get("priceList"));
 
 			}else {
-				Map<String, Object> map = updateAt(id,typeId,eventName,eventLocation,companyId,blob,imageName,attractionId,onSaleDate,offSaleDate,commDate,dueDate,description,priceName,priceCost);
+				Map<String, Object> map = updateAt(id,typeId,eventName,eventLocation,companyId,blob,imageName,status,attractionId,onSaleDate,offSaleDate,commDate,dueDate,description,priceName,priceCost);
 				Event event = (Event) map.get("event");
 				EventType eventType = backendService.queryEventType(event.getTypeId());
 				ra.addFlashAttribute("event", map.get("event"));
@@ -343,6 +352,7 @@ public class EventController {
 			@RequestParam(value="eventLocation")String eventLocation,
 			Model model,
 			@RequestParam(value="eventImage")MultipartFile eventImage,
+			@RequestParam(value="status")Integer status,
 //			@RequestParam(value="companyId")Integer companyId,
 			
 			@RequestParam(value="sportId",required=false)Integer sportId,
@@ -365,7 +375,7 @@ public class EventController {
 			Company company = (Company)model.getAttribute("company");
 			int companyId = company.getId();
 			if(id==null) {
-				Map<String, Object> map = addSp(typeId,eventName,eventLocation,companyId,blob,imageName, onSaleDate,offSaleDate,description,cardId,discountRatio,priceName,priceCost,kickOfTime,seatNo);		
+				Map<String, Object> map = addSp(typeId,eventName,eventLocation,companyId,blob,imageName, status, onSaleDate,offSaleDate,description,cardId,discountRatio,priceName,priceCost,kickOfTime,seatNo);		
 				Event event = (Event) map.get("event");
 				EventType eventType = backendService.queryEventType(event.getTypeId());
 				Sport sport = (Sport) map.get("sport");
@@ -387,7 +397,7 @@ public class EventController {
 					}
 				backendService.deleteSessionList(sportId);
 				//呼叫更新方法
-				Map<String, Object> map = updateSp(id,typeId,eventName,eventLocation,companyId,blob,imageName,sportId,onSaleDate,offSaleDate,description,cardId,discountRatio,priceName,priceCost,kickOfTime,seatNo);		
+				Map<String, Object> map = updateSp(id,typeId,eventName,eventLocation,companyId,blob,imageName,status, sportId,onSaleDate,offSaleDate,description,cardId,discountRatio,priceName,priceCost,kickOfTime,seatNo);		
 				Event event = (Event) map.get("event");
 				EventType eventType = backendService.queryEventType(event.getTypeId());
 				Sport sport = (Sport) map.get("sport");
@@ -424,6 +434,8 @@ public class EventController {
 			Integer companyId,
 			Blob eventImage,
 			String imageName,
+			Integer status,
+			
 			String onSaleDate,
 			String offSaleDate,
 			String commDate,
@@ -433,7 +445,7 @@ public class EventController {
 			Double discountRatio,
 			String[] priceName,
 			Integer[] priceCost) {
-		Event event = new Event(typeId, eventName,eventLocation, eventImage, imageName, companyId);
+		Event event = new Event(typeId, eventName,eventLocation, eventImage, imageName, companyId,status);
 		
 		Timestamp onSaleDateT = Timestamp.valueOf(onSaleDate+".00");
 		Timestamp offSaleDateT = Timestamp.valueOf(offSaleDate+".00");
@@ -468,6 +480,7 @@ public class EventController {
 			Integer companyId,
 			Blob eventImage,
 			String imageName,
+			Integer status,
 			
 			Integer exhibitionId,
 			String onSaleDate,
@@ -479,7 +492,7 @@ public class EventController {
 			Double discountRatio,
 			String[] priceName,
 			Integer[] priceCost) {
-		Event event = new Event(eventId,typeId, eventName,eventLocation, eventImage, imageName, companyId);
+		Event event = new Event(eventId,typeId, eventName,eventLocation, eventImage, imageName, companyId,status);
 				
 		Timestamp onSaleDateT = Timestamp.valueOf(onSaleDate+".00");
 		Timestamp offSaleDateT = Timestamp.valueOf(offSaleDate+".00");
@@ -513,6 +526,7 @@ public class EventController {
 			Integer companyId,
 			Blob eventImage,
 			String imageName,
+			Integer status,
 			
 			String onSaleDate,
 			String offSaleDate,
@@ -522,7 +536,7 @@ public class EventController {
 
 			String[] priceName,
 			Integer[] priceCost) {
-		Event event = new Event(typeId, eventName,eventLocation, eventImage,imageName,companyId);
+		Event event = new Event(typeId, eventName,eventLocation, eventImage,imageName,companyId,status);
 		Timestamp onSaleDateT = Timestamp.valueOf(onSaleDate);
 		Timestamp offSaleDateT = Timestamp.valueOf(offSaleDate);
 		Date commDateD = Date.valueOf(commDate);
@@ -553,6 +567,7 @@ public class EventController {
 			Integer companyId,
 			Blob eventImage,
 			String imageName,
+			Integer status,
 			
 			Integer attractionId,
 			String onSaleDate,
@@ -563,7 +578,7 @@ public class EventController {
 
 			String[] priceName,
 			Integer[] priceCost) {
-		Event event = new Event(eventId,typeId, eventName,eventLocation, eventImage, imageName, companyId);
+		Event event = new Event(eventId,typeId, eventName,eventLocation, eventImage, imageName, companyId,status);
 		Timestamp onSaleDateT = Timestamp.valueOf(onSaleDate);
 		Timestamp offSaleDateT = Timestamp.valueOf(offSaleDate);
 		Date commDateD = Date.valueOf(commDate);
@@ -593,6 +608,7 @@ public class EventController {
 			Integer companyId,
 			Blob eventImage,
 			String imageName,
+			Integer status,
 			
 			String onSaleDate,
 			String offSaleDate,
@@ -607,7 +623,7 @@ public class EventController {
 			) {
 		
 //		System.out.println("imageName in addSp : "+ imageName);
-		Event event = new Event(typeId, eventName,eventLocation, eventImage, imageName, companyId);
+		Event event = new Event(typeId, eventName,eventLocation, eventImage, imageName, companyId,status);
 		Timestamp onSaleDateT = Timestamp.valueOf(onSaleDate+".00");
 		Timestamp offSaleDateT = Timestamp.valueOf(offSaleDate+".00");
 
@@ -656,6 +672,7 @@ public class EventController {
 			Integer companyId,
 			Blob eventImage,
 			String imageName,
+			Integer status,
 			
 			Integer sportId,
 			String onSaleDate,
@@ -671,7 +688,7 @@ public class EventController {
 			) {
 		
 //		System.out.println("imageName in addSp : "+ imageName);
-		Event event = new Event(eventId,typeId, eventName,eventLocation, eventImage, imageName, companyId);
+		Event event = new Event(eventId,typeId, eventName,eventLocation, eventImage, imageName, companyId,status);
 		Timestamp onSaleDateT = Timestamp.valueOf(onSaleDate+".00");
 		Timestamp offSaleDateT = Timestamp.valueOf(offSaleDate+".00");
 

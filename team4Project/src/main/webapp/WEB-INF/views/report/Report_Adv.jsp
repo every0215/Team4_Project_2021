@@ -63,7 +63,7 @@
 
 </head>
 <body>
-    <div id="rep_advertising">
+    <div id="rep_advertising" >
         <!-- title -->
         <div id="rep_adv_title">
             <b>精選商品</b>

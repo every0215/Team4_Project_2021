@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -123,6 +124,13 @@ public class ProductController {
 		return "redirect:/ProductIndex";
 
 	}
+	//------------------------------購買商品
+	@GetMapping("/ProductBuy/{productId}")
+	public String BuyShowPage(@PathVariable int productId,Model model) {
+		Product product = pService.selectbyid(productId);
+		model.addAttribute("product",product);
+		return "product/ProductBuy";
+	}
 //	--------------------------------------變更商品
 	@GetMapping(value="/product/productAlter/{productId}")
 	public String porductAlter(@PathVariable int productId,Model model){
@@ -191,8 +199,9 @@ public class ProductController {
 //		return "/productShow";
 //	}	
 //-----------	搜尋
-	@GetMapping(value="/ProductSearch/{search}")
-	public String porductSearch(@PathVariable String search,Model model){
+	
+	@GetMapping(value="/ProductSearch" )
+	public String porductSearch(@RequestParam String search,Model model){
 		System.out.println(search);
 		List<Product> list  = pService.selectbyName(search);
 		model.addAttribute("ProductList",list);

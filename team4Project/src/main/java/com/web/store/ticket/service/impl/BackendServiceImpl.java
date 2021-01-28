@@ -19,6 +19,9 @@ import com.web.store.ticket.dao.impl.PriceDao;
 import com.web.store.ticket.dao.impl.SportDao;
 import com.web.store.ticket.dao.impl.SportSeatDao;
 import com.web.store.ticket.dao.impl.SportSessionDao;
+import com.web.store.ticket.dao.impl.TicketOnWayDao;
+import com.web.store.ticket.dao.impl.TicketOrderDao;
+import com.web.store.ticket.dao.impl.TicketOrderDetailDao;
 import com.web.store.ticket.model.Attraction;
 import com.web.store.ticket.model.Bank;
 import com.web.store.ticket.model.CreditCard;
@@ -29,6 +32,9 @@ import com.web.store.ticket.model.Price;
 import com.web.store.ticket.model.Sport;
 import com.web.store.ticket.model.SportSeat;
 import com.web.store.ticket.model.SportSession;
+import com.web.store.ticket.model.TicketOnWay;
+import com.web.store.ticket.model.TicketOrder;
+import com.web.store.ticket.model.TicketOrderDetail;
 import com.web.store.ticket.service.BackendService;
 
 @Transactional
@@ -57,6 +63,13 @@ public class BackendServiceImpl implements BackendService {
 	BankDao bankDao;
 	@Autowired
 	CompanyDaoImpl companyDao;
+	@Autowired
+	TicketOrderDao ticketOrderDao;
+	@Autowired
+	TicketOrderDetailDao ticketOrderDetailDao;
+	@Autowired
+	TicketOnWayDao ticketOnWayDao;
+	
 	
 	@SuppressWarnings("null")
 	@Override
@@ -311,6 +324,97 @@ public class BackendServiceImpl implements BackendService {
 			priceList.add(price);
 		}
 		return priceList;
+	}
+
+	@Override
+	public ArrayList<TicketOrder> queryTicketOrderByMemberId(int memberId) {
+		ArrayList<TicketOrder> ticketOrderList = ticketOrderDao.queryTicketOrderByMemberId(memberId);
+		return ticketOrderList;
+	}
+
+	@Override
+	public TicketOrder addTicketOrder(TicketOrder ticketOrder) {
+		ticketOrderDao.addTicketOrder(ticketOrder);
+		return ticketOrder;
+		
+	}
+
+	@Override
+	public TicketOrder updateTicketOrder(TicketOrder ticketOrder) {
+		ticketOrderDao.updateTicketOrder(ticketOrder);
+		return ticketOrder;
+		
+	}
+
+	@Override
+	public void deleteTicketOrder(int ticketOrderId) {
+		ticketOrderDao.delete(ticketOrderId);
+		
+	}
+
+	@Override
+	public TicketOnWay addTicketOnWay(TicketOnWay ticketOnWay) {
+		ticketOnWayDao.addTicketOnWay(ticketOnWay);
+		return ticketOnWay;
+	}
+
+	@Override
+	public TicketOnWay updateTicketOnWay(TicketOnWay ticketOnWay) {
+		ticketOnWayDao.updateTicketOnWay(ticketOnWay);
+		return ticketOnWay;
+	}
+
+	@Override
+	public void deleteTicketOnWay(int ticketOnWayId) {
+		ticketOnWayDao.delete(ticketOnWayId);
+		
+	}
+
+	@Override
+	public TicketOrderDetail addTicketOrderDetail(TicketOrderDetail ticketOrderDetail) {
+		ticketOrderDetailDao.addTicketOrderDetail(ticketOrderDetail);
+		return ticketOrderDetail;
+	}
+
+	@Override
+	public TicketOrderDetail updateTicketOrderDetail(TicketOrderDetail ticketOrderDetail) {
+		ticketOrderDetailDao.updateTicketOrderDetail(ticketOrderDetail);
+		return ticketOrderDetail;
+	}
+
+	@Override
+	public void deleteTicketOrderDetail(int ticketOrderDetailId) {
+		ticketOrderDetailDao.delete(ticketOrderDetailId);
+		
+	}
+
+	@Override
+	public SportSeat updateSeatStock(SportSeat sportSeat) {
+		sportSeatDao.updateSportSeat(sportSeat);
+		return sportSeat;
+	}
+
+	@Override
+	public SportSeat queryOneSportSeat(Integer seatId) {
+		SportSeat seat = sportSeatDao.queryOneSportSeat(seatId);
+		return seat;
+	}
+
+	@Override
+	public void updateStatusEvent(int eventId) {
+		eventDao.updateStatusEvent(eventId);
+		
+	}
+
+	@Override
+	public ArrayList<Event> queryStatusOKByTypeId(int typeId) {
+		return eventDao.queryStatusOKByTypeId(typeId);
+		
+	}
+
+	@Override
+	public ArrayList<Event> queryStatusOKAll(int companyId) {
+		return eventDao.queryStatusOKAll(companyId);
 	}
 	
 	
