@@ -150,30 +150,7 @@
 
  
 
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="<c:url value='/js/bootstrap.js' />"></script>  
-  <!-- SmartMenus jQuery plugin -->
-  <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.js' />"></script>
-  <!-- SmartMenus jQuery Bootstrap Addon -->
-  <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.bootstrap.js' />"></script>  
-  <!-- To Slider JS -->
-  <script src="<c:url value='/js/sequence.js' />"></script>
-  <script src="<c:url value='/js/sequence-theme.modern-slide-in.js' />"></script>  
-  <!-- Product view slider -->
-  <script type="text/javascript" src="<c:url value='/js/jquery.simpleGallery.js' />"></script>
-  <script type="text/javascript" src="<c:url value='/js/jquery.simpleLens.js' />"></script>
-  <!-- slick slider -->
-  <script type="text/javascript" src="<c:url value='/js/slick.js' />"></script>
-  <!-- Price picker slider -->
-  <script type="text/javascript" src="<c:url value='/js/nouislider.js' />"></script>
-  <!-- Custom js -->
-  <script src="<c:url value='/js/custom.js' />"></script> 
   
-  <script src="<c:url value='/js/luke_js.js' />"></script> 
-  
-  <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
 <!--   <script  src="https://cdpn.io/cp/internal/boomboom/pen.js?key=pen.js-70199a3b-d922-2eff-4b6c-1b5626afc909" crossorigin></script> -->
   
    <!-- / Cart view section -->

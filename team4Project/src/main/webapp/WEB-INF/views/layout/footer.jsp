@@ -90,35 +90,30 @@
     </div>
   </footer>
   
-  <script>
-  $(document).ready(function(){
-	  
-  });
-  
-  </script>
   <!-- / footer -->
   
     <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.js"></script>
+  <script src="<c:url value='/js/bootstrap.js' />"></script>
   <!-- SmartMenus jQuery plugin -->
-  <script type="text/javascript" src="js/jquery.smartmenus.js"></script>
+  <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.js' />"></script>
   <!-- SmartMenus jQuery Bootstrap Addon -->
-  <script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>
+  <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.bootstrap.js' />"></script>
   <!-- To Slider JS -->
-  <script src="js/sequence.js"></script>
-  <script src="js/sequence-theme.modern-slide-in.js"></script>
+  <script src="<c:url value='/js/sequence.js' />"></script>
+  <script src="<c:url value='/js/sequence-theme.modern-slide-in.js' />"></script>
   <!-- Product view slider -->
-  <script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
-  <script type="text/javascript" src="js/jquery.simpleLens.js"></script>
+  <script type="text/javascript" src="<c:url value='/js/jquery.simpleGallery.js' />"></script>
+  <script type="text/javascript" src="<c:url value='/js/jquery.simpleLens.js' />"></script>
   <!-- slick slider -->
-  <script type="text/javascript" src="js/slick.js"></script>
+  <script type="text/javascript" src="<c:url value='/js/slick.js' />"></script>
   <!-- Price picker slider -->
-  <script type="text/javascript" src="js/nouislider.js"></script>
+  <script type="text/javascript" src="<c:url value='/js/nouislider.js' />"></script>
   <!-- Custom js -->
-  <script src="js/custom.js"></script>
+  <script src="<c:url value='/js/custom.js' />"></script>
 
+  <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
 <!--   自定義js -->
-  <script type="text/javascript" src="js/Carousel.js"></script>
+  <script type="text/javascript" src="<c:url value='/js/Carousel.js' />"></script>
   <script src="<c:url value='/js/luke_js.js' />"></script> 
