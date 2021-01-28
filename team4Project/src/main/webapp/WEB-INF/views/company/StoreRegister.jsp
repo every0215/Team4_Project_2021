@@ -67,7 +67,7 @@
 						<td align='right'>Fex<font size='-3' color='blue'>(yyyy-MM-dd)</font>：
 						</td>
 						<td><form:input path="fex"  type="text" />
-						 <form:hidden path="companyId" value="${sessionScope.company.id}"/>
+<%-- 						 <form:hidden path="company" value="${sessionScope.company}"/> --%>
 						</td>
 					</tr>
 					

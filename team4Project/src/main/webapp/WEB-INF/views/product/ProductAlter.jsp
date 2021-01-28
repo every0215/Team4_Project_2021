@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <!DOCTYPE html>
     <html>
 
@@ -23,14 +23,32 @@
             
          
         </style>
+        <script>
+        $(document).ready(function() {
+        	var productType ="${product.productType}";
+        	console.log(productType);
+			$('#DropDownList1').val(productType);
+		});
+        
+        $(document).ready(function() {
+        	var status ="${product.status}";
+        	console.log(status);
+			if(status == 1)
+				$('#on').attr('checked',true);
+			else
+				$('#off').attr('checked',true);
+				
+		});
+        
+        </script>
     </head>
 
     <body>
 
         <h3>商品修改</h3>
-        <form name="myForm" method="post" enctype="multipart/form-data">
+        <form  name="myForm" method="post" enctype="multipart/form-data">
             <hr />
-
+			
             <label class="t1" >商品名稱:</label>
             <input type="text"  value='${product.productName}' name="productName" required="required"><br> <br>
             <label class="t1" >公司名稱:</label>
@@ -45,8 +63,8 @@
             <br> <br>
             <label class="t1" >商品類別:</label>
             
-            <select style="width: 185px" class="t1" name="productType"  required="required">
-				<option value="-1" selected disabled hidden >商品類別</option>
+            <select style="width: 185px" id="DropDownList1" class="t1" name="productType"  >
+				<option value="-1" selected disabled  >商品類別</option>
 				<option value="飲料">飲料</option>
 				<option value="泡麵">泡麵</option>
 				<option value="零食">零食</option>
@@ -62,10 +80,10 @@
             <textarea style="resize: none; width: 600px; height: 200px;" name="productDescript" >${product.productDescript}</textarea>
             <br><br>
             <label class="t1" >商品狀態:</label>
-            <input type="radio" id="on" name="status" value="1">
-            <label for="on">上架</label>
-            <input type="radio" id="off" name=status value="0">
-            <label for="off">下架</label>
+            <label ><input type="radio" id="on" name="status" value="1"  checked>
+            上架</label>
+            <label ><input type="radio" id="off" name=status value="0">
+            下架</label>
 			
             <br><br>
             <label class="t1" for="">商品圖片:</label>

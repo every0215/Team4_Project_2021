@@ -66,4 +66,7 @@ public class ProductServiceimpl implements ProductService {
 	public List<Product> selectbyType(String productType){
 		return productDao.selectbyType(productType);
 	}
+	public List<Product>  selectbyName(String productName){
+		return productDao.selectbyName(productName);
+	}
 }

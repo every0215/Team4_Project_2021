@@ -10,7 +10,7 @@ public interface ReportService {
 		List<Report> queryAll();
 		
 		//查詢累計會員數
-		List<Report> queryMember();
+		String queryMember(int companyid);
 		//年度累計銷售金額
 		String querySales(int companyid);
 		//目前門市數量
@@ -36,10 +36,10 @@ public interface ReportService {
 		List<Report> queryAllStoreStock(int companyid);
 		//Tab8-商品前五名排行
 		List<Report> queryProductRanking(int companyid);
-		//新增廣告排行榜商品
-		void insert(Report report);
+	
 		//修改廣告排行榜商品
 		void update(Report report);
-		//刪除廣告排行榜商品
-		void delete(int reportid);
+
+		//查詢前五名商品
+		List<Report> queryProductTop();
 }

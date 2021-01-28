@@ -159,12 +159,19 @@
               <!-- / cart box -->
               <!-- search box -->
               <div class="aa-search-box">
-                <form action="">
-                  <input type="text" name="" id="" placeholder="Search here ex. 'man' ">
+                <form action="<c:url value='ProductSearch'/>"  method="get" >
+                  <input type="text"  name="search"  placeholder="Search here ex. '洗髮乳' ">
                   <button type="submit"><span class="fa fa-search"></span></button>
                 </form>
               </div>
-              <!-- / search box -->             
+              <!-- / search box -->     
+              <div class="aa-search-box" style="white-space: nowrap; overflow: hidden;">
+						<span style="color:red;font-weight: bold;">熱銷特賣</span>
+						<span >
+						<c:forEach var="queryproducttopa" items="${queryproducttop}">
+						  <tr><td>&nbsp;&nbsp;<a href="productShow/${queryproducttopa[2]}">${queryproducttopa[0]} </a>&nbsp;&nbsp; <td></tr>
+					</c:forEach></span>	
+              </div>        
             </div>
           </div>
         </div>

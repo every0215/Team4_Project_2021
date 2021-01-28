@@ -16,7 +16,13 @@ public interface IEventDao {
 	
 	ArrayList<Event> queryAll(int companyId);
 	
+	ArrayList<Event> queryStatusOKAll(int companyId);
+	
 	ArrayList<Event> queryByTypeId(int typeId);
 	
+	ArrayList<Event> queryStatusOKByTypeId(int typeId);
+	
 	void delete(int id);
+	
+	void updateStatusEvent(int eventId);
 }

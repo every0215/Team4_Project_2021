@@ -1,12 +1,20 @@
 package com.web.store.company.model;
 
 import java.sql.Blob;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -28,15 +36,50 @@ public class CmpService {
 	private String svFilename;
 	@Transient
 	 MultipartFile sMultipartFile;
+
+	@ManyToMany(mappedBy = "cmpServiceS")
+	private Set<Store> sto = new HashSet<Store>();
 	
-	//manytomany
-	//store company
+//	@ManyToMany(mappedBy = "cmpServiceC")
+//	private Set<Company> cmp = new HashSet<Company>();
+	
+	@Transient
+	@Column(name= "CompanyId")
+	private Integer companyId;
+	
+	
+//	@Transient
+	@JoinColumn(name = "CompanyId")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JsonIgnore
+	private Company company;
+	
+	
+	
 	
 	public CmpService() {
 		
 	}
 	
 	
+	public CmpService(String spService, Blob spServiceImg, String svFilename, Company company) {
+		super();
+		
+		this.spService = spService;
+		this.spServiceImg = spServiceImg;
+		this.svFilename = svFilename;
+		this.company = company;
+		
+	}
+	public CmpService(String spService, Blob spServiceImg, String svFilename, Integer companyId) {
+		super();
+		
+		this.spService = spService;
+		this.spServiceImg = spServiceImg;
+		this.svFilename = svFilename;
+		this.companyId = companyId;
+		
+	}
 	public CmpService(String spService, Blob spServiceImg, String svFilename) {
 		super();
 		
@@ -84,5 +127,25 @@ public class CmpService {
 	}
 	public void setsMultipartFile(MultipartFile sMultipartFile) {
 		this.sMultipartFile = sMultipartFile;
+	}
+
+
+	public Set<Store> getSto() {
+		return sto;
+	}
+
+
+	public void setSto(Set<Store> sto) {
+		this.sto = sto;
+	}
+
+
+	public Company getCompany() {
+		return company;
+	}
+
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 }

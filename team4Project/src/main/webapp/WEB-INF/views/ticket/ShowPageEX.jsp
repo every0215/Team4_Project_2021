@@ -23,7 +23,13 @@
 <tr><td>種類</td> <td>${eventType.typeName}</td></tr>
 <tr><td>名稱</td> <td>${event.eventName}</td></tr>
 <tr><td>地點</td> <td>${event.eventLocation}</td></tr>
-<tr><td>售票期間</td> <td>${exhibition.onSaleDate} ~ ${exhibition.offSaleDate}</td></tr>
+<tr><td>狀態</td> <td><c:choose>
+               	 <c:when test="${event.status==1}">上架
+               	 </c:when>
+               	 
+               	 <c:otherwise>下架</c:otherwise>
+                 </c:choose></td></tr>
+<tr><td>售票期間</td> <td>${exhibition.onSaleDate.toString().substring(0, 19)} ~ ${exhibition.offSaleDate.toString().substring(0, 19)}</td></tr>
 <tr><td>展出期間 </td> <td>${exhibition.commDate} ~ ${exhibition.dueDate}</td></tr>
 <tr><td>展覽介紹</td> <td>${exhibition.description}</td></tr>
 <tr><td>優惠信用卡</td> <td>${creditCard.cardName}</td></tr>
