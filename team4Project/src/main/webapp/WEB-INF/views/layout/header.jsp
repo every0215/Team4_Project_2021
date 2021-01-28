@@ -51,7 +51,7 @@
               <!-- / header top left -->
               <div class="aa-header-top-right" style="position: relative;">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="<c:url value='/member/dashboard' />">我的帳號</a></li>
+                  <li><a href="<c:url value='/member/myWallet' />">我的帳號</a></li>
                   <c:if test="${ user != null }" >
                  	 <li id="UserNotification" class="hidden-xs"><a href="#">通知</a></li>
                   	 <li><div><span class="ll-num-count">${userNotificationNo}</span></div></li>

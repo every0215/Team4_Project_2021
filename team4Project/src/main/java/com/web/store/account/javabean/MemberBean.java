@@ -116,7 +116,7 @@ public class MemberBean implements Serializable {
 	private Set<MemberSubscription> memberSubscriptionList;
 	
 	@JsonIgnore
-	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "member", cascade=CascadeType.ALL)
 	private Set<MemberNotification> memberNotificationList;
 
 
