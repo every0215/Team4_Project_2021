@@ -83,7 +83,7 @@ public class Company  {
 	private Boolean status =true;//企業的上下架狀態，只有1或0
 	
 	
-	
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Campaign> campaigns;
 	
@@ -91,12 +91,12 @@ public class Company  {
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="company", cascade=CascadeType.ALL)
 	 private Set<Event> events = new LinkedHashSet<Event>();
 	
-//	@Transient
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Store> stores;
 	
-	@Transient
-	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
+//	@Transient
+	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<CmpService> cmpServiceC;
 	
 //	

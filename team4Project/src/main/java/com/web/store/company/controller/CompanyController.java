@@ -44,7 +44,10 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.web.store.campaign.model.Campaign;
+import com.web.store.campaign.model.Page;
+import com.web.store.campaign.model.SearchBean;
 import com.web.store.company.model.CmpService;
 import com.web.store.company.model.Company;
 import com.web.store.company.model.Store;
@@ -754,6 +757,23 @@ public class CompanyController {
 		
 		/////////////////////////////////
 		return "/company/StoreRegister_Service";
+	}
+//地圖搜尋
+	@PostMapping(value="/company/testAjax",produces = "application/json; charset=UTF-8")
+	public @ResponseBody String searchCampaignAjax( 
+			@RequestParam("test") String cmpid
+//			,HttpServletResponse response
+			) {
+		System.out.println("Ajax接收資料");
+//		List<CmpService> cmpsv = cmpsvService.getAllServiceBycmpId(Integer.parseInt(cmpid));
+//		Company cmp = cmpService.getCompanyById(Integer.parseInt(cmpid));
+//		Set<CmpService> cmpsv = cmp.getCmpServiceC();
+//		Gson gson = new Gson();  
+//		
+//		String str = gson.toJson(cmpsv);  
+		String str = "[{\"id\":\"1\",\"spService\":\"hello\"},{\"id\":\"2\",\"spService\":\"yes\"}]";
+		System.out.println(str);
+		return str;
 	}
 	
 }

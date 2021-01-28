@@ -13,8 +13,9 @@
 <!--   企業登入連結 -->
 <!--   企業登入連結 -->
 <!--   企業登入連結 -->
+ <a href="<c:url value='/company/MapPage' />">地圖頁面 </a>
+
  
-  
    <!-- wpf loader Two -->
     <div id="wpf-loader-two">
       <div class="wpf-loader-two-inner">

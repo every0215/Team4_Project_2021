@@ -26,6 +26,11 @@ public class CompanyViewController {
 		System.out.println("redirect");
 		return "/crm/backOffice";
 	}
+	@GetMapping("/company/MapPage")
+	public String getMap() {
+		System.out.println("redirect");
+		return "/company/MapPage";
+	}
 	
 	@GetMapping("/index")
 	public String companyRegister() {

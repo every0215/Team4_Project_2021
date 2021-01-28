@@ -2,6 +2,7 @@ package com.web.store.company.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -48,6 +49,7 @@ public class CmpServiceDaoImpl implements CmpServiceDao {
 	@Override
 	public List<CmpService> getAllServiceBycmpId(Integer cmpId) {
 		Session session = sessionFactory.getCurrentSession();
+		
 		String hqlstr = "from CmpService where CompanyId = :CmpId";
 		Query<CmpService> queryObj = session.createQuery(hqlstr,CmpService.class); 			
 		queryObj.setParameter("CmpId", cmpId);

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +58,11 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public Company getCompanyById(Integer id) {
-		return cmpDao.getCompanyById(id);
+		Company cmp = cmpDao.getCompanyById(id);
+//		Hibernate.initialize(cmp.getCampaigns());
+//		Hibernate.initialize(cmp.getStores());
+		return cmp;
+//		return cmpDao.getCompanyById(id);
 	}
 
 	@Override
