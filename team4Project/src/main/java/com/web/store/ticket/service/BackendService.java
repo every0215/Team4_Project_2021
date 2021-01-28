@@ -14,6 +14,9 @@ import com.web.store.ticket.model.Price;
 import com.web.store.ticket.model.Sport;
 import com.web.store.ticket.model.SportSeat;
 import com.web.store.ticket.model.SportSession;
+import com.web.store.ticket.model.TicketOnWay;
+import com.web.store.ticket.model.TicketOrder;
+import com.web.store.ticket.model.TicketOrderDetail;
 
 public interface BackendService {
 	
@@ -21,7 +24,9 @@ public interface BackendService {
 	public ArrayList<Integer> updateEvent(Event event,Exhibition exhibition,Attraction attraction,Sport sport, List<Price> priceList);
 	public Event queryOneEvent(int id);
 	public ArrayList<Event> getEventsBytypeId(int typeId);
+	public ArrayList<Event> queryStatusOKByTypeId(int typeId);
 	public ArrayList<Event> queryAll(int companyId);
+	public ArrayList<Event> queryStatusOKAll(int companyId);
 	public void delete(int id);
 //	public void addAttraction(Attraction attraction);
 	public void updateAttraction(Attraction attraction);
@@ -47,4 +52,21 @@ public interface BackendService {
 	public void deleteSessionList(int sportId);
 	public void deleteSeatList(int sessionId);
 	public ArrayList<Bank> queryAllBank();
+	public ArrayList<TicketOrder> queryTicketOrderByMemberId(int memberId);
+	public TicketOrder addTicketOrder(TicketOrder ticketOrder);
+	public TicketOrder updateTicketOrder(TicketOrder ticketOrder);
+	public void deleteTicketOrder(int ticketOrderId);
+	
+	public TicketOnWay addTicketOnWay(TicketOnWay ticketOnWay);
+	public TicketOnWay updateTicketOnWay(TicketOnWay ticketOnWay);
+	public void deleteTicketOnWay(int ticketOnWayId);
+	
+	public TicketOrderDetail addTicketOrderDetail(TicketOrderDetail ticketOrderDetail);
+	public TicketOrderDetail updateTicketOrderDetail(TicketOrderDetail ticketOrderDetail);
+	public void deleteTicketOrderDetail(int ticketOrderDetailId);
+	public SportSeat queryOneSportSeat(Integer seatId);
+	public SportSeat updateSeatStock(SportSeat sportSeat);
+	
+	public void updateStatusEvent(int eventId);
+	
 }

@@ -143,3 +143,13 @@ th{
 	height: 926px;
 }
 
+.tab_adv{
+	display:inline-block;
+	background:pink;
+/* 	float: left; */
+}
+
+#rep_tab_8{
+		display:inline-flex;
+}
+

@@ -1,6 +1,9 @@
 package com.web.store.ticket.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -29,6 +32,9 @@ import com.web.store.ticket.model.Price;
 import com.web.store.ticket.model.Sport;
 import com.web.store.ticket.model.SportSeat;
 import com.web.store.ticket.model.SportSession;
+import com.web.store.ticket.model.TicketOnWay;
+import com.web.store.ticket.model.TicketOrder;
+import com.web.store.ticket.model.TicketOrderDetail;
 import com.web.store.ticket.service.BackendService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,6 +46,124 @@ public class TicketController {
 	
 	@Autowired
 	ServletContext context;
+	@PostMapping("/TicketBuyOnWay/{eventId}")
+	public String buyTicketOnWay(@PathVariable int eventId,
+			@RequestParam(value="discount") Integer discount,
+			
+			@RequestParam(value="count")Integer[] countList,//priceId對應的票券張數
+			@RequestParam(value="sessionId",required=false) Integer sessionId, 
+			Model model,HttpSession session,RedirectAttributes ra
+			) throws JsonProcessingException {
+		
+		MemberBean member = (MemberBean) session.getAttribute("currentUser");
+		List<Price> priceList = backendService.selectPriceList(eventId);
+		Event event = backendService.queryOneEvent(eventId);
+		Integer typeId = event.getTypeId();
+		ArrayList<Double> dPriceList = new ArrayList<>();
+		double totalCost = 0.00;
+		if(discount==1) {
+			Double discountRatio;
+			if(typeId==1) {//exhibition
+				discountRatio = backendService.selectExhibitionByEvent(eventId).getDiscountRatio();
+			}else {//sport
+				discountRatio = backendService.selectSportByEvent(eventId).getDiscountRatio();
+			}
+			for(Price price:priceList) {
+				Double dCost = price.getCost().doubleValue();
+				Double nCost = dCost*discountRatio;
+				dPriceList.add(nCost);
+			}
+			for(int i=0;i<countList.length;i++) {
+				double cost = countList[i].doubleValue();
+				double subtotal = cost*(dPriceList.get(i));
+				totalCost=totalCost + subtotal;
+			}
+			System.out.println("============折價============="+totalCost);
+			
+			
+		}else {
+			for(int i=0;i<countList.length;i++) {
+				int subtotal = countList[i]*(priceList.get(i).getCost());
+				totalCost=totalCost + subtotal;
+			}
+			System.out.println("============原價============="+totalCost);
+		}
+		int itotalCost=(int) Math.round(totalCost);
+		System.out.println("============四捨五入============="+itotalCost);
+		//memberId, status, validtime, totalCost
+		
+		
+		
+		//memberId, status, validtime, totalCost, orderDetail, ticketOnWay
+//		TicketOrder ticketOrder = new TicketOrder(member.getId(),0,null,itotalCost,ticketOrderDetails,ticketOnWays);
+		TicketOrder ticketOrder = new TicketOrder(member.getId(),0,null,itotalCost);
+		TicketOrder savedTicketOrder = backendService.addTicketOrder(ticketOrder);
+		System.out.println("========================================="+savedTicketOrder.getId());
+		
+		
+		//======================塞ticketOnWaysList/ ticketOrderDetail================================
+		Timestamp deleteTime = getDeleteTime();
+		List<TicketOnWay> ticketOnWays = new ArrayList<TicketOnWay>();
+		List<TicketOrderDetail> ticketOrderDetails = new ArrayList<TicketOrderDetail>();
+		List<TicketOnWay> savedTicketOnWays = new ArrayList<TicketOnWay>();
+		List<TicketOrderDetail> savedTicketOrderDetails = new ArrayList<TicketOrderDetail>();
+		if(event.getTypeId()!=3) {
+			for(int i=0;i<countList.length;i++) {
+			Integer priceId = priceList.get(i).getId();
+			Integer value = countList[i];
+			Integer seatId = null;
+			TicketOnWay ticketOnWay = new TicketOnWay(savedTicketOrder,eventId,priceId,seatId,value,deleteTime);
+			TicketOrderDetail ticketOrderDetail = new TicketOrderDetail(savedTicketOrder,eventId,priceId,discount,seatId,value);
+			ticketOrderDetails.add(ticketOrderDetail);
+			ticketOnWays.add(ticketOnWay);
+			}
+		}else{
+			//只有sport需要扣stock
+			for(int i=0;i<countList.length;i++) {
+				Integer priceId = priceList.get(i).getId();
+				Integer value = countList[i];
+				List<SportSeat> seatList = backendService.selectSportSeatBySession(sessionId);
+				Integer seatId = seatList.get(i).getId();
+				TicketOrderDetail ticketOrderDetail = new TicketOrderDetail(savedTicketOrder,eventId,priceId,discount,seatId,value);
+				ticketOrderDetails.add(ticketOrderDetail);
+				TicketOnWay ticketOnWay = new TicketOnWay(savedTicketOrder,eventId,priceId,seatId,value,deleteTime);
+				ticketOnWays.add(ticketOnWay);
+			}
+		}
+		
+		for(TicketOnWay ticektOnWay:ticketOnWays) {
+			 TicketOnWay savedTicketOnWay = backendService.addTicketOnWay(ticektOnWay);
+			 savedTicketOnWays.add(savedTicketOnWay);
+			 if(typeId==3) {
+				 
+				 SportSeat seat = backendService.queryOneSportSeat(savedTicketOnWay.getSeatId());
+				 Integer oldStock = seat.getStock();
+				 Integer NewStock = oldStock - savedTicketOnWay.getValue();
+				 seat.setStock(NewStock);
+				 backendService.updateSeatStock(seat);
+				 
+			 }
+			 
+		}
+		
+		for(TicketOrderDetail ticketOrderDetail:ticketOrderDetails) {
+			TicketOrderDetail savedTicketOrderDetail = backendService.addTicketOrderDetail(ticketOrderDetail);
+			savedTicketOrderDetails.add(savedTicketOrderDetail);
+		}
+	
+		
+		System.out.println(new ObjectMapper().writeValueAsString(savedTicketOrder));
+		System.out.println(new ObjectMapper().writeValueAsString(savedTicketOrderDetails));
+		System.out.println(new ObjectMapper().writeValueAsString(savedTicketOnWays));
+
+		model.addAttribute("ticketOrder", new ObjectMapper().writeValueAsString(savedTicketOrder));
+		model.addAttribute("ticketOrder", new ObjectMapper().writeValueAsString(savedTicketOrderDetails));
+		model.addAttribute("ticketOrder", new ObjectMapper().writeValueAsString(savedTicketOnWays));
+		
+		return "/ticket/CTicketOnWay";
+	}
+	
+	
 	
 	@PostMapping("/TicketBuy/{eventId}")
 	public String buyTicket(@PathVariable int eventId,
@@ -70,11 +194,13 @@ public class TicketController {
 				model.addAttribute("attraction", attraction);
 				model.addAttribute("priceList", priceList);
 			}else {
+				//這是sport
 				Sport sport = backendService.selectSportByEvent(eventId);
 				List<Price> priceList = backendService.selectPriceListBySessionId(sessionId);
 				List<SportSeat> seatList = backendService.selectSportSeatBySession(sessionId);
 				CreditCard creditCard = backendService.queryCreditCard(sport.getCardId());
 				model.addAttribute("sport", sport);
+				model.addAttribute("sessionId", sessionId);
 				model.addAttribute("priceList", priceList);
 				model.addAttribute("seatList", seatList);
 				model.addAttribute("creditCard", creditCard);
@@ -97,7 +223,7 @@ public class TicketController {
 		ArrayList<Event> smallattraction = new ArrayList<>();
 		ArrayList<Event> smallsport = new ArrayList<>();
 		
-		ArrayList<Event> exhibitions = backendService.getEventsBytypeId(1);
+		ArrayList<Event> exhibitions = backendService.queryStatusOKByTypeId(1);
 		int eSize = exhibitions.size();
 		List<Integer> eList = getRandom(eSize);
 		for(int i=0;i<eList.size();i++) {
@@ -109,7 +235,7 @@ public class TicketController {
 			smallexhibtion.add(event);
 		}
 		
-		ArrayList<Event> attractions = backendService.getEventsBytypeId(2);
+		ArrayList<Event> attractions = backendService.queryStatusOKByTypeId(2);
 		int aSize = attractions.size();
 		List<Integer> aList = getRandom(aSize);
 		System.out.println(aList.size());
@@ -122,7 +248,7 @@ public class TicketController {
 			smallattraction.add(event);
 		}
 		
-		ArrayList<Event> sports = backendService.getEventsBytypeId(3);
+		ArrayList<Event> sports = backendService.queryStatusOKByTypeId(3);
 		int sSize = sports.size();
 		List<Integer> sList = getRandom(sSize);
 		System.out.println(sList.size());
@@ -194,7 +320,7 @@ public class TicketController {
 	@GetMapping("/TicketType/{typeId}")
 	public String sortByType(@PathVariable int typeId,Model model) throws JsonProcessingException {
 		EventType eventType = backendService.queryEventType(typeId);
-		ArrayList<Event> events = backendService.getEventsBytypeId(typeId);
+		ArrayList<Event> events = backendService.queryStatusOKByTypeId(typeId);
 		for(Event event:events) {
 			if(event.getTypeId()==1) {
 				event.setExhibition(backendService.selectExhibitionByEvent(event.getId()));
@@ -217,7 +343,7 @@ public class TicketController {
 	
 	@GetMapping("/TicketCompany/{companyId}")
 	public String sortByCompany(@PathVariable int companyId,Model model) throws JsonProcessingException {
-		ArrayList<Event> events = backendService.queryAll(companyId);
+		ArrayList<Event> events = backendService.queryStatusOKAll(companyId);
 		Company company = backendService.queryCompany(companyId);
 		for(Event event:events) {
 			if(event.getTypeId()==1) {
@@ -242,6 +368,8 @@ public class TicketController {
 	public String test() {
 		return "[{name:'中國信託商業銀行',id:1,cardInfo:[{name:'LINEPAY信用卡',cardId:1},{name:'中油聯名卡',cardId:2},{name:'中信兄弟聯名卡',cardId:3},{name:'酷玩卡',cardId:4}]},{name:'玉山商業銀行',id:2,cardInfo:[{name:'統一時代悠遊聯名卡',cardId:5},{name:'臺北南山廣場聯名卡',cardId:6},{name:'玉山Pi拍錢包信用卡',cardId:7}]},{name:'台北富邦商業銀行',id:3,cardInfo:[{name:'富邦數位生活卡',cardId:8},{name:'momo卡',cardId:9},{name:'富邦悍將悠遊聯名卡',cardId:10},{name:'富邦J卡',cardId:11}]},{name:'國泰世華商業銀行',id:4,cardInfo:[{name:'KOKOCOMBOicash聯名卡',cardId:12},{name:'長榮航空聯名卡',cardId:13},{name:'Costco聯名卡',cardId:14}]},{name:'台新國際商業銀行',id:6,cardInfo:[{name:'@GOGO卡',cardId:15},{name:'FlyGo卡',cardId:16},{name:'玫瑰卡',cardId:17},{name:'街口聯名卡',cardId:18}]}]";
 	}
+	
+	
 
 	//刪除票券 應該改為上下架
 	@GetMapping("/createEvent")
@@ -279,6 +407,16 @@ public class TicketController {
 			}
 		return list;
 
+	}
+	
+	public Timestamp getDeleteTime() {
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date now = new Date();
+		
+		//==============afterDate為Date型別的deletTime
+		Date afterDate = new Date(now.getTime() + 300000);
+		Timestamp deleteTime = new Timestamp(afterDate.getTime());
+		return deleteTime;
 	}
 	
 }

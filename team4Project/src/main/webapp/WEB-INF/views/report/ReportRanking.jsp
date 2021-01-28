@@ -5,117 +5,55 @@
 <head>
 <meta charset="UTF-8">
 <title>Report Ranking</title>
-
 <style>
-#tb1234567 {
-	border: 3px solid bule;
-	width: 500px;
-	border-collapse: collapse;
+.rep_ranking_div {
+	width: 1000px;
+	margin-right: 50px;
 	text-align: center;
 }
 </style>
+<!-- 外掛dataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#myTable').DataTable({
+			"dom" : 'rti',
+
+		});
+
+	});
+</script>
 </head>
 <body>
 
-	<div>
+	<div class="rep_ranking_div">
 		<form>
-			<table id="tb1234567">
+			<table id="myTable">
 				<caption>
 					<span style="font-weight: bolder; font-size: 20px;">廣告精選商品排行榜</span>
-					<span style="display: inline;float:right;">
-						銷售前五名<input type="button" value="匯入" name="queryadddata">
+					<span style="display: inline; float: right;">
+						<input type="button" value="帶入銷售前五名" name="queryadddata">
 					</span>
 
 				</caption>
 				<thead>
-					<th>排名</th>
-					<th>商品品類</th>
+					<th>排名/順序</th>
 					<th>商品名稱</th>
-					<th>銷售數量</th>
-					<th>修改</th>
-					<th>刪除</th>
+					<th>商品描述</th>
+					<th>商品金額</th>
+					<th>商品圖片</th>
+					<th>變更</th>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>飲料</td>
-						<td>麥香紅茶</td>
-						<td>500</td>
-						<td><input type="button" value="修改" name="revisedata"></td>
-						<td><input type="button" value="刪除" name="deletedata"></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>飲料</td>
-						<td>麥香紅茶</td>
-						<td>500</td>
-						<td><input type="button" value="修改" name="revisedata"></td>
-						<td><input type="button" value="刪除" name="deletedata"></td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>飲料</td>
-						<td>麥香紅茶</td>
-						<td>500</td>
-						<td><input type="button" value="修改" name="revisedata"></td>
-						<td><input type="button" value="刪除" name="deletedata"></td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td>飲料</td>
-						<td>麥香紅茶</td>
-						<td>500</td>
-						<td><input type="button" value="修改" name="revisedata"></td>
-						<td><input type="button" value="刪除" name="deletedata"></td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td>飲料</td>
-						<td>麥香紅茶</td>
-						<td>500</td>
-						<td><input type="button" value="修改" name="revisedata"></td>
-						<td><input type="button" value="刪除" name="deletedata"></td>
-					</tr>
-					<tr>
-						<td>6</td>
-						<td>飲料</td>
-						<td>麥香紅茶</td>
-						<td>500</td>
-						<td><input type="button" value="修改" name="revisedata"></td>
-						<td><input type="button" value="刪除" name="deletedata"></td>
-					</tr>
-					<tr>
-						<td>7</td>
-						<td>飲料</td>
-						<td>麥香紅茶</td>
-						<td>500</td>
-						<td><input type="button" value="修改" name="revisedata"></td>
-						<td><input type="button" value="刪除" name="deletedata"></td>
-					</tr>
-					<tr>
-						<td>8</td>
-						<td>飲料</td>
-						<td>麥香紅茶</td>
-						<td>500</td>
-						<td><input type="button" value="修改" name="revisedata"></td>
-						<td><input type="button" value="刪除" name="deletedata"></td>
-					</tr>
-					<tr>
-						<td>9</td>
-						<td>飲料</td>
-						<td>麥香紅茶</td>
-						<td>500</td>
-						<td><input type="button" value="修改" name="revisedata"></td>
-						<td><input type="button" value="刪除" name="deletedata"></td>
-					</tr>
-					<tr>
-						<td>10</td>
-						<td>飲料</td>
-						<td>麥香紅茶</td>
-						<td>500</td>
-						<td><input type="button" value="修改" name="revisedata"></td>
-						<td><input type="button" value="刪除" name="deletedata"></td>
-					</tr>
+<%-- 					<c:forEach var="#Sto" items="${}"> --%>
+<!-- 						<tr> -->
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td><input type="button" value="修改" name="revisedata"></td>
 				</tbody>
 			</table>
 		</form>

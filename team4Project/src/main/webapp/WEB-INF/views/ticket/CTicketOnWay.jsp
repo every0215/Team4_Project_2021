@@ -97,7 +97,6 @@
             </div>
           </div>
 
-
           <div class="container text-center">
             <div class="ticket-info">
               <div class="panel-body">
@@ -211,7 +210,6 @@
 
                     <c:otherwise>
                       <form action="<c:url value='/TicketBuyOnWay/${eventId}'/>" method="post">
-                       <input type="hidden" name="sessionId" value="${sessionId}"/>
                         <label class="t1" for="">優惠選擇:</label>
                         <select name="discount" id="discount" required>
                           <option value="0" selected>無</option>

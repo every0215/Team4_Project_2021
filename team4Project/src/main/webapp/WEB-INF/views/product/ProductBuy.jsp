@@ -40,33 +40,25 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
-
+	
 </script>
 
 </head>
 
 <body>
+	<div style="text-align: center; background-color: white; width: 100%;">
+		<div style="border:5; background-color: white; width: 800px; height: 800px; margin: 0 auto;">
+			<div>
+				<div style = 'padding-right :530apx'class="panel-body">
+					<img src="<c:url value='/getproductimage/${product.productId}'/>"
+						class="img-responsive" style=" float:left; width:700px; height: 500px">
+				</div>
+			</div>
 	
-	<div class="col-sm-4" style="width: 250px; float: left;">
-						<div class="panel panel-primary" >
-							<div class="panel-heading"
-								style="height: 60px; text-align: center;">${product.productName}</div>
-							<div class="panel-body">
-								<img
-									src="<c:url value='/getproductimage/${product.productId}'/>"
-									class="img-responsive" style="width: 100%; height: 164px">
-							</div>
-							<div class="panel-footer"
-								style="height: 50px; text-align: center; font-size: 16px;">
 
-								店家:${product.companyName} <br>
-								產品價格${product.productPrice}<br>
-								產品說明${product.productDescript}
-								<input type = 'button'  id = "demo2" onclick="location.href = '<c:url value='/ProductBuy2/${product.productId}'/>'"></input>
-								</div>
-								
-						</div>
-					</div>
+
+	</div>
+	</div>
 
 
 
@@ -77,4 +69,5 @@
 <!--   自定義js -->
 <script type="text/javascript" src="js/Carousel.js"></script>
 <script src="<c:url value='/js/luke_js.js' />"></script>
+
 </html>
