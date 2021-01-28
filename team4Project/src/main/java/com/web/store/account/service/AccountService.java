@@ -52,7 +52,7 @@ public interface AccountService {
 
 	void delete(MemberNotification memberNotification) throws Exception;
 
-	void addMemberNotification(MemberBean member, int type, String title, String description) throws Exception;
+	void addMemberNotification(MemberBean member, int type, String title, String description, String url) throws Exception;
 
 	void delete(MemberBean member);
 

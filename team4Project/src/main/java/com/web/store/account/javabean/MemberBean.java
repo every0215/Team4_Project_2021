@@ -94,21 +94,28 @@ public class MemberBean implements Serializable {
 	private Timestamp createdDate;
 	@Column(name="ModifiedDate")
 	private Timestamp modifiedDate;
-	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "member", cascade=CascadeType.ALL)
 	private Set<MemberLoginHistory> memberLoginHistoryList;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "member", cascade=CascadeType.ALL)
 	private Set<MemberCreditCard> memberCreditCardList;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "member", cascade=CascadeType.ALL)
 	private Set<MCoinTopUpDetail> mCoinTopupDetailList;
 	
+	@JsonIgnore
 	@OneToOne(fetch=FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 	private MCoin mCoin;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "member", cascade=CascadeType.ALL)
 	private Set<MemberSubscription> memberSubscriptionList;
 	
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "member", cascade=CascadeType.ALL)
 	private Set<MemberNotification> memberNotificationList;
 

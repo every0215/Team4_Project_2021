@@ -62,6 +62,32 @@ public class MemberDaoImpl implements MemberDao {
 		return memberList.get(0);	
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberBean> selectByConditions(int page, int pageSize, String keyword ) throws SQLException {
+		Session session = factory.getCurrentSession();
+		System.out.println("searching.. keyword: " + keyword);
+		List<MemberBean> memberList = (List<MemberBean>) session.createQuery("From MemberBean m WHERE m.email LIKE :keyword ")
+				.setParameter("keyword", "%"+ keyword.trim() +"%")
+				//.setFirstResult((page-1)*pageSize)
+				.setFirstResult((page)*pageSize)
+				.setMaxResults(pageSize*3)
+				.getResultList();
+		
+//		String hql = "From MemberBean m where m.email like :keyword";
+//		 
+//		//keywordStr = "test";
+//		Query query = session.createQuery(hql);
+//		query.setParameter("keyword", "%" + keywordStr.tr + "%");
+//		 
+//		List<MemberBean> memberList = query
+//				.setFirstResult((page)*pageSize)
+//				.setMaxResults(pageSize*3)
+//				.list();
+		
+		return memberList;	
+	}
+	
 	@Override
 	public void insert(MemberBean m) throws SQLException {
 		Session session = factory.getCurrentSession();
@@ -184,5 +210,13 @@ public class MemberDaoImpl implements MemberDao {
 		session.delete(memberNotification);
 			
 
+	}
+	
+	@Override
+	public int getTotalCount() throws SQLException {
+		Session session = factory.getCurrentSession();
+		String hql = "Select Count(id) FROM MemberBean";
+		Long totalCount = (Long) session.createQuery(hql).getSingleResult();
+		return totalCount.intValue();	
 	}
 }

@@ -89,4 +89,11 @@
       </div>
     </div>
   </footer>
+  
+  <script>
+  $(document).ready(function(){
+	  
+  });
+  
+  </script>
   <!-- / footer -->

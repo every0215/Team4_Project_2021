@@ -23,6 +23,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,6 +53,7 @@ import com.web.store.account.javabean.MCoin;
 import com.web.store.account.javabean.MCoinTopUpDetail;
 import com.web.store.account.javabean.MemberBean;
 import com.web.store.account.javabean.MemberCreditCard;
+import com.web.store.account.javabean.MemberNotification;
 import com.web.store.account.javabean.MemberSubscription;
 import com.web.store.account.service.AccountService;
 import com.web.store.account.service.impl.AccountServiceImpl;
@@ -93,7 +95,7 @@ public class MemberController {
 
 		return "account/review";
 	}
-	
+
 	@RequestMapping("/notification")
 	public String notification() throws Exception {
 
@@ -105,12 +107,6 @@ public class MemberController {
 		return "account/memberList";
 	}
 
-	@GetMapping("/getMemberList")
-	public @ResponseBody List<MemberBean> getMemberList() throws Exception {
-		List<MemberBean> members = accountService.selectAllMembers();
-
-		return members;
-	}
 
 	@PostMapping("/delete")
 	public @ResponseBody int delete(@RequestParam int memberId) throws Exception {
@@ -220,7 +216,7 @@ public class MemberController {
 				PayPalPaymentServices paymentServices = new PayPalPaymentServices();
 				String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
 				String approvalLink = paymentServices.authorizePayment(orderDetail, baseUrl);
-				
+
 				return "redirect:" + approvalLink;
 			}
 
@@ -261,7 +257,7 @@ public class MemberController {
 			mCoinTopUpDetail.setPaymentAmount(mCoinTopUpDetail.getTopUpAmount());
 			mCoinTopUpDetail.setTopupDate(new Timestamp(System.currentTimeMillis()));
 			mCoinTopUpDetail.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-			
+
 			if (mCoinTopUpDetail.getPaymentMethod() == 2) {
 				PayPalPaymentServices paymentServices = new PayPalPaymentServices();
 				Payment payment = paymentServices.executePayment(paymentId, payerId);
@@ -277,11 +273,11 @@ public class MemberController {
 			accountService.update(currentUser);
 			session.setAttribute("currentUser", currentUser);
 			model.addAttribute("verified", true);
-			model.addAttribute("msg", paymentMethodStr+"儲值成功");
+			model.addAttribute("msg", paymentMethodStr + "儲值成功");
 
 		} catch (Exception ex) {
 			model.addAttribute("verified", false);
-			model.addAttribute("msg", paymentMethodStr+"儲值失敗");
+			model.addAttribute("msg", paymentMethodStr + "儲值失敗");
 		}
 
 		return "account/myWallet";
@@ -293,6 +289,7 @@ public class MemberController {
 	@GetMapping("/getMemberCreditCards")
 	public @ResponseBody Set<MemberCreditCard> getMemberCreditCards(HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
+		Hibernate.initialize(currentUser.getMemberCreditCardList());
 		Set<MemberCreditCard> memberCreditCardList = currentUser.getMemberCreditCardList();
 
 		return memberCreditCardList;
@@ -440,6 +437,15 @@ public class MemberController {
 			model.addAttribute("msg", "會員密碼輸入錯誤");
 		}
 		return "account/changePassword";
+	}
+
+	// ==========================================================================
+	// 會員通知
+	// ==========================================================================
+	@GetMapping("/getMemberNotifications")
+	public @ResponseBody Set<MemberNotification> getMemberNotifications(HttpSession session) throws Exception {
+		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
+		return (currentUser.getMemberNotificationList() != null) ? currentUser.getMemberNotificationList(): null;
 	}
 
 }

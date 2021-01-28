@@ -44,7 +44,7 @@
 		<li><a href="<c:url value='/data/CreateMember' />"> <i class="fa fa-user fa-lg"></i><b>Gen會員資料</b>
 		</a></li>
 
-		<li><a href="<c:url value='/member/notification' />"> <i class="fa fa-users fa-lg"></i><b>Notification</b>
-		</a></li>
 	</ul>
+	<a href="<c:url value='/admin/memberManage' />" style="color: #fff; "><b>MemberManage</b>
+		</a>
 </div>

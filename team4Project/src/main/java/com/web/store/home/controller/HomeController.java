@@ -84,6 +84,7 @@ public class HomeController {
 					member.setProfileImage1Base64(base64Encoded);
 
 					model.addAttribute("user", member);
+					model.addAttribute("userNotificationNo", member.getMemberNotificationList()==null? 0 : member.getMemberNotificationList().size());
 				}
 			}
 		}

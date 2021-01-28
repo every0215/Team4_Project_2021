@@ -36,6 +36,8 @@ public class MemberNotification implements Serializable {
 	private String description;
 	@Column(name="IsRead")
 	private Boolean read;
+	@Column(name="Url")
+	private String url;
 	@Column(name="CreatedDate")
 	private Timestamp createdDate;
 
@@ -95,11 +97,18 @@ public class MemberNotification implements Serializable {
 	public void setRead(Boolean read) {
 		this.read = read;
 	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
-
 
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;

@@ -384,7 +384,7 @@ ul.ll-err-list-msg {
 }
 .ll-notification-container h3 {
   text-transform: uppercase;
-  font-size: 90%;
+  font-size: 120%;
   font-weight: 700;
   color: #84929f;
   padding: 0.5rem 2rem;
@@ -405,7 +405,6 @@ ul.ll-err-list-msg {
 .ll-notification-container em {
   margin-right: 0.75rem;
   font-weight: 700;
-  font-size: 115%;
   color: #b5c4d2;
   vertical-align: bottom;
   display: inline-block;
@@ -433,8 +432,7 @@ ul.ll-err-list-msg {
   display: none;
 }
 .ll-notification-container input.checkbox[type=checkbox]:checked + label {
-  height: 3.25rem;
-  padding: 1.125rem 4rem 2.75rem 2rem;
+  padding: 1.125rem 4rem 0.75rem 2rem;
   border-top: 1px solid rgba(0, 0, 0, 0.13);
 }
 .ll-num-count {
@@ -454,6 +452,10 @@ ul.ll-err-list-msg {
     right: 1.46rem;
     box-sizing: border-box;
 }
-
+span.ll-mn-span {
+	height: 20px;
+	padding:15px 0px 15px 0px;
+	
+}
 
 

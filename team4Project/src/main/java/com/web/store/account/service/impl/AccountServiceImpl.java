@@ -2,6 +2,7 @@ package com.web.store.account.service.impl;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -176,15 +177,19 @@ public class AccountServiceImpl implements AccountService {
 	// 會員通知
 	//
 	@Override
-	public void addMemberNotification(MemberBean member, int type, String title, String description) throws Exception {
+	public void addMemberNotification(MemberBean member, int type, String title, String description, String url) throws Exception {
 		if (member.getMemberNotificationList() == null) {
 			Set<MemberNotification> mNotificationList = new LinkedHashSet<MemberNotification>();
 			member.setMemberNotificationList(mNotificationList);
 		}
 		MemberNotification mNotification = new MemberNotification();
+		mNotification.setType(type);
 		mNotification.setTitle(title);
+		mNotification.setDescription(description);
 		mNotification.setMember(member);
 		mNotification.setRead(false);
+		mNotification.setUrl(url);
+		mNotification.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		member.getMemberNotificationList().add(mNotification);
 		
 		update(member);
