@@ -47,10 +47,10 @@ public class CmpServiceDaoImpl implements CmpServiceDao {
 	}
 
 	@Override
-	public List<CmpService> getAllServiceBycmpId(Integer cmpId) {
+	public List<CmpService> getAllServiceBycmpId(Company cmpId) {
 		Session session = sessionFactory.getCurrentSession();
 		
-		String hqlstr = "from CmpService where CompanyId = :CmpId";
+		String hqlstr = "from CmpService where company = :CmpId";
 		Query<CmpService> queryObj = session.createQuery(hqlstr,CmpService.class); 			
 		queryObj.setParameter("CmpId", cmpId);
 		return queryObj.list();

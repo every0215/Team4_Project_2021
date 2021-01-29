@@ -68,6 +68,7 @@ public class Store {
 		private Boolean status=true;
 		
 //		@Transient
+		@JsonIgnore
 		@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		@JoinTable(name = "StoreService", joinColumns = {
 	            @JoinColumn(name = "StoreId") }, inverseJoinColumns = {

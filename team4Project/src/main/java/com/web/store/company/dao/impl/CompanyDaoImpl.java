@@ -1,9 +1,7 @@
 package com.web.store.company.dao.impl;
 
 import java.util.List;
-
-
-
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.web.store.campaign.model.Campaign;
 import com.web.store.company.dao.CompanyDao;
+import com.web.store.company.model.CmpService;
 import com.web.store.company.model.Company;
 
 
@@ -247,6 +246,18 @@ public class CompanyDaoImpl implements CompanyDao {
 		queryObj.executeUpdate();
 		return true;
 		
+	}
+	
+	@Override
+	public Set<CmpService> getAllServiceBycmpId(Integer cmpId) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		String hqlstr = "from Company c join fetch c.cmpServiceC join fetch c.campaigns where c.id = :CmpId";
+		Query queryObj = session.createQuery(hqlstr,Company.class); 			
+		queryObj.setParameter("CmpId", cmpId);
+		Company cmp = (Company) queryObj.uniqueResult();
+		 Set<CmpService> serve = cmp.getCmpServiceC();
+		return serve;
 	}
 	
 }

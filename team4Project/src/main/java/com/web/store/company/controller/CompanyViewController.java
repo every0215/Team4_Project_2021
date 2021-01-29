@@ -58,7 +58,7 @@ public class CompanyViewController {
 		Company company=(Company)session.getAttribute("company");
 		System.out.println("================================================"+company.getId());
 		Integer id = company.getId();
-		List<CmpService> CmpsvList = cmpsvService.getAllServiceBycmpId(id);
+		List<CmpService> CmpsvList = cmpsvService.getAllServiceBycmpId(company);
 		model.addAttribute("CmpsvList", CmpsvList);
 		return "/company/StoreRegister_Service";
 	}

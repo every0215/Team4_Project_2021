@@ -86,7 +86,7 @@ public class Company  {
 	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Campaign> campaigns;
-	
+	@JsonIgnore
 	@Transient
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="company", cascade=CascadeType.ALL)
 	 private Set<Event> events = new LinkedHashSet<Event>();
@@ -96,7 +96,8 @@ public class Company  {
 	private Set<Store> stores;
 	
 //	@Transient
-	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<CmpService> cmpServiceC;
 	
 //	

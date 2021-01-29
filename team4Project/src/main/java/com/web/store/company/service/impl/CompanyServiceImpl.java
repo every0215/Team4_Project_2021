@@ -1,6 +1,7 @@
 package com.web.store.company.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -8,8 +9,11 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.store.company.dao.CmpServiceDao;
 import com.web.store.company.dao.CompanyDao;
+import com.web.store.company.model.CmpService;
 import com.web.store.company.model.Company;
+import com.web.store.company.service.CmpServiceService;
 import com.web.store.company.service.CompanyService;
 
 @Service
@@ -18,6 +22,12 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	CompanyDao cmpDao;
+	
+	@Autowired
+	CmpServiceDao cmpsvDao;
+	
+	@Autowired
+	CmpServiceService cmpsvService;
 	
 	@Override
 	public boolean addCompany(Company cmp) {
@@ -76,5 +86,15 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		return cmpDao.updateProfiles(id,profiles);
 	}
+
+	@Override
+	public Set<CmpService> getCompanyService(Integer id) {
+		
+		Set<CmpService> cmpsv = cmpDao.getAllServiceBycmpId(id);
+	
+		return cmpsv;
+	}
+	
+	
 
 }

@@ -759,21 +759,25 @@ public class CompanyController {
 		return "/company/StoreRegister_Service";
 	}
 //地圖搜尋
-	@PostMapping(value="/company/testAjax",produces = "application/json; charset=UTF-8")
-	public @ResponseBody String searchCampaignAjax( 
+	@GetMapping(value="/company/testAjax",produces = "application/json; charset=UTF-8")
+	public @ResponseBody Set<CmpService> searchCampaignAjax( 
 			@RequestParam("test") String cmpid
 //			,HttpServletResponse response
 			) {
 		System.out.println("Ajax接收資料");
-//		List<CmpService> cmpsv = cmpsvService.getAllServiceBycmpId(Integer.parseInt(cmpid));
+		
+		Set<CmpService> cmpsv = cmpService.getCompanyService(Integer.parseInt(cmpid));
 //		Company cmp = cmpService.getCompanyById(Integer.parseInt(cmpid));
 //		Set<CmpService> cmpsv = cmp.getCmpServiceC();
 //		Gson gson = new Gson();  
-//		
-//		String str = gson.toJson(cmpsv);  
-		String str = "[{\"id\":\"1\",\"spService\":\"hello\"},{\"id\":\"2\",\"spService\":\"yes\"}]";
-		System.out.println(str);
-		return str;
+		System.out.println(cmpsv);
+		
+//		String str = gson.toJson(cmpsv); 
+		//測試
+//		String str = "[{\"id\":\"1\",\"spService\":\"hello\"},{\"id\":\"2\",\"spService\":\"yes\"}]";
+//		System.out.println(str);
+		//測試
+		return cmpsv;
 	}
 	
 }

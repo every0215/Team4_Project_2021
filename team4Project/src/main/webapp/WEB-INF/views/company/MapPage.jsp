@@ -121,7 +121,7 @@
     </div>
     <button id="test">測試</button>
     <div id="result"></div>
-   
+   <img height="20px" width="20px" src="/company/getCompanyServiceImage/${3}" />
     <script>
 
    
@@ -144,7 +144,7 @@ $("#cmpchange").on("change", function() {
             alert($("#cmpchange").val());
             var v = $("#cmpchange").val();
             $.ajax({ 
-                type: "POST", 
+                type: "GET", 
                 url: "<c:url value='/company/testAjax' />", 
                 data: {"test" : v }, 
                 success: function(data){ 
@@ -154,7 +154,7 @@ $("#cmpchange").on("change", function() {
                 		$(".sevicelist").append(`
                 				<li>
                                 <input type="checkbox" name="" id="`+data[i].id+`" >
-                                <span><img height="20px" width="20px" src="" /></span>
+                                <span><img height="20px" width="20px" src="/company/getCompanyServiceImage/`+data[i].id+`" /></span>
                                 `+data[i].spService+`
                             	</li>
                 		`)
