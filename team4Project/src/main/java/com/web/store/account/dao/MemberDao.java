@@ -22,6 +22,6 @@ public interface MemberDao {
 	void delete(MemberSubscription memberSubscription);
 	void delete(MemberNotification memberNotification);
 	void delete(MemberBean member);
-	List<MemberBean> selectByConditions(int page, int pageSize, String keyword) throws SQLException;
+	List<MemberBean> selectByConditions(int page, int pageSize, String keywordFullname, String keywordEmail, String keywordQid ) throws SQLException;
 	int getTotalCount() throws SQLException;
 }
