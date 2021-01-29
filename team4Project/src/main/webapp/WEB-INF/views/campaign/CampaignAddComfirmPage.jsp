@@ -155,13 +155,7 @@
         </div> 
         
         <div class="functionBar">
-        	<c:if test="${empty isUpdate && empty isInsert}">
-        		<button class="btn btn-primary" onclick="window.history.go(-1)">返回</button>
-        	</c:if>
-        	<c:if test="${!(empty isUpdate && empty isInsert)}">
-        		<button class="btn btn-primary" onclick="window.history.go(-2)">返回</button>
-        	</c:if>
-            
+        	<button style="margin-top: 10px"class="btn btn-primary" onclick="window.close()">返回</button>	
         </div>
     </div>
 </body>

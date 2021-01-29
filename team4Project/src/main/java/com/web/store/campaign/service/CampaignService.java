@@ -52,4 +52,6 @@ public interface CampaignService {
 	double checkProductDiscountById(int productId);
 	
 	int applyProductWithCamp(ApplyBean apply, int campaignId);
+	
+	void pushCampaign(int campId) throws Exception;
 }
