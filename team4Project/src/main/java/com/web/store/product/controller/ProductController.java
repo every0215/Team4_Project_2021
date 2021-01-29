@@ -210,6 +210,13 @@ public class ProductController {
 		return "/product/ProductSearch";
 	}	
 	
+
+	@GetMapping("/ProductBuy/{productId}/ProductPayment")
+	public String ProductPayment(@PathVariable int productId,Model model) {
+		Product product = pService.selectbyid(productId);
+		model.addAttribute("product",product);
+		return "product/ProductPayment";
+	}
 //-----------------輸出圖
 	@GetMapping(value = "/getproductimage/{productId}")
 	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer productId)  {

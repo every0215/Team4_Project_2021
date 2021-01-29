@@ -10,11 +10,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.web.store.ticket.model.Price;
+import com.web.store.ticket.model.TicketOrder;
 
 public class OrderDetail implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -30,13 +33,18 @@ public class OrderDetail implements Serializable{
 	@Column(name= "Quanity")
 	private Integer quanity;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Column(name= "OrderNumber")
 	private Integer orderNumber;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="OrderDetail", cascade=CascadeType.ALL)
+//	@OneToMany(fetch=FetchType.LAZY, mappedBy="OrderDetail", cascade=CascadeType.ALL)
 	@Column(name= "ProductId")
 	private Integer productId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "OrderId")
+	private Order Order;
+	
 	
 	@Transient
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "Product", cascade = CascadeType.ALL)
