@@ -176,6 +176,6 @@ select option[value="0"] {
 		
 		<input type="submit" name="sumbmit" id="s1">
 			</form>
-			<a href="../TicketIndex" class="btn btn-success" role="button">回主頁</a>
+			<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
 </body>
 </html>

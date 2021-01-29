@@ -2,6 +2,7 @@ package com.web.store.campaign.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,6 +20,7 @@ import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.Page;
 import com.web.store.campaign.model.SearchBean;
 import com.web.store.campaign.service.CampaignService;
+import com.web.store.company.model.Company;
 import com.web.store.product.model.Product;
 import com.web.store.product.service.ProductService;
 
@@ -41,7 +43,7 @@ public class CampaignServiceImpl implements CampaignService {
 	@Override
 	public Campaign getCampaignById(int campId) {
 		Campaign camp = campDao.getCampaignById(campId);
-		Hibernate.initialize(camp);
+		Hibernate.initialize(camp.getCompany());
 		return camp;
 	}
 	
@@ -166,8 +168,8 @@ public class CampaignServiceImpl implements CampaignService {
 	public Map<String, List<Product>> classifyProductIncamp(int campId,String companyName) {
 		
 		Map<String, List<Product>> classify= new HashMap<String, List<Product>>();
-		List<Product> productsInCamp = new ArrayList<Product>();
-		List<Product> productsNotInCamp = new ArrayList<Product>();
+		List<Product> productsInCamp = new LinkedList<Product>();
+		List<Product> productsNotInCamp = new LinkedList<Product>();
 		List<Product> products = productService.selectbyCompanyName(companyName);
 		
 		for(Product product:products) {

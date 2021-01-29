@@ -20,7 +20,7 @@
         } */    
 
         body{
-            background-color: #e9ecef;
+            background-color: #f3f3f3;
         }
         
         .pageTitle{
@@ -33,7 +33,7 @@
             width: 100%;
             height: 400px;
             overflow: scroll;
-            border-left:solid 1px black;
+            border:solid 1px black;
         }
 
         .panel table{
@@ -67,10 +67,11 @@
         }
 
         .container{
-            background-color: #adb1b6;
+            background-color: #white;
             margin-top:10px;
-            /* border:solid 1px black; */
+            border:solid 1px black;
             border-radius: 10px;
+            box-shadow: 0 0 10px black;
         }
 
         .functionRow{
@@ -96,7 +97,8 @@
         .show{
             height: 650px;
         }
-
+		
+		
     </style>
 
 </head>
@@ -163,9 +165,9 @@
         <div class="row functionRow">
             <div class="functionBar">
                 <button id="comfirm" class=" btn btn-outline-dark" type="button">確定</button>
-                <button class=" btn btn-outline-dark" type="button">取消</button>
+                <button id="cancel-btn"class=" btn btn-outline-dark" type="button">取消</button>
             </div>          
-        </div>
+        </div>	
     </div>
 
     <script>
@@ -175,6 +177,10 @@
         	var applyBean = {};
         	var productIncamp =[];
         	var productNotIncamp =[];
+        	
+        	$("#cancel-btn").on("click",function(){
+        		history.go(-1);
+        	})
         	
 			$("#comfirm").click(function(){
 				
@@ -198,13 +204,13 @@
             //動態綁定每列資料的click事件，點擊變黑，其他列還原
             $(".panel").on("click","tbody>tr",function(){
 
-                if($(this).css("background-color")=="rgb(0, 0, 0)"){
+                if($(this).css("background-color")=="#00808c"){
                     $(this).css("background-color","")
                     $(this).css("color","rgb(0, 0, 0)")
                     $(this).css("border","")
                     
                 }else{
-                    $(this).css("background-color","rgb(0, 0, 0)")
+                    $(this).css("background-color","#00808c")
                     $(this).css("color","rgb(255, 255, 255)")
                     $(this).css("border-color","rgb(0, 0, 0)")
                     $(this).css("border","rgb(255, 255, 255) solid 2px")
@@ -219,7 +225,7 @@
             $("#applyBtn").click(function(){
                 //檢查元素是否被選取
                $(".productNotInCampPanel tr").each(function(){           
-                   if($(this).css("background-color")=="rgb(0, 0, 0)"){
+                   if($(this).css("background-color")=="rgb(0, 128, 140)"){
                         //如果被選取，則clone到對面框框，並對其色彩予以還原
                         $(this).css({"background-color":"","color":"","border":""});
                         $(".productInCampPanel tbody").append($(this).clone())
@@ -231,7 +237,7 @@
             $("#unapplyBtn").click(function () {
                     //檢查元素是否被選取
                     $(".productInCampPanel tr").each(function () {
-                        if ($(this).css("background-color") == "rgb(0, 0, 0)") {
+                        if ($(this).css("background-color") == "rgb(0, 128, 140)") {
                             $(this).css({"background-color":"","color":""});
                             $(".productNotInCampPanel tbody").append($(this).clone())
                             $(this).remove();

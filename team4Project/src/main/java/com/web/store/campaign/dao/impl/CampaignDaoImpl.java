@@ -101,6 +101,7 @@ public class CampaignDaoImpl implements CampaignDao {
 		Session session = sessionFactory.getCurrentSession();
 		
 		Campaign queryResult = null;
+		
 		if(camp.getId()!=null) {
 			queryResult = session.get(Campaign.class, camp.getId());
 			session.evict(queryResult); //清除session的緩存，因為get
@@ -231,11 +232,13 @@ public class CampaignDaoImpl implements CampaignDao {
 		String hql2 = "FROM Campaign WHERE companyId=:companyId";
 		Session session = sessionFactory.getCurrentSession();
 		int totalPage = (int)Math.ceil((long)session.createQuery(hql).setParameter("companyId", companyId).uniqueResult()/(double)page.getPageSize());
+		System.out.println("dao正在查詢campaigns");
 		List<Campaign> camps = session.createQuery(hql2,Campaign.class)
 									  .setParameter("companyId", companyId)
 									  .setMaxResults(page.getPageSize())
 									  .setFirstResult((page.getCurrentPage()-1)*page.getPageSize())
 									  .list();
+		System.out.println("dao查詢campaigns完成");
 		page.setContent(camps);
 		page.setTotalpage(totalPage);
 		page.setTotalResultCount((int)(long)getTotalCampCountOfCompany(companyId));

@@ -51,13 +51,13 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public MemberBean selectByLoginInfo(String email, String pwd) throws SQLException {
 		Session session = factory.getCurrentSession();
-		byte[] aa = Utility.encryptUsingSHA512(pwd);
+
 		List<MemberBean> memberList = (List<MemberBean>) session.createQuery("From MemberBean m  "
-				+ "JOIN FETCH m.memberCreditCardList "
-				+ "JOIN FETCH m.mCoinTopupDetailList "
-				+ "JOIN FETCH m.mCoin "
-				//+ "JOIN FETCH m.memberSubscriptionList "
-				+ "JOIN FETCH m.memberNotificationList "
+				+ "LEFT JOIN FETCH m.memberCreditCardList "
+				+ "LEFT JOIN FETCH m.mCoinTopupDetailList "
+				+ "LEFT JOIN FETCH m.mCoin "
+				//+ "LEFT JOIN FETCH m.memberSubscriptionList "
+				+ "LEFT JOIN FETCH m.memberNotificationList "
 				+ "WHERE m.email = :email AND m.password = :password")
 				.setParameter("email", email)
 				.setParameter("password", Utility.encryptUsingSHA512(pwd))
@@ -68,17 +68,54 @@ public class MemberDaoImpl implements MemberDao {
 		return memberList.get(0);	
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public List<MemberBean> selectByConditions(int page, int pageSize, String keyword ) throws SQLException {
+	public List<MemberBean> selectByConditions(int page, int pageSize, String keywordFullname, String keywordEmail, String keywordQid ) throws SQLException {
 		Session session = factory.getCurrentSession();
-		System.out.println("searching.. keyword: " + keyword);
-		List<MemberBean> memberList = (List<MemberBean>) session.createQuery("From MemberBean m WHERE m.email LIKE :keyword ")
-				.setParameter("keyword", "%"+ keyword.trim() +"%")
-				//.setFirstResult((page-1)*pageSize)
+		System.out.println("searching.. keywordFullname: " + keywordFullname + ", keywordEmail: " + keywordEmail  + ", keywordQid: " + keywordQid);
+		String hql = "Select m.id as Id, m.fullname as Fullname, m.email as Email, m.qid as Qid, m.createdDate as CreatedDate From MemberBean m ";
+		int c = 0;
+		if(!keywordFullname.equals("")) {
+			if(c==0) hql += " WHERE ";
+			hql += " m.fullname LIKE :keywordFullname ";
+			c++;
+		}
+		if(!keywordEmail.equals("")) {
+			if(c==0) hql += " WHERE ";
+			if(c>0) hql += " AND ";
+			hql += " m.email LIKE :keywordEmail ";
+			c++;
+		}
+		if(!keywordQid.equals("")) {
+			if(c==0) hql += " WHERE ";
+			if(c>0) hql += " AND ";
+			hql += " m.qid LIKE :keywordQid ";
+			c++;
+		}
+		
+		System.out.println("hql: " + hql);
+		Query query = session.createQuery(hql);
+		if(!keywordFullname.equals("")) {
+			query.setParameter("keywordFullname", "%"+ keywordFullname +"%");
+		}
+		if(!keywordEmail.equals("")) {
+			query.setParameter("keywordEmail", "%"+ keywordEmail +"%");
+		}
+		if(!keywordQid.equals("")) {
+			query.setParameter("keywordQid", "%"+ keywordQid +"%");
+		}
+		
+		List<MemberBean> memberList = (List<MemberBean>) query
 				.setFirstResult((page)*pageSize)
 				.setMaxResults(pageSize*3)
 				.getResultList();
+		
+//		List<MemberBean> memberList = (List<MemberBean>) session.createQuery("From MemberBean m WHERE m.fullname LIKE :keywordFullname ")
+//				.setParameter("keywordFullname", "%"+ keywordFullname.trim() +"%")
+//				//.setFirstResult((page-1)*pageSize)
+//				.setFirstResult((page)*pageSize)
+//				.setMaxResults(pageSize*3)
+//				.getResultList();
 		
 //		String hql = "From MemberBean m where m.email like :keyword";
 //		 

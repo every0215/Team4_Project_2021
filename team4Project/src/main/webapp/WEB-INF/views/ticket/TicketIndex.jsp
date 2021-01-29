@@ -49,16 +49,19 @@
 		href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 	<script
 		src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+		
 	<div style="width: 1000px; margin: 0 auto">
+	<a href='<c:url value="ticket/InputPageEX" />' class="btn btn-success" role="button">新增票券</a>
+	<br/><br/>
 		<table id="myTable"
 			style="margin: auto; width: 900px; border: 3px #cccccc solid;"
 			cellpadding="10" border='1'>
 			<thead>
 				<tr>
-					<th colspan='7' style="text-align: center;">票券一覽表</th>
+					<th colspan='6' style="text-align: center;">票券一覽表</th>
 				</tr>
 				<tr>
-					<th nowrap="nowrap">序號</th>
+<!-- 					<th nowrap="nowrap">序號</th> -->
 					<th nowrap="nowrap"><svg xmlns="http://www.w3.org/2000/svg"
 							width="16" height="16" fill="currentColor"
 							class="bi bi-ui-checks-grid" viewBox="0 0 16 16">
@@ -90,7 +93,7 @@
 
           <c:forEach var="event" items="${events}">
             <tr>
-              <td>${event.id}</td>
+<%--               <td>${event.id}</td> --%>
               <td>
   
                <c:choose>
@@ -116,8 +119,17 @@
               <td>
                 <input type="hidden" name="typeId" value="${event.typeId}" />
                 <input type="hidden" name="eventId" value="${event.id}" />
-                <button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventShow/${event.id}" />'">See More</button>
-
+                <button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventShow/${event.id}" />'">See More</button><br/><br/>
+                <c:choose>
+               	 <c:when test="${event.status==1}">
+               	 	<button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventUpdateStatus/${event.id}" />'">下架</button>
+               	 </c:when>       	 
+               	 <c:otherwise>
+               	 	<button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventUpdateStatus/${event.id}" />'">上架</button>
+               	 </c:otherwise>
+                 </c:choose>
+                
+                
               </td>
             </tr>
           </c:forEach>
@@ -131,7 +143,7 @@
 		});
 	</script>
 
-	<a href='<c:url value="ticket/InputPageEX" />' class="btn btn-success" role="button">新增票券</a>
+	
 </body>
 
 </html>

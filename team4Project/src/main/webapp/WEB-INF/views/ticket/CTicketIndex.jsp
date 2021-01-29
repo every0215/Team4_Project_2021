@@ -61,9 +61,11 @@
 
         <div class="search-bar">
           <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="票券搜尋" aria-label="Search"
+          <form action="<c:url value='TicketSearch'/>"  method="get" >
+                  <input type="text" class="form-control rounded" placeholder="票券搜尋 ex. '卡納赫拉'" aria-label="Search"
               aria-describedby="search-addon" style="width:200px" />
-            <button type="button" class="btn btn-outline-primary">Search</button>
+                  <button type="submit" class="btn btn-outline-primary">Search</button>
+                </form>
           </div>
         </div>
 
@@ -99,7 +101,7 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer" style="text-align:left;font-size:13px;"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.exhibition.onSaleDate.toString().substring(0, 16)}~${event.exhibition.offSaleDate.toString().substring(0, 16)}</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px;"><img height="15px" src="<c:url value='/company/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.exhibition.onSaleDate.toString().substring(0, 16)}~${event.exhibition.offSaleDate.toString().substring(0, 16)}</div>
                 </div>
               </div>
 </c:forEach>              
@@ -132,7 +134,7 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.attraction.onSaleDate.toString().substring(0, 16)}~${event.attraction.offSaleDate.toString().substring(0, 16)}</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/company/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.attraction.onSaleDate.toString().substring(0, 16)}~${event.attraction.offSaleDate.toString().substring(0, 16)}</div>
                 </div>
               </div>
 </c:forEach>              
@@ -163,7 +165,7 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.sport.onSaleDate.toString().substring(0, 16)}~${event.sport.offSaleDate.toString().substring(0, 16)}</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/company/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.sport.onSaleDate.toString().substring(0, 16)}~${event.sport.offSaleDate.toString().substring(0, 16)}</div>
                 
                 </div>
               </div>
