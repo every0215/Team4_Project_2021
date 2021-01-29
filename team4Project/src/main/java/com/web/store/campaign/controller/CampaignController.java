@@ -236,6 +236,8 @@ public class CampaignController {
 		campOrigin.setLaunchStatus(launchStatus);
 		campOrigin.setContent(content);
 		campOrigin.setUpdateTime(new Timestamp(date.getTime()));
+		campOrigin.setStatus(false);
+		campOrigin.setExpired(false);
 		
 		//如果為1，是折扣塞入折扣參數
 		//為2是滿額塞入滿額參數

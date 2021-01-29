@@ -20,7 +20,8 @@
 <style>
 body{
 	font-family:微軟正黑體;
-	font-weight:900
+	font-weight:900;
+	background-color:#f3f3f3;
 }
 .title {
 	text-align: center;
@@ -93,6 +94,10 @@ tr>td>button {
 
 .pageActive{
 	background-color: #e9ecef;
+}
+
+#CampTable{
+	box-shadow:0px 0px 10px black;
 }
 
 </style>

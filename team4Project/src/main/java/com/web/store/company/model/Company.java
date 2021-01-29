@@ -84,7 +84,7 @@ public class Company  {
 	
 	
 	
-	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
+	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Campaign> campaigns;
 	
 	@Transient
