@@ -36,7 +36,7 @@ public class TicketOrderDao implements ITicketOrderDao {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(String id) {
 		Session session = factory.getCurrentSession();
 		TicketOrder ticketOrder = session.get(TicketOrder.class, id);
 		if(ticketOrder!=null) {

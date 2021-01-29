@@ -1,6 +1,8 @@
 package com.web.store.ticket.service.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -349,7 +351,7 @@ public class BackendServiceImpl implements BackendService {
 	}
 
 	@Override
-	public void deleteTicketOrder(int ticketOrderId) {
+	public void deleteTicketOrder(String ticketOrderId) {
 		ticketOrderDao.delete(ticketOrderId);
 		
 	}
@@ -450,6 +452,59 @@ public class BackendServiceImpl implements BackendService {
 		Set<TicketOnWay> ticketOnWays = ticketOrderN.getTicketOnWays();
 		Hibernate.initialize(ticketOnWays);
 		return ticketOrderN;
+	}
+
+	@Override
+	public void checkTicketOnWay() {
+		
+		ArrayList<TicketOnWay> ticketOnWays = ticketOnWayDao.queryAll();
+		System.out.println(ticketOnWays.size());
+		Date now = new Date();
+		Timestamp nowTime = new Timestamp(now.getTime());
+		for(TicketOnWay ticketOnWay : ticketOnWays) {
+			System.out.println("==================1=============================");
+			Hibernate.initialize(ticketOnWay.getTicketOrder());
+			Timestamp deleteTime = ticketOnWay.getDeletedTime();
+			if (deleteTime.before(nowTime)) {
+				Event event = eventDao.queryOneEvent(ticketOnWay.getEventId());
+				if(event.getTypeId()==3) {
+					
+					Integer value = ticketOnWay.getValue();
+					SportSeat seat = sportSeatDao.queryOneSportSeat(ticketOnWay.getSeatId());
+					Integer oStock = seat.getStock();
+					seat.setStock(value+oStock);
+					sportSeatDao.updateSportSeat(seat);
+				}
+				System.out.println("==================2=============================");
+				TicketOrder ticketOrder = ticketOnWay.getTicketOrder();
+				System.out.println("==================3=============================");
+				ticketOnWayDao.delete(ticketOnWay.getId());
+				System.out.println("==================4=============================");
+				TicketOrder ticketOrderN = ticketOrderDao.queryTicketOrderbyId(ticketOrder.getId());
+				
+				System.out.println(ticketOrderN);
+				
+				if(ticketOrderN!=null) {
+					Hibernate.initialize(ticketOrderN);
+					Set<TicketOrderDetail> ticketOrderDetails = ticketOrderN.getTicketOrderDetails();
+				
+					Hibernate.initialize(ticketOrderDetails);
+					System.out.println("==================5=============================");
+				
+					System.out.println("==================6=============================");
+					System.out.println("=================="+ticketOrderN.getId()+"=============================");
+					
+					ticketOrderDao.delete(ticketOrderN.getId());
+				}
+				
+				
+				
+	            
+	        }
+			
+			
+		}
+		
 	}
 	
 	

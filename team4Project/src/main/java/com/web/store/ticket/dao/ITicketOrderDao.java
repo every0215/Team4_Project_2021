@@ -10,7 +10,7 @@ public interface ITicketOrderDao {
 	
 	TicketOrder updateTicketOrder(TicketOrder ticketOrder);
 	
-	void delete(int id);
+	void delete(String id);
 	
 	ArrayList<TicketOrder> queryTicketOrderByMemberId(Integer memberId);
 	
