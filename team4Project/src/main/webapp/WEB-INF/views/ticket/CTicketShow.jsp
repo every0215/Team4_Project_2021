@@ -117,6 +117,7 @@
             <c:otherwise>
             <p style="text-align:left">售票期間:${sport.onSaleDate.toString().substring(0, 16)}~${sport.offSaleDate.toString().substring(0, 16)}</p>
             <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
+            <p style="text-align:left;font-size:12px">*請點選場次表，選擇場次進行購買。</p>
             </c:otherwise>
             </c:choose>
             <c:if test="${event.typeId!=3}">    

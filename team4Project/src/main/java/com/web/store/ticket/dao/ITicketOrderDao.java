@@ -14,4 +14,7 @@ public interface ITicketOrderDao {
 	
 	ArrayList<TicketOrder> queryTicketOrderByMemberId(Integer memberId);
 	
+	TicketOrder queryTicketOrderbyId(String ticketOrderId);
+	
+	
 }

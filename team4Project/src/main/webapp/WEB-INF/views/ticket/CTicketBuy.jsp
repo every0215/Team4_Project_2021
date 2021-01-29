@@ -154,7 +154,7 @@
                                 <td>
                                   
                                 <input type=" text" class="spinner" target="subtotal-${price.id}" name="count"
-                                    priceSPId="${price.id}" price="${price.cost}" style="width: 20px;height:18px" />
+                                    priceSPId="${price.id}" price="${price.cost}" style="width: 20px;height:18px"/>
                                 </td>
                                 <td name="subtotal-${price.id}" class="subtotal">0</td>
                               </tr>
