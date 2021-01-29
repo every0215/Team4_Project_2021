@@ -69,7 +69,7 @@ public class Campaign implements Serializable {
 	private Timestamp updateTime;
 
 	@JoinColumn(name = "companyId")
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Company company;
 
