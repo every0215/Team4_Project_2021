@@ -37,6 +37,8 @@ div.dt-buttons {
 	-ms-transform:unset	
 	-o-transform:unset;
 }
+
+
 </style>
 <!-- li的藍色標籤 -->
 <script>
@@ -255,6 +257,36 @@ div.dt-buttons {
 	<script src="js/Report_Js.js"></script>
 
 	<script type="text/javascript">
+// 	function myFunc(){
+// 		console.log('123123');
+// 		setTimeout(function(){
+// // 			$("body").html($('#tabs_1').html())
+// 			$('#tabs_1 > table').DataTable({
+// 				scrollY: 20,
+// 				"dom": "Bftlp",
+// 				buttons: [
+// 			        'copy'
+// 			    ]
+//	 			buttons: [
+//	            {
+//	                 extend:'excelHtml5',
+//	                 title: 'Data export',
+//	                 bom:true,
+//	             },
+//	             {
+//	                 extend:'csvHtml5',
+//	                 title: 'Data export',
+//	                 bom:true,
+//	             },
+	            
+//	 				'copy'
+	            
+//	             ]
+// 			});
+// 		},2000);
+		
+		
+// 	}
 		// 		$(function() {
 		// 			$("#rep_adv").click(function() {
 		// 				console.log("rep_adv")

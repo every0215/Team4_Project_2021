@@ -130,12 +130,7 @@ $(function(){
 		    });
 		});
 			
-//			//Tab8-商品前五名排行(廣告)
-//			$("#rep_adv").click(function(){
-//			//$("#rep_tab_8,#rep_tab_2,#rep_data").toggle();
-//			});
-		
-			
+
 	});
 	
 	//顏色表1(10種)
@@ -197,7 +192,7 @@ $(function(){
  	
 	//Tab1-年度各區業績(明細)
  	function setDataTable1(datas){
- 		
+ 		console.log("setDataTable1")
  		let str = `<table><thead class='rep_table_font'>
 				<tr>
 				<th>地區</th>
@@ -217,7 +212,9 @@ $(function(){
 		str += "</tbody></table>";
 //		$("#rep_table").html(str);
 		$("#tabs_1").html(str);
+
 //		codeInsert()
+//		myFunc();
 		$('#tabs_1 > table').DataTable({
 			scrollY: 120,
 			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
@@ -236,7 +233,6 @@ $(function(){
             
             ],
 		});
-		
 	 	//Tab1-年度各區業績(圖)	
 			$("#rep_tab_2").html('<canvas id="myChart_2" width="200px" height="50%"></canvas>');
 	 	console.log(datas,$("#rep_tab_2").html());
