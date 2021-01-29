@@ -124,6 +124,15 @@ public class TicketOnWay {
 	public void setTicketOrder(TicketOrder ticketOrder) {
 		this.ticketOrder = ticketOrder;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	
 	
 }

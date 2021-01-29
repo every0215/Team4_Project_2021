@@ -44,8 +44,8 @@
 </table>
 
 
-<a href="../EventUpdate/${event.id}" class="btn btn-success" role="button">修改</a>	
-<a href="../EventDel/${event.id}" class="btn btn-success" role="button">刪除</a>	
-<a href="../TicketIndex" class="btn btn-success" role="button">回主頁</a>
+<a href="<c:url value='/EventUpdate/${event.id}'/>" class="btn btn-success" role="button">修改</a>	
+<a href="<c:url value='/EventDel/${event.id}'/>" class="btn btn-danger" role="button">刪除</a>	
+<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
 </body>
 </html>

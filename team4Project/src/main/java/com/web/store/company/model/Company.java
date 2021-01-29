@@ -93,11 +93,11 @@ public class Company  {
 	 private Set<Event> events = new LinkedHashSet<Event>();
 	
 //	@Transient
-	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
+	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Store> stores;
 	
 	@Transient
-	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
+	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<CmpService> cmpServiceC;
 	
 	@Transient

@@ -1,6 +1,7 @@
 package com.web.store.ticket.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.web.store.ticket.dao.ITicketOrderDao;
 import com.web.store.ticket.model.Event;
+import com.web.store.ticket.model.TicketOnWay;
 import com.web.store.ticket.model.TicketOrder;
 
 @Repository
@@ -34,7 +36,7 @@ public class TicketOrderDao implements ITicketOrderDao {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(String id) {
 		Session session = factory.getCurrentSession();
 		TicketOrder ticketOrder = session.get(TicketOrder.class, id);
 		if(ticketOrder!=null) {
@@ -49,6 +51,15 @@ public class TicketOrderDao implements ITicketOrderDao {
 		String hqlstr="FROM TicketOrder T where T.memberId="+memberId;
 		Query<TicketOrder> query = session.createQuery(hqlstr,TicketOrder.class);
 		return (ArrayList<TicketOrder>) query.list();
-	}	
+	}
+
+	@Override
+	public TicketOrder queryTicketOrderbyId(String ticketOrderId) {
+		Session session = factory.getCurrentSession();
+		TicketOrder ticketOrder = session.get(TicketOrder.class, ticketOrderId);
+		return ticketOrder;
+	}
+
+	
 
 }

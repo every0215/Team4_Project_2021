@@ -1,17 +1,15 @@
 package com.web.store.ticket.model;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -36,10 +34,10 @@ public class TicketOrder {
 	private Integer totalCost;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ticketOrder", cascade = CascadeType.ALL)
-	private List<TicketOrderDetail> ticketOrderDetails = new ArrayList<TicketOrderDetail>();
+	private Set <TicketOrderDetail> ticketOrderDetails = new HashSet<TicketOrderDetail>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ticketOrder", cascade = CascadeType.ALL)
-	private List<TicketOnWay> ticketOnWays = new ArrayList<TicketOnWay>();
+	private Set <TicketOnWay> ticketOnWays = new HashSet<TicketOnWay>();
 	
 	public TicketOrder() {
 	}
@@ -72,7 +70,7 @@ public class TicketOrder {
 	
 	
 	public TicketOrder(Integer memberId, Integer status, Timestamp validTime, Integer totalCost,
-			List<TicketOrderDetail> ticketOrderDetails, List<TicketOnWay> ticketOnWays) {
+			Set<TicketOrderDetail> ticketOrderDetails, Set<TicketOnWay> ticketOnWays) {
 		super();
 		this.memberId = memberId;
 		this.status = status;
@@ -117,19 +115,19 @@ public class TicketOrder {
 		this.totalCost = totalCost;
 	}
 
-	public List<TicketOrderDetail> getTicketOrderDetails() {
+	public Set<TicketOrderDetail> getTicketOrderDetails() {
 		return ticketOrderDetails;
 	}
 
-	public void setTicketOrderDetails(List<TicketOrderDetail> ticketOrderDetails) {
+	public void setTicketOrderDetails(Set<TicketOrderDetail> ticketOrderDetails) {
 		this.ticketOrderDetails = ticketOrderDetails;
 	}
 
-	public List<TicketOnWay> getTicketOnWays() {
+	public Set<TicketOnWay> getTicketOnWays() {
 		return ticketOnWays;
 	}
 
-	public void setTicketOnWays(List<TicketOnWay> ticketOnWays) {
+	public void setTicketOnWays(Set<TicketOnWay> ticketOnWays) {
 		this.ticketOnWays = ticketOnWays;
 	}
 	

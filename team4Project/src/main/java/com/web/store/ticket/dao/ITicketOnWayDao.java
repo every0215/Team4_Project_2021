@@ -15,4 +15,8 @@ public interface ITicketOnWayDao {
 	
 	ArrayList<TicketOnWay> queryTicketOnWayByOrderId(TicketOrder ticketOrder);
 	
+	ArrayList<TicketOnWay> queryAll();
+	
+	ArrayList<TicketOnWay> queryTicketOrder(TicketOnWay ticketOnWay);
+	
 }
