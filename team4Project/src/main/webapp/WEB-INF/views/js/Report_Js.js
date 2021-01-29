@@ -1,5 +1,5 @@
 $(function(){	
-		console.log("hi");
+//		console.log("hi");
 	//範本
 // 		$("#ReporyQueryAllData").click(function(){
 // 			console.log("123123");

@@ -18,36 +18,53 @@ public class ReportProductAdv {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private int orderasc;
+	private int orderAsc;
 	
 	private int companyid;
 	
-	private int productid;
+	private int productId;
 	
 	private String productName;
 	
 	private String productDescript;
+	
+	private int productPrice;
+	
+	private Blob productPic;
 	
 	
 	public ReportProductAdv() {
 	}
 	
 	
-	public ReportProductAdv(int id,int orderasc,int companyid,int productid,String productName,String productDescript) {
+	public ReportProductAdv(int id,int orderasc,int companyid,int productid,String productName,String productDescript,int productPrice,Blob productPic) {
 		this.id=id;
-		this.orderasc=orderasc;
+		this.orderAsc=orderasc;
 		this.companyid=companyid;
-		this.productid=productid;
+		this.productId=productid;
 		this.productName=productName;
 		this.productDescript=productDescript;
+		this.productPrice=productPrice;
+		this.productPic=productPic;
 	}
 	
-	public ReportProductAdv(int orderasc,int companyid,int productid,String productName,String productDescript) {
-		this.orderasc=orderasc;
+	public ReportProductAdv(int orderasc,int companyid,int productid,String productName,String productDescript,int productPrice,Blob productPic) {
+		this.orderAsc=orderasc;
 		this.companyid=companyid;
-		this.productid=productid;
+		this.productId=productid;
 		this.productName=productName;
 		this.productDescript=productDescript;
+		this.productPrice=productPrice;
+		this.productPic=productPic;
+	}
+	
+	public ReportProductAdv(int orderasc,int companyid,int productid,String productName,String productDescript,int productPrice) {
+		this.orderAsc=orderasc;
+		this.companyid=companyid;
+		this.productId=productid;
+		this.productName=productName;
+		this.productDescript=productDescript;
+		this.productPrice=productPrice;
 	}
 	
 	public int getId() {
@@ -58,37 +75,35 @@ public class ReportProductAdv {
 		this.id = id;
 	}
 
-	public int getOrderasc() {
-		return orderasc;
+
+	public int getOrderAsc() {
+		return orderAsc;
 	}
 
 
-	public void setOrderasc(int orderasc) {
-		this.orderasc = orderasc;
+	public void setOrderAsc(int orderAsc) {
+		this.orderAsc = orderAsc;
 	}
 
-	public int getCompanyid() {
+
+	public int getCompanyId() {
 		return companyid;
 	}
 
 
-
-	public void setCompanyid(int companyid) {
-		this.companyid = companyid;
+	public void setCompanyId(int companyId) {
+		this.companyid = companyId;
 	}
 
 
-
-	public int getProductid() {
-		return productid;
+	public int getProductId() {
+		return productId;
 	}
 
 
-
-	public void setProductid(int productid) {
-		this.productid = productid;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
-
 
 
 	public String getProductName() {
@@ -96,11 +111,9 @@ public class ReportProductAdv {
 	}
 
 
-
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-
 
 
 	public String getProductDescript() {
@@ -108,11 +121,9 @@ public class ReportProductAdv {
 	}
 
 
-
 	public void setProductDescript(String productDescript) {
 		this.productDescript = productDescript;
 	}
-
 
 
 	public int getProductPrice() {
@@ -120,11 +131,9 @@ public class ReportProductAdv {
 	}
 
 
-
 	public void setProductPrice(int productPrice) {
 		this.productPrice = productPrice;
 	}
-
 
 
 	public Blob getProductPic() {
@@ -132,17 +141,9 @@ public class ReportProductAdv {
 	}
 
 
-
 	public void setProductPic(Blob productPic) {
 		this.productPic = productPic;
 	}
 
-
-
-	private int productPrice;
-	private Blob productPic;
 	
-	
-
-
 }

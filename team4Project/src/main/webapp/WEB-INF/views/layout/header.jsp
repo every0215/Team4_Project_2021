@@ -150,7 +150,9 @@
               </div>
               <!-- / search box -->     
               <div class="aa-search-box" style="white-space: nowrap; overflow: hidden;">
+						<c:if test="${!empty queryproducttop}">
 						<span style="color:red;font-weight: bold;">熱銷特賣</span>
+						</c:if>
 						<span >
 						<c:forEach var="queryproducttopa" items="${queryproducttop}">
 						  <tr><td>&nbsp;&nbsp;<a href="productShow/${queryproducttopa[2]}">${queryproducttopa[0]} </a>&nbsp;&nbsp; <td></tr>
