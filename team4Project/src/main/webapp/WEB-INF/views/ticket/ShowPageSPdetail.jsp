@@ -23,6 +23,12 @@
 <tr><td>種類</td> <td>${eventType.typeName}</td></tr>
 <tr><td>名稱</td> <td>${event.eventName}</td></tr>
 <tr><td>地點</td> <td>${event.eventLocation}</td></tr>
+<tr><td>狀態</td> <td><c:choose>
+               	 <c:when test="${event.status==1}">上架
+               	 </c:when>
+               	 
+               	 <c:otherwise>下架</c:otherwise>
+                 </c:choose></td></tr>
 <tr><td>售票期間</td> <td>${sport.onSaleDate} ~ ${sport.offSaleDate}</td></tr>
 <tr><td>賽事介紹</td> <td>${sport.description}</td></tr>
 <tr><td>優惠信用卡</td> <td>${creditCard.cardName}</td></tr>
@@ -34,7 +40,7 @@
 	<c:forEach var="sessionSeat" items="${sessionSeatList}">
 		<table style="margin: auto;width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>
 			<thead>
-				<tr><th colspan="5">場次時間:${sessionSeat[0].kickOfTime}</th></tr>
+				<tr><th colspan="5">場次時間:${sessionSeat[0].kickOfTime.toString().substring(0, 16)}</th></tr>
 				<tr><th rowspan="2"><th colspan="2">內野區</th><th colspan="2">外野區</th></tr>
 				<tr><th>A區</th><th>B區</th><th>A區</th><th>B區</th></tr>
 			</thead>

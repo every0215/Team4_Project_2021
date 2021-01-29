@@ -53,7 +53,7 @@ select option[value="0"] {
 			
 		<label class="t1" for="">賽事宣傳圖片:</label>
 			<input id="image_input" type="file" name="eventImage"><br><br>
-
+		<input type="hidden" name="status" value="1" />
 		<%-- 以上為eventBean 以下為exhibitionBean --%>
 
 		<label class="t1" for="">起始售票時間:</label>

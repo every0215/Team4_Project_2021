@@ -55,7 +55,7 @@
 			cellpadding="10" border='1'>
 			<thead>
 				<tr>
-					<th colspan='6' style="text-align: center;">票券一覽表</th>
+					<th colspan='7' style="text-align: center;">票券一覽表</th>
 				</tr>
 				<tr>
 					<th nowrap="nowrap">序號</th>
@@ -74,6 +74,7 @@
                 <path fill-rule="evenodd"
 								d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
               </svg> 地點</th>
+              <th>狀態</th>
 					<th nowrap="nowrap"><svg xmlns="http://www.w3.org/2000/svg"
 							width="16" height="16" fill="currentColor"
 							class="bi bi-card-image" viewBox="0 0 16 16">
@@ -102,10 +103,18 @@
               </td>
               <td>${event.eventName}</td>
               <td>${event.eventLocation}</td>
+              <td>
+              <c:choose>
+               	 <c:when test="${event.status==1}">上架
+               	 </c:when>
+               	 
+               	 <c:otherwise>下架</c:otherwise>
+                 </c:choose>
+              
+              </td>
               <td><img height="150px" src="<c:url value='/geteventimage/${event.id}'/>" /></td>
               <td>
                 <input type="hidden" name="typeId" value="${event.typeId}" />
-                <input type="hidden" name="companyId" value="1" />
                 <input type="hidden" name="eventId" value="${event.id}" />
                 <button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventShow/${event.id}" />'">See More</button>
 
@@ -122,7 +131,7 @@
 		});
 	</script>
 
-	<a href="ticket/InputPageEX" class="btn btn-success" role="button">新增票券</a>
+	<a href='<c:url value="ticket/InputPageEX" />' class="btn btn-success" role="button">新增票券</a>
 </body>
 
 </html>

@@ -1,7 +1,11 @@
 package com.web.store.account.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.web.store.account.dao.MemberCreditCardDao;
 import com.web.store.account.dao.MemberDao;
 import com.web.store.account.dao.MemberLoginHistoryDao;
+import com.web.store.account.javabean.MCoin;
+import com.web.store.account.javabean.MCoinTopUpDetail;
 import com.web.store.account.javabean.MemberBean;
 import com.web.store.account.javabean.MemberCreditCard;
 import com.web.store.account.javabean.MemberLoginHistory;
+import com.web.store.account.javabean.MemberNotification;
 import com.web.store.account.javabean.MemberSubscription;
 import com.web.store.account.service.AccountService;
 
@@ -132,21 +139,63 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	@Override
+	public void delete(MemberBean member) {
+		memberDao.delete(member);
+
+	}
+	
+	@Override
 	public void delete(MemberSubscription memberSubscription) throws Exception {
 		memberDao.delete(memberSubscription);
+
+	}
+	
+	@Override
+	public void delete(MemberNotification memberNotification) throws Exception {
+		memberDao.delete(memberNotification);
 
 	}
 	
 	//
 	// 會員儲值
 	//
-//	@Override
-//	public void insert(MCoinTopUpDetail mCoinTopUpDetail) throws Exception {
-//		mCreditCardDao.insert(mCreditCard);
-//
-//	}
-//	
-//	
+	@Override
+	public void mCoinTopUp(MemberBean member, MCoinTopUpDetail mCoinTopUpDetail) throws Exception {
+		if (member.getmCoin() == null) {
+			MCoin mCoin = new MCoin();
+			mCoin.setBalance(new BigDecimal(0));
+			mCoin.setMember(member);
+			member.setmCoin(mCoin);
+		}
+		
+		member.getmCoin().setBalance(member.getmCoin().getBalance().add(mCoinTopUpDetail.getTopUpAmount()));
+		
+		update(member);
+	}
+	
+	//
+	// 會員通知
+	//
+	@Override
+	public void addMemberNotification(MemberBean member, int type, String title, String description, String url) throws Exception {
+		if (member.getMemberNotificationList() == null) {
+			Set<MemberNotification> mNotificationList = new LinkedHashSet<MemberNotification>();
+			member.setMemberNotificationList(mNotificationList);
+		}
+		MemberNotification mNotification = new MemberNotification();
+		mNotification.setType(type);
+		mNotification.setTitle(title);
+		mNotification.setDescription(description);
+		mNotification.setMember(member);
+		mNotification.setRead(false);
+		mNotification.setUrl(url);
+		mNotification.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		member.getMemberNotificationList().add(mNotification);
+		
+		update(member);
+	}
+	
+	
 //	@Override
 //	public int deleteMCoinTopUpDetailById(int mCoinTopUpDetailId) throws Exception {
 //		int result = mCreditCardDao.deleteById(mCoinTopUpDetailId);
