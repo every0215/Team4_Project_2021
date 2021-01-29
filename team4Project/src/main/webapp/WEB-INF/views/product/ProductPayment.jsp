@@ -53,7 +53,7 @@
 					<img src="<c:url value='/getproductimage/${product.productId}'/>"
 						class="img-responsive" style=" float:left; width:700px; height: 500px">
 				</div>
-				<table border= 0 style="border:1px solid black ;height: 500px" >
+				<table border= 0 style="border:1px solid black ;height: 500px ; width: 500px" >
 				<tr><td>
 				商品名稱:
 				<div class='textbox'>
@@ -70,17 +70,16 @@
 				</td></tr>
 				
 				<tr><td>
-				商品說明:
-				<div class='textbox'>
-					<h3>${product.productDescript}</h3>
-				</div>
+				支付方式:
+				<select style="width: 185px" id ="DropDownList1" class="t1" name="payType" required="required">
+				<option value="滿幣支付" selected>滿幣</option>
+			
+			</select>
 				<br>
 				</td></tr>
 				<tr><td>
 				數量
-				<input id="min" name="" type="button" value="-" >
-				<input id="num" name="num" type="text" value="1"  onchange="setTotal();" >
-				<input id="add" name="" type="button" value="+" >
+				
 				
 				</td></tr>
 				<tr><td>
@@ -90,8 +89,8 @@
 				<br><br>
 				</td></tr>
 				<tr><td>
-				<button type="button" class="btn btn-primary" onclick="javascript:location.href=<c:url value='/ProductPayment' />">立刻購買</button>
-				<button type="button" class="btn btn-primary">放入購物車</button>
+				<button type="button" class="btn btn-primary" onclick="javascript:location.href=<c:url value='/ProductPayment' />">結帳</button>
+				
 				<br>
 				</td></tr>
 				</table>
