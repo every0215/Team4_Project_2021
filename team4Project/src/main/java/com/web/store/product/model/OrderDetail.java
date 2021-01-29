@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.web.store.ticket.model.Price;
-import com.web.store.ticket.model.TicketOrder;
+
 
 public class OrderDetail implements Serializable{
 	private static final long serialVersionUID = 1L;
