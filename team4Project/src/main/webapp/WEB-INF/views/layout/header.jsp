@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script>
+</script>
 <!-- Start header section -->
   <header id="aa-header">
     <!-- start header top  -->
@@ -47,10 +49,13 @@
                 <!-- / cellphone -->
               </div>
               <!-- / header top left -->
-              <div class="aa-header-top-right">
+              <div class="aa-header-top-right" style="position: relative;">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="<c:url value='/member/dashboard' />">我的帳號</a></li>
-                  <li class="hidden-xs"><a href="wishlist.html">通知</a></li>
+                  <li><a href="<c:url value='/member/myWallet' />">我的帳號</a></li>
+                  <c:if test="${ user != null }" >
+                 	 <li id="UserNotification" class="hidden-xs"><a href="#">通知</a></li>
+                  	 <li><div><span class="ll-num-count">${userNotificationNo}</span></div></li>
+                  </c:if>
                   <li class="hidden-xs"><a href="cart.html">購物車</a></li>
                   <c:choose>
                   	<c:when test="${ user == null }" >
@@ -62,7 +67,7 @@
                   		<li id="userbox" style="width:30px;" ><img alt="img" style="margin-left:10px;margin-right:10px; " width="20" src="data:image/jpeg;base64,${user.profileImage1Base64}"/></li>
 					</c:otherwise>
 				  </c:choose>
-				  <%-- <li><a href="" data-toggle="modal" data-target="#login-modal">登出<c:out value="${sessionScope.LoggedInUser.fullname}"/>${user.fullname}</a></li> --%>
+				  <%-- <li><a href="" data-toggle="modal" data-target="#login-modal">登出<c:out value="${sessionScope.currentUser.fullname}"/>${user.fullname}</a></li> --%>
 
                 </ul>
                 <ul id="user-menu" class="usermenu_usermenu" >
@@ -78,6 +83,17 @@
                   <li><a href="/settings/"><svg width="20" height="20" class="icon icon-gear"><use xlink:href="/svgs/compiled/svgs.40016ff2.svg#gear"></use></svg>Settings</a></li>
                   <li><a id="logout" href="<c:url value='/account/logout' />"><svg width="20" height="20" class="icon icon-log-out"><use xlink:href="/svgs/compiled/svgs.40016ff2.svg#log-out"></use></svg>Log Out</a></li>
                 </ul>
+                <div id="UserNotificationBox" class="ll-notification-container" >
+						    <h3>通知訊息
+						      <i class="material-icons dp48 right">settings</i>
+						    </h3>
+						
+<!-- 						    <input class="checkbox" type="checkbox" id="size_1" value="small" checked /> -->
+<!-- 						    <label class="ll-notification new" for="size_1"><span class="ll-mn-span" data-url="https://www.google.com" ><em>1</em> <br>new <a href="">guest account(s)</a> have been created.</span><i class="material-icons dp48 right">clear</i></label> -->
+						
+						    
+						    
+						  </div>
               </div>
             </div>
           </div>
@@ -150,7 +166,9 @@
               </div>
               <!-- / search box -->     
               <div class="aa-search-box" style="white-space: nowrap; overflow: hidden;">
+						<c:if test="${!empty queryproducttop}">
 						<span style="color:red;font-weight: bold;">熱銷特賣</span>
+						</c:if>
 						<span >
 						<c:forEach var="queryproducttopa" items="${queryproducttop}">
 						  <tr><td>&nbsp;&nbsp;<a href="productShow/${queryproducttopa[2]}">${queryproducttopa[0]} </a>&nbsp;&nbsp; <td></tr>
@@ -296,4 +314,7 @@
     </div><!-- /.modal-dialog -->
   </div>
   </section>
+  <script>
+ 
+  </script>
   <!-- / menu -->

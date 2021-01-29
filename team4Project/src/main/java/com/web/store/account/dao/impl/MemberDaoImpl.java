@@ -21,6 +21,7 @@ import com.web.store.account.common.HibernateUtil;
 import com.web.store.account.common.Utility;
 import com.web.store.account.dao.MemberDao;
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.javabean.MemberNotification;
 import com.web.store.account.javabean.MemberSubscription;
 
 @Repository
@@ -51,7 +52,13 @@ public class MemberDaoImpl implements MemberDao {
 	public MemberBean selectByLoginInfo(String email, String pwd) throws SQLException {
 		Session session = factory.getCurrentSession();
 		byte[] aa = Utility.encryptUsingSHA512(pwd);
-		List<MemberBean> memberList = (List<MemberBean>) session.createQuery("From MemberBean m WHERE m.email = :email AND m.password = :password")
+		List<MemberBean> memberList = (List<MemberBean>) session.createQuery("From MemberBean m  "
+				+ "JOIN FETCH m.memberCreditCardList "
+				+ "JOIN FETCH m.mCoinTopupDetailList "
+				+ "JOIN FETCH m.mCoin "
+				//+ "JOIN FETCH m.memberSubscriptionList "
+				+ "JOIN FETCH m.memberNotificationList "
+				+ "WHERE m.email = :email AND m.password = :password")
 				.setParameter("email", email)
 				.setParameter("password", Utility.encryptUsingSHA512(pwd))
 				.getResultList();
@@ -59,6 +66,32 @@ public class MemberDaoImpl implements MemberDao {
 			return null;
 		}
 		return memberList.get(0);	
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberBean> selectByConditions(int page, int pageSize, String keyword ) throws SQLException {
+		Session session = factory.getCurrentSession();
+		System.out.println("searching.. keyword: " + keyword);
+		List<MemberBean> memberList = (List<MemberBean>) session.createQuery("From MemberBean m WHERE m.email LIKE :keyword ")
+				.setParameter("keyword", "%"+ keyword.trim() +"%")
+				//.setFirstResult((page-1)*pageSize)
+				.setFirstResult((page)*pageSize)
+				.setMaxResults(pageSize*3)
+				.getResultList();
+		
+//		String hql = "From MemberBean m where m.email like :keyword";
+//		 
+//		//keywordStr = "test";
+//		Query query = session.createQuery(hql);
+//		query.setParameter("keyword", "%" + keywordStr.tr + "%");
+//		 
+//		List<MemberBean> memberList = query
+//				.setFirstResult((page)*pageSize)
+//				.setMaxResults(pageSize*3)
+//				.list();
+		
+		return memberList;	
 	}
 	
 	@Override
@@ -165,10 +198,31 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	@Override
+	public void delete(MemberBean member) {
+		Session session = factory.getCurrentSession();
+		session.delete(member);
+	}
+	@Override
 	public void delete(MemberSubscription memberSubscription) {
 		Session session = factory.getCurrentSession();
 		session.delete(memberSubscription);
 			
 
+	}
+	
+	@Override
+	public void delete(MemberNotification memberNotification) {
+		Session session = factory.getCurrentSession();
+		session.delete(memberNotification);
+			
+
+	}
+	
+	@Override
+	public int getTotalCount() throws SQLException {
+		Session session = factory.getCurrentSession();
+		String hql = "Select Count(id) FROM MemberBean";
+		Long totalCount = (Long) session.createQuery(hql).getSingleResult();
+		return totalCount.intValue();	
 	}
 }

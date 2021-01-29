@@ -8,8 +8,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.store.product.model.Product;
 import com.web.store.report.dao.ReportDao;
 import com.web.store.report.model.Report;
+import com.web.store.report.model.ReportProductAdv;
 
 @Repository
 public class ReportDaoImpl implements ReportDao {
@@ -136,7 +138,6 @@ public class ReportDaoImpl implements ReportDao {
 		return list;
 	}
 
-
 	// Tab4-各店-各店年度業績/折扣
 	@SuppressWarnings("unchecked")
 	@Override
@@ -158,7 +159,7 @@ public class ReportDaoImpl implements ReportDao {
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
 		System.out.println(list);
 		return list;
-		
+
 	}
 
 	// Tab6-各店-各店付款方式
@@ -171,42 +172,108 @@ public class ReportDaoImpl implements ReportDao {
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
 		return list;
 	}
-	
+
 	// Tab7-各店-各店無庫存項數
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Report> queryAllStoreStock(int companyid) {
-		String hqlstr = "select storename, count(stockamount) as stock from Report where companyid=:comp and (stockamount<10) group by storename";// and (Stockamount<5)";
+		String hqlstr = "select storename, count(stockamount) as stock from Report where companyid=:comp and (stockamount<10) group by storename";// and
+																																					// (Stockamount<5)";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
 		return list;
-			}
-	
-	// Tab8-商品前五名排行
-	@Override
-	public List<Report> queryProductRanking(int companyid) {
-
-		return null;
 	}
 
+	// Tab8-匯入商品前五名排行
+//	@Override
+	@SuppressWarnings("unchecked")
+	public List<Product> queryProductRanking(int companyid) {
+		String hqlstr1 = "SELECT productid FROM Report WHERE companyid=:comp group by productid order by count(salesamount) DESC";
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("rawtypes")
+		List top5list = session.createQuery(hqlstr1).setParameter("comp", companyid).setMaxResults(5).getResultList();
+
+		List<String> productIdStrs = new ArrayList<String>();
+		for (int j = 0; j < top5list.size(); j++) {
+			productIdStrs.add(top5list.get(j).toString());
+		}
+
+		String productIds = String.join(",", productIdStrs);
+		String hqlstr2 = "SELECT productId,productName,productDescript,productPrice FROM Product WHERE productId IN ("
+				+ productIds + ")";
+		List<Product> list = session.createQuery(hqlstr2).list();
+		return list;
+
+//		String hqlstr = "select A.productid,A.Productname,B.ProductDescript,A.Productprice,B.ProductPic from\r\n"
+//				+ "(select top 5 Productid,Productname,Productprice,count(Salesamount)as sss from Report where Companyid=1 group by Productid,Productname,Productprice order by count(Salesamount) desc)\r\n"
+//				+ "as A\r\n"
+//				+ "left join\r\n"
+//				+ "(select ProductId,ProductName,ProductDescript,ProductPic from Product)as B\r\n"
+//				+ "on A.productId=B.productId;";
+//		List<Report> list = new ArrayList<Report>();
+//		Session session = sessionFactory.getCurrentSession();
+//		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
+//		return list;
+
+	}
+
+	// Tab8-從adv資料庫搜尋
+	@SuppressWarnings("unchecked")
+	public List<ReportProductAdv> queryProductAdv(int companyid){
+		String hqlstr = "select orderAsc,companyid,productId,productName,productDescript,productPrice from ReportProductAdv where companyid=:comp";
+		List<ReportProductAdv> list = new ArrayList<ReportProductAdv>();
+		Session session = sessionFactory.getCurrentSession();
+		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
+		return list;
+//	@SuppressWarnings("unchecked")
+//	public List<ReportProductAdv> queryProductAdv(int companyid) {
+//		String hqlstr = "select orderAsc,productId,productName,productDescript,productPrice,productPic from ReportProductAdv where companyid=:comp";
+//		List<ReportProductAdv> list = new ArrayList<ReportProductAdv>();
+//		Session session = sessionFactory.getCurrentSession();
+//		list = session.createQuery(hqlstr).setParameter("comp", companyid).getResultList();
+//		return list;
+	}
 
 	// 修改廣告排行榜商品
 	@Override
-	public void update(Report report) {
-
+	public void update(ReportProductAdv adv) {
+		
+		String hqlstr ="update ReportProductAdv set orderAsc=?, productId=?,productname=?,productDescript=?,productprice=? where id=?";
+		Session session = sessionFactory.getCurrentSession();
+		session.update(hqlstr);
+	
 	}
 
-
-
-	//查詢前五名商品
+	// 查詢前五名商品搜尋列下方
 	@SuppressWarnings("unchecked")
 	@Override
-	public	List<Report> queryProductTop(){
+	public List<Report> queryProductTop() {
 		String hqlstr = "select productname,count(salesamount) as totalsales,productid from Report group by productname,productid order by  totalsales desc";
 		List<Report> list = new ArrayList<Report>();
 		Session session = sessionFactory.getCurrentSession();
 		list = session.createQuery(hqlstr).setMaxResults(5).list();
 		return list;
+	}
+	public boolean updateProductAdv(int companyid, List<ReportProductAdv> list) {
+		Session session = sessionFactory.getCurrentSession();
+		for (int j = 0; j < list.size(); j++) {
+			ReportProductAdv adv = list.get(j);
+			adv.setCompanyId(companyid);
+			String hqlstr1 = "FROM ReportProductAdv WHERE companyid=:comp and orderAsc=:orderAsc";
+			List<ReportProductAdv> theAdvs = session.createQuery(hqlstr1,ReportProductAdv.class)
+					.setParameter("comp", companyid)
+					.setParameter("orderAsc", adv.getOrderAsc())
+					.setMaxResults(1).getResultList();
+			
+			session.clear();
+			if (theAdvs.size()>0) {
+				adv.setId(theAdvs.get(0).getId());
+				session.merge(adv);
+			} else {
+				session.save(adv);
+			}
+		}
+		return true;
 	}
 }

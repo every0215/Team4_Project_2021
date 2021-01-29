@@ -336,3 +336,126 @@ ul.ll-err-list-msg {
 		display: block;
 	}
 }
+
+/******************************/
+/********** 會員通知 **********/
+/******************************/
+.ll-notification-container a {
+  color: cornflowerblue;
+  text-decoration: none;
+}
+.ll-notification-container a:hover {
+  opacity: 0.8;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.ll-notification-container {
+  cursor: default;
+  position: absolute;
+  z-index: 999;
+  top: 31px;
+  right: 12rem;
+  width: 400px;
+  font-weight: 300;
+  font-size: 90%;
+  background: white;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  color: #555;
+/*   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  box-shadow: 0.3rem 0.3rem 2.5rem 1rem rgba(1, 1, 1, 0.2);
+  animation-name: dropPanel;
+  animation-iteration-count: 1;
+  animation-timing-function: all;
+  animation-duration: 0.75s;
+}
+.ll-notification-container:before {
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: 0;
+  width: 0;
+  height: 0;
+  transform: translate(-1rem, -100%);
+  border-left: 0.75rem solid transparent;
+  border-right: 0.75rem solid transparent;
+  border-bottom: 0.75rem solid white;
+}
+.ll-notification-container h3 {
+  text-transform: uppercase;
+  font-size: 120%;
+  font-weight: 700;
+  color: #84929f;
+  padding: 0.5rem 2rem;
+}
+.ll-notification-container i {
+  color: #b5c4d2;
+  font-size: 140%;
+  @vertical-align (50%);
+  position: absolute;
+}
+.ll-notification-container i.right {
+  right: 2rem;
+}
+.ll-notification-container i.right:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.ll-notification-container em {
+  margin-right: 0.75rem;
+  font-weight: 700;
+  color: #b5c4d2;
+  vertical-align: bottom;
+  display: inline-block;
+}
+
+.ll-notification {
+  box-sizing: border-box;
+}
+
+
+.ll-notification-container input.checkbox[type=checkbox] {
+  display: none;
+}
+.ll-notification-container input.checkbox[type=checkbox] + label {
+  display: block;
+}
+.ll-notification-container input.checkbox[type=checkbox]:not(:checked) + label {
+  transition: height 0.25s;
+  height: 0;
+  padding: 0;
+  font-size: 0;
+  border: none;
+}
+.ll-notification-container input.checkbox[type=checkbox]:not(:checked) + label * {
+  display: none;
+}
+.ll-notification-container input.checkbox[type=checkbox]:checked + label {
+  padding: 1.125rem 4rem 0.75rem 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.13);
+}
+.ll-num-count {
+    position: relative;
+    user-select: none;
+    cursor: default;
+    font-size: 1rem;
+    background: #e74c3c;
+    width: 1.6rem;
+    height: 1.6rem;
+    color: #ecf0f1;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    top: -0.73rem;
+    right: 1.46rem;
+    box-sizing: border-box;
+}
+span.ll-mn-span {
+	height: 20px;
+	padding:15px 0px 15px 0px;
+	
+}
+
+

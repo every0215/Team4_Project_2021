@@ -3,9 +3,11 @@ package com.web.store.account.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -28,8 +30,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.web.store.account.common.SendInBlueMail;
 import com.web.store.account.common.VerifyReCAPTCHA;
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.javabean.MemberSubscription;
 import com.web.store.account.service.AccountService;
 import com.web.store.account.validator.MemberValidator;
+import com.web.store.company.model.Company;
+import com.web.store.company.service.CompanyService;
 
 
 
@@ -39,7 +44,10 @@ import com.web.store.account.validator.MemberValidator;
 public class AccountController {
 	@Autowired
 	AccountService accountService;
-
+	
+	@Autowired
+	CompanyService companyService;
+	
 	@Autowired
 	ServletContext servletContext;
 
@@ -148,18 +156,12 @@ public class AccountController {
 		mailSender.setEmailTo("Java20201019@gmail.com");
 		mailSender.SendEmail();
 		
+		member.setMemberSubscriptionList(generateSubscriptions(member));
 		accountService.insert(member);
 		
 		session.setAttribute("currentUser", member);
 		
 		return "account/verifyAccount";
-	}
-
-	@GetMapping
-	public @ResponseBody List<MemberBean> GetMemberList() throws Exception {
-		List<MemberBean> members = accountService.selectAllMembers();
-
-		return members;
 	}
 
 	@RequestMapping("/account/verifyAccount")
@@ -183,6 +185,17 @@ public class AccountController {
 		return new ModelAndView("redirect:/");
 	}
 		
-		
+	private Set<MemberSubscription> generateSubscriptions(MemberBean m) {
+		Set<MemberSubscription> memberSubscriptionList = new LinkedHashSet<MemberSubscription>();
+		List<Company> companyList = companyService.getAllCompany();
+		for(Company company: companyList) {
+			MemberSubscription memberSubscription = new MemberSubscription();
+			memberSubscription.setMember(m);
+			memberSubscription.setCompany(company);
+			memberSubscriptionList.add(null);
+		}
+		return memberSubscriptionList;
+	}
+	
 		
 }
