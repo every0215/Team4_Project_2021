@@ -19,7 +19,7 @@ public class ScheduleTask {
 	//確認活動狀態
     @Scheduled(initialDelay = 2000, fixedRate = 600000)
     public void checkCampaignStatus() {
-    	campService.checkCampaignStatus();
+    	campService.checkCampaignStatus(); 	
     }
     
     @Bean

@@ -34,11 +34,20 @@
 	
 
 </head>
+<style>
+	body{
+		background-color: #f3f3f3;
+	}
+	
+	#container{
+		box-shadow: 0px 0px 10px black;
+	}
+</style>
 <body>
 	<jsp:include page="nav.jsp"></jsp:include>
 
 
-	<div class="container" style="width:700px">
+	<div id="container" class="container" style="width:700px">
 		<h1 class="title">活動新增</h1>
 
 

@@ -34,20 +34,8 @@ div.dt-buttons {
 }
 
 @media ( max-width : 767px) .main-sidebar , . left-side {
-	-ms-transform
-	:
-	 
-	unset
-	;
-	
-    
-	-o-transform
-	:
-	 
-	unset
-	;
-	
-
+	-ms-transform:unset	
+	-o-transform:unset;
 }
 </style>
 <!-- li的藍色標籤 -->
@@ -55,10 +43,10 @@ div.dt-buttons {
 	$(function() {
 
 		$("#rep_liaction li").click(function() {
-// 			console.log($(this).hasClass('last-element'));
+			// 			console.log($(this).hasClass('last-element'));
 			$(".tab-pane").removeClass("active");
 			if ($(this).hasClass('last-element')) {
-// 				$(".tab-pane.tab-2").addClass("active").css("display","inline-block");		
+				// 				$(".tab-pane.tab-2").addClass("active").css("display","inline-block");		
 				$(".tab-pane.tab-2").addClass("active");
 				$("#rep_data").hide();
 			} else {
@@ -70,6 +58,7 @@ div.dt-buttons {
 
 	})
 </script>
+
 </head>
 <body>
 	<div class="rep_reportarea">
@@ -182,7 +171,7 @@ div.dt-buttons {
 									</ul>
 								</li>
 								<li class='last-element'>
-<!-- 									<a id="rep_adv" href="#rep_tab_8" data-toggle="tab">商品前五名排行(廣告)</a> -->
+									<!-- 									<a id="rep_adv" href="#rep_tab_8" data-toggle="tab">商品前五名排行(廣告)</a> -->
 									<a id="rep_adv" data-toggle="tab">商品前五名排行(廣告)</a>
 								</li>
 							</ul>
@@ -195,7 +184,7 @@ div.dt-buttons {
 								<!-- 								<div id="chart_container"> -->
 								<%-- 									<canvas id="myChart" width="200px" height="50%"></canvas> --%>
 								<!-- 								</div> -->
-								<div class="tab-pane tab-2" >
+								<div class="tab-pane tab-2">
 									<div id="rep_tab_8">
 										<jsp:include page="ReportRanking.jsp" flush="true" />
 										<jsp:include page="Report_Adv.jsp" flush="true" />
@@ -251,7 +240,6 @@ div.dt-buttons {
 							<!-- /.box-body -->
 							<!-- ↑資料表區截止 -->
 
-						</div>
 					</div>
 					<!-- /.box -->
 				</div>
@@ -267,12 +255,11 @@ div.dt-buttons {
 	<script src="js/Report_Js.js"></script>
 
 	<script type="text/javascript">
-// 		$(function() {
-// 			$("#rep_adv").click(function() {
-// 				console.log("rep_adv")
-// 			})
-// 		});
-
+		// 		$(function() {
+		// 			$("#rep_adv").click(function() {
+		// 				console.log("rep_adv")
+		// 			})
+		// 		});
 
 		// 	function codeInsert(){
 		// 		$('#tabs_1 > table').DataTable({

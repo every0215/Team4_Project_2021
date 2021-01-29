@@ -13,7 +13,7 @@ import com.web.store.report.service.ReportService;
 //這是原本Spring的方式將資料導出,現在改成ajax所以這篇留著以後參考用
 //@Controller
 //@RequestMapping(path="/reportindex", method = RequestMethod.GET)
-public class ReporeQueryAllData_Servlet {
+public class ReporeQueryAllData_Spring {
 
 ////測試用
 ////	@GetMapping("/reportindex") //網址顯示(請求路徑)不可重複

@@ -139,7 +139,7 @@
             	<fmt:formatDate value="${camp.endDateTime}" pattern='yyyy-MM-dd' />
             </h4>
             </div>
-            <div class="title-part"><h3>${camp.name}</h3></div>         
+            <div class="title-part"><h3>${camp.name}</h3><span style="color:red">優惠商家:${camp.company.companyName}</span></div>         
             <div class="description-part"><h5>${camp.description}</h5> </div>
             <div class="content-part">
               <p>${camp.content}</p>

@@ -11,6 +11,14 @@
             margin: 30px 20px 0px 0px;
             /* border: 1px solid black; */
             border-radius: 10px 10px 0px 0px;
+            position: fixed;
+   			right: 10px;
+    		top: 80px;
+     		background-color: rgba(200,200,200,0.6); 
+     		padding:20px; 
+/*     		border-radius:10px; */
+    		z-index: 10000;
+    		padding-top:5px;
         }
         
         #rep_adv_title {
@@ -59,8 +67,6 @@
             font-size: larger;
         }
     </style>
-
-
 </head>
 <body>
     <div id="rep_advertising" >
@@ -72,6 +78,8 @@
         <!-- content -->
         <div id="rep_adv_div">
             <ul id="rep_adv_ul">
+            	<div style='float:right' onclick='document.getElementById("rep_advertising").remove();'>X</div>
+            	<br>
                 <li id="rep_adv_1">
                     <b class="rep_adv_li_b1">九福葡萄芝麻沙琪瑪</b>
                     <b class="rep_adv_li_b2">春節必備品,特價優惠中</b>
@@ -103,9 +111,6 @@
                     <strong class="rep_adv_li_b3">NT $1476</strong>
                     <img src="img/report/2409220.jpg">
                 </li>
-
-
-
         </div>
 
     </div>

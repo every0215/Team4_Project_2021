@@ -25,6 +25,10 @@
         *{
             /* border:solid 1px; */
         }
+        
+        body{
+        	background-color: #f3f3f3;
+        }
 
         .head h3{
             text-align: center;
@@ -40,6 +44,7 @@
             border:solid 1px black;
             width: 800px;
             border-radius:10px;
+            box-shadow: 0px 0px 10px black;
         }
 
         #container .row{
