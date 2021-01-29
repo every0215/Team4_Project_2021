@@ -107,7 +107,6 @@ public class MemberController {
 		return "account/memberList";
 	}
 
-
 	@PostMapping("/delete")
 	public @ResponseBody int delete(@RequestParam int memberId) throws Exception {
 		int result = accountService.deleteById(memberId);
@@ -207,9 +206,12 @@ public class MemberController {
 		// =========================
 		session.setAttribute("mCoinTopUpDetail", mCoinTopUpDetail);
 		try {
+			// 信用卡支付
 			if (mCoinTopUpDetail.getPaymentMethod() == 1) {
 				return "redirect:/member/review";
-			} else {
+			}
+			// Paypal支付
+			else {
 				PayPalOrderDetail orderDetail = new PayPalOrderDetail("購買M幣",
 						String.valueOf(mCoinTopUpDetail.getTopUpAmount()), "0", "0",
 						String.valueOf(mCoinTopUpDetail.getTopUpAmount()));
@@ -412,6 +414,34 @@ public class MemberController {
 	}
 
 	// ==========================================================================
+	// 會員忘記密碼
+	// ==========================================================================
+	@GetMapping("/forgotPassword")
+	public String forgotPassword() {
+		return "account/forgotPassword";
+	}
+
+	@PostMapping("/forgotPassword")
+	public String forgotPassword(@ModelAttribute("member") MemberBean member, Model model, HttpSession session)
+			throws Exception {
+		byte[] encryptedNewPwd = Utility.encryptUsingSHA512(member.getOrigpwd());
+
+		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
+		if (Arrays.equals(currentUser.getPassword(), encryptedNewPwd)) {
+			currentUser.setPassword(Utility.encryptUsingSHA512(member.getPwd()));
+			accountService.updatePassword(currentUser);
+			model.addAttribute("verified", true);
+			model.addAttribute("msg", "密碼變更成功");
+			session.setAttribute("currentUser", currentUser);
+
+		} else {
+			model.addAttribute("verified", false);
+			model.addAttribute("msg", "會員密碼輸入錯誤");
+		}
+		return "account/changePassword";
+	}
+
+	// ==========================================================================
 	// 會員密碼變更
 	// ==========================================================================
 	@GetMapping("/changePassword")
@@ -445,7 +475,7 @@ public class MemberController {
 	@GetMapping("/getMemberNotifications")
 	public @ResponseBody Set<MemberNotification> getMemberNotifications(HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-		return (currentUser.getMemberNotificationList() != null) ? currentUser.getMemberNotificationList(): null;
+		return (currentUser.getMemberNotificationList() != null) ? currentUser.getMemberNotificationList() : null;
 	}
 
 }
