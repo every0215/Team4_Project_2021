@@ -6,19 +6,22 @@
       <c:import url="/layout/head" />
       <link rel="stylesheet" href="https://code.jquery.com/ui/jquery-ui-git.css">
       <style>
-     	.ticket-info-title{
-     	 text-align:left;
-     	}
-        .panel-body{
-          border:5px #ffffff solid;
+        .ticket-info-title {
+          text-align: left;
+        }
+
+        .panel-body {
+          border: 5px #ffffff solid;
           border-radius: 5px;
-          padding:3px;
-          box-shadow:0px 0px 9px #FF7575;
-          
+          padding: 3px;
+          box-shadow: 0px 0px 9px #FF7575;
+
         }
-        .more-link{
-          padding-right:15px;
+
+        .more-link {
+          padding-right: 15px;
         }
+
         .search-bar {
           clear: both;
           padding: 10px;
@@ -53,7 +56,6 @@
           border-right: 9999px solid #ccc;
           padding: 0 10px;
         }
-        
       </style>
 
       <body>
@@ -72,9 +74,11 @@
 
         <div class="search-bar">
           <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="票券搜尋" aria-label="Search"
+          <form action="<c:url value='../TicketSearch'/>"  method="get" >
+                  <input type="text" name="search" class="form-control rounded" placeholder="票券搜尋 ex. '冰雪奇緣'" aria-label="Search"
               aria-describedby="search-addon" style="width:200px" />
-            <button type="button" class="btn btn-outline-primary">Search</button>
+                  <button type="submit" class="btn btn-outline-primary">Search</button>
+                </form>
           </div>
         </div>
 
@@ -94,114 +98,167 @@
               <p><a href="<c:url value='/TicketCompany/2'/>">萊爾富</a></p>
             </div>
           </div>
-  
-  
-          <div class="container text-center">
-           <div class="ticket-info">
-           <div class="panel-body">
-           
-           <p style="text-align:left;font-size:20px;">${event.eventName}</p>
-           <p style="text-align:left">經銷便利店:${company.companyName}</p>
-           <p style="text-align:left">場地/地區:${event.eventLocation}</p>
-           
-           <c:choose>
-             <c:when test="${event.typeId==1}">
-             
-             <p style="text-align:left">展出期間:${exhibition.commDate}~${exhibition.dueDate}</p>
-             <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${exhibition.discountRatio*10}折</p>
-             <p style="text-align:left;font-size:13px">*若購買卡友優惠票，僅能使用指定信用卡結帳</p>
-             </c:when>
-             <c:when test="${event.typeId==2}">
-             
-             <p style="text-align:left">票券有效期:${attraction.commDate}~${attraction.dueDate}</p>
-             </c:when>
-            <c:otherwise>
-            
-            <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
-            </c:otherwise>
-            </c:choose>
-            <c:if test="${event.typeId==1}">    
-            		<form action="<c:url value='/TicketBuy/${eventId}'/>" method="post">
-            			<input type="hidden" name="eventId" value="${event.id}" />
-            			
-            			<button type="submit" class="btn btn-info">NEXT</button>
-            		</form>       
-        </c:if>
-           </div>
-				 <div id="accordion" class="ticket-info-title">
-				 
-				 
-				 
-	    <h4>數量與金額</h4>
-        <div>
-            <c:choose>
-             	<c:when test="${event.typeId==1}">
-             		<label class="t1" for="">優惠選擇:</label>
-				<select name="discount" id="discount" required>
-					<option value="0" selected>無</option>
-					<option value="1">指定信用卡優惠</option>			
-				</select>
-             	<table style="cellpadding:'10px'; border:3px #ffffff solid">
-             	
-             		<thead><tr><td>票券名稱</td><td>價格</td><td>數量</td><td>金額</td></tr></thead>
-             		<tbody>
-             		<c:forEach var="price" items="${priceList}" varStatus="status">
-             			<tr>
-             				<td>${price.name}</td>
-             				<td class="cost" priceId="${price.id}">${price.cost}</td>
-             				<td>
-        					<input type="text" 
-		        					class="spinner"
-		        					target="subtotal-${price.id}" 
-		        					name="${price.id}" 
-		        					price="${price.cost}"
-		        					style="width: 20px;height:18px"/>
-        					</td>
-        					<td name="subtotal-${price.id}" class="subtotal">0</td>
-             			</tr>
-             		</c:forEach>
-             		<tr ><td colspan="3">總價</td><td id="totalAmount" name="totalAmount">0</td></tr>
-             		</tbody>
-             	
-             	</table>
 
-             	</c:when>
-             	<c:when test="${event.typeId==2}">
-             		<c:forEach var="price" items="${priceList}" varStatus="status">
-             			<p>${price.name}:${price.cost}元</p>
-             		</c:forEach>
-             	</c:when>
-             	
-             	
-             	
-             	
-             	
-            	<c:otherwise>
-            <table style="margin: auto;width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>
-			<thead>
-				<tr><th colspan="5">票價表:</th></tr>
-				<tr><th rowspan="2"><th colspan="2">內野區</th><th colspan="2">外野區</th></tr>
-				<tr><th>A區</th><th>B區</th><th>A區</th><th>B區</th></tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td>原價</td>
-				<c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach>
-			</tr>
-			<tr>
-				<td>信用卡優惠價</td>
-				<c:forEach var="price" items="${priceList}"><td>${price.cost*sport.discountRatio}</td></c:forEach>
-			</tr>
-			</tbody>
-		</table>
-            </c:otherwise>
-            </c:choose>
-        </div>
-    </div>
-           </div>
+
+          <div class="container text-center">
+            <div class="ticket-info">
+              <div class="panel-body">
+                <div style="float:left">
+                  <p style="text-align:left;font-size:20px;">${event.eventName}</p>
+                  <p style="text-align:left">經銷便利店:${company.companyName}</p>
+                  <p style="text-align:left">場地/地區:${event.eventLocation}</p>
+
+                  <c:choose>
+                    <c:when test="${event.typeId==1}">
+
+                      <p style="text-align:left">展出期間:${exhibition.commDate}~${exhibition.dueDate}</p>
+                      <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${exhibition.discountRatio*10}折
+                      </p>
+                      <p style="text-align:left;font-size:13px">*若購買卡友優惠票，僅能使用指定信用卡結帳</p>
+                    </c:when>
+                    <c:when test="${event.typeId==2}">
+
+                      <p style="text-align:left">票券有效期:${attraction.commDate}~${attraction.dueDate}</p>
+                    </c:when>
+                    <c:otherwise>
+
+                      <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
+                      <p style="text-align:left;font-size:13px">*若購買卡友優惠票，僅能使用指定信用卡結帳</p>
+                    </c:otherwise>
+                  </c:choose>
+                </div>
+                <div style="float:right">
+                  <c:choose>
+                    <c:when test="${event.typeId==1}">
+
+                      <form action="<c:url value='/TicketBuyOnWay/${eventId}'/>" method="post">
+                        <input type="hidden" name="eventId" value="${event.id}" />
+                        <label for="">優惠選擇:</label>
+                        <select name="discount" id="discount" required>
+                          <option value="0" selected>無</option>
+                          <option value="1">指定信用卡優惠</option>
+                        </select>
+                        <table style="cellpadding:'10px'; border:3px #ffffff solid">
+						
+                          <thead>
+                            <tr>
+                              <td>票券名稱</td>
+                              <td>價格</td>
+                              <td>數量</td>
+                              <td>金額</td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <c:forEach var="price" items="${priceList}" varStatus="status">
+                              <tr>
+                                <td>${price.name}</td>
+                                <td class="cost" priceId="${price.id}">${price.cost}</td>
+                                <td>
+                                  
+                                <input type=" text" class="spinner" target="subtotal-${price.id}" name="count"
+                                    priceSPId="${price.id}" price="${price.cost}" style="width: 20px;height:18px"/>
+                                </td>
+                                <td name="subtotal-${price.id}" class="subtotal">0</td>
+                              </tr>
+                            </c:forEach>
+                            <tr>
+                              <td colspan="3">總價</td>
+                              <td id="totalAmount" name="totalAmount">0</td>
+
+                            </tr>
+                          </tbody>
+
+                        </table>
+
+                        <button type="submit" class="btn btn-info">下一步</button>
+                      </form>
+
+                    </c:when>
+                    <c:when test="${event.typeId==2}">
+                      <form action="<c:url value='/TicketBuyOnWay/${eventId}'/>" method="post">
+                        <input type="hidden" name="discount" value="0" />
+                        <table style="cellpadding:'10px'; border:3px #ffffff solid">
+
+                          <thead>
+                            <tr>
+                              <td>票券名稱</td>
+                              <td>價格</td>
+                              <td>數量</td>
+                              <td>金額</td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <c:forEach var="price" items="${priceList}" varStatus="status">
+                              <tr>
+                                <td>${price.name}</td>
+                                <td class="cost" priceId="${price.id}">${price.cost}</td>
+                                <td>
+                                  <input type="text" class="spinner" target="subtotal-${price.id}" name="count"
+                                    priceSPId="${price.id}" price="${price.cost}" style="width: 20px;height:18px" />
+                                </td>
+                                <td name="subtotal-${price.id}" class="subtotal">0</td>
+                              </tr>
+                            </c:forEach>
+                            <tr>
+                              <td colspan="3">總價</td>
+                              <td id="totalAmount" name="totalAmount">0</td>
+                            </tr>
+                          </tbody>
+
+                        </table>
+                        <button type="submit" class="btn btn-info">下一步</button>
+                      </form>
+
+                    </c:when>
+
+                    <c:otherwise>
+                      <form action="<c:url value='/TicketBuyOnWay/${eventId}'/>" method="post">
+                       <input type="hidden" name="sessionId" value="${sessionId}"/>
+                        <label class="t1" for="">優惠選擇:</label>
+                        <select name="discount" id="discount" required>
+                          <option value="0" selected>無</option>
+                          <option value="1">指定信用卡優惠</option>
+                        </select>
+                        <table style="cellpadding:'10px'; border:3px #ffffff solid">
+
+                          <thead>
+                            <tr>
+                              <td>票券名稱</td>
+                              <td>價格</td>
+                              <td>數量</td>
+                              <td>金額</td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <c:forEach var="price" items="${priceList}" varStatus="status">
+                              <tr>
+                                <td>${price.name}</td>
+                                <td class="cost" priceId="${price.id}">${price.cost}</td>
+                                <td>
+                                  <input type="text" class="spinner" target="subtotal-${price.id}" name="count"
+                                    priceSPId="${price.id}" price="${price.cost}" style="width: 20px;height:18px" />
+                                </td>
+                                <td name="subtotal-${price.id}" class="subtotal">0</td>
+                              </tr>
+                            </c:forEach>
+                            <tr>
+                              <td colspan="3">總價</td>
+                              <td id="totalAmount" name="totalAmount">0</td>
+                            </tr>
+                          </tbody>
+
+                        </table>
+                        <button type="submit" class="btn btn-info">下一步</button>
+                      </form>
+                    </c:otherwise>
+                  </c:choose>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
-        
+
 
 
 
@@ -212,98 +269,7 @@
         <!-- 購買票券主頁面 END -->
 
         <!-- footer -->
-        <footer id="aa-footer">
-          <!-- footer bottom -->
-          <div class="aa-footer-top">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="aa-footer-top-area">
-                    <div class="row">
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <h3>Main Menu</h3>
-                          <ul class="aa-footer-nav">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">Our Products</a></li>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <div class="aa-footer-widget">
-                            <h3>Knowledge Base</h3>
-                            <ul class="aa-footer-nav">
-                              <li><a href="#">Delivery</a></li>
-                              <li><a href="#">Returns</a></li>
-                              <li><a href="#">Services</a></li>
-                              <li><a href="#">Discount</a></li>
-                              <li><a href="#">Special Offer</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <div class="aa-footer-widget">
-                            <h3>Useful Links</h3>
-                            <ul class="aa-footer-nav">
-                              <li><a href="#">Site Map</a></li>
-                              <li><a href="#">Search</a></li>
-                              <li><a href="#">Advanced Search</a></li>
-                              <li><a href="#">Suppliers</a></li>
-                              <li><a href="#">FAQ</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <div class="aa-footer-widget">
-                            <h3>Contact Us</h3>
-                            <address>
-                              <p> 25 Astor Pl, NY 10003, USA</p>
-                              <p><span class="fa fa-phone"></span>+1 212-982-4589</p>
-                              <p><span class="fa fa-envelope"></span>dailyshop@gmail.com</p>
-                            </address>
-                            <div class="aa-footer-social">
-                              <a href="#"><span class="fa fa-facebook"></span></a>
-                              <a href="#"><span class="fa fa-twitter"></span></a>
-                              <a href="#"><span class="fa fa-google-plus"></span></a>
-                              <a href="#"><span class="fa fa-youtube"></span></a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- footer-bottom -->
-          <div class="aa-footer-bottom">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="aa-footer-bottom-area">
-                    <p>Designed by <a href="http://www.markups.io/">MarkUps.io</a></p>
-                    <div class="aa-footer-payment">
-                      <span class="fa fa-cc-mastercard"></span>
-                      <span class="fa fa-cc-visa"></span>
-                      <span class="fa fa-paypal"></span>
-                      <span class="fa fa-cc-discover"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
-        <!-- / footer -->
+       <c:import url="/layout/footer" />
 
 
 
@@ -330,82 +296,96 @@
 
         <script src="<c:url value='/js/luke_js.js' />"></script>
         <!-- script src="https://code.jquery.com/jquery-3.5.1.min.js"></script-->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-     
-    <script>
-    function updateTotalAmount(){
-    	$('.spinner').each(function(){
-  		targetElement = $(this).attr("target");
-  		let priceId = $(this).attr("name");
-  		$('td[name="'+targetElement+'"]').html(
-  				
-  				$(this).spinner('value')* $('td[priceId="'+priceId+'"]').html()		
-  		)})
-  		let total=0;
-  		const elements = document.getElementsByClassName('subtotal');
-  		$(".subtotal").html()
-  		for(const key of elements){
-  			
-  			console.log(key.innerHTML);
-  			total+= +key.innerHTML;
-  			console.log(total);
-  		}
-  		$('#totalAmount').html(total);
-	}
-    
-    function updatePriceByDiscount(){
-		console.log($("option:selected").html());
-		if($("option:selected").html()=="指定信用卡優惠"){
-			$('.cost').each(function(){
-				$(this).html(+$(this).html()*${exhibition.discountRatio})
-				let price=$(this).html();		
-			})
-			
-		}else{
-			$('.cost').each(function(){
-				$(this).html(+$(this).html()/${exhibition.discountRatio})
-				let price=$(this).html();
-			})
-		}
-	}
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-   	
-    let config={
+        <script>
+
+          let config = {
             min: 0,
             max: 10,
             step: 1
+          }
+
+          $('.spinner').spinner(config);
+
+
+          function getDiscountRatio() {
+            let discountRatio = '${exhibition.discountRatio}';
+            if (discountRatio != '') {
+              return ${exhibition.discountRatio };
+            } else {
+              return ${sport.discountRatio };
             }
-   
-    $('.spinner').spinner(config);
-    
-   
-	$('#discount').change(function(){
-		updatePriceByDiscount()
-		updateTotalAmount()
-	});
 
-	$('.spinner').on("spinstop", function(){
+          }
 
-  		targetElement = $(this).attr("target");
-  		let priceId = $(this).attr("name");
-  		$('td[name="'+targetElement+'"]').html(
-  				
-  				$(this).spinner('value')* $('td[priceId="'+priceId+'"]').html()		
-  		)
-  		let total=0;
-  		const elements = document.getElementsByClassName('subtotal');
-  		$(".subtotal").html()
-  		for(const key of elements){
-  			
-  			console.log(key.innerHTML);
-  			total+= +key.innerHTML;
-  			console.log(total);
-  		}
-  		$('#totalAmount').html(total);
-	});
-	
+          let discountRatio = getDiscountRatio();
 
-    </script>
+          function updateTotalAmount() {
+            $('.spinner').each(function () {
+              targetElement = $(this).attr("target");
+              let priceId = $(this).attr("priceSPId");
+              console.log(priceId);
+              $('td[name="' + targetElement + '"]').html(
+
+                $(this).spinner('value') * $('td[priceId="' + priceId + '"]').html()
+              )
+            })
+            let total = 0;
+            const elements = document.getElementsByClassName('subtotal');
+            $(".subtotal").html()
+            for (const key of elements) {
+
+              //   			console.log(key.innerHTML);
+              total += +key.innerHTML;
+              //   			console.log(total);
+            }
+            $('#totalAmount').html(total);
+          }
+
+          function updatePriceByDiscount() {
+            // 		console.log($("option:selected").html());
+            if ($("option:selected").html() == "指定信用卡優惠") {
+              $('.cost').each(function () {
+                $(this).html(+$(this).html() * discountRatio)
+                let price = $(this).html();
+              })
+
+            } else {
+              $('.cost').each(function () {
+                $(this).html(+$(this).html() / discountRatio)
+                let price = $(this).html();
+              })
+            }
+          }
+
+          $('#discount').change(function () {
+            updatePriceByDiscount()
+            updateTotalAmount()
+          });
+
+          $('.spinner').on("spinstop", function () {
+
+            targetElement = $(this).attr("target");
+            let priceId = $(this).attr("priceSPId");
+            $('td[name="' + targetElement + '"]').html(
+
+              $(this).spinner('value') * $('td[priceId="' + priceId + '"]').html()
+            )
+            let total = 0;
+            const elements = document.getElementsByClassName('subtotal');
+            $(".subtotal").html()
+            for (const key of elements) {
+
+              //   			console.log(key.innerHTML);
+              total += +key.innerHTML;
+              //   			console.log(total);
+            }
+            $('#totalAmount').html(total);
+          });
+
+
+        </script>
       </body>
 
 

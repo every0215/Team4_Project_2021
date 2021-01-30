@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.store.ticket.model.Event;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.store.campaign.model.Campaign;
+import com.web.store.product.model.Product;
 
 
 @Entity
@@ -84,7 +85,7 @@ public class Company  {
 	
 	
 	
-	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
+	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Campaign> campaigns;
 	
 	@Transient
@@ -92,13 +93,16 @@ public class Company  {
 	 private Set<Event> events = new LinkedHashSet<Event>();
 	
 //	@Transient
-	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
+	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<Store> stores;
 	
 	@Transient
-	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "company")
+	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "company")
 	private Set<CmpService> cmpServiceC;
 	
+	@Transient
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="company", cascade=CascadeType.ALL)
+	 private Set<Product> product = new LinkedHashSet<Product>();
 //	
 //	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	@JoinTable(name = "CompanyService", joinColumns = {
@@ -111,6 +115,7 @@ public class Company  {
 	public Company() {
 		
 	}
+	
 	
 	public Company( Integer id,String companyName, Blob logo, String logoName, String uniformNumbers, Integer categories,
 			String account, String password, String email, String phone, Blob busRC, String busRCName
@@ -328,6 +333,13 @@ public class Company  {
 		this.cmpServiceC = cmpServiceC;
 	}
 	
-	
+	public Set<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(Set<Product> product) {
+		this.product = product;
+	}
+
 	
 }

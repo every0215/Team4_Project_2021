@@ -2,6 +2,7 @@ package com.web.store.campaign.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,12 +14,16 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.service.AccountService;
 import com.web.store.campaign.dao.CampaignDao;
 import com.web.store.campaign.model.ApplyBean;
 import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.Page;
 import com.web.store.campaign.model.SearchBean;
 import com.web.store.campaign.service.CampaignService;
+import com.web.store.company.model.Company;
+import com.web.store.product.dao.ProductDao;
 import com.web.store.product.model.Product;
 import com.web.store.product.service.ProductService;
 
@@ -32,6 +37,8 @@ public class CampaignServiceImpl implements CampaignService {
 	CampaignDao campDao;
 	@Autowired
 	ProductService productService;
+	@Autowired
+	AccountService accountService;
 	
 	@Override
 	public int insert(Campaign camp) {
@@ -41,7 +48,7 @@ public class CampaignServiceImpl implements CampaignService {
 	@Override
 	public Campaign getCampaignById(int campId) {
 		Campaign camp = campDao.getCampaignById(campId);
-		Hibernate.initialize(camp);
+		Hibernate.initialize(camp.getCompany());
 		return camp;
 	}
 	
@@ -142,12 +149,12 @@ public class CampaignServiceImpl implements CampaignService {
 	@Override
 	public double checkProductDiscountById(int productId) {
 		Product product = productService.getProduct(productId);
-		Hibernate.initialize(product);
 		Set<Campaign> campOfProduct = product.getCampaigns();
+		Hibernate.initialize(campOfProduct);
 		double lowestDiscount = 1;
 		for(Campaign camp:campOfProduct) {
 			
-			//當活動類型是折扣，活動進行中才判斷
+			//當活動類型是折扣 進行中，活動進行中才判斷
 			if(camp.getDiscountParams().getType()==1 && camp.getStatus() && !camp.getExpired()) {			
 				if(camp.getDiscountParams().getOffParam()!=null) {
 					double OffParam = camp.getDiscountParams().getOffParam();
@@ -166,8 +173,8 @@ public class CampaignServiceImpl implements CampaignService {
 	public Map<String, List<Product>> classifyProductIncamp(int campId,String companyName) {
 		
 		Map<String, List<Product>> classify= new HashMap<String, List<Product>>();
-		List<Product> productsInCamp = new ArrayList<Product>();
-		List<Product> productsNotInCamp = new ArrayList<Product>();
+		List<Product> productsInCamp = new LinkedList<Product>();
+		List<Product> productsNotInCamp = new LinkedList<Product>();
 		List<Product> products = productService.selectbyCompanyName(companyName);
 		
 		for(Product product:products) {
@@ -230,6 +237,38 @@ public class CampaignServiceImpl implements CampaignService {
 			}		
 		}
 		return 0;
+	}
+
+	@Override
+	public void pushCampaign(int campId) throws Exception {
+		Campaign campaign = getCampaignById(campId);
+		String title = campaign.getName();
+		String description = campaign.getDescription();
+		Hibernate.initialize(campaign.getCompany());
+		int companyId = campaign.getCompany().getId();
+		Set<MemberBean> members = campDao.getMemberByCompanyId(companyId);
+		for(MemberBean mb : members) {
+			System.out.println(mb.getNickname());
+			accountService.addMemberNotification(mb, 3, title, description, "http://localhost:8080/proj/campaign/detail/"+campId);
+		}
+	}
+
+	@Override
+	public void updateProductDiscount() {
+		productService.setProductDiscountToDefault();
+		List<Campaign> camps = campDao.selectActiveCampaign();
+		for(Campaign camp:camps) {
+			Double discount = camp.getDiscountParams().getOffParam();
+			if(discount!=null) {
+				Set<Product> pros = camp.getProducts();
+				for(Product pro:pros) {	
+					if(pro.getdiscount()>discount) {
+						pro.setdiscount(discount);
+					}		
+				}
+			}
+		}
+		System.out.println("更新成功");
 	}
 	
 	

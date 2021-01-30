@@ -12,6 +12,10 @@
             padding: 0;
             margin: 0;
         }
+        
+        body{
+        	background-color:#f3f3f3;
+        }
 
         .title {
             text-align: center;
@@ -46,7 +50,13 @@
         #container{
             width:700px;
             border:solid black 1px;
-            border-radius:10px
+            border-radius:10px;
+            box-shadow: 0px 0px 10px black;
+            background-color:white;
+        }
+        
+        .ck-editor__editable_inline {
+            min-height: 300px;      
         }
 
     </style>
@@ -63,10 +73,11 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js"></script>
 
-
+	
+	
 </head>
 
-<body>
+<body style="background-color:#f3f3f3">
 
 
     <div id="container" class="container">
@@ -151,7 +162,8 @@
 
             <div class="form-group">
                 <label for="comment">活動內容:</label>
-                <textarea name="content" class="form-control need" rows="8">${camp.content}</textarea>
+                <textarea id="editor" name="content" class="form-control">${camp.content}
+                </textarea>
             </div>
 
             <div class="form-group">
@@ -172,10 +184,13 @@
     </div>
 
 
-
+	<script src="<c:url value='/js/ckEditorBuild/ckeditor.js'/>"></script>
+	<script src="<c:url value='/js/ckEditorSetting.js'/>"></script>
     <script>
         $(function () {
-
+        	
+        	$(".ck-content p").html($("textraea[name='content']").html());
+        	
         	$("#fileUpload").change(function(){
                 readURL(this); 
               });

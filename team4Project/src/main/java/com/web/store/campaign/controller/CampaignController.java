@@ -236,6 +236,8 @@ public class CampaignController {
 		campOrigin.setLaunchStatus(launchStatus);
 		campOrigin.setContent(content);
 		campOrigin.setUpdateTime(new Timestamp(date.getTime()));
+		campOrigin.setStatus(false);
+		campOrigin.setExpired(false);
 		
 		//如果為1，是折扣塞入折扣參數
 		//為2是滿額塞入滿額參數
@@ -363,16 +365,17 @@ public class CampaignController {
 		Page<Campaign> page = new Page<Campaign>();
 		page.setCurrentPage(pageNum);
 		Company company = (Company)model.getAttribute("company");
-		
 		if(company==null) {
 			return "redirect:/";
 		}
 		
 		campService.getCampaignPageOfCompany(page,company.getId());
+	
 		List<Campaign> camps = page.getContent();
-		for(Campaign camp:camps) {			
+		for(Campaign camp:camps) {
 			camp.isActive();
 		}
+
 		model.addAttribute("page", page);
 		return "campaign/CampaignShowPage";
 	}
@@ -470,7 +473,7 @@ public class CampaignController {
 	}
 	
 	@PostMapping("/companyCampPage/{companyId}")
-	public @ResponseBody Page<Campaign> ComapnyCampaignPage (@ModelAttribute Page<Campaign> page,
+	public @ResponseBody Page<Campaign> comapnyCampaignPage (@ModelAttribute Page<Campaign> page,
 																@PathVariable Integer companyId
 			){
 		campService.getActiveCampaignPageByCompany(page,companyId);
@@ -481,7 +484,7 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/getIndexCamp")
-	public @ResponseBody List<Campaign> CampaignOfIndex(){
+	public @ResponseBody List<Campaign> campaignOfIndex(){
 		
 		List<Campaign> resultCamps = new ArrayList<Campaign>();//要傳到首頁的活動
 		List<Campaign> AllCamps = campService.getAllCampaign();//全部活動
@@ -505,7 +508,7 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/detail/{campId}")
-	public String CampDetailPage(@PathVariable Integer campId,
+	public String campDetailPage(@PathVariable Integer campId,
 									Model model
 			) {
 		Campaign camp = campService.getCampaignById(campId);
@@ -532,6 +535,12 @@ public class CampaignController {
 		return "campaign/CampaignApplyPage";
 	}
 	
+	@GetMapping("/loading/{campaignId}")
+	public String applyLoading(Model model,@PathVariable int campaignId) {
+		model.addAttribute("campaignId", campaignId);
+		return "campaign/loadingPage";
+	}
+	
 	@PostMapping("/applyCampaign/{campaignId}")
 	public @ResponseBody String applyCampaign(@RequestBody ApplyBean apply,@PathVariable Integer campaignId){
 		try {
@@ -542,6 +551,17 @@ public class CampaignController {
 			return "fail";
 		}
 		
+	}
+	@GetMapping(value="/push/{campId}",produces = "text/plain")
+	public @ResponseBody String pushCampaign(@PathVariable int campId) {
+		
+		try {
+			campService.pushCampaign(campId);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 	
 	@ModelAttribute(name = "searchBean")

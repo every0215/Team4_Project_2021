@@ -2,6 +2,8 @@ package com.web.store.product.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,6 +29,44 @@ public class Order  implements Serializable{
 	private Integer count;
 	@Column(name= "OrderNumber")
 	private Integer orderNumber;
+	
+	public Order() {
+		
+	}
+	
+	public Order(Integer orderId, Integer memberId, Integer amount, Integer count, Integer orderNumber
+			) {
+		super();
+		this.orderId = orderId;
+		this.memberId = memberId;
+		this.amount = amount;
+		this.count = count;
+		this.orderNumber = orderNumber;
+		
+	}
+	public Order( Integer memberId, Integer amount, Integer count, Integer orderNumber
+			) {
+		super();
+		this.memberId = memberId;
+		this.amount = amount;
+		this.count = count;
+		this.orderNumber = orderNumber;
+		
+	}
+	public Order(Integer orderId, Integer memberId, Integer amount, Integer count, Integer orderNumber,
+			List<OrderDetail> orderdetail) {
+		super();
+		this.orderId = orderId;
+		this.memberId = memberId;
+		this.amount = amount;
+		this.count = count;
+		this.orderNumber = orderNumber;
+		Orderdetail = orderdetail;
+	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "Order", cascade = CascadeType.ALL)
+	private List<OrderDetail> Orderdetail = new ArrayList<OrderDetail>();
+	
+	
 	public Integer getOrderId() {
 		return orderId;
 	}

@@ -54,7 +54,7 @@ select option[value="0"] {
 
 		<label class="t1" for="">展覽宣傳圖片:</label>
 			<input id="image_input" type="file" name="eventImage"><br><br>
-
+		<input type="hidden" name="status" value="1" />
 		<%-- 以上為eventBean 以下為exhibitionBean --%>
 
 		<label class="t1" for="">起始售票時間:</label>
@@ -164,6 +164,6 @@ select option[value="0"] {
 		
 		<input type="submit" name="sumbmit" id="s1"> 
 	</form>
-	<a href="../TicketIndex" class="btn btn-success" role="button">回主頁</a>
+	<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
 </body>
 </html>

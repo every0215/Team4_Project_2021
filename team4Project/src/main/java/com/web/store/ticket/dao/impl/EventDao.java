@@ -50,9 +50,16 @@ public class EventDao implements IEventDao {
 
 	@Override
 	public ArrayList<Event> queryAll(int companyId) {
-		System.out.println("run it ");
 		Session session = factory.getCurrentSession();
 		String hqlstr = "FROM Event E where E.companyId="+companyId;
+		Query<Event> query = session.createQuery(hqlstr,Event.class);
+		return (ArrayList<Event>) query.list();
+	}
+	
+	@Override
+	public ArrayList<Event> queryStatusOKAll(int companyId) {
+		Session session = factory.getCurrentSession();
+		String hqlstr = "FROM Event E where E.status=1 and E.companyId="+companyId;
 		Query<Event> query = session.createQuery(hqlstr,Event.class);
 		return (ArrayList<Event>) query.list();
 	}
@@ -74,5 +81,44 @@ public class EventDao implements IEventDao {
 		}
 
 	}
+
+	@Override
+	public ArrayList<Event> queryStatusOKByTypeId(int typeId) {
+		Session session = factory.getCurrentSession();
+		String hqlstr="FROM Event E where E.status=1 and E.typeId="+typeId;
+		Query<Event> query = session.createQuery(hqlstr,Event.class);
+		return (ArrayList<Event>) query.list();
+	}
+
+	@Override
+	public void updateStatusEvent(int eventId) {
+		Session session = factory.getCurrentSession();
+		Event event = session.get(Event.class, eventId);
+		if(event.getStatus()==0) {
+			event.setStatus(1);
+		}else {
+			event.setStatus(0);
+		}		
+		session.update(event);
+		
+	}
+
+	@Override
+	public List<Event> selectbyName(String EventName) {
+		Session session = factory.getCurrentSession();
+		String hqlstr = "from Event E where E.status=1 and E.eventName like :eventName  ";
+		Query<Event> queryObj = session.createQuery(hqlstr,Event.class);
+		queryObj.setParameter("eventName", '%'+EventName+'%');		
+		return queryObj.list();	
+	}
+
+	@Override
+	public ArrayList<Event> query() {
+		Session session = factory.getCurrentSession();
+		String hqlstr = "FROM Event";
+		Query<Event> query = session.createQuery(hqlstr,Event.class);
+		return (ArrayList<Event>) query.list();
+	}
+
 
 }

@@ -69,7 +69,7 @@ public class Campaign implements Serializable {
 	private Timestamp updateTime;
 
 	@JoinColumn(name = "companyId")
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Company company;
 
@@ -83,16 +83,8 @@ public class Campaign implements Serializable {
 	@JoinTable(name = "Campaign_product", joinColumns = {
             @JoinColumn(name = "campaign_id", referencedColumnName = "id") }, inverseJoinColumns = {
                     @JoinColumn(name = "product_id", referencedColumnName = "ProductId") })
-	private Set<Product> products=new HashSet<Product>();;
+	private Set<Product> products=new HashSet<Product>();
 
-//	//商品活動多對多映射，之後補上
-//	@ManyToMany(cascade=CascadeType.ALL,mappedBy = "campaign",fetch = FetchType.LAZY)
-//    @JoinTable(
-//        name="product_campaign",
-//        joinColumns={@JoinColumn(name="campaignId")},
-//        inverseJoinColumns={@JoinColumn(name="productId")}
-//    )
-//	private set<Product> products;
 
 	public Integer getId() {
 		return id;

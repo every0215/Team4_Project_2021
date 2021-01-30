@@ -27,6 +27,8 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.web.store.account.javabean.MemberBean;
 import com.web.store.product.service.ProductService;
+import com.web.store.report.model.Report;
+import com.web.store.report.service.ReportService;
 
 
 //import mvc.examples.model.Cat;
@@ -39,8 +41,14 @@ public class HomeController {
 	@Autowired
 	ProductService pService;
 	
+	@Autowired
+	ReportService reportService; 
+	
 	@RequestMapping("/")
-	public String index() {
+	public String index(Model model) {
+		//搜尋列下方所有廠商的銷售前五名商品
+		List<Report> queryProductTop = reportService.queryProductTop();
+		model.addAttribute("queryproducttop", queryProductTop);
 		return "index";
 	}
 
@@ -84,11 +92,15 @@ public class HomeController {
 					member.setProfileImage1Base64(base64Encoded);
 
 					model.addAttribute("user", member);
+					model.addAttribute("userNotificationNo", member.getMemberNotificationList()==null? 0 : member.getMemberNotificationList().size());
 				}
 			}
+			
+
 		}
 		return "layout/header"; //
 	}
+	
 	
 	@RequestMapping("/bo")
 	public String boIndex() {

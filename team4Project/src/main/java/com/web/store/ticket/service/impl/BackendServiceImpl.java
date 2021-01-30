@@ -1,8 +1,12 @@
 package com.web.store.ticket.service.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +23,9 @@ import com.web.store.ticket.dao.impl.PriceDao;
 import com.web.store.ticket.dao.impl.SportDao;
 import com.web.store.ticket.dao.impl.SportSeatDao;
 import com.web.store.ticket.dao.impl.SportSessionDao;
+import com.web.store.ticket.dao.impl.TicketOnWayDao;
+import com.web.store.ticket.dao.impl.TicketOrderDao;
+import com.web.store.ticket.dao.impl.TicketOrderDetailDao;
 import com.web.store.ticket.model.Attraction;
 import com.web.store.ticket.model.Bank;
 import com.web.store.ticket.model.CreditCard;
@@ -29,6 +36,9 @@ import com.web.store.ticket.model.Price;
 import com.web.store.ticket.model.Sport;
 import com.web.store.ticket.model.SportSeat;
 import com.web.store.ticket.model.SportSession;
+import com.web.store.ticket.model.TicketOnWay;
+import com.web.store.ticket.model.TicketOrder;
+import com.web.store.ticket.model.TicketOrderDetail;
 import com.web.store.ticket.service.BackendService;
 
 @Transactional
@@ -57,6 +67,13 @@ public class BackendServiceImpl implements BackendService {
 	BankDao bankDao;
 	@Autowired
 	CompanyDaoImpl companyDao;
+	@Autowired
+	TicketOrderDao ticketOrderDao;
+	@Autowired
+	TicketOrderDetailDao ticketOrderDetailDao;
+	@Autowired
+	TicketOnWayDao ticketOnWayDao;
+	
 	
 	@SuppressWarnings("null")
 	@Override
@@ -311,6 +328,206 @@ public class BackendServiceImpl implements BackendService {
 			priceList.add(price);
 		}
 		return priceList;
+	}
+
+	@Override
+	public ArrayList<TicketOrder> queryTicketOrderByMemberId(int memberId) {
+		ArrayList<TicketOrder> ticketOrderList = ticketOrderDao.queryTicketOrderByMemberId(memberId);
+		return ticketOrderList;
+	}
+
+	@Override
+	public TicketOrder addTicketOrder(TicketOrder ticketOrder) {
+		ticketOrderDao.addTicketOrder(ticketOrder);
+		return ticketOrder;
+		
+	}
+
+	@Override
+	public TicketOrder updateTicketOrder(TicketOrder ticketOrder) {
+		ticketOrderDao.updateTicketOrder(ticketOrder);
+		return ticketOrder;
+		
+	}
+
+	@Override
+	public void deleteTicketOrder(String ticketOrderId) {
+		ticketOrderDao.delete(ticketOrderId);
+		
+	}
+
+	@Override
+	public TicketOnWay addTicketOnWay(TicketOnWay ticketOnWay) {
+		ticketOnWayDao.addTicketOnWay(ticketOnWay);
+		return ticketOnWay;
+	}
+
+	@Override
+	public TicketOnWay updateTicketOnWay(TicketOnWay ticketOnWay) {
+		ticketOnWayDao.updateTicketOnWay(ticketOnWay);
+		return ticketOnWay;
+	}
+
+	@Override
+	public void deleteTicketOnWay(int ticketOnWayId) {
+		ticketOnWayDao.delete(ticketOnWayId);
+		
+	}
+
+	@Override
+	public TicketOrderDetail addTicketOrderDetail(TicketOrderDetail ticketOrderDetail) {
+		ticketOrderDetailDao.addTicketOrderDetail(ticketOrderDetail);
+		return ticketOrderDetail;
+	}
+
+	@Override
+	public TicketOrderDetail updateTicketOrderDetail(TicketOrderDetail ticketOrderDetail) {
+		ticketOrderDetailDao.updateTicketOrderDetail(ticketOrderDetail);
+		return ticketOrderDetail;
+	}
+
+	@Override
+	public void deleteTicketOrderDetail(int ticketOrderDetailId) {
+		ticketOrderDetailDao.delete(ticketOrderDetailId);
+		
+	}
+
+	@Override
+	public SportSeat updateSeatStock(SportSeat sportSeat) {
+		sportSeatDao.updateSportSeat(sportSeat);
+		return sportSeat;
+	}
+
+	@Override
+	public SportSeat queryOneSportSeat(Integer seatId) {
+		SportSeat seat = sportSeatDao.queryOneSportSeat(seatId);
+		return seat;
+	}
+
+	@Override
+	public void updateStatusEvent(int eventId) {
+		eventDao.updateStatusEvent(eventId);
+		
+	}
+
+	@Override
+	public ArrayList<Event> queryStatusOKByTypeId(int typeId) {
+		return eventDao.queryStatusOKByTypeId(typeId);
+		
+	}
+
+	@Override
+	public ArrayList<Event> queryStatusOKAll(int companyId) {
+		return eventDao.queryStatusOKAll(companyId);
+	}
+
+	@Override
+	public List<Event> selectbyName(String eventName) {
+		return eventDao.selectbyName(eventName);
+	}
+
+	@Override
+	public SportSession queryOneSportSession(Integer sessionId) {
+		SportSession sportSession = sportSessionDao.queryOneSportSession(sessionId);
+		return sportSession;
+	}
+
+	@Override
+	public TicketOrder queryTicketOrderbyId(String ticketOrderId) {
+		TicketOrder ticketOrder = ticketOrderDao.queryTicketOrderbyId(ticketOrderId);
+		return ticketOrder;
+	}
+
+	@Override
+	public TicketOrder queryTicketOrderDetailByTicketOrder(TicketOrder ticketOrder) {
+		TicketOrder ticketOrderN = ticketOrderDao.queryTicketOrderbyId(ticketOrder.getId());
+		Set<TicketOrderDetail> ticketOrderDetails = ticketOrderN.getTicketOrderDetails();
+		Hibernate.initialize(ticketOrderDetails);
+		return ticketOrderN;
+	}
+
+	@Override
+	public TicketOrder queryTicketOnWayByTicketOrder(TicketOrder ticketOrder) {
+		TicketOrder ticketOrderN = ticketOrderDao.queryTicketOrderbyId(ticketOrder.getId());
+		Set<TicketOnWay> ticketOnWays = ticketOrderN.getTicketOnWays();
+		Hibernate.initialize(ticketOnWays);
+		return ticketOrderN;
+	}
+
+	@Override
+	public void checkTicketOnWay() {
+		
+		ArrayList<TicketOnWay> ticketOnWays = ticketOnWayDao.queryAll();
+//		System.out.println(ticketOnWays.size());
+		Date now = new Date();
+		Timestamp nowTime = new Timestamp(now.getTime());
+		List<String> listOfOrderId = new ArrayList<String>();
+		for(TicketOnWay ticketOnWay : ticketOnWays) {
+//			System.out.println("==================1=============================");
+			Hibernate.initialize(ticketOnWay.getTicketOrder());
+			Timestamp deleteTime = ticketOnWay.getDeletedTime();
+			if (deleteTime.before(nowTime)) {
+				Event event = eventDao.queryOneEvent(ticketOnWay.getEventId());
+				if(event.getTypeId()==3) {
+					
+					Integer value = ticketOnWay.getValue();
+					SportSeat seat = sportSeatDao.queryOneSportSeat(ticketOnWay.getSeatId());
+					Integer oStock = seat.getStock();
+					seat.setStock(value+oStock);
+					sportSeatDao.updateSportSeat(seat);
+					
+				}
+				TicketOrder ticketOrder = ticketOnWay.getTicketOrder();
+				String orderId = ticketOrder.getId();
+				ticketOnWay.setTicketOrder(null);
+				ticketOnWayDao.delete(ticketOnWay.getId());
+				if (!listOfOrderId.contains(orderId)) {
+					listOfOrderId.add(orderId);
+				}
+	        }
+		}
+		for(String orderId : listOfOrderId) {
+			TicketOrder ticketOrderN = ticketOrderDao.queryTicketOrderbyId(orderId);
+			Hibernate.initialize(ticketOrderN);
+			Set<TicketOrderDetail> ticketOrderDetails = ticketOrderN.getTicketOrderDetails();
+			Hibernate.initialize(ticketOrderDetails);
+//			System.out.println("=================="+ticketOrderN.getId()+"=============================");
+			ticketOrderDao.delete(ticketOrderN.getId());
+			
+			
+		}
+			
+//		Timestamp validTime = new Timestamp(now.getTime());
+//		System.out.println("=============="+validTime+"==============");
+//		System.out.println("check "+ticketOnWays.size()+" over");
+		
+	}
+
+	@Override
+	public void checkEventStatus() {
+		ArrayList<Event> eventList = eventDao.query();
+		Date now = new Date();
+		Timestamp nowTime = new Timestamp(now.getTime());
+		Timestamp offSaleDate;
+		for(Event event: eventList) {
+			Integer typeId = event.getTypeId();
+			if(typeId==1) {
+				Exhibition exhibition = exhibitionDao.selectByEvent(event.getId());
+				offSaleDate = exhibition.getOffSaleDate();
+			}else if(typeId==2) {
+				Attraction attraction = attractionDao.selectByEvent(event.getId());
+				offSaleDate = attraction.getOffSaleDate();
+			}else {
+			 	Sport sport = sportDao.selectByEvent(event.getId());
+			 	offSaleDate = sport.getOffSaleDate();
+			}
+			
+			if(offSaleDate.before(nowTime)) {
+				event.setStatus(0);
+				eventDao.updateEvent(event);
+			}
+		}
+		
 	}
 	
 	

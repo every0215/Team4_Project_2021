@@ -39,42 +39,106 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script>
 
-</script>
+
+<link href="<c:url value='/css/productbuy.css' />" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
 	
-	<div class="col-sm-4" style="width: 250px; float: left;">
-						<div class="panel panel-primary" >
-							<div class="panel-heading"
-								style="height: 60px; text-align: center;">${product.productName}</div>
-							<div class="panel-body">
-								<img
-									src="<c:url value='/getproductimage/${product.productId}'/>"
-									class="img-responsive" style="width: 100%; height: 164px">
-							</div>
-							<div class="panel-footer"
-								style="height: 50px; text-align: center; font-size: 16px;">
+		<div class ='buybox' >
+			<div>
+				<div class = 'imgbox'>
+					<img src="<c:url value='/getproductimage/${product.productId}'/>"
+						class="img-responsive" style=" float:left; width:700px; height: 500px">
+				</div>
+				<table border= 0 style="border:1px solid black ;height: 500px" >
+				<tr><td>
+				商品名稱:
+				<div class='textbox'>
+					<h1>${product.productName}</h1>
+				</div>
+				<br>
+				</td></tr>
+				<tr><td>
+				商品單價:
+				<div class='textbox'>
+					<h1>${product.productPrice}</h1>
+				</div>
+				<br>
+				</td></tr>
+				
+				<tr><td>
+				商品說明:
+				<div class='textbox'>
+					<h3>${product.productDescript}</h3>
+				</div>
+				<br>
+				</td></tr>
+				<tr><td>
+				數量
+				<input id="min" name="" type="button" value="-" >
+				<input id="num" name="num" type="text" value="1"  onchange="setTotal();" >
+				<input id="add" name="" type="button" value="+" >
+				
+				</td></tr>
+				<tr><td>
+				<br>
+				總價
+				<div class="tmp">0</div>
+				<br><br>
+				</td></tr>
+				<tr><td>
+				<button type="button" class="btn btn-primary" onclick="javascript:location.href=<c:url value='/ProductPayment' />">立刻購買</button>
+				<button type="button" class="btn btn-primary">放入購物車</button>
+				<br>
+				</td></tr>
+				</table>
+			</div>
+	
 
-								店家:${product.companyName} <br>
-								產品價格${product.productPrice}<br>
-								產品說明${product.productDescript}
-								<input type = 'button'  id = "demo2" onclick="location.href = '<c:url value='/ProductBuy2/${product.productId}'/>'"></input>
-								</div>
-								
-						</div>
-					</div>
+
+	</div>
+
 
 
 
 </body>
 <c:import url="/layout/footer" />
 
-
+<script>
+function setTotal(){
+		var t = ${product.productPrice};
+		var tmp = document.getElementById("totalPrice");
+		if(/\D/.test(t.val())){
+		alert("請您輸入正確的數量！");
+		
+		}
+		else{//如果輸入合法			
+			tmp.innerHTML = t.val()*${product.productPrice} +"元";
+		}
+}
+ 
+$(function(){ //這裡是加減按鈕都啟用的情況
+	var t = $("#num"); 
+	$("#add").click(function(){		
+		t.val(parseInt(t.val())+1)
+		setTotal();
+	})
+	$("#min").click(function(){
+		if(t.val()>1){
+		t.val(parseInt(t.val())-1);
+		}
+		else{
+		alert("至少購買一件哦！");
+		}
+		setTotal();
+	})
+});
+</script>
 <!--   自定義js -->
 <script type="text/javascript" src="js/Carousel.js"></script>
-<script src="<c:url value='/js/luke_js.js' />"></script>
+<script src="<c:url value='/js/luke_js.js' />"> </script>
+
 </html>

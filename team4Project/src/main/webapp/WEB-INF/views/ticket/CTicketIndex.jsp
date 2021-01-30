@@ -61,9 +61,11 @@
 
         <div class="search-bar">
           <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="票券搜尋" aria-label="Search"
+          <form action="<c:url value='TicketSearch'/>"  method="get" >
+                  <input type="text" name="search" class="form-control rounded" placeholder="票券搜尋 ex. '冰雪奇緣'" aria-label="Search"
               aria-describedby="search-addon" style="width:200px" />
-            <button type="button" class="btn btn-outline-primary">Search</button>
+                  <button type="submit" class="btn btn-outline-primary">Search</button>
+                </form>
           </div>
         </div>
 
@@ -99,7 +101,7 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer" style="text-align:left;font-size:13px;"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.exhibition.onSaleDate.toString().substring(0, 16)}~${event.exhibition.offSaleDate.toString().substring(0, 16)}</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px;"><img height="15px" src="<c:url value='/company/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.exhibition.onSaleDate.toString().substring(0, 16)}~${event.exhibition.offSaleDate.toString().substring(0, 16)}</div>
                 </div>
               </div>
 </c:forEach>              
@@ -132,7 +134,7 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.attraction.onSaleDate.toString().substring(0, 16)}~${event.attraction.offSaleDate.toString().substring(0, 16)}</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/company/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.attraction.onSaleDate.toString().substring(0, 16)}~${event.attraction.offSaleDate.toString().substring(0, 16)}</div>
                 </div>
               </div>
 </c:forEach>              
@@ -163,7 +165,7 @@
                   <div class="panel-heading">${event.eventName}</div>
                   <div class="panel-body"><img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"
                       style="width:100%;height:164px" alt="${event.eventName}"></div>
-                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.sport.onSaleDate.toString().substring(0, 16)}~${event.sport.offSaleDate.toString().substring(0, 16)}</div>
+                  <div class="panel-footer" style="text-align:left;font-size:13px"><img height="15px" src="<c:url value='/company/getCompanyimage/${event.companyId}'/>" />&nbsp;售票期間: ${event.sport.onSaleDate.toString().substring(0, 16)}~${event.sport.offSaleDate.toString().substring(0, 16)}</div>
                 
                 </div>
               </div>
@@ -193,100 +195,7 @@
 
         <!-- 購買票券主頁面 END -->
 
-        <!-- footer -->
-        <footer id="aa-footer">
-          <!-- footer bottom -->
-          <div class="aa-footer-top">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="aa-footer-top-area">
-                    <div class="row">
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <h3>Main Menu</h3>
-                          <ul class="aa-footer-nav">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">Our Products</a></li>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <div class="aa-footer-widget">
-                            <h3>Knowledge Base</h3>
-                            <ul class="aa-footer-nav">
-                              <li><a href="#">Delivery</a></li>
-                              <li><a href="#">Returns</a></li>
-                              <li><a href="#">Services</a></li>
-                              <li><a href="#">Discount</a></li>
-                              <li><a href="#">Special Offer</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <div class="aa-footer-widget">
-                            <h3>Useful Links</h3>
-                            <ul class="aa-footer-nav">
-                              <li><a href="#">Site Map</a></li>
-                              <li><a href="#">Search</a></li>
-                              <li><a href="#">Advanced Search</a></li>
-                              <li><a href="#">Suppliers</a></li>
-                              <li><a href="#">FAQ</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <div class="aa-footer-widget">
-                            <h3>Contact Us</h3>
-                            <address>
-                              <p> 25 Astor Pl, NY 10003, USA</p>
-                              <p><span class="fa fa-phone"></span>+1 212-982-4589</p>
-                              <p><span class="fa fa-envelope"></span>dailyshop@gmail.com</p>
-                            </address>
-                            <div class="aa-footer-social">
-                              <a href="#"><span class="fa fa-facebook"></span></a>
-                              <a href="#"><span class="fa fa-twitter"></span></a>
-                              <a href="#"><span class="fa fa-google-plus"></span></a>
-                              <a href="#"><span class="fa fa-youtube"></span></a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- footer-bottom -->
-          <div class="aa-footer-bottom">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="aa-footer-bottom-area">
-                    <p>Designed by <a href="http://www.markups.io/">MarkUps.io</a></p>
-                    <div class="aa-footer-payment">
-                      <span class="fa fa-cc-mastercard"></span>
-                      <span class="fa fa-cc-visa"></span>
-                      <span class="fa fa-paypal"></span>
-                      <span class="fa fa-cc-discover"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
-        <!-- / footer -->
-
+       <c:import url="/layout/footer" />
 
 
         <!-- jQuery library -->
