@@ -43,6 +43,8 @@
 
 		<li><a href="<c:url value='/data/CreateMember' />"> <i class="fa fa-user fa-lg"></i><b>Gen會員資料</b>
 		</a></li>
+		<li><a href="<c:url value='/member/ticketOrder' />"> <i class="fa fa-user fa-lg"></i><b>個人訂單</b>
+		</a></li>
 
 	</ul>
 	<a href="<c:url value='/admin/memberManage' />" style="color: #fff; "><b>MemberManage</b>
