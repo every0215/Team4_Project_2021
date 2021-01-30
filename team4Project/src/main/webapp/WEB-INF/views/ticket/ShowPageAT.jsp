@@ -42,10 +42,83 @@
 <tr><td>票券價格</td> <c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach></tr>
 </table>
 
+ 			<c:choose>
+               	 <c:when test="${event.status==1}">
+               	 	<button id="statusButton" class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventUpdateStatus/${event.id}" />'">下架</button>
+               	 </c:when>       	 
+               	 <c:otherwise>
+               	 	<button id="statusButton" class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventUpdateStatus/${event.id}" />'">上架</button>
+               	 </c:otherwise>
+            </c:choose>
 
-<a href="<c:url value='/EventUpdate/${event.id}'/>" class="btn btn-success" role="button">修改</a>	
-<a href="<c:url value='/EventDel/${event.id}'/>" class="btn btn-danger" role="button">刪除</a>	
+<button id="updateButton" class="btn btn-success" onclick="location.href = '<c:url value="/EventUpdate/${event.id}" />'">修改</button>
+<button id="deleteButton" class="btn btn-danger" onclick="location.href = '<c:url value="/EventDel/${event.id}" />'">刪除</button>
 <a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+
 <!-- //超連結都是get -->
+<script>
+let unbindFunction = (checkTime) => {
+    return () => {
+        clearInterval(checkTime);
+    }
+}
+
+
+let buttonDUdisabe = () => {
+    let nowDate = new Date();
+    console.log('現在時間'+nowDate);
+    
+    let period = $("table tr:nth-child(6) td:last-child").html();
+    console.log(period);
+    let onSaleStr = period.substring(0,19);
+    let offSaleStr = period.substring(22,41);
+    
+    let onSaleDate = new Date(Date.parse(onSaleStr.replace('-','/')));
+    let offSaleDate = new Date(Date.parse(offSaleStr.replace('-','/')));
+         
+         if ( Date.parse(onSaleDate) < Date.parse(nowDate)){
+        	 
+             $('#updateButton').attr('disabled', true)
+             $('#deleteButton').attr('disabled', true)
+             
+              console.log("更新與刪除Button變為disable");
+         
+         }else{
+             console.log("Session比系統目前時間大");
+         }
+         
+		if ( Date.parse(offSaleDate) < Date.parse(nowDate)){
+        	 
+			$('#statusButton').attr('disabled', true)
+             
+              console.log("上下架Button變為disable");
+         
+         }else{
+             console.log("Session比系統目前時間大");
+         }
+         
+         
+    
+    
+}
+
+
+$( function() {    
+    
+	buttonDUdisabe();
+    
+    let checkTime =  window.setInterval(buttonDUdisabe, 10000);
+
+    $(window).bind('beforeunload',unbindFunction(checkTime));
+
+})
+
+
+
+
+</script>
+
+
+
 </body>
 </html>

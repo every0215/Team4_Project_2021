@@ -12,10 +12,15 @@ public class TicketScheduleTask {
 	@Autowired
 	BackendService backendService;
 	
-	//確認活動狀態
+	
     @Scheduled(initialDelay = 2000, fixedRate = 100000)
     public void checkTickeOnWay() {
     	backendService.checkTicketOnWay(); 	
+    }
+    
+    @Scheduled(initialDelay = 2000, fixedRate = 100000)
+    public void checkEventStatus() {
+    	backendService.checkEventStatus(); 	
     }
     
     

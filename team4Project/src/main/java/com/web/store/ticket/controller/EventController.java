@@ -178,7 +178,7 @@ public class EventController {
 	public String showAllEvent(
 			Model model
 			) {
-		System.out.println("123123");
+
 		System.out.println(RequestContextHolder.currentRequestAttributes().getSessionId());
 		Company company = (Company)model.getAttribute("company");
 		System.out.println(company);
