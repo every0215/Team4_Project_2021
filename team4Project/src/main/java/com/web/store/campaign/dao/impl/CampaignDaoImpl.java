@@ -3,8 +3,10 @@ package com.web.store.campaign.dao.impl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +14,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.javabean.MemberSubscription;
 import com.web.store.campaign.dao.CampaignDao;
 import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.Page;
@@ -150,24 +154,29 @@ public class CampaignDaoImpl implements CampaignDao {
 				case 0:
 					System.out.println("-------------1");
 					System.out.println(hql);
+					hql += "ORDER BY updateTime DESC ";
 					query = session.createQuery(hql,Campaign.class);
 					break;
 				case 1:					
 					hql += "and launchStatus=:launchStatus and status=false and expired=false ";
+					hql += "ORDER BY updateTime DESC ";
 					query = session.createQuery(hql,Campaign.class);
 					query.setParameter("launchStatus", true);
 					break;
 				case 2:
 					hql += "and launchStatus=:launchStatus and status=false and expired=false ";
+					hql += "ORDER BY updateTime DESC ";
 					query = session.createQuery(hql,Campaign.class);
 					query.setParameter("launchStatus", false);
 					break;
 				case 3:
 					hql += "and status=true and expired=false ";
+					hql += "ORDER BY updateTime DESC ";
 					query = session.createQuery(hql,Campaign.class);
 					break;
 				case 4:
 					hql += "and status=true and expired=true ";
+					hql += "ORDER BY updateTime DESC ";
 					query = session.createQuery(hql,Campaign.class);
 					break;
 			}
@@ -176,24 +185,29 @@ public class CampaignDaoImpl implements CampaignDao {
 			hql += "and name like :searchStr ";
 			switch(search.getStatus()) {
 				case 0:
+					hql += "ORDER BY updateTime DESC ";
 					query = session.createQuery(hql,Campaign.class);
 					break;
 				case 1:
 					hql += "and launchStatus=:launchStatus and status=false and expired=false ";
+					hql += "ORDER BY updateTime DESC ";
 					query = session.createQuery(hql,Campaign.class);
 					query.setParameter("launchStatus", true);				
 					break;
 				case 2:
 					hql += "and launchStatus=:launchStatus and status=false and expired=false ";
+					hql += "ORDER BY updateTime DESC ";
 					query = session.createQuery(hql,Campaign.class);
 					query.setParameter("launchStatus", false);
 					break;
 				case 3:
 					hql += "and status=true and expired=false ";
+					hql += "ORDER BY updateTime DESC ";
 					query = session.createQuery(hql,Campaign.class);
 					break;
 				case 4:
 					hql += "and status=true and expired=true ";
+					hql += "ORDER BY updateTime DESC ";
 					query = session.createQuery(hql,Campaign.class);
 					break;
 			}
@@ -229,7 +243,7 @@ public class CampaignDaoImpl implements CampaignDao {
 	@Override
 	public Page<Campaign> getPageByCompanyId(Page<Campaign> page,int companyId) {
 		String hql = "SELECT COUNT(*) FROM Campaign WHERE companyId=:companyId";
-		String hql2 = "FROM Campaign WHERE companyId=:companyId";
+		String hql2 = "FROM Campaign WHERE companyId=:companyId ORDER BY updateTime DESC";
 		Session session = sessionFactory.getCurrentSession();
 		int totalPage = (int)Math.ceil((long)session.createQuery(hql).setParameter("companyId", companyId).uniqueResult()/(double)page.getPageSize());
 		System.out.println("dao正在查詢campaigns");
@@ -276,6 +290,20 @@ public class CampaignDaoImpl implements CampaignDao {
 		page.setContent(list);
 		page.setTotalpage(totalPage);
 		return page;
+	}
+
+	@Override
+	public Set<MemberBean> getMemberByCompanyId(int companyId) {
+		Set<MemberBean> mbs = new HashSet<MemberBean>();
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM MemberSubscription WHERE companyId=:companyId";
+		List<MemberSubscription> memberSubscriptions = session.createQuery(hql,MemberSubscription.class)
+														.setParameter("companyId", companyId)
+														.list();
+		for(MemberSubscription ms:memberSubscriptions) {
+			mbs.add(ms.getMember());
+		}
+		return mbs;
 	}
 
 	

@@ -26,7 +26,7 @@ import com.web.store.account.javabean.MemberSubscription;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
-	
+
 	@Autowired
 	SessionFactory factory;
 
@@ -37,16 +37,16 @@ public class MemberDaoImpl implements MemberDao {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM MemberBean";
 		List<MemberBean> members = session.createQuery(hql).getResultList();
-		return members;	
+		return members;
 	}
-	
+
 	@Override
 	public MemberBean selectById(int id) throws SQLException {
 		Session session = factory.getCurrentSession();
 		MemberBean member = (MemberBean)session.get(MemberBean.class, id);
-		return member;	
+		return member;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public MemberBean selectByLoginInfo(String email, String pwd) throws SQLException {
@@ -65,9 +65,9 @@ public class MemberDaoImpl implements MemberDao {
 		if(memberList == null|| memberList.size() == 0)  {
 			return null;
 		}
-		return memberList.get(0);	
+		return memberList.get(0);
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List<MemberBean> selectByConditions(int page, int pageSize, String keywordFullname, String keywordEmail, String keywordQid ) throws SQLException {
@@ -92,7 +92,7 @@ public class MemberDaoImpl implements MemberDao {
 			hql += " m.qid LIKE :keywordQid ";
 			c++;
 		}
-		
+
 		System.out.println("hql: " + hql);
 		Query query = session.createQuery(hql);
 		if(!keywordFullname.equals("")) {
@@ -104,33 +104,33 @@ public class MemberDaoImpl implements MemberDao {
 		if(!keywordQid.equals("")) {
 			query.setParameter("keywordQid", "%"+ keywordQid +"%");
 		}
-		
+
 		List<MemberBean> memberList = (List<MemberBean>) query
 				.setFirstResult((page)*pageSize)
 				.setMaxResults(pageSize*3)
 				.getResultList();
-		
+
 //		List<MemberBean> memberList = (List<MemberBean>) session.createQuery("From MemberBean m WHERE m.fullname LIKE :keywordFullname ")
 //				.setParameter("keywordFullname", "%"+ keywordFullname.trim() +"%")
 //				//.setFirstResult((page-1)*pageSize)
 //				.setFirstResult((page)*pageSize)
 //				.setMaxResults(pageSize*3)
 //				.getResultList();
-		
+
 //		String hql = "From MemberBean m where m.email like :keyword";
-//		 
+//
 //		//keywordStr = "test";
 //		Query query = session.createQuery(hql);
 //		query.setParameter("keyword", "%" + keywordStr.tr + "%");
-//		 
+//
 //		List<MemberBean> memberList = query
 //				.setFirstResult((page)*pageSize)
 //				.setMaxResults(pageSize*3)
 //				.list();
-		
-		return memberList;	
+
+		return memberList;
 	}
-	
+
 	@Override
 	public void insert(MemberBean m) throws SQLException {
 		Session session = factory.getCurrentSession();
@@ -143,7 +143,7 @@ public class MemberDaoImpl implements MemberDao {
 		session.save(m);
 
 	}
-	
+
 	@Override
 	public int deleteById(int id) {
 		Session session = factory.getCurrentSession();
@@ -151,23 +151,23 @@ public class MemberDaoImpl implements MemberDao {
 		MemberBean member = (MemberBean)session.get(MemberBean.class, id);
 		if(member!=null) {
 			session.delete(member);
-			
+
 			return 1;
 		}
 		else {
 			return 0;
 		}
 	}
-	
+
 	@Override
 	public void update(MemberBean m) throws SQLException {
 		Session session = factory.getCurrentSession();
 		//....
 		session.saveOrUpdate(m);
-		
+
 	}
-	
-	
+
+
 	@Override
 	public int updatePassword(MemberBean m) throws SQLException {
 		Session session = factory.getCurrentSession();
@@ -176,13 +176,13 @@ public class MemberDaoImpl implements MemberDao {
 				.setParameter("Id", m.getId())
 				.setParameter("Password", m.getPassword())
 				.setParameter("ModifiedDate", m.getModifiedDate());
-		
+
 			query.executeUpdate();
 
 		return 1;
-		
+
 	}
-	
+
 	@Override
 	public int updateNickname(MemberBean m) throws SQLException {
 		Session session = factory.getCurrentSession();
@@ -191,12 +191,12 @@ public class MemberDaoImpl implements MemberDao {
 				.setParameter("Id", m.getId())
 				.setParameter("Nickname", m.getNickname())
 				.setParameter("ModifiedDate", m.getModifiedDate());
-		
+
 			query.executeUpdate();
 
 		return 1;
 	}
-	
+
 	@Override
 	public int updateVerified(MemberBean m) throws SQLException {
 		Session session = factory.getCurrentSession();
@@ -208,7 +208,7 @@ public class MemberDaoImpl implements MemberDao {
 			query.executeUpdate();
 		return 1;
 	}
-	
+
 	@Override
 	public int updateActive(MemberBean m) throws SQLException {
 		Session session = factory.getCurrentSession();
@@ -216,11 +216,11 @@ public class MemberDaoImpl implements MemberDao {
 		Query query = session.createQuery("update MemberBean m SET m.Active = :Active where m.id = :Id")
 				.setParameter("Id", m.getId())
 				.setParameter("Active", m.isActive());
-		
+
 			query.executeUpdate();
 		return 1;
 	}
-	
+
 	@Override
 	public int updateProfileImages(MemberBean m) throws SQLException {
 		Session session = factory.getCurrentSession();
@@ -233,7 +233,7 @@ public class MemberDaoImpl implements MemberDao {
 
 		return 1;
 	}
-	
+
 	@Override
 	public void delete(MemberBean member) {
 		Session session = factory.getCurrentSession();
@@ -243,23 +243,23 @@ public class MemberDaoImpl implements MemberDao {
 	public void delete(MemberSubscription memberSubscription) {
 		Session session = factory.getCurrentSession();
 		session.delete(memberSubscription);
-			
+
 
 	}
-	
+
 	@Override
 	public void delete(MemberNotification memberNotification) {
 		Session session = factory.getCurrentSession();
 		session.delete(memberNotification);
-			
+
 
 	}
-	
+
 	@Override
 	public int getTotalCount() throws SQLException {
 		Session session = factory.getCurrentSession();
 		String hql = "Select Count(id) FROM MemberBean";
 		Long totalCount = (Long) session.createQuery(hql).getSingleResult();
-		return totalCount.intValue();	
+		return totalCount.intValue();
 	}
 }
