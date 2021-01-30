@@ -1,19 +1,25 @@
 package com.web.store.company.service.impl;
 
+
+
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+
 import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.hibernate.Hibernate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.web.store.company.dao.CompanyDao;
 import com.web.store.company.dao.StoreDao;
 import com.web.store.company.model.CmpService;
+import com.web.store.company.model.Company;
 import com.web.store.company.model.Store;
 import com.web.store.company.service.CmpServiceService;
 import com.web.store.company.service.CompanyService;
@@ -125,6 +131,79 @@ public class StoreServiceImpl implements StoreService {
 		sto.setCmpServiceS(newset);
 	
 		return true;
+	}
+
+	@Override
+	public Set<Store> getStoreByService(String[] id) {
+		
+		for(String svId : id) {
+			CmpService cmpsv = cmpsvService.getCmpsvBysvId(Integer.valueOf(svId));
+			
+		}
+		//遍歷從Service取store 有重複就塞到新的set
+		
+		//取store 有Service id才加入set  (VVV)
+		//HQL select store where cmpsvId = 123
+		
+		
+		return null;
+	}
+	//地圖取storeByArea
+	@Override
+	public List<Store> getStoreByArea(String cmpid, String area) {
+		System.out.println(cmpid);
+		System.out.println(area);
+		Integer tempcmpid = Integer.parseInt(cmpid);
+		System.out.println(tempcmpid == 0);
+		
+		if(tempcmpid == 0 && area.equals("0")) {
+			return null;
+			
+		}else if(tempcmpid == 0 && !area.equals("0")) {
+			
+			List<Store> stor = stoDao.getStoreByOnlyArea(area);
+			
+			return stor;
+		}
+		else if(tempcmpid != 0 && area.equals("0")){
+			List<Store> sto = stoDao.getAllStoreByCompanyId(tempcmpid);
+			
+			return sto;
+		}
+		else {
+			Company cmp = cmpDao.getCompanyById(tempcmpid);
+			List<Store> store = stoDao.getStoreByArea(cmp,area);
+
+			return store;
+		}
+	}
+
+	@Override
+	public Store getStoreByMarker(String lat, String lng) {
+		
+		Double latd= Double.parseDouble(lat);
+		Double lngd = Double.parseDouble(lng);
+		
+		return stoDao.getStoreByMarker(latd, lngd);
+	}
+
+	@Override
+	public List<Store> getStoreByName(String cmpid, String stoName) {
+		Integer tempcmpid = Integer.parseInt(cmpid);
+		
+		if(tempcmpid == 0) {
+			List<Store> store = stoDao.getStoreByOnlyName(stoName);
+			System.out.println("cmpid = 0 Service return"+store);
+			return store;
+		}else {
+			List<Store> stor = stoDao.cmpGetStoreByName(tempcmpid,stoName);
+			System.out.println("Service return"+stor);
+
+			return stor;
+		}
+		
+		
+		
 	}
 
 	

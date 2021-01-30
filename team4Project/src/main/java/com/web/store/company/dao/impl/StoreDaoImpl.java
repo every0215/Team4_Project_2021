@@ -82,11 +82,14 @@ public class StoreDaoImpl implements StoreDao {
 	}
 
 	@Override
-	public List<Store> getStoreByArea(String storeArea) {
+	public List<Store> getStoreByArea(Company cmp,String area) {
 		Session session = sessionFactory.getCurrentSession();
-		String hqlstr = "from Store where StoreArea = :storeArea";
+		String hqlstr = "from Store where StoreArea = :storeArea and CompanyId = :companyId";
+		System.out.println(cmp);
+		System.out.println(area);
 		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);
-		queryObj.setParameter("StoreArea", storeArea);
+		queryObj.setParameter("storeArea", area);
+		queryObj.setParameter("companyId", cmp.getId());
 		
 		return queryObj.list();	
 	
@@ -172,6 +175,61 @@ public class StoreDaoImpl implements StoreDao {
 	    session.flush();
 		session.saveOrUpdate(sto);
 		
+	}
+
+	@Override
+	public List<Store> getStoreByOnlyArea(String area) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Store where StoreArea = :storeArea";
+		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);
+		queryObj.setParameter("storeArea", area);
+		
+		
+		return queryObj.list();	
+	}
+
+	@Override
+	public Store getStoreByMarker(Double lat, Double lng) {
+		System.out.println(lat);
+		System.out.println(lng);
+		
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Store where Lat = :lat and Lng = :lng";
+		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);
+		queryObj.setParameter("lat", lat);
+		queryObj.setParameter("lng", lng);
+		System.out.println(queryObj.getSingleResult());
+		return queryObj.getSingleResult();
+	}
+
+	@Override
+	public List<Store> getStoreByOnlyName(String stoName) {
+		System.out.println(stoName);
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println(1);
+		String hqlstr = "from Store where StoreName like :storeName";
+		System.out.println(2);
+		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);
+		System.out.println(3);
+		queryObj.setParameter("storeName", "%"+stoName+"%");
+		System.out.println(4);
+		System.out.println(queryObj.list());
+		
+		return queryObj.list();	
+		
+	}
+
+	@Override
+	public List<Store> cmpGetStoreByName(Integer tempcmpid, String stoName) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Store where  CompanyId = :companyId and StoreName like :storeName";
+		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);
+		queryObj.setParameter("companyId", tempcmpid);
+		queryObj.setParameter("storeName", "%"+stoName+"%");
+
+		
+		return queryObj.list();	
 	}
 
 

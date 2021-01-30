@@ -758,26 +758,78 @@ public class CompanyController {
 		/////////////////////////////////
 		return "/company/StoreRegister_Service";
 	}
-//地圖搜尋
+	
+	
+//=========================================================================	
+//                               地圖搜尋
+//=========================================================================	
+	//店名搜尋(V)
+	@GetMapping(value="/company/mapGetStoreByName/{cmpid}/{stoName}",produces = "application/json; charset=UTF-8")
+	public @ResponseBody List<Store> mapGetStoreByName( 
+			@PathVariable("cmpid") String cmpid,
+			@PathVariable("stoName") String stoName
+			) {
+		System.out.println("Ajax接收資料 地圖店名搜尋");
+		
+		//依名字找門市
+		List<Store> storeByName = stoService.getStoreByName(cmpid,stoName);
+		System.out.println("================================="+storeByName);
+		return storeByName;
+	}
+	
+	//服務搜尋(未完成)
+	@PostMapping(value="/company/mapGetStoreByService ",produces = "application/json; charset=UTF-8")
+	public @ResponseBody Set<Store> mapGetStoreByService(
+			@RequestParam(value="service") String[] id,
+			HttpSession session,
+			Model model
+			) throws IOException {
+		System.out.println("Ajax接收資料 地圖服務搜尋");
+		
+		Set<Store> stoByService= stoService.getStoreByService(id);
+		//要寫好SERVICE
+		return stoByService;
+		
+		
+		
+	}
+	
+	//按區域搜尋(V)
+	@GetMapping(value="/company/mapGetStoreByArea/{cmpid}/{area}",produces = "application/json; charset=UTF-8")
+	public @ResponseBody List<Store> mapGetStoreByArea( 
+			@PathVariable("cmpid") String cmpid,
+			@PathVariable("area") String area
+			) {
+		
+		System.out.println("Ajax接收資料 區域搜尋");
+
+		
+		
+		List<Store> storeByArea = stoService.getStoreByArea(cmpid,area);
+		
+		return storeByArea;
+	}
+	
+	//按企業丟回服務(V)
 	@GetMapping(value="/company/testAjax",produces = "application/json; charset=UTF-8")
 	public @ResponseBody Set<CmpService> searchCampaignAjax( 
 			@RequestParam("test") String cmpid
-//			,HttpServletResponse response
 			) {
-		System.out.println("Ajax接收資料");
-		
+		System.out.println("Ajax接收資料 企業搜尋服務");
 		Set<CmpService> cmpsv = cmpService.getCompanyService(Integer.parseInt(cmpid));
-//		Company cmp = cmpService.getCompanyById(Integer.parseInt(cmpid));
-//		Set<CmpService> cmpsv = cmp.getCmpServiceC();
-//		Gson gson = new Gson();  
 		System.out.println(cmpsv);
-		
-//		String str = gson.toJson(cmpsv); 
-		//測試
-//		String str = "[{\"id\":\"1\",\"spService\":\"hello\"},{\"id\":\"2\",\"spService\":\"yes\"}]";
-//		System.out.println(str);
-		//測試
 		return cmpsv;
 	}
-	
+	//按座標找門市資訊(V)
+	@GetMapping(value="/company/mapGetStoreByMarker",produces = "application/json; charset=UTF-8")
+	public @ResponseBody Store searchStoreInfoByMarker( 
+			@RequestParam("lat") String lat,
+			@RequestParam("lng") String lng
+			) {
+		System.out.println("Ajax接收資料 座標搜尋門市 ");
+		Store sto = stoService.getStoreByMarker(lat,lng);
+		
+		System.out.println(sto);
+		return sto;
+	}
 }

@@ -1,6 +1,7 @@
 package com.web.store.company.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.web.store.company.model.Store;
 
@@ -21,4 +22,12 @@ public interface StoreService {
 	void updated(Store sto);
 	
 	boolean combineStoreService(String[] svid,Integer stoid);
+	
+	Set<Store> getStoreByService(String[] id);
+	
+	List<Store> getStoreByArea(String cmpid,String area);
+	
+	Store getStoreByMarker(String lat,String lng);
+	
+	List<Store> getStoreByName(String cmpid,String stoName);
 }
