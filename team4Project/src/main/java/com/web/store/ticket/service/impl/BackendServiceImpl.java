@@ -2,7 +2,9 @@ package com.web.store.ticket.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -415,6 +417,39 @@ public class BackendServiceImpl implements BackendService {
 	@Override
 	public ArrayList<Event> queryStatusOKAll(int companyId) {
 		return eventDao.queryStatusOKAll(companyId);
+	}
+
+	@Override
+	public List<Event> selectbyName(String eventName) {
+		return eventDao.selectbyName(eventName);
+	}
+
+	@Override
+	public SportSession queryOneSportSession(Integer sessionId) {
+		SportSession sportSession = sportSessionDao.queryOneSportSession(sessionId);
+		return sportSession;
+	}
+
+	@Override
+	public TicketOrder queryTicketOrderbyId(String ticketOrderId) {
+		TicketOrder ticketOrder = ticketOrderDao.queryTicketOrderbyId(ticketOrderId);
+		return ticketOrder;
+	}
+
+	@Override
+	public TicketOrder queryTicketOrderDetailByTicketOrder(TicketOrder ticketOrder) {
+		TicketOrder ticketOrderN = ticketOrderDao.queryTicketOrderbyId(ticketOrder.getId());
+		Set<TicketOrderDetail> ticketOrderDetails = ticketOrderN.getTicketOrderDetails();
+		Hibernate.initialize(ticketOrderDetails);
+		return ticketOrderN;
+	}
+
+	@Override
+	public TicketOrder queryTicketOnWayByTicketOrder(TicketOrder ticketOrder) {
+		TicketOrder ticketOrderN = ticketOrderDao.queryTicketOrderbyId(ticketOrder.getId());
+		Set<TicketOnWay> ticketOnWays = ticketOrderN.getTicketOnWays();
+		Hibernate.initialize(ticketOnWays);
+		return ticketOrderN;
 	}
 	
 	

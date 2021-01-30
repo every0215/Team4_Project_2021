@@ -159,6 +159,14 @@
                             <span>報表管理</span>
                         </a>
                     </li>
+                    
+                    <li class="treeview">
+                        <a href="<c:url value='/cs/loginpage' />">
+                        
+                            <i class="fa fa-files-o"></i>
+                            <span>客服系統</span>
+                        </a>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->

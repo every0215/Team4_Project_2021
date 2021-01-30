@@ -12,6 +12,10 @@
             padding: 0;
             margin: 0;
         }
+        
+        body{
+        	background-color:#f3f3f3;
+        }
 
         .title {
             text-align: center;
@@ -46,7 +50,9 @@
         #container{
             width:700px;
             border:solid black 1px;
-            border-radius:10px
+            border-radius:10px;
+            box-shadow: 0px 0px 10px black;
+            background-color:white;
         }
 
     </style>
@@ -66,7 +72,7 @@
 
 </head>
 
-<body>
+<body style="background-color:#f3f3f3">
 
 
     <div id="container" class="container">

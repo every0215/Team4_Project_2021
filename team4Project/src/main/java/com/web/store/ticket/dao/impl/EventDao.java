@@ -103,6 +103,14 @@ public class EventDao implements IEventDao {
 		
 	}
 
-	
+	@Override
+	public List<Event> selectbyName(String EventName) {
+		Session session = factory.getCurrentSession();
+		String hqlstr = "from Product where eventName like :eventName  ";
+		Query<Event> queryObj = session.createQuery(hqlstr,Event.class);
+		queryObj.setParameter("eventName", '%'+EventName+'%');		
+		return queryObj.list();	
+	}
+
 
 }

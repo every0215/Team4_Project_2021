@@ -2,8 +2,10 @@ package com.web.store.ticket.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.web.store.company.model.Company;
+import com.web.store.product.model.Product;
 import com.web.store.ticket.model.Attraction;
 import com.web.store.ticket.model.Bank;
 import com.web.store.ticket.model.CreditCard;
@@ -68,5 +70,12 @@ public interface BackendService {
 	public SportSeat updateSeatStock(SportSeat sportSeat);
 	
 	public void updateStatusEvent(int eventId);
+	public List<Event> selectbyName(String eventName);
+	public SportSession queryOneSportSession(Integer sessionId);
+	
+	public TicketOrder queryTicketOrderbyId(String ticketOrderId);
+	
+	public TicketOrder queryTicketOrderDetailByTicketOrder(TicketOrder ticketOrder);
+	public TicketOrder queryTicketOnWayByTicketOrder(TicketOrder ticketOrder);
 	
 }

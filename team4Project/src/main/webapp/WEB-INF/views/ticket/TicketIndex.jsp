@@ -49,7 +49,10 @@
 		href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 	<script
 		src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+		
 	<div style="width: 1000px; margin: 0 auto">
+	<a href='<c:url value="ticket/InputPageEX" />' class="btn btn-success" role="button">新增票券</a>
+	<br/><br/>
 		<table id="myTable"
 			style="margin: auto; width: 900px; border: 3px #cccccc solid;"
 			cellpadding="10" border='1'>
@@ -131,7 +134,7 @@
 		});
 	</script>
 
-	<a href='<c:url value="ticket/InputPageEX" />' class="btn btn-success" role="button">新增票券</a>
+	
 </body>
 
 </html>

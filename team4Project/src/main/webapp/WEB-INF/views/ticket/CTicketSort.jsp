@@ -103,7 +103,7 @@
             </div>
             <div class="row" style="height:330px">
 
-              <c:forEach var="event" items="${events}" begin="1" end="${totalCount>9?9:totalCount}" varStatus="status">
+              <c:forEach var="event" items="${events}" begin="0" end="${totalCount>8?8:totalCount}" varStatus="status">
                   <div class="col-sm-4">
                     <div class="panel panel-primary" onclick="location.href = '<c:url value="/TicketShow/${event.id}" />'" >
                     	<div class="panel-heading">${event.eventName}</div>
@@ -111,7 +111,7 @@
                       		<img src='<c:url value="/geteventimage/${event.id}" />' class="img-responsive" style="width:100%;height:164px" alt="${event.eventName}" />
                     	</div>
                     <div class="panel-footer" style="text-align:left;font-size:13px">
-                    <img height="15px" src='<c:url value="/getCompanyimage/${event.companyId}" />' />
+                    <img height="15px" src='<c:url value="/company/getCompanyimage/${event.companyId}" />' />
                     
                       &nbsp;售票期間:
                       <c:choose>
@@ -303,7 +303,7 @@
 		          		<img src="../geteventimage/\${event.id}" class="img-responsive" style="width:100%;height:164px" alt="\${event.eventName}">
 		        	</div>
 		        <div class="panel-footer" style="text-align:left;font-size:13px">
-		        <img height="15px" src="../getCompanyimage/\${event.companyId}">
+		        <img height="15px" src="../\company/\getCompanyimage/\${event.companyId}">
 		          &nbsp;售票期間:
 		              \${toDateStr(new Date(activity.onSaleDate))}~\${toDateStr(new Date(activity.offSaleDate))}
 		        </div>
