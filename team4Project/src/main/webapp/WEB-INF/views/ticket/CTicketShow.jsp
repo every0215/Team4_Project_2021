@@ -70,11 +70,13 @@
 
         <c:import url="/layout/header" />
 
-        <div class="search-bar">
+         <div class="search-bar">
           <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="票券搜尋" aria-label="Search"
+          <form action="<c:url value='TicketSearch'/>"  method="get" >
+                  <input type="text" name="search" class="form-control rounded" placeholder="票券搜尋 ex. '冰雪奇緣'" aria-label="Search"
               aria-describedby="search-addon" style="width:200px" />
-            <button type="button" class="btn btn-outline-primary">Search</button>
+                  <button type="submit" class="btn btn-outline-primary">Search</button>
+                </form>
           </div>
         </div>
 
@@ -124,7 +126,7 @@
             		<form action="<c:url value='/TicketBuy/${eventId}'/>" method="post">
             			<input type="hidden" name="eventId" value="${event.id}" />
             			
-            			<button type="submit" class="btn btn-info">Buy Now</button>
+            			<button type="submit" class="btn btn-info">線上購買</button>
             		</form>       
         </c:if>
            </div>
@@ -166,14 +168,14 @@
         <c:if test="${event.typeId==3}">
          <h3>場次表</h3>
         <div >
-        <table style="width: 400px;border:3px #ffffff solid;text-align:center; " cellpadding="10" border='1'>
+        <table id="sessionTR" style="width: 400px;border:3px #ffffff solid;text-align:center; " cellpadding="10" border='1'>
             <c:forEach var="session" items="${sessionList}"><tr>
             	<td>${session.kickOfTime.toString().substring(0, 16)}</td>
             	<td>
             		<form action="<c:url value='/TicketBuy/${eventId}'/>" method="post">
             			<input type="hidden" name="eventId" value="${event.id}" />
             			<input type="hidden" name="sessionId" value="${session.id}" />
-            			<button type="submit" class="btn btn-info">Buy Now</button>
+            			<button type="submit" class="btn btn-info">線上購買</button>
             		</form>
             	</td>
             	</tr></c:forEach>
@@ -351,17 +353,73 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
      
     <script>
-        $( function() {
+    	let unbindFunction = (checkTime) => {
+    		return () => {
+    			clearInterval(checkTime);
+    		}
+    	}
+    	
+    	
+    	let updateExpiredDateInfo = () => {
+    		let nowDate = new Date();
+            console.log('現在時間'+nowDate);
+            nowDate.setTime(nowDate.getTime()+24*60*60*1000);
+            console.log('明天時間'+nowDate);
+    		
+    		
+    		$("#sessionTR tr").each(function(){
+    			 console.log($(this).find("td:first").html());
+    			 let strDate = $(this).find("td:first").html();
+    			 let sessionDate = new Date(Date.parse(strDate.replace('-','/')));
+    			 console.log('sessionTime'+sessionDate);
+    			 
+    			 if ( Date.parse(sessionDate) < Date.parse(nowDate)){
+    				 
+    				 $(this).find("td:first").next().find(':submit').attr('disabled', true)
+    				 $(this).find("td:first").next().find(':submit').html('已過期');
+    				 
+    			 	 console.log("Button變為disable");
+    			 
+    			 }else{
+    				 console.log("Session比系統目前時間大");
+    			 }
+    		})
+    	}
+    	
+    	
+    	$( function() {
             var icons = {
                 header: "ui-icon-caret-1-s",
                 activeHeader: "ui-icon-caret-1-n"
             };
+            
             $( "#accordion" ).accordion({
                 icons: icons,
                 heightStyle:"content",
                 event: "click"
             });
-        });
+            
+            
+            updateExpiredDateInfo();
+    		
+    		let checkTime =  window.setInterval(updateExpiredDateInfo, 10000);
+    	
+    		$(window).bind('beforeunload',unbindFunction(checkTime));
+    	
+        })
+        
+        
+        
+       
+            
+          
+            
+        
+        
+        
+    	
+       
+        
     </script>
       </body>
 

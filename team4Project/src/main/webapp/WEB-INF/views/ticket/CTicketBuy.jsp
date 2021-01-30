@@ -74,9 +74,11 @@
 
         <div class="search-bar">
           <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="票券搜尋" aria-label="Search"
+          <form action="<c:url value='TicketSearch'/>"  method="get" >
+                  <input type="text" name="search" class="form-control rounded" placeholder="票券搜尋 ex. '冰雪奇緣'" aria-label="Search"
               aria-describedby="search-addon" style="width:200px" />
-            <button type="button" class="btn btn-outline-primary">Search</button>
+                  <button type="submit" class="btn btn-outline-primary">Search</button>
+                </form>
           </div>
         </div>
 

@@ -59,12 +59,12 @@
 
         <c:import url="/layout/header" />
 
-        <div class="search-bar">
+         <div class="search-bar">
           <div class="input-group">
           <form action="<c:url value='TicketSearch'/>"  method="get" >
-                  <input type="text" class="form-control rounded" placeholder="票券搜尋 ex. '卡納赫拉'" aria-label="Search"
+                  <input type="text" name="search" class="form-control rounded" placeholder="票券搜尋 ex. '冰雪奇緣'" aria-label="Search"
               aria-describedby="search-addon" style="width:200px" />
-                  <button type="button" class="btn btn-outline-primary">Search</button>
+                  <button type="submit" class="btn btn-outline-primary">Search</button>
                 </form>
           </div>
         </div>
@@ -99,7 +99,7 @@
             </div>
             <div class="row" style="height:330px">
 
-              <c:forEach var="event" items="${events}" begin="1" end="${totalCount>9?9:totalCount}" varStatus="status">
+              <c:forEach var="event" items="${events}" begin="0" end="${totalCount>8?8:totalCount}" varStatus="status">
                   <div class="col-sm-4">
                     <div class="panel panel-primary" onclick="location.href = '<c:url value="/TicketShow/${event.id}" />'" >
                     	<div class="panel-heading">${event.eventName}</div>

@@ -52,9 +52,23 @@ public class TicketController {
 	AccountService accountService;
 	
 	@GetMapping(value="/TicketSearch" )
-	public String porductSearch(@RequestParam String search,Model model){
+	public String eventSearch(@RequestParam String search,Model model){
 		System.out.println(search);
 		List<Event> events  = backendService.selectbyName(search);
+		for(Event event:events) {
+			Integer typeId = event.getTypeId();
+			if(typeId==1) {
+				Exhibition exhibition = backendService.selectExhibitionByEvent(event.getId());
+				event.setExhibition(exhibition);
+			}else if(typeId==2) {
+				Attraction attraction = backendService.selectAttractionByEvent(event.getId());
+				event.setAttraction(attraction);
+				
+			}else {
+				Sport sport = backendService.selectSportByEvent(event.getId());
+				event.setSport(sport);
+			}
+		}
 		model.addAttribute("events",events);
 		System.out.println("成功"+search);
 		
@@ -572,7 +586,7 @@ public class TicketController {
 		Date now = new Date();
 		
 		//==============afterDate為Date型別的deletTime
-		Date afterDate = new Date(now.getTime() + 300000);
+		Date afterDate = new Date(now.getTime() + 600000);
 		Timestamp deleteTime = new Timestamp(afterDate.getTime());
 		return deleteTime;
 	}
