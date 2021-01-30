@@ -365,23 +365,18 @@ public class CampaignController {
 		Page<Campaign> page = new Page<Campaign>();
 		page.setCurrentPage(pageNum);
 		Company company = (Company)model.getAttribute("company");
-		System.out.println("company獲取完成");
 		if(company==null) {
 			return "redirect:/";
 		}
 		
 		campService.getCampaignPageOfCompany(page,company.getId());
-		System.out.println("Dao執行完成");
-		
+	
 		List<Campaign> camps = page.getContent();
-		System.out.println("檢查活動中");
 		for(Campaign camp:camps) {
-			System.out.println("檢查活動-------");
 			camp.isActive();
 		}
-		System.out.println("檢查完成---");
+
 		model.addAttribute("page", page);
-		System.out.println("導向頁面---");
 		return "campaign/CampaignShowPage";
 	}
 	
@@ -550,6 +545,17 @@ public class CampaignController {
 			return "fail";
 		}
 		
+	}
+	@GetMapping(value="/push/{campId}",produces = "text/plain")
+	public @ResponseBody String pushCampaign(@PathVariable int campId) {
+		
+		try {
+			campService.pushCampaign(campId);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 	
 	@ModelAttribute(name = "searchBean")

@@ -14,6 +14,8 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.service.AccountService;
 import com.web.store.campaign.dao.CampaignDao;
 import com.web.store.campaign.model.ApplyBean;
 import com.web.store.campaign.model.Campaign;
@@ -34,6 +36,8 @@ public class CampaignServiceImpl implements CampaignService {
 	CampaignDao campDao;
 	@Autowired
 	ProductService productService;
+	@Autowired
+	AccountService accountService;
 	
 	@Override
 	public int insert(Campaign camp) {
@@ -232,6 +236,20 @@ public class CampaignServiceImpl implements CampaignService {
 			}		
 		}
 		return 0;
+	}
+
+	@Override
+	public void pushCampaign(int campId) throws Exception {
+		Campaign campaign = getCampaignById(campId);
+		String title = campaign.getName();
+		String description = campaign.getDescription();
+		Hibernate.initialize(campaign.getCompany());
+		int companyId = campaign.getCompany().getId();
+		Set<MemberBean> members = campDao.getMemberByCompanyId(companyId);
+		for(MemberBean mb : members) {
+			System.out.println(mb.getNickname());
+			accountService.addMemberNotification(mb, 3, title, description, "http://localhost:8080/proj/campaign/detail/"+campId);
+		}
 	}
 	
 	

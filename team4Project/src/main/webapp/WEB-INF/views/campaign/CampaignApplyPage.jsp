@@ -67,7 +67,7 @@
         }
 
         .container{
-            background-color: #white;
+            background-color: white;
             margin-top:10px;
             border:solid 1px black;
             border-radius: 10px;
@@ -179,7 +179,7 @@
         	var productNotIncamp =[];
         	
         	$("#cancel-btn").on("click",function(){
-        		history.go(-1);
+        		close();
         	})
         	
 			$("#comfirm").click(function(){

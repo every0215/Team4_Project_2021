@@ -34,6 +34,7 @@
 <%--     <link href="<c:url value='${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css'/>" rel="stylesheet" type="text/css" /> --%>
     <link href="<c:url value='/dist/css/skins/_all-skins.min.css'/>" rel="stylesheet" type="text/css" />
 
+
 </head>
 
 <body class="skin-blue">
@@ -207,7 +208,6 @@
 
     </div>
     <!-- ./wrapper -->
-
     <!-- jQuery 2.1.3 -->
     <script src="<c:url value='/plugins/jQuery/jQuery-2.1.3.min.js'/>"></script>
     <!-- Bootstrap 3.3.2 JS -->

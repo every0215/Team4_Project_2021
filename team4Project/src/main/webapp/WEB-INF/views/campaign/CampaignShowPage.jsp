@@ -1,3 +1,4 @@
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,21 +7,18 @@
 <!DOCTYPE html>
 
 <html>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script> -->
 
 <title>活動查詢</title>
 <style>
 body{
-	font-family:微軟正黑體;
-	font-weight:900;
 	background-color:#f3f3f3;
 }
 .title {
@@ -64,7 +62,9 @@ tr>td>button {
 	padding: .5rem;
 	vertical-align: middle;
 }
-
+.table th{
+	text-align:center;
+}
 .btn-self {
 	color: #eaf1ff;
 	background-color: #54959f;
@@ -93,12 +93,26 @@ tr>td>button {
 }
 
 .pageActive{
-	background-color: #e9ecef;
+	background-color: #e9ecef !important;
 }
 
 #CampTable{
 	box-shadow:0px 0px 10px black;
+	width:90%;
 }
+
+.rep_reportarea {
+	background-color: transparent;
+	position: absolute;
+	width: calc(100vw - 15px);
+	height: calc(100vh - 80px);
+	bottom: 0px;
+	right: 0px;
+	font-family:微軟正黑體;
+	font-weight:900;
+}
+
+	
 
 </style>
 
@@ -110,6 +124,9 @@ tr>td>button {
 
 <body>
 <!-- 	存放companyId -->
+<div class="rep_reportarea">
+		<!-- Right side column. Contains the navbar and content of the page -->
+<div class="content-wrapper">
 	<form:form modelAttribute="searchBean" action="${pageContext.request.contextPath}/campaign/search/1" method="GET">
 		<input id="companyId" type="hidden" value="1">  
 		<ul class="functionBar">
@@ -147,9 +164,9 @@ tr>td>button {
 	<div id="container" class="container">
 		
 <!-- 		<h2 class="title">活動總覽</h2> -->
-		<table id="CampTable" class="table table-dark table-striped">
+		<table id="CampTable" class="table-hover table table-striped table-bordered ">
 			<thead>
-				<tr>
+				<tr style="background-color: #54959f;color:white">
 					<th>活動名稱</th>
 					<th>類型</th>
 					<th>開始時間</th>
@@ -164,7 +181,7 @@ tr>td>button {
 			
 			<c:forEach items="${page.content}" var="camp">
 				<tr>
-					<td><a href="<c:url value='/campaign/boDetail/'/>${camp.id}">${camp.name}</a></td>
+					<td><a target="_blank" href="<c:url value='/campaign/boDetail/'/>${camp.id}">${camp.name}</a></td>
 					<td>
 						<c:choose>
 							<c:when test="${camp.discountParams.type==0}">未指定</c:when>
@@ -183,13 +200,14 @@ tr>td>button {
 					<td>${camp.description}</td>
 					<td style="">
 						<c:if test="${!(camp.status && !camp.expired)}">
-							<button class="btn btn-self" onclick="location.href='<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>'">編輯</button>						
+							<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>',)">編輯</button>						
 							<c:if test="${camp.discountParams.type==1}">
-								<button class="btn btn-self" onclick="location.href='<c:url value="/campaign/applyPage/${camp.id}"/>'">套用</button>
+								<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/applyPage/${camp.id}"/>')">套用</button>
 							</c:if>		
 						</c:if>
 						<c:if test="${camp.status && !camp.expired}">
 							<span style="color:red">活動進行中</span>
+							<button data-id="${camp.id}" class="btn btn-self push-btn">推送</button>
 						</c:if>			
 					</td>
 				</tr>
@@ -215,6 +233,8 @@ tr>td>button {
 		<div class="pageTotalShow">共${page.totalResultCount}筆資料</div>
 		
 	</div>
+</div>
+</div>
 	<script>
 	
 		
@@ -228,8 +248,10 @@ tr>td>button {
 			
 			setDate();
 			
+			$(".push-btn").click(push);
+			
 			$("#addBtn").click(function(){
-				location.href = "<c:url value='/campaign/insertPage'/>"
+				window.open("<c:url value='/campaign/insertPage'/>");
 			})
 			
 
@@ -332,6 +354,27 @@ tr>td>button {
 							$("#CampContainer").append(tr);				
 						}
 					},
+				})
+			}
+			
+			function push() {
+				var id = $(this).data("id");
+				console.log(id);
+				$.ajax({
+					url:"<c:url value='/campaign/push/'/>"+id,
+					type:"GET",
+					dataType:"text",
+					success:function(data){
+						if(data=="success"){
+							alert("推送成功")
+						}else{
+							alert("推送失敗")
+						}
+					},
+					error:function (jqXHR, textStatus, errorThrown) {
+						alert("推送失敗");
+						console.log("status:"+jqXHR.status+",statusText"+jqXHR.statusText)
+			        }
 				})
 			}
 			
