@@ -78,25 +78,28 @@
 				</td></tr>
 				<tr><td>
 				數量
+				<form method="post" action="../ShoppingCart">
 				<input id="min" name="" type="button" value="-" >
-				<input id="num" name="num" type="text" value="1"  onchange="setTotal();"  >
+				<input id="num" name="num" type="text" value="1" onblur="setTotalP()"
+				  onchange="setTotal();"  >
 				<input id="add" name="" type="button" value="+" >
 				
 				</td></tr>
 				<tr><td >
 				<br>
-					總價:$<p id="total" name="total" value="0"></p>
-					
+					總價:$<p id="total" name="total"  onchange="setTotalPrice();">0</p>
+<!-- 					onchange="setTotalprice();" -->
 				<br><br>
 				</td></tr>
 				<tr><td>
-				<button type="button" class="btn btn-primary" onclick="javascript:location.href=<c:url value='/ProductPayment' />">立刻購買</button>
-				<button type="button" class="btn btn-primary">放入購物車</button>
+				<button type="submit" class="btn btn-primary" >前往購物車</button>
+				
+				
 				<br>
 				</td></tr>
 				</table>
 			</div>
-	
+	</form>
 
 
 	</div>
@@ -122,22 +125,32 @@
 // 	$("#total").append(num*price);         // 追加新元素
 // 	}
 // )}
+function setTotalP(){
+		var n =$("#price").text()*$("#num").val();
+		$("#total").text(n);
 
+		}
 
 $(function(){ //加減按鈕
 	var t = $("#num"); 
 	$("#add").click(function(){		
 		t.val(parseInt(t.val())+1)
+		var n =$("#price").text()*$("#num").val();
+		$("#total").text(n);
 		setTotal();
+		setTotalPrice();
 	})
 	$("#min").click(function(){
 		if(t.val()>1){
 		t.val(parseInt(t.val())-1);
+		var n =$("#price").text()*$("#num").val();
+		$("#total").text(n);
 		}
 		else{
 		alert("至少購買一件哦！");
 		}
 		setTotal();
+		setTotalPrice();
 	})
 });
 
@@ -146,8 +159,9 @@ $(function(){ //加減按鈕
 
 <script >
 $(document).ready(function (){
-	 var n =$("#price").text();
-	alert(n);
+	 var n =$("#price").text()*$("#num").val();
+	 $("#total").text(n);
+	
 })
 </script>
 <!--   自定義js -->

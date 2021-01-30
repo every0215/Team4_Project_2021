@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -36,10 +38,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.store.account.javabean.MemberBean;
 import com.web.store.company.service.CompanyService;
+import com.web.store.product.model.Cart;
+import com.web.store.product.model.Items;
 import com.web.store.product.model.Product;
+import com.web.store.product.model.ProductOrder;
+import com.web.store.product.model.ProductOrderDetail;
 import com.web.store.product.service.ProductService;
 
 
+
+
+@SuppressWarnings("unchecked")
 @Controller
 @SessionAttributes("product")
 public class ProductController {
@@ -216,6 +225,7 @@ public class ProductController {
 
 	
 //--------------------------購物車
+	
 	@GetMapping("/ProductBuy/{productId}/ProductPayment")
 	public String ProductPayment(@PathVariable int productId,
 			@RequestParam(value="sessionId",required=false) Integer sessionId, 
@@ -225,6 +235,57 @@ public class ProductController {
 //		Product product = pService.selectbyid(productId);
 //		model.addAttribute("product",product);
 		return "product/ProductPayment";
+	}
+//----------------------購物車
+	@RequestMapping(value="/ShoppingCart") 
+	public String  ShoppingCart(HttpSession session,Model model){
+		MemberBean member = (MemberBean) session.getAttribute("currentUser");
+		System.out.println("member="+member.getId());
+		
+		if (member == null){
+			return "redirect:/account/login";
+		}
+		
+		List<Cart> list = (List<Cart>) session.getAttribute("cart");
+		
+		
+		return "product/ShoppingCart";
+	}
+	//-----------------------------確認購買
+	
+	@RequestMapping(value="/Cartadd") 
+	public String  Cartadd(HttpSession session,Model model ,
+			@RequestParam("qty") Integer qty,
+			@RequestParam("productId") Integer productId){
+		MemberBean member = (MemberBean) session.getAttribute("currentUser");
+		System.out.println("member="+member.getId());
+		
+		if (member == null) {
+			return "redirect:/account/login";
+		}
+		Cart cart = (Cart) model.getAttribute("Cart");
+		if (cart == null) {
+			// 就新建ShoppingCart物件
+			cart = new Cart();
+			// 並將此新建ShoppingCart的物件放到session物件內，成為它的屬性物件
+			model.addAttribute("Cart", cart);   
+		}
+		else {
+			Map<Integer, Product> ProductMap = (Map<Integer, Product>) session.getAttribute("Product");
+			Product bean = ProductMap.get(productId);
+			ProductOrderDetail oib = new ProductOrderDetail(
+					bean.getProductPrice(),
+					qty,
+					null,
+					bean.getproductId(),
+					bean.getdiscount());
+			cart.Cartadd(productId, oib);
+		}
+		
+		
+		return "Cartadd";
+		
+		
 	}
 //-----------------輸出圖
 	@GetMapping(value = "/getproductimage/{productId}")

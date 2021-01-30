@@ -28,9 +28,7 @@ public class ProductOrderDetail implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name= "OrderDetailId")
 	private Integer orderDetailId;
-	
-	@Column(name= "Amount")
-	private Integer amount;
+
 	@Column(name= "Price")
 	private Integer price;
 	@Column(name= "Quanity")
@@ -43,10 +41,94 @@ public class ProductOrderDetail implements Serializable{
 //	@OneToMany(fetch=FetchType.LAZY, mappedBy="OrderDetail", cascade=CascadeType.ALL)
 	@Column(name= "ProductId")
 	private Integer productId;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
+	@Column(name= "Discount")
+	private Integer discount;
+	public Integer getDiscount() {
+		return discount;
+	}
+	public void setDiscount(Integer discount) {
+		this.discount = discount;
+	}
+
+	//	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "OrderId")
 	private ProductOrder Order;
+	
+	
+	public ProductOrderDetail( Integer price, Integer quanity, Integer orderNumber, Integer productId,
+			Integer discount) {
+		super();
+		
+		this.price = price;
+		this.quanity = quanity;
+		this.orderNumber = orderNumber;
+		this.productId = productId;
+		this.discount = discount;
+		
+	}
+	public ProductOrderDetail(Integer orderDetailId,  Integer price, Integer quanity,
+			Integer orderNumber, Integer productId, Integer discount) {
+		super();
+		this.orderDetailId = orderDetailId;
+		this.price = price;
+		this.quanity = quanity;
+		this.orderNumber = orderNumber;
+		this.productId = productId;
+		this.discount = discount;
+		
+	}
+	public ProductOrderDetail() {
+		
+	}
+	public Integer getOrderDetailId() {
+		return orderDetailId;
+	}
+
+	public void setOrderDetailId(Integer orderDetailId) {
+		this.orderDetailId = orderDetailId;
+	}
+
+	
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+	public Integer getQuanity() {
+		return quanity;
+	}
+
+	public void setQuanity(Integer quanity) {
+		this.quanity = quanity;
+	}
+
+	public Integer getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(Integer orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+
+	public Integer getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
+
+	public ProductOrder getOrder() {
+		return Order;
+	}
+
+	public void setOrder(ProductOrder order) {
+		Order = order;
+	}
 	
 	
 //	@Transient

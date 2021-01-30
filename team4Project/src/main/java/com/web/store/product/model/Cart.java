@@ -1,46 +1,35 @@
 package com.web.store.product.model;
 
-import java.io.Serializable;
-import java.util.List;
+
+import java.util.LinkedHashMap;
+
+import java.util.Map;
 
 
 
-public class Cart  implements Serializable{
-	private static final long serialVersionUID = 1L;
-	private List<Product> Products;
-	private Product product;
-	public Product getProduct() {
-		return product;
-	}
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-	private Integer total;
-	private Integer number;
-	private Integer price;
-	public Integer getPrice() {
-		return price;
-	}
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-	public Integer getNumber() {
-		return number;
-	}
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
-	public List<Product> getProducts(){
-		return Products;
-	}
-	public Integer getTotal() {
-		return total;
-	}
-	public void setTotal(Integer total) {
-		this.total = total;
-	}
-	public void setProducts(List<Product> products) {
-		this.Products = products;
-	};
+
+
+
+public class Cart  {
 	
+	private Map<Integer, ProductOrderDetail> cart = new LinkedHashMap< >();
+	public Cart() {
+	}
+	public Map<Integer, ProductOrderDetail>  getContent() { // ${ShoppingCart.content}
+		return cart;
+	}
+	public void addToCart(int productId, ProductOrderDetail  oib) {
+		if (oib.getQuanity() <= 0 ) {
+			return;
+		}
+		// 如果客戶在伺服器端沒有此項商品的資料，則客戶第一次購買此項商品
+		if ( cart.get(productId) == null ) {
+		    cart.put(productId, oib);
+		} else {
+	        // 如果客戶在伺服器端已有此項商品的資料，則客戶『加購』此項商品
+			ProductOrderDetail oiBean = cart.get(productId);
+			oiBean.setQuanity(oib.getQuanity() + oiBean.getQuanity());
+		}
+	}
+
 }
