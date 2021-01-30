@@ -25,7 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.web.store.account.javabean.MemberBean;
 import com.web.store.account.service.AccountService;
 import com.web.store.company.model.Company;
-import com.web.store.product.model.Product;
 import com.web.store.ticket.model.Attraction;
 import com.web.store.ticket.model.CreditCard;
 import com.web.store.ticket.model.Event;
