@@ -17,7 +17,7 @@
                   <ul class="aa-footer-nav">
                     <li><a href="#">商品</a></li>
                     <li><a href="#">活動</a></li>
-                    <li><a href="#">論壇</a></li>
+                    <li><a href="#">票券</a></li>
 
                     
                   </ul>
