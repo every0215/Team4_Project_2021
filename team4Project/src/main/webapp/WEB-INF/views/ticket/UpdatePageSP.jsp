@@ -86,7 +86,8 @@ select option[value="0"] {
 			$.ajax({
 			    type: 'GET',
 			    url: "/proj/combobox",
-			    data: {todo:"ajaxexample1"}, 
+			    data: {todo:"ajaxexample1"},
+			    async: false,
 			    success: function(data){
 			    	bankInfo = data;
 			    	console.log(bankInfo)

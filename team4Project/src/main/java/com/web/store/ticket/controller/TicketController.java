@@ -75,6 +75,18 @@ public class TicketController {
 		return "/ticket/CTicketSearch";
 	}
 	
+	//等ting給我
+	@GetMapping("/showOrderDetail/{memberId}")
+	public String showOrderbyMemberId(
+			Model model, HttpSession session,
+			@PathVariable int memberId 
+			) {
+			ArrayList<TicketOrder> ticketOrderList = backendService.queryTicketOrderByMemberId(memberId);
+			model.addAttribute("TicketOrderList", ticketOrderList);
+				return "account/ticketOrderDetail";}
+	
+	
+	
 	@GetMapping("/showOrderDetail/{TicketOrderId}")
 	public String showOrderDetail(
 			Model model, HttpSession session,
