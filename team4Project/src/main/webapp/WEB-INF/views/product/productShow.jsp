@@ -149,13 +149,15 @@ $("#can4").live('click', function(){
 						class="img-responsive" style="width: 100%; height: 164px">
 				</div>
 				<div class="panel-footer"
-					style="height: 50px; text-align: center; font-size: 16px;">
+					style="height: 50px; text-align: center; font-size: 16px;padding:0">
 			
-					店家:${product.companyName} &nbsp; <div id ="price1">$${product.productPrice}</div>
+					店家:${product.companyName} &nbsp; <div id ="price1">$${product.productPrice}
 					<c:if test="${product.productPrice!=product.productPrice*product.discount}">
-					<c:set var="diccountPrice" value="${product.productPrice*product.discount}" />
-					<span style="color:red;font-size:12px">特價:$<fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></span>
+					<span style="color:red;font-size:14px">特價:$<fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></span>
 					</c:if>
+					</div>
+					
+					
 					
 					
 				</div>	
@@ -178,9 +180,15 @@ $("#can4").live('click', function(){
 						class="img-responsive" style="width: 100%; height: 164px">
 				</div>
 				<div class="panel-footer"
-					style="height: 50px; text-align: center; font-size: 16px;">
+					style="height: 50px; text-align: center; font-size: 16px; padding:0">
 
-					店家:${product.companyName} &nbsp; <div id ="price2">$${product.productPrice}</div></div>
+					店家:${product.companyName} &nbsp; <div id ="price2">$${product.productPrice}
+					<c:if test="${product.productPrice!=product.productPrice*product.discount}">
+					<span style="color:red;font-size:14px">特價:$<fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></span>
+					</c:if>
+					</div>
+					
+				</div>
 
 			</div>
 		</div>
@@ -205,9 +213,15 @@ $("#can4").live('click', function(){
 						class="img-responsive" style="width: 100%; height: 164px">
 				</div>
 				<div class="panel-footer"
-					style="height: 50px; text-align: center; font-size: 16px;">
+					style="height: 50px; text-align: center; font-size: 16px;padding:0">
 
-					店家:${product.companyName} &nbsp; <div id ="price3">$${product.productPrice}</div></div>
+					店家:${product.companyName} &nbsp; <div id ="price3">$${product.productPrice}
+					<c:if test="${product.productPrice!=product.productPrice*product.discount}">
+					<span style="color:red;font-size:14px">特價:$<fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></span>
+					</c:if>
+					</div>
+					
+				</div>
 
 			</div>
 		</div>
