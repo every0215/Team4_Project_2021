@@ -44,4 +44,6 @@ public interface CampaignDao {
 	
 	Set<MemberBean> getMemberByCompanyId(int companyId);
 	
+	List<Campaign> selectActiveCampaign();
+	
 }

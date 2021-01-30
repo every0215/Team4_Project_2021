@@ -473,7 +473,7 @@ public class CampaignController {
 	}
 	
 	@PostMapping("/companyCampPage/{companyId}")
-	public @ResponseBody Page<Campaign> ComapnyCampaignPage (@ModelAttribute Page<Campaign> page,
+	public @ResponseBody Page<Campaign> comapnyCampaignPage (@ModelAttribute Page<Campaign> page,
 																@PathVariable Integer companyId
 			){
 		campService.getActiveCampaignPageByCompany(page,companyId);
@@ -484,7 +484,7 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/getIndexCamp")
-	public @ResponseBody List<Campaign> CampaignOfIndex(){
+	public @ResponseBody List<Campaign> campaignOfIndex(){
 		
 		List<Campaign> resultCamps = new ArrayList<Campaign>();//要傳到首頁的活動
 		List<Campaign> AllCamps = campService.getAllCampaign();//全部活動
@@ -508,7 +508,7 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/detail/{campId}")
-	public String CampDetailPage(@PathVariable Integer campId,
+	public String campDetailPage(@PathVariable Integer campId,
 									Model model
 			) {
 		Campaign camp = campService.getCampaignById(campId);
@@ -533,6 +533,12 @@ public class CampaignController {
 		model.addAttribute("productsNotInCamp", classify.get("productsNotInCamp"));
 		model.addAttribute("campaignId", campaignId);
 		return "campaign/CampaignApplyPage";
+	}
+	
+	@GetMapping("/loading/{campaignId}")
+	public String applyLoading(Model model,@PathVariable int campaignId) {
+		model.addAttribute("campaignId", campaignId);
+		return "campaign/loadingPage";
 	}
 	
 	@PostMapping("/applyCampaign/{campaignId}")

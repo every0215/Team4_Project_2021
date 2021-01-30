@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -150,8 +151,14 @@ $("#can4").live('click', function(){
 				<div class="panel-footer"
 					style="height: 50px; text-align: center; font-size: 16px;">
 			
-					店家:${product.companyName} &nbsp; <div id ="price1">$${product.productPrice}</div></div>
+					店家:${product.companyName} &nbsp; <div id ="price1">$${product.productPrice}</div>
+					<c:if test="${product.productPrice!=product.productPrice*product.discount}">
+					<c:set var="diccountPrice" value="${product.productPrice*product.discount}" />
+					<span style="color:red;font-size:12px">特價:$<fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></span>
+					</c:if>
 					
+					
+				</div>	
 			</div>
 		</div>
 

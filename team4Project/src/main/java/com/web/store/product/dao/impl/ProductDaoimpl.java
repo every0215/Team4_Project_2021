@@ -108,6 +108,14 @@ public class ProductDaoimpl implements ProductDao {
 	}
 
 
+	@Override
+	public void setProductDiscountToDefault() {
+		String hql = "UPDATE Product SET Discount=1.0";
+		Session session = sessionFactory.getCurrentSession();
+		session.createQuery(hql).executeUpdate();
+	}
+
+
 
 
 }

@@ -116,13 +116,20 @@ tr>td>button {
 
 </style>
 
-<script type="text/javascript">
+<link rel="stylesheet" href="<c:url value='/css/loading_circle.css'/>">
 
-
-</script>
 </head>
 
 <body>
+
+
+<div class="loading-bg" style="display:none">
+        <div id = "circle-wraper">
+            <div id="loading-circle">
+                <div>Loading</div>
+			</div>
+		</div>
+</div>
 <!-- 	存放companyId -->
 <div class="rep_reportarea">
 		<!-- Right side column. Contains the navbar and content of the page -->
@@ -202,7 +209,7 @@ tr>td>button {
 						<c:if test="${!(camp.status && !camp.expired)}">
 							<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>',)">編輯</button>						
 							<c:if test="${camp.discountParams.type==1}">
-								<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/applyPage/${camp.id}"/>')">套用</button>
+								<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/loading/${camp.id}"/>')">套用</button>
 							</c:if>		
 						</c:if>
 						<c:if test="${camp.status && !camp.expired}">
@@ -235,6 +242,7 @@ tr>td>button {
 	</div>
 </div>
 </div>
+
 	<script>
 	
 		
@@ -358,6 +366,7 @@ tr>td>button {
 			}
 			
 			function push() {
+				$(".loading-bg").css("display","block");
 				var id = $(this).data("id");
 				console.log(id);
 				$.ajax({
@@ -366,12 +375,15 @@ tr>td>button {
 					dataType:"text",
 					success:function(data){
 						if(data=="success"){
+							$(".loading-bg").css("display","none");
 							alert("推送成功")
 						}else{
+							$(".loading-bg").css("display","none");
 							alert("推送失敗")
 						}
 					},
 					error:function (jqXHR, textStatus, errorThrown) {
+						$(".loading-bg").css("display","none");
 						alert("推送失敗");
 						console.log("status:"+jqXHR.status+",statusText"+jqXHR.statusText)
 			        }

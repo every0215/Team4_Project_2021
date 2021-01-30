@@ -109,6 +109,11 @@
       font-size: 16px;
       margin-top:10px;
     }
+    
+    .content-part a{
+      text-decoration: underline;
+      color: #337ab7;
+    }
   </style>
 </head>
 
