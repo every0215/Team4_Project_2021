@@ -134,7 +134,7 @@ function update_hot(){
     });
 }
 
-<!-- ajax 資料庫裡的Adv資料→預覽圖	-->
+// <!-- ajax 資料庫裡的Adv資料→預覽圖	-->
 function loadAdv(){
 	if( $("#rep_advertising").length > 0 )  $("#rep_advertising").remove();
 	$.ajax({
@@ -163,11 +163,13 @@ function loadAdv(){
 
 <!-- ajax 資料庫裡的Adv資料-->
 $(function(){
+	console.log("queryProductAdv")
 	$.ajax({
 	    url: "/proj/queryProductAdv",
 	    type: 'GET',
 		dataType: "json",
 	    success: function(datas){
+	    	console.log("queryProductAdv",datas)
 			setDataTable9(datas);
    	    }
     });
