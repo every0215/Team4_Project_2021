@@ -49,7 +49,6 @@ public class TicketController {
 	@PostMapping("/TicketBuyOnWay/{eventId}")
 	public String buyTicketOnWay(@PathVariable int eventId,
 			@RequestParam(value="discount") Integer discount,
-			
 			@RequestParam(value="count")Integer[] countList,//priceId對應的票券張數
 			@RequestParam(value="sessionId",required=false) Integer sessionId, 
 			Model model,HttpSession session,RedirectAttributes ra

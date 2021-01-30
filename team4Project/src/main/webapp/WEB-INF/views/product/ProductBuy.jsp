@@ -64,7 +64,7 @@
 				<tr><td>
 				商品單價:
 				<div class='textbox'>
-					<h1>${product.productPrice}</h1>
+					<p id ="price" >${product.productPrice}</p>
 				</div>
 				<br>
 				</td></tr>
@@ -79,14 +79,14 @@
 				<tr><td>
 				數量
 				<input id="min" name="" type="button" value="-" >
-				<input id="num" name="num" type="text" value="1"  onchange="setTotal();" >
+				<input id="num" name="num" type="text" value="1"  onchange="setTotal();"  >
 				<input id="add" name="" type="button" value="+" >
 				
 				</td></tr>
-				<tr><td>
+				<tr><td >
 				<br>
-				總價
-				<div class="tmp">0</div>
+					總價:$<p id="total" name="total" value="0"></p>
+					
 				<br><br>
 				</td></tr>
 				<tr><td>
@@ -108,19 +108,23 @@
 <c:import url="/layout/footer" />
 
 <script>
-function setTotal(){
-		var t = ${product.productPrice};
-		var tmp = document.getElementById("totalPrice");
-		if(/\D/.test(t.val())){
-		alert("請您輸入正確的數量！");
+
+
 		
-		}
-		else{//如果輸入合法			
-			tmp.innerHTML = t.val()*${product.productPrice} +"元";
-		}
-}
- 
-$(function(){ //這裡是加減按鈕都啟用的情況
+
+// $(document).ready(function(){
+	  
+// 	function appendText(){
+// 	var num=document.getElementById("#num");
+// 	var price=document.getElementById("#price");
+// 	  // 以 DOM 创建新元素
+
+// 	$("#total").append(num*price);         // 追加新元素
+// 	}
+// )}
+
+
+$(function(){ //加減按鈕
 	var t = $("#num"); 
 	$("#add").click(function(){		
 		t.val(parseInt(t.val())+1)
@@ -136,6 +140,15 @@ $(function(){ //這裡是加減按鈕都啟用的情況
 		setTotal();
 	})
 });
+
+
+</script>
+
+<script >
+$(document).ready(function (){
+	 var n =$("#price").text();
+	alert(n);
+})
 </script>
 <!--   自定義js -->
 <script type="text/javascript" src="js/Carousel.js"></script>

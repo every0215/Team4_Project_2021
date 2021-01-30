@@ -7,13 +7,12 @@
   <c:import url="/layout/head" />
   
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
-
-<link rel='stylesheet' href='https://cdn.datatables.net/responsive/1.0.4/css/dataTables.responsive.css'>
-
+  
   <style >
- 
+	@import 'https://fonts.googleapis.com/css?family=Material+Icons';
+
+	
   </style>
   
   <body> 
@@ -70,87 +69,28 @@
 				<div class="container col-md-10">
 				  <div class="row">
 				    <div class="col-xs-12">
-				       <h4>儲值確認</h4>
-				       <form id="Form" action="${pageContext.request.contextPath}/member/executePayment" method="get">
-						<table>
-							<tr>
-								<td colspan="2"><b>Transaction Details:</b></td>
-								<td>
-									<input type="hidden" name="paymentId" value="${param.paymentId}" />
-									<input type="hidden" name="PayerID" value="${param.PayerID}" />
-								</td>
-							</tr>
-							<tr>
-								<td>Description:</td>
-								<td>${transaction.description}</td>
-							</tr>
-							<tr>
-								<td>Subtotal:</td>
-								<td>${transaction.amount.details.subtotal} USD</td>
-							</tr>
-							<tr>
-								<td>Shipping:</td>
-								<td>${transaction.amount.details.shipping} USD</td>
-							</tr>
-							<tr>
-								<td>Tax:</td>
-								<td>${transaction.amount.details.tax} USD</td>
-							</tr>
-							<tr>
-								<td>Total:</td>
-								<td>${transaction.amount.total} USD</td>
-							</tr>	
-							<tr><td><br/></td></tr>
-							<tr>
-								<td colspan="2"><b>Payer Information:</b></td>
-							</tr>
-							<tr>
-								<td>First Name:</td>
-								<td>${payer.firstName}</td>
-							</tr>
-							<tr>
-								<td>Last Name:</td>
-								<td>${payer.lastName}</td>
-							</tr>
-							<tr>
-								<td>Email:</td>
-								<td>${payer.email}</td>
-							</tr>
-							<tr><td><br/></td></tr>
-							<tr>
-								<td colspan="2"><b>Shipping Address:</b></td>
-							</tr>
-							<tr>
-								<td>Recipient Name:</td>
-								<td>${shippingAddress.recipientName}</td>
-							</tr>
-							<tr>
-								<td>Line 1:</td>
-								<td>${shippingAddress.line1}</td>
-							</tr>
-							<tr>
-								<td>City:</td>
-								<td>${shippingAddress.city}</td>
-							</tr>
-							<tr>
-								<td>State:</td>
-								<td>${shippingAddress.state}</td>
-							</tr>
-							<tr>
-								<td>Country Code:</td>
-								<td>${shippingAddress.countryCode}</td>
-							</tr>
-							<tr>
-								<td>Postal Code:</td>
-								<td>${shippingAddress.postalCode}</td>
-							</tr>
-							<tr>
-								<td colspan="2" align="center">
-									<input id="FormSubmit" type="submit" value="Pay Now" />
-								</td>
-							</tr>		
-						</table>
-						</form>
+				       <h4>信用卡管理</h4>
+				       <div id="user-notification" class="ll-notification-container">
+						    <h3>Notifications
+						      <i class="material-icons dp48 right">settings</i><span class="ll-num-count">13</span>
+						    </h3>
+						
+						    <input class="checkbox" type="checkbox" id="size_1" value="small" checked />
+						    <label class="ll-notification new" for="size_1"><em>1</em> new <a href="">guest account(s)</a> have been created.<i class="material-icons dp48 right">clear</i></label>
+						
+						    <input class="checkbox" type="checkbox" id="size_2" value="small" checked />
+						    <label class="ll-notification new" for="size_2"><em>3</em> new <a href="">lead(s)</a> are available in the system.<i class="material-icons dp48 right">clear</i></label>
+						    
+						    <input class="checkbox" type="checkbox" id="size_3" value="small" checked />
+						    <label class="ll-notification" for="size_3"><em>5</em> new <a href="">task(s)</a>.<i class="material-icons dp48 right">clear</i></label>
+						
+						    <input class="checkbox" type="checkbox" id="size_4" value="small" checked />
+						    <label class="ll-notification" for="size_4"><em>9</em> new <a href="">calendar event(s)</a> are scheduled for today.<i class="material-icons dp48 right">clear</i></label>
+						
+						    <input class="checkbox" type="checkbox" id="size_5" value="small" checked />
+						    <label class="ll-notification" for="size_5"><em>1</em> blog post <a href="">comment(s)</a> need approval.<i class="material-icons dp48 right">clear</i></label>
+						    
+						  </div>
 				    </div>
 				     
 				  </div>
@@ -292,12 +232,22 @@
   </body>
   
 
-<script src='https://cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js'></script>
-<script src='https://cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js'></script>
-<script src='https://cdn.datatables.net/responsive/1.0.4/js/dataTables.responsive.js'></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.min.js'></script>
+<script src='https://unpkg.com/react-motion/build/react-motion.js'></script>
+      <script id="rendered-js" >
+// Inspiration by --
+// https://dribbble.com/shots/3003823-Notification-Dropdown/attachments/627751
+//# sourceURL=pen.js
+    </script>
+
+  
+
+  <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-bb9a2ba1f03f6147732cb3cd52ac86c6b24524aa87a05ed0b726f11e46d7e277.js"></script>
       <script id="rendered-js" >
       $(document).ready(function() {
-    	  $("#Form").submit();
+    	
       });
       
       

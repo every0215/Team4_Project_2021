@@ -39,12 +39,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+
 <script>
-
-</script>
-<script>
-
-
 $("#com1").live( 'click', function(){
 	var cname="全家便利店";
 	$(this).css('background-color','white');

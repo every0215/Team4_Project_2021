@@ -2,7 +2,9 @@ package com.web.store.report.dao;
 
 import java.util.List;
 
+import com.web.store.product.model.Product;
 import com.web.store.report.model.Report;
+import com.web.store.report.model.ReportProductAdv;
 
 
 
@@ -37,14 +39,18 @@ public interface ReportDao {
 	List<Report> queryAllStorePayment(int companyid);
 	//Tab7-各店-各店無庫存項數
 	List<Report> queryAllStoreStock(int companyid);
-	//Tab8-商品前五名排行
-	List<Report> queryProductRanking(int companyid);
+	//Tab8-匯入商品前五名排行
+	List<Product> queryProductRanking(int companyid);
 	
+	//Tab8-從adv資料庫搜尋
+//	List<Report> queryProductAdv(int companyid);
+	List<ReportProductAdv> queryProductAdv(int companyid);
 
 	//修改廣告排行榜商品
-	void update(Report report);
+	void update(ReportProductAdv adv);
 
-	
-	//查詢前五名商品
+	//查詢前五名商品搜尋列下方
 	List<Report> queryProductTop();
+
+	boolean updateProductAdv(int companyid, List<ReportProductAdv> list);
 }

@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.web.store.account.javabean.MemberBean;
 import com.web.store.company.service.CompanyService;
 import com.web.store.product.model.Product;
 import com.web.store.product.service.ProductService;
@@ -211,10 +214,16 @@ public class ProductController {
 	}	
 	
 
+	
+//--------------------------購物車
 	@GetMapping("/ProductBuy/{productId}/ProductPayment")
-	public String ProductPayment(@PathVariable int productId,Model model) {
-		Product product = pService.selectbyid(productId);
-		model.addAttribute("product",product);
+	public String ProductPayment(@PathVariable int productId,
+			@RequestParam(value="sessionId",required=false) Integer sessionId, 
+			Model model,HttpSession session,RedirectAttributes ra) {
+//		MemberBean member = (MemberBean) session.getAttribute("currentUser");
+		
+//		Product product = pService.selectbyid(productId);
+//		model.addAttribute("product",product);
 		return "product/ProductPayment";
 	}
 //-----------------輸出圖
