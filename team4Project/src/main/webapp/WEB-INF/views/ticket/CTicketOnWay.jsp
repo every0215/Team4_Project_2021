@@ -74,11 +74,11 @@
 
         <div class="search-bar">
           <div class="input-group">
-          <form action="<c:url value='../TicketSearch'/>"  method="get" >
-                  <input type="text" name="search" class="form-control rounded" placeholder="票券搜尋 ex. '冰雪奇緣'" aria-label="Search"
-              aria-describedby="search-addon" style="width:200px" />
-                  <button type="submit" class="btn btn-outline-primary">Search</button>
-                </form>
+            <form action="<c:url value='../TicketSearch'/>" method="get">
+              <input type="text" name="search" class="form-control rounded" placeholder="票券搜尋 ex. '冰雪奇緣'"
+                aria-label="Search" aria-describedby="search-addon" style="width:200px" />
+              <button type="submit" class="btn btn-outline-primary">Search</button>
+            </form>
           </div>
         </div>
 
@@ -103,16 +103,16 @@
             <div class="ticket-info">
               <div class="panel-body">
                 <div style="float:left">
-                
-                <p style="text-align:left;font-size:30px;">訂單內容</p>
+
+                  <p style="text-align:left;font-size:30px;">訂單內容</p>
                   <p id="ticketOrderId" style="text-align:left;font-size:20px;"></p>
                   <p id="eventName" style="text-align:left;font-size:20px;"></p>
                   <p id="totalCost" style="text-align:left;font-size:20px;"></p>
                   <p id="ticketOrderDetailList" style="text-align:left;font-size:20px;">票券明細:</p>
-                  
 
-    			<a id="payByMCoin" href="#" class="btn btn-primary btn-lg" role="button">滿幣支付</a>
-                <button type="button" class="btn btn-primary btn-lg">信用卡支付</button>
+
+                  <a id="payByMCoin" href="#" class="btn btn-primary btn-lg" role="button">滿幣支付</a>
+                  <button id="payByCreditCard" type="button" class="btn btn-primary btn-lg">信用卡支付</button>
                 </div>
               </div>
 
@@ -160,92 +160,101 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
         <script>
-        
-        function toDateStr(date){
-        	return date.getFullYear()
-        	+ '-' +('' + (date.getMonth()+1)).padStart(2,0)
-        	+ '-' +('' + date.getDate()).padStart(2,0)
-        	+ ' ' +('' + date.getHours()).padStart(2,0)
-        	+ ':' +('' + date.getMinutes()).padStart(2,0);
-        }
-        
-        $(document).ready(function() {
-        	 let eventJSON = ${eventJSON};
-        	 let ticketOrderJSON 	 = ${ticketOrderJSON};
-        	 let ticketOrderDetailsJSON = ${ticketOrderDetailsJSON};
-        	  
-        	 let priceListJSON	  = ${priceListJSON};  //有name跟cost
-        	 
-        	 let dPriceJSON;
-        	 if('${dPriceListJSON}'==''){
-        		 dPriceJSON = {}; //只有cost
-        	 }else{
-        		 dPriceListJSON	= JSON.parse('${dPriceListJSON}');
-        	 }
-        	 
-        	 let sportSessionJSON;
-        	 if('${sportSessionJSON}'==''){
-        		 sportSessionJSON = {};
-        	 }else{
-        		 sportSessionJSON	= JSON.parse('${sportSessionJSON}');
-        	 }
 
-        	 
-        	 $("#ticketOrderId").html('訂單編號:'+ticketOrderJSON.id); 
-			 $("#eventName").html('票券名稱:'+eventJSON.eventName); 			 
-			 $("#totalCost").html('總價:$'+ticketOrderJSON.totalCost);
-			 
-			 
-			 let discount = ticketOrderDetailsJSON[0].discount;
-			 let type=eventJSON.typeId;
-			 let str='';
-			 if(discount==1){
-				 if(type==1){
-					 //有discount的exhibition
-					 $.each(priceListJSON, function( index, value ) {
-						  
-						  str = str + '<p style="text-align:left;">名稱: '+value.name+'/ 價格: '+dPriceListJSON[index]+'/ 張數: '+ticketOrderDetailsJSON[index].value+'</p>'
-						});
-					 
-				 }else{
-					 //有discount的sport 還要放session
-					 ;
-					 str = str + '<p style="text-align:left;">場次: '+toDateStr(new Date(sportSessionJSON.kickOfTime))+'</p>';
-					 $.each(priceListJSON, function( index, value ) {
-						  
-						  str = str + '<p style="text-align:left;">名稱: '+value.name+'/ 價格: '+dPriceListJSON[index]+'/ 張數: '+ticketOrderDetailsJSON[index].value+'</p>'
-						});
-				 }
-				 
-			 }else{
-				 if(type!=3){
-					 //沒有discount的exhibition or attraction
-					 $.each(priceListJSON, function( index, value ) {
-						  
-						  str = str + '<p style="text-align:left;">名稱: '+value.name+'/ 價格: '+value.cost+'/ 張數: '+ticketOrderDetailsJSON[index].value+'</p>'
-						});
-				 }else{
-// 					 沒有discount的sport
-					
-					 str = str + '<p style="text-align:left;">場次: '+toDateStr(new Date(sportSessionJSON.kickOfTime))+'</p>';
-					 $.each(priceListJSON, function( index, value ) {
-						  
-						  str = str + '<p style="text-align:left;">名稱: '+value.name+'/ 價格: '+value.cost+'/ 張數: '+ticketOrderDetailsJSON[index].value+'</p>'
-						});
-				 }
-				 
-			 }
-			 console.log(str);
-			 $( "#ticketOrderDetailList" ).after(str);
-			 
-			 $("#payByMCoin").attr("href","<c:url value='"+"/proj/buyByMCoinSucc/"+ticketOrderJSON.id+"'/>");
-			 
-        	});
-        	
-        
-        
-        
-			
+          function toDateStr(date) {
+            return date.getFullYear()
+              + '-' + ('' + (date.getMonth() + 1)).padStart(2, 0)
+              + '-' + ('' + date.getDate()).padStart(2, 0)
+              + ' ' + ('' + date.getHours()).padStart(2, 0)
+              + ':' + ('' + date.getMinutes()).padStart(2, 0);
+          }
+
+          $(document).ready(function () {
+            let eventJSON = ${ eventJSON };
+            let ticketOrderJSON = ${ ticketOrderJSON };
+            let ticketOrderDetailsJSON = ${ ticketOrderDetailsJSON };
+
+            let priceListJSON = ${ priceListJSON };  //有name跟cost
+
+            let dPriceJSON;
+            if ('${dPriceListJSON}' == '') {
+              dPriceJSON = {}; //只有cost
+            } else {
+              dPriceListJSON = JSON.parse('${dPriceListJSON}');
+            }
+
+            let sportSessionJSON;
+            if ('${sportSessionJSON}' == '') {
+              sportSessionJSON = {};
+            } else {
+              sportSessionJSON = JSON.parse('${sportSessionJSON}');
+            }
+
+
+            $("#ticketOrderId").html('訂單編號:' + ticketOrderJSON.id);
+            $("#eventName").html('票券名稱:' + eventJSON.eventName);
+            $("#totalCost").html('總價:$' + ticketOrderJSON.totalCost);
+
+
+            let discount = ticketOrderDetailsJSON[0].discount;
+            let type = eventJSON.typeId;
+            let str = '';
+            if (discount == 1) {     
+              $("#payByMCoin").attr("disabled", "disabled")
+
+              if (type == 1) {
+                //有discount的exhibition
+                $.each(priceListJSON, function (index, value) {
+
+                  str = str + '<p style="text-align:left;">名稱: ' + value.name + '/ 價格: ' + dPriceListJSON[index] + '/ 張數: ' + ticketOrderDetailsJSON[index].value + '</p>'
+                });
+
+              } else {
+                //有discount的sport 還要放session
+                ;
+                str = str + '<p style="text-align:left;">場次: ' + toDateStr(new Date(sportSessionJSON.kickOfTime)) + '</p>';
+                $.each(priceListJSON, function (index, value) {
+
+                  str = str + '<p style="text-align:left;">名稱: ' + value.name + '/ 價格: ' + dPriceListJSON[index] + '/ 張數: ' + ticketOrderDetailsJSON[index].value + '</p>'
+                });
+              }
+
+            } else {
+              if (type != 3) {
+                //沒有discount的exhibition or attraction
+                $.each(priceListJSON, function (index, value) {
+
+                  str = str + '<p style="text-align:left;">名稱: ' + value.name + '/ 價格: ' + value.cost + '/ 張數: ' + ticketOrderDetailsJSON[index].value + '</p>'
+                });
+              } else {
+                // 					 沒有discount的sport
+
+                str = str + '<p style="text-align:left;">場次: ' + toDateStr(new Date(sportSessionJSON.kickOfTime)) + '</p>';
+                $.each(priceListJSON, function (index, value) {
+
+                  str = str + '<p style="text-align:left;">名稱: ' + value.name + '/ 價格: ' + value.cost + '/ 張數: ' + ticketOrderDetailsJSON[index].value + '</p>'
+                });
+              }
+
+            }
+            console.log(str);
+            $("#ticketOrderDetailList").after(str);
+
+            $("#payByMCoin").attr("href", "<c:url value='" + "/proj/buyByMCoinSucc/" + ticketOrderJSON.id + "'/>");
+            
+
+          });
+
+          $("#payByMCoin").click(function () {
+              if ($(this).attr('disabled') == 'disabled') {
+   
+                  event.preventDefault();
+              }
+   
+          });
+
+
+
 
 
         </script>

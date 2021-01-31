@@ -49,6 +49,14 @@
 				<i class="fa fa-globe fa-lg"></i><b>密碼變更</b>
 			</a>
 		</li>
+		
+		<li data-toggle="collapse" data-target="#changePassword" class="collapsed">
+			<a href="<c:url value='/member/showOrder' />" ><i class="fa fa-globe fa-lg"></i><b>票券訂單</b></a>
+		</li>
+		
+		<li data-toggle="collapse" data-target="#changePassword" class="collapsed">
+			<a href="<c:url value='/XXXXXXXXXX' />" ><i class="fa fa-globe fa-lg"></i><b>商品訂單</b></a>
+		</li>
 
 		<li>
 			<a href="<c:url value='/data/CreateMember' />">

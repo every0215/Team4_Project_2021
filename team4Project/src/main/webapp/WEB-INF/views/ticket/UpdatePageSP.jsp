@@ -29,6 +29,15 @@
 select option[value="0"] {
 	display: none;
 }
+.correctsp{
+				font-size: 10px;
+				color:green;
+				}
+				.checksp{
+				font-size: 10px;
+				color:red;
+				font-style:oblique;
+				}
 </style>
 </head>
 <body>
@@ -152,15 +161,21 @@ select option[value="0"] {
 		
 		<input id="Button1" type="button" value="新增場次" />
 		<script>
-		$("#Button1").click(function addPrice(){
-			console.log($("#price").html());
+		$("#Button1").click(function addSession(){
+
 			
-			$("#sportSession").html($("#sportSession").html() +  '<div>'+
+			ele = $('<div />').html('<div>'+
 					'<label class="t1" for="">開賽時間:</label>'+
 					'<input type="text" name="kickOfTime" placeholder="ex:2021-01-01 9:00" required="required"><br>'+
 					' <span>時間格式:yyyy-MM-dd HH:mm</span>&nbsp;&nbsp;&nbsp;'+
-					'<span><a href="#" class="btn btn-danger">刪除</a></span><br><br><br></div>');
-			console.log($("#price").html());
+					'<span><a href="#" class="btn btn-danger">刪除</a></span><br><br><br>');
+			
+			$("#sportSession").append(ele);
+			ele.click(function(){
+
+			})
+
+			
 		})
 		
 
@@ -171,18 +186,87 @@ select option[value="0"] {
 			$("#sportSession").on("click",".btn-danger",function(){
                 $(this).closest("div").remove(); 
             })
+            
+            
+            let nowDate = new Date();
+			
+			function checkDateTime1(x,y){
+                let theDateObj=document.getElementById(x);
+                let theDateObjVal=theDateObj.value;
+                
+                let onSaleDate = new Date(Date.parse(theDateObjVal.replace('-','/')));
+                
+                let span1=document.getElementById(y);
+                
+                let isDateFormateLegal = moment(theDateObjVal, 'YYYY-MM-DD HH:mm:ss', true).isValid();
+                
+                if (!isDateFormateLegal) {
+                	span1.className="checksp";
+                	span1.innerHTML="日期時間格式輸入錯誤";
+
+                }else if(Date.parse(onSaleDate) < Date.parse(nowDate)){
+                	span1.className="checksp";
+                	span1.innerHTML="開賣時間不可晚於今日";
+                	
+                }else{
+                	span1.className="correctsp";
+                    span1.innerHTML="輸入正確";
+                }
+            }
+			
+			function checkDateTime2(x,y,z){
+                let theDateObj=document.getElementById(x);
+                let theDateObjVal=theDateObj.value;
+                
+                let theEffectiveObj=document.getElementById(z);
+                let theEffectiveObjVal=theEffectiveObj.value;
+                
+                let onSaleDate = new Date(Date.parse(theEffectiveObjVal.replace('-','/')));
+                let offSaleDate = new Date(Date.parse(theDateObjVal.replace('-','/')));
+                
+                let span1=document.getElementById(y);
+                
+                let isDateFormateLegal = moment(theDateObjVal, 'YYYY-MM-DD HH:mm:ss', true).isValid();
+                
+                if (!isDateFormateLegal) {
+                	span1.className="checksp";
+                	span1.innerHTML="日期時間格式輸入錯誤";
+
+                }else if(Date.parse(offSaleDate) < Date.parse(nowDate)){
+                	span1.className="checksp";
+                	span1.innerHTML="售票結束時間不可晚於現在";
+                	
+                }else if(Date.parse(offSaleDate) < Date.parse(onSaleDate)){
+                	span1.className="checksp";
+                	span1.innerHTML="售票結束時間不可晚於開賣時間";
+                	
+                }else{
+                	span1.className="correctsp";
+                    span1.innerHTML="輸入正確";
+                }
+            }
+            
             //當dateTime1 onblur時 他會進行一個箭頭函數 箭頭函數內包含checkDateTime函式
-            document.getElementById("dateTime1").onblur= () => { checkDateTime('dateTime1', 'datetimesp1') }
-        	document.getElementById("dateTime2").onblur= () => { checkDateTime('dateTime2', 'datetimesp2') }
+            document.getElementById("dateTime1").onblur = () => { checkDateTime1('dateTime1', 'datetimesp1') }
+			document.getElementById("dateTime2").onblur = () => { checkDateTime2('dateTime2', 'datetimesp2','dateTime1') }
+			
         	window.onload = function () {
         		document.getElementById('bank').value='${creditCard.bankId}';
 				renew('${creditCard.bankId}');
 				document.getElementById('card').value='${sport.cardId}';
+				
 			}
+        	
+        	
+        	$("#submitButton").click(function () {
+	              if ($("span").hasClass("checksp")) {
+	                  event.preventDefault();
+	              }
+	          });
 		</script>
 
 		
-		<input type="submit" name="sumbmit" id="s1"> 
+		<input type="submit" name="sumbmit" id="submitButton"> 
 		
 	</form>
 	<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>

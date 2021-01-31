@@ -74,15 +74,17 @@ public class TicketController {
 		return "/ticket/CTicketSearch";
 	}
 	
-	//等ting給我
-	@GetMapping("/showOrderDetail/{memberId}")
+	
+	@GetMapping("/member/showOrder")
 	public String showOrderbyMemberId(
-			Model model, HttpSession session,
-			@PathVariable int memberId 
+			Model model, HttpSession session
+			
 			) {
-			ArrayList<TicketOrder> ticketOrderList = backendService.queryTicketOrderByMemberId(memberId);
+			MemberBean member = (MemberBean) session.getAttribute("currentUser");
+			ArrayList<TicketOrder> ticketOrderList = backendService.queryTicketOrderByMemberId(member.getId());
 			model.addAttribute("TicketOrderList", ticketOrderList);
-				return "account/ticketOrderDetail";}
+				return "account/ticketOrder";
+			}
 	
 	
 	
