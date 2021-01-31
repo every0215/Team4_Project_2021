@@ -4,6 +4,7 @@ package com.web.store.company.dao;
 import java.util.List;
 
 import com.web.store.company.model.CmpService;
+import com.web.store.company.model.Company;
 
 public interface CmpServiceDao {
 
@@ -11,7 +12,9 @@ public interface CmpServiceDao {
 	
 	boolean update(CmpService sv);
 	
-	List<CmpService> getAllServiceBycmpId(Integer cmpId);
+	List<CmpService> getAllServiceBycmpId(Company cmpId);
 	
 	CmpService getCmpsvById(Integer id,Integer cmpId);
+	
+	CmpService getCmpsvBysvId(Integer id);
 }

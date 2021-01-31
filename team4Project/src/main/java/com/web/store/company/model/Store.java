@@ -57,8 +57,8 @@ public class Store {
 		
 //		@Transient
 		@JoinColumn(name = "CompanyId")
-		@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//		@JsonIgnore
+		@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		@JsonIgnore
 		private Company company;
 		
 	
@@ -68,16 +68,26 @@ public class Store {
 		private Boolean status=true;
 		
 //		@Transient
+		@JsonIgnore
 		@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		@JoinTable(name = "StoreService", joinColumns = {
-	            @JoinColumn(name = "StoreId", referencedColumnName = "Id") }, inverseJoinColumns = {
-	                    @JoinColumn(name = "ServiceId", referencedColumnName = "Id") })
-		private Set<CmpService> cmpServiceS=new HashSet<CmpService>();;
+	            @JoinColumn(name = "StoreId") }, inverseJoinColumns = {
+	                    @JoinColumn(name = "ServiceId") })
+		private Set<CmpService> cmpServiceS=new HashSet<CmpService>();
+		
+		@Column(name= "Lat")
+		private Double lat;
+		
+		@Column(name= "Lng")
+		private Double lng;
 		
 		
 		
 		
 		public Store() {
+			
+		}
+		public Store(Double lat,Double lng) {
 			
 		}
 		
@@ -255,5 +265,21 @@ public class Store {
 
 		public void setCmpServiceS(Set<CmpService> cmpServiceS) {
 			this.cmpServiceS = cmpServiceS;
+		}
+
+		public Double getLat() {
+			return lat;
+		}
+
+		public void setLat(Double lat) {
+			this.lat = lat;
+		}
+
+		public Double getLng() {
+			return lng;
+		}
+
+		public void setLng(Double lng) {
+			this.lng = lng;
 		}
 }

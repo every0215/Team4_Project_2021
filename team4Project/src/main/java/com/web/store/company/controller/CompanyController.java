@@ -11,7 +11,9 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +44,10 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.web.store.campaign.model.Campaign;
+import com.web.store.campaign.model.Page;
+import com.web.store.campaign.model.SearchBean;
 import com.web.store.company.model.CmpService;
 import com.web.store.company.model.Company;
 import com.web.store.company.model.Store;
@@ -74,7 +79,7 @@ public class CompanyController {
 	///////////////////////////////////////企業新增///////////////////////////////////////////
 	
 	
-	//註冊企業資料包含文字 圖片
+	//註冊企業資料包含文字 圖片(V)
 	@PostMapping(value="/company/CompanyRegister")
 	public String companyRegister(
 			@RequestParam String companyName,
@@ -123,14 +128,7 @@ public class CompanyController {
 		
 		
 	}
-	////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////
+	//更新企業資料(V)
 	@PostMapping(value="/company/updateCompany")
 	public String updateCompany(
 			@RequestParam Integer id,
@@ -153,7 +151,7 @@ public class CompanyController {
 //		sessionStatus.setComplete();
 		session.removeAttribute("company");
 		
-		
+		System.out.println("更新企業資料");
 		/////////////////存圖片轉成Byte陣列////////////////////
 		
 		//用getBytes方法把上傳的MultipartFile logo 轉成 byte[]
@@ -168,10 +166,12 @@ public class CompanyController {
 			String logoName = logo.getOriginalFilename();
 			String busRCName = busRC.getOriginalFilename();
 			//得到的參數塞到建構子                     Blob物件  Filename
+			System.out.println("更新企業資料 加入Bean");
 			Company cmp = new Company(id,companyName,logoblob,logoName,uniformNumbers,categories,account,password,email,phone,busRCblob,busRCName);
 			//呼叫Service更新資料庫
 //			System.out.println(cmp);
 			cmpService.updateCompany(cmp);
+			System.out.println("更新成功");
 			//更新之後要重設Session
 			model.addAttribute("company", cmp);
 			session.setAttribute("company", cmp);
@@ -186,15 +186,12 @@ public class CompanyController {
 		
 		/////////////////存圖片轉成Byte陣列////////////////////
 		
-		return "/index";
+		return "redirect:/crm/backOffice";
 		
 	}
 	
-//	@GetMapping(value="/testImage")
-//	public String testImage() {
-//		return "\\company\\ShowCompanyInfo";
-//	}
-	//取企業圖片
+
+	//取企業圖片(V)
 	@GetMapping(value = "/company/getCompanyimage/{id}")
 	public ResponseEntity<byte[]> getPictureById(HttpServletResponse resp, @PathVariable Integer id) {
 		String filePath = "/images/NoImage.jpg";
@@ -216,9 +213,9 @@ public class CompanyController {
 				
 				try {
 					len = (int) logoblob.length();
-//					System.out.println(len);
+
 					media = logoblob.getBytes(1, len);
-//					System.out.println(media);
+
 				} catch (SQLException e) {
 					throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
 				}
@@ -247,7 +244,7 @@ public class CompanyController {
 	
 	
 
-	//輸出圖片裡會用到的方法
+	//輸出圖片裡會用到的方法(V)
 	private byte[] toByteArray(String filepath) {
 		byte[] b = null;
 		String realPath = context.getRealPath(filepath);  
@@ -269,11 +266,8 @@ public class CompanyController {
 	///////////////////////////////////////企業新增///////////////////////////////////////////
 	///////////////////////////////////////企業登入///////////////////////////////////////////
 	
-//	@RequestMapping("/company/CompanyLogin")
-//	public String companyLogin() {
-//		return "company/CompanyLogin";
-//	}
-	
+
+	//企業登入(V)
 	@PostMapping(value="/company/CompanyLogin")
 	public String Login(
 			@RequestParam String account,
@@ -288,7 +282,7 @@ public class CompanyController {
 		
 		if(cmp!= null) {
 //			setCompany(cmp);
-			model.addAttribute("company", cmp);//直接這樣子就可以
+//			model.addAttribute("company", cmp);//直接這樣子就可以
 			//////////////////////////
 
 			session.setAttribute("company", cmp);
@@ -315,7 +309,7 @@ public class CompanyController {
 	    public Company setCompany(Company cmp) {
 	        return cmp;
 	}
-	//登出
+	//登出(V)
 	@GetMapping(value="/company/Logout")
 	public String Logout(HttpSession session) {
 		session.removeAttribute("company");
@@ -326,7 +320,7 @@ public class CompanyController {
 	 
 	///////////////////////////////////////企業登入///////////////////////////////////////////
 	///////////////////////////////////////秀合作企業///////////////////////////////////////////
-	//秀合作企業
+	//秀合作企業(V)
 	@RequestMapping("/company/showCompany")
 	public String showCompany(Model model) {
 
@@ -345,11 +339,12 @@ public class CompanyController {
 //	}
 	
 	///////////////////////////////////////企業服務///////////////////////////////////////////
+	
 	@GetMapping("/company/CompanyServiceRegister")
 	public String companyServiceRegister() {
 		return "/company/CompanyServiceRegister";
 	}
-	//新增企業服務
+	//新增企業服務(V)
 	@PostMapping(value="/company/serviceRegister")
 	public String serviceRegister(
 			
@@ -389,13 +384,13 @@ public class CompanyController {
 		  }
 		  
 		/////////////////存圖片轉成Byte陣列////////////////////
-		//密碼洩漏問題
-		//有可能抓不到SESSION
 		return "/company/CompanyServiceRegister";
-		
-		
 	}
-	//企業簡介修改
+	
+	
+	
+	
+	//企業簡介修改(V)
 	@PostMapping("/company/updateCompanyProfile")
 	public String insertCompanyProfiles(
 		
@@ -404,97 +399,28 @@ public class CompanyController {
 		Model model
 		,HttpSession session
 		) {
-		
-		//
+
 		Company company=(Company)session.getAttribute("company");
-		//
 		System.out.println("profiles:"+profiles);
 		if(profiles.equals(null) || profiles.equals("")) {
-//			Company cmp= cmpService.getCompanyById(cmpid);
-//			String newProfiles = cmp.getProfiles();
-//			System.out.println("cmp.getId()"+cmp.getId());
-//			System.out.println("企業簡介"+newProfiles);
-//			stoService.updateProfiles(id, newProfiles);
+
 			model.addAttribute("resp", "請輸入簡介!!!");
 			return "/company/CompanyProfiles";
 		}else {
 			cmpService.updateProfiles(id,profiles);
-			//
 			company.setProfiles(profiles);
 			session.setAttribute("company", company);
-			//
 		}
 		//如果有找到就更新
-		
-		
-//		if (sto.getId() != null ) {
-//			stoService.update(sto);
-//		} 
-//		System.out.println("沒有update");
-//		stoService.addStore(sto);
+
 		return "redirect:/crm/backOffice";
 	}
-	
-	
-//	//新增企業服務
-//	@PostMapping(value="/companyServiceRegister")
-//	public String companyServiceRegister(
-//			@RequestParam String spsv,
-//			@RequestParam(value="brand",required=false)MultipartFile logo,
-////			HttpServletResponse response
-//			
-//			) throws IOException {
-//		
-//		/////////////////存圖片轉成Byte陣列////////////////////
-//
-//		//用getBytes方法把上傳的MultipartFile logo 轉成 byte[]
-//		byte[] logoB = logo.getBytes();
-//		
-//
-//		  try {
-//		   //再把Byte[]轉成Blob物件
-//		   Blob logoblob = new javax.sql.rowset.serial.SerialBlob(logoB);
-//		  
-//		   //取得logo 的Filename
-//		   String logoName = logo.getOriginalFilename();
-//		   //得到的參數塞到建構子                  Blob物件  Filename
-//		   Company cmp = new Company(companyName,logoblob,logoName,uniformNumbers,categories,account,password,email,phone,busRCblob,busRCName);
-//		   //呼叫Service新增到資料庫
-//		   cmpService.addCompany(cmp);
-//	   
-//		  } catch (SerialException e) {
-//		   // TODO Auto-generated catch block
-//		   e.printStackTrace();
-//		  } catch (SQLException e) {
-//		   // TODO Auto-generated catch block
-//		   e.printStackTrace();
-//		  }
-//		  
-//		/////////////////存圖片轉成Byte陣列////////////////////
-//		//密碼洩漏問題
-//		
-//		return "redirect:/index";
-//		
-//		
-//	}
-//	
-//	
-	
+
 	///////////////////////////////////////企業服務///////////////////////////////////////////
 	
 	/////////////////////////////////////////門市部分/////////////////////////////////////////
-	/////////////////////////////////////////門市部分/////////////////////////////////////////
-	/////////////////////////////////////////門市部分/////////////////////////////////////////
-	/////////////////////////////////////////門市部分/////////////////////////////////////////
-	/////////////////////////////////////////門市部分/////////////////////////////////////////
-	/////////////////////////////////////////門市部分/////////////////////////////////////////
-	/////////////////////////////////////////門市部分/////////////////////////////////////////
-	/////////////////////////////////////////門市部分/////////////////////////////////////////
-	/////////////////////////////////////////門市部分/////////////////////////////////////////
-	/////////////////////////////////////////門市部分/////////////////////////////////////////
-	/////////////////////////////////////////門市部分/////////////////////////////////////////
 	
-	
+	//Show data table 查門市資料
 	@GetMapping(value="/company/ShowStore")
 	public String showAllStore(
 			Model model,
@@ -509,30 +435,18 @@ public class CompanyController {
 		return "/company/ShowStore";
 	}
 	
-	
-	
-	//新增門市
-	//新增門市
-	//新增門市
-	//新增門市
-	//新增門市
-	//新增門市
-	//新增門市
-	//新增門市
+	//新增門市頁面帶BEAN(V)
 	@GetMapping("/company/storeRegister")
 	public String showStoreForm(Model model) {
 		
 		Store sto = new Store();
 		//可預設
 		sto.setStatus(true);
-//		bean.setPassword("Do!ng456");
-//		bean.setPassword1("Do!ng456");
-//		bean.setBirthday(java.sql.Date.valueOf("1980-5-4"));
-//		bean.setLastPostTime(java.sql.Timestamp.valueOf("2019-10-14 17:50:24"));
+
 		model.addAttribute("storeBean", sto);
 		return "/company/StoreRegister";
 	}
-	// 
+	//新增頁面(V)
 	@PostMapping("/company/storeRegister")
 	public String insertStoreData(
 		@ModelAttribute("storeBean") Store sto ,
@@ -545,11 +459,12 @@ public class CompanyController {
 //		, BindingResult bindingResult 
 		) {
 		Company company=(Company)session.getAttribute("company");
-		//驗證盼短有無錯誤
+		//驗證判斷有無錯誤
 //		new CustomerValidator().validate(bean, bindingResult);    
 //		if (bindingResult.hasErrors()) {
 //			return "_01_customer/CustomerForm";
 //		}
+		
 //		System.out.println(sto.getId());
 //		System.out.println(sto.getStoreName());
 //		System.out.println(sto.getStoreArea());
@@ -577,17 +492,15 @@ public class CompanyController {
 		return "redirect:/company/StoreRegister_Profile";
 	}
 	
-	//新增門市簡介
-	//新增門市簡介
-	//新增門市簡介
-	//新增門市簡介
-	//新增門市簡介
+
+	//新增門市簡介(V)
 	@PostMapping("/company/updateStoreProfiles")
 	public String insertStoreProfiles(
 		@RequestParam Integer cmpid,
 		@RequestParam Integer id,
-		@RequestParam String profiles
-		,HttpSession session
+		@RequestParam String profiles,
+		HttpSession session
+		
 		) {
 		
 		//驗證判斷有無錯誤
@@ -613,7 +526,7 @@ public class CompanyController {
 		}
 		//如果有找到就更新
 		
-		
+		session.setAttribute("tempStoreId", id);
 //		if (sto.getId() != null ) {
 //			stoService.update(sto);
 //		} 
@@ -622,35 +535,13 @@ public class CompanyController {
 		return "redirect:/company/StoreRegister_Service";
 	}
 	
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
-	////////////////////////////顯示門市服務圖片/////////////////////////////
+
 	////////////////////////////顯示門市服務圖片/////////////////////////////
 	@GetMapping(value = "/company/getCompanyServiceImage/{id}")
 	public ResponseEntity<byte[]> getCmpPictureById(HttpServletResponse resp, @PathVariable Integer id, HttpSession session) {
 		
-		Company company=(Company)session.getAttribute("company");
-		
+//		Company company=(Company)session.getAttribute("company");
+		System.out.println("秀服務圖片");
 		String filePath = "/images/NoImage.jpg";
 
 		byte[] media = null;
@@ -659,7 +550,7 @@ public class CompanyController {
 		
 		int len = 0;
 //		Company cmp = cmpService.getCompanyById(id);
-		CmpService cmpsv = cmpsvService.getCmpsvById(id,company.getId());
+		CmpService cmpsv = cmpsvService.getCmpsvBysvId(id);
 		
 		if (cmpsv != null) {
 			
@@ -694,10 +585,31 @@ public class CompanyController {
 		System.out.println("66666mimeType = "+mimeType+"   mediaType = " + mediaType);
 		headers.setContentType(mediaType);
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
+		System.out.println("秀服務圖片成功");
 		return responseEntity;
 	}
 	
+		///////////////////////////////////////門市服務新增//////////////////////////////////////////////
 	
+	//註冊門市服務(寫驗證不可為空)
+	@PostMapping(value="/company/storeServiceRegister")
+	public String storeServiceRegister(
+			//Service的Id
+			@RequestParam(value="service") String[] id,
+			//Store的Id
+//			@RequestParam(value="Ser")String spService,
+			HttpSession session,
+			Model model
+			) throws IOException {
+		Integer stoId = (Integer)session.getAttribute("tempStoreId");
+		stoService.combineStoreService( id, stoId);
+		session.removeAttribute("tempStoreId");
+
+
+		return "redirect:/company/storeRegister";
+		
+		
+	}
 	
 	
 	
@@ -706,9 +618,12 @@ public class CompanyController {
 	
 	
 	//////////////////////////////////////查詢頁面修改按鈕//////////////////////////////////////////
+	//門市頁面修改(V)
 	@GetMapping("/company/ShowStore/{id}")
 	public String editCustomerForm(Model model, @PathVariable Integer id) {
+		
 		Store sto = stoService.getStoreById(id);
+		
 		model.addAttribute("storeBean", sto);
 		return "/company/StoreUpdate";
 	}
@@ -716,20 +631,18 @@ public class CompanyController {
 	@PostMapping("/company/updateStore")
 	public String updateStoreData(
 		@ModelAttribute("storeBean") Store sto 
-//		,@RequestParam String openhour
-//		,@RequestParam String closehour
-		///////////////////
 		, RedirectAttributes ra
-		///////////////////
-//		, BindingResult bindingResult 
+		,HttpSession session
 		) {
-		
+		Company company=(Company)session.getAttribute("company");
 		//驗證有無錯誤
 //		new CustomerValidator().validate(bean, bindingResult);    
 //		if (bindingResult.hasErrors()) {
 //			return "_01_customer/CustomerForm";
 //		}
-		
+		sto.setCompany(company);
+		System.out.println("修改進控制器");
+		System.out.println("sto.getId()"+sto.getId());
 		//如果有找到就更新
 		if (sto.getId() != null ) {
 			System.out.println("update資料");
@@ -744,4 +657,82 @@ public class CompanyController {
 		return "/company/StoreRegister_Service";
 	}
 	
+	
+//=========================================================================	
+//                               地圖搜尋
+//=========================================================================	
+	//店名搜尋(V)
+	@GetMapping(value="/company/mapGetStoreByName/{cmpid}/{stoName}",produces = "application/json; charset=UTF-8")
+	public @ResponseBody List<Store> mapGetStoreByName( 
+			@PathVariable("cmpid") String cmpid,
+			@PathVariable("stoName") String stoName
+			) {
+		System.out.println("Ajax接收資料 地圖店名搜尋");
+		
+		//依名字找門市
+		List<Store> storeByName = stoService.getStoreByName(cmpid,stoName);
+		System.out.println("================================="+storeByName);
+		return storeByName;
+	}
+	
+	//服務搜尋(未完成)
+	@PostMapping(value="/company/mapGetStoreByService ",produces = "application/json; charset=UTF-8")
+	public @ResponseBody Set<Store> mapGetStoreByService(
+			@RequestParam(value="service") String[] id,
+			HttpSession session,
+			Model model
+			) throws IOException {
+		System.out.println("Ajax接收資料 地圖服務搜尋");
+		
+		Set<Store> stoByService= stoService.getStoreByService(id);
+		//要寫好SERVICE
+		return stoByService;
+		
+		
+		
+	}
+	
+	//按區域搜尋(V)
+	@GetMapping(value="/company/mapGetStoreByArea/{cmpid}/{area}",produces = "application/json; charset=UTF-8")
+	public @ResponseBody List<Store> mapGetStoreByArea( 
+			@PathVariable("cmpid") String cmpid,
+			@PathVariable("area") String area
+			) {
+		
+		System.out.println("Ajax接收資料 區域搜尋");
+
+		
+		
+		List<Store> storeByArea = stoService.getStoreByArea(cmpid,area);
+		
+		return storeByArea;
+	}
+	
+	//按企業丟回服務(V)
+	@GetMapping(value="/company/testAjax",produces = "application/json; charset=UTF-8")
+	public @ResponseBody Set<CmpService> searchCampaignAjax( 
+			@RequestParam("test") String cmpid
+			) {
+		System.out.println("Ajax接收資料 企業搜尋服務");
+		if(cmpid.equals("0")) {
+			return null;
+		}else {
+			
+			Set<CmpService> cmpsv = cmpService.getCompanyService(Integer.parseInt(cmpid));
+			System.out.println(cmpsv);
+			return cmpsv;
+		}
+	}
+	//按座標找門市資訊(V)
+	@GetMapping(value="/company/mapGetStoreByMarker",produces = "application/json; charset=UTF-8")
+	public @ResponseBody Store searchStoreInfoByMarker( 
+			@RequestParam("lat") String lat,
+			@RequestParam("lng") String lng
+			) {
+		System.out.println("Ajax接收資料 座標搜尋門市 ");
+		Store sto = stoService.getStoreByMarker(lat,lng);
+		
+		System.out.println(sto);
+		return sto;
+	}
 }

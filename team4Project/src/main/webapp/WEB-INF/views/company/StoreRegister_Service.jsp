@@ -18,29 +18,29 @@
 <!--     GET帶服務資訊進來，POST帶勾選的服務進去 -->
     <hr style="height:1px;border:none;color:#333;background-color:#333;">
     <section class="container">
-    <input type="hidden" name="CompanyId" value="${sessionScope.company.id}">
 <%--     ${sessionScope.company.id} --%>
-        <div class="row">
+	<form action="<c:url value='/company/storeServiceRegister'/>" method="post" enctype="multipart/form-data">
+        <div class="row" >
+    	<input type="hidden" name="CompanyId" value="${sessionScope.company.id}">
         <c:forEach var='Cmpsv' items='${CmpsvList}'>
-        <input type="hidden" name="CmpsvId" value="${Cmpsv.id}">
-            <div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
+            <div class="col-sm-6 col-md-3" style="height:200px;width:200px;display:inline-block; float:left">
                 <div class="thumbnail" style="width: 320px; height: 340px">
                     <div class="caption">
+       					<input type="hidden" name="CmpsvId" value="${Cmpsv.id}">
                         <p>
                         <img height="100px" src="<c:url value='/company/getCompanyServiceImage/${Cmpsv.id}'/>" />
-
                         </p>
                         <p>${Cmpsv.spService}</p>
-                        
-                        <p>
-
-                        </p>
+                        <p><input type="checkbox" name="service" value="${Cmpsv.id}"></p>
                     </div>
                 </div>
             </div>
             </c:forEach>
         </div>
+    <input type="submit" value="send"/>
+    </form>
     </section>
+    
 
 
 
@@ -49,6 +49,7 @@
 
 
 
+<a href="<c:url value='/company/storeRegister'/> " >繼續新增門市</a>
 <a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
 </body>
 </html>

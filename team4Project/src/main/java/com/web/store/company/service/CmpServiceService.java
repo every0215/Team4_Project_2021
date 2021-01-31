@@ -3,6 +3,7 @@ package com.web.store.company.service;
 import java.util.List;
 
 import com.web.store.company.model.CmpService;
+import com.web.store.company.model.Company;
 
 public interface CmpServiceService {
 
@@ -10,7 +11,9 @@ public interface CmpServiceService {
 	
 	boolean updateService(CmpService sv);
 	
-	List<CmpService> getAllServiceBycmpId(Integer cmpId);
+	List<CmpService> getAllServiceBycmpId(Company cmpId);
 	
 	CmpService getCmpsvById(Integer id,Integer cmpId);
+	
+	CmpService getCmpsvBysvId(Integer id);
 }

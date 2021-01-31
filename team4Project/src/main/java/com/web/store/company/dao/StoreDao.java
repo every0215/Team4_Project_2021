@@ -2,7 +2,7 @@ package com.web.store.company.dao;
 
 import java.util.List;
 
-
+import com.web.store.company.model.Company;
 import com.web.store.company.model.Store;
 
 public interface StoreDao {
@@ -17,12 +17,14 @@ public interface StoreDao {
 	//查詢全部門市
 	List<Store> getAllStoreByCompanyId(Integer companyId);
 	
+	//查詢依企業地區
+	List<Store> getStoreByArea(Company cmp, String area);
 	//查詢依地區
-	List<Store> getStoreByArea(String storeArea);
+	List<Store> getStoreByOnlyArea(String area);
 	
 	//查詢依名字
 	List<Store> getStoreByName(String store);
-	
+
 	/////////////////////門市查詢功能////////////////////////
 	
 	/////////////////////門市刪除功能////////////////////////
@@ -33,6 +35,16 @@ public interface StoreDao {
 	boolean updateProfiles(Integer id,String profiles);
 	
 	Store getStoreById(Integer id);
+	
+	Store getStoreByMarker(Double lat,Double lng);
+	
+	void updated(Store sto);
+	
+	boolean delete(Integer id);
+	
+	List<Store> getStoreByOnlyName(String stoName);
+	
+	List<Store> cmpGetStoreByName(Integer tempcmpid,String stoName);
 	
 	
 	/////////////////////門市刪除功能////////////////////////
