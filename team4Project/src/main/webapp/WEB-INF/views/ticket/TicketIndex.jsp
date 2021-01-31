@@ -119,16 +119,8 @@
               <td>
                 <input type="hidden" name="typeId" value="${event.typeId}" />
                 <input type="hidden" name="eventId" value="${event.id}" />
-                <button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventShow/${event.id}" />'">See More</button><br/><br/>
-                <c:choose>
-               	 <c:when test="${event.status==1}">
-               	 	<button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventUpdateStatus/${event.id}" />'">下架</button>
-               	 </c:when>       	 
-               	 <c:otherwise>
-               	 	<button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventUpdateStatus/${event.id}" />'">上架</button>
-               	 </c:otherwise>
-                 </c:choose>
-                
+                <button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventShow/${event.id}" />'">See More</button>
+               
                 
               </td>
             </tr>
@@ -139,8 +131,15 @@
 
 	<script>
 		$(document).ready(function() {
-			$('#myTable').DataTable();
+			$('#myTable').DataTable({
+				"lengthMenu": [4, 8]
+			});
+
+			
 		});
+		
+		
+		
 	</script>
 
 	

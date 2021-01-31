@@ -306,5 +306,12 @@ public class CampaignDaoImpl implements CampaignDao {
 		return mbs;
 	}
 
+	@Override
+	public List<Campaign> selectActiveCampaign() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM Campaign WHERE status=true AND expired=false";		
+		return session.createQuery(hql,Campaign.class).list();
+	}
+
 	
 }

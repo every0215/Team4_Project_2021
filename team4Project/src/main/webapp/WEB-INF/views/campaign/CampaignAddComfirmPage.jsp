@@ -32,7 +32,8 @@
 
         .head h3{
             text-align: center;
-            margin: 10px auto;
+            margin: 0px auto;
+            font-weight:900;
         }
 
         .functionBar{
@@ -45,6 +46,8 @@
             width: 800px;
             border-radius:10px;
             box-shadow: 0px 0px 10px black;
+            font-family: 微軟正黑體;
+    		font-weight: 900;
         }
 
         #container .row{
@@ -60,6 +63,11 @@
             width: 100%;
             height: 200px;
         }
+        
+        .head{
+        	background-color: #54959f;
+        }
+        
         
     </style>
     <title>確認頁面</title>

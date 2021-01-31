@@ -54,4 +54,6 @@ public interface CampaignService {
 	int applyProductWithCamp(ApplyBean apply, int campaignId);
 	
 	void pushCampaign(int campId) throws Exception;
+	
+	void updateProductDiscount();
 }

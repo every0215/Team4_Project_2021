@@ -38,6 +38,8 @@ public class TicketOnWayDao implements ITicketOnWayDao {
 		TicketOnWay ticketOnWay = session.get(TicketOnWay.class, id);
 		if(ticketOnWay!=null) {
 			session.delete(ticketOnWay);
+			session.flush();
+			session.clear();
 		}
 	}
 

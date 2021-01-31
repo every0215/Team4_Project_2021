@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -148,10 +149,18 @@ $("#can4").live('click', function(){
 						class="img-responsive" style="width: 100%; height: 164px">
 				</div>
 				<div class="panel-footer"
-					style="height: 50px; text-align: center; font-size: 16px;">
+					style="height: 50px; text-align: center; font-size: 16px;padding:0">
 			
-					店家:${product.companyName} &nbsp; <div id ="price1">$${product.productPrice}</div></div>
+					店家:${product.companyName} &nbsp; <div id ="price1">$${product.productPrice}
+					<c:if test="${product.productPrice!=product.productPrice*product.discount}">
+					<span style="color:red;font-size:14px">特價:$<fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></span>
+					</c:if>
+					</div>
 					
+					
+					
+					
+				</div>	
 			</div>
 		</div>
 
@@ -171,9 +180,15 @@ $("#can4").live('click', function(){
 						class="img-responsive" style="width: 100%; height: 164px">
 				</div>
 				<div class="panel-footer"
-					style="height: 50px; text-align: center; font-size: 16px;">
+					style="height: 50px; text-align: center; font-size: 16px; padding:0">
 
-					店家:${product.companyName} &nbsp; <div id ="price2">$${product.productPrice}</div></div>
+					店家:${product.companyName} &nbsp; <div id ="price2">$${product.productPrice}
+					<c:if test="${product.productPrice!=product.productPrice*product.discount}">
+					<span style="color:red;font-size:14px">特價:$<fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></span>
+					</c:if>
+					</div>
+					
+				</div>
 
 			</div>
 		</div>
@@ -198,9 +213,15 @@ $("#can4").live('click', function(){
 						class="img-responsive" style="width: 100%; height: 164px">
 				</div>
 				<div class="panel-footer"
-					style="height: 50px; text-align: center; font-size: 16px;">
+					style="height: 50px; text-align: center; font-size: 16px;padding:0">
 
-					店家:${product.companyName} &nbsp; <div id ="price3">$${product.productPrice}</div></div>
+					店家:${product.companyName} &nbsp; <div id ="price3">$${product.productPrice}
+					<c:if test="${product.productPrice!=product.productPrice*product.discount}">
+					<span style="color:red;font-size:14px">特價:$<fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></span>
+					</c:if>
+					</div>
+					
+				</div>
 
 			</div>
 		</div>

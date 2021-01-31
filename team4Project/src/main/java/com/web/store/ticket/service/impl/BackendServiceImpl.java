@@ -458,11 +458,12 @@ public class BackendServiceImpl implements BackendService {
 	public void checkTicketOnWay() {
 		
 		ArrayList<TicketOnWay> ticketOnWays = ticketOnWayDao.queryAll();
-		System.out.println(ticketOnWays.size());
+//		System.out.println(ticketOnWays.size());
 		Date now = new Date();
 		Timestamp nowTime = new Timestamp(now.getTime());
+		List<String> listOfOrderId = new ArrayList<String>();
 		for(TicketOnWay ticketOnWay : ticketOnWays) {
-			System.out.println("==================1=============================");
+//			System.out.println("==================1=============================");
 			Hibernate.initialize(ticketOnWay.getTicketOrder());
 			Timestamp deleteTime = ticketOnWay.getDeletedTime();
 			if (deleteTime.before(nowTime)) {
@@ -474,35 +475,57 @@ public class BackendServiceImpl implements BackendService {
 					Integer oStock = seat.getStock();
 					seat.setStock(value+oStock);
 					sportSeatDao.updateSportSeat(seat);
-				}
-				System.out.println("==================2=============================");
-				TicketOrder ticketOrder = ticketOnWay.getTicketOrder();
-				System.out.println("==================3=============================");
-				ticketOnWayDao.delete(ticketOnWay.getId());
-				System.out.println("==================4=============================");
-				TicketOrder ticketOrderN = ticketOrderDao.queryTicketOrderbyId(ticketOrder.getId());
-				
-				System.out.println(ticketOrderN);
-				
-				if(ticketOrderN!=null) {
-					Hibernate.initialize(ticketOrderN);
-					Set<TicketOrderDetail> ticketOrderDetails = ticketOrderN.getTicketOrderDetails();
-				
-					Hibernate.initialize(ticketOrderDetails);
-					System.out.println("==================5=============================");
-				
-					System.out.println("==================6=============================");
-					System.out.println("=================="+ticketOrderN.getId()+"=============================");
 					
-					ticketOrderDao.delete(ticketOrderN.getId());
 				}
-				
-				
-				
-	            
+				TicketOrder ticketOrder = ticketOnWay.getTicketOrder();
+				String orderId = ticketOrder.getId();
+				ticketOnWay.setTicketOrder(null);
+				ticketOnWayDao.delete(ticketOnWay.getId());
+				if (!listOfOrderId.contains(orderId)) {
+					listOfOrderId.add(orderId);
+				}
 	        }
+		}
+		for(String orderId : listOfOrderId) {
+			TicketOrder ticketOrderN = ticketOrderDao.queryTicketOrderbyId(orderId);
+			Hibernate.initialize(ticketOrderN);
+			Set<TicketOrderDetail> ticketOrderDetails = ticketOrderN.getTicketOrderDetails();
+			Hibernate.initialize(ticketOrderDetails);
+//			System.out.println("=================="+ticketOrderN.getId()+"=============================");
+			ticketOrderDao.delete(ticketOrderN.getId());
 			
 			
+		}
+			
+//		Timestamp validTime = new Timestamp(now.getTime());
+//		System.out.println("=============="+validTime+"==============");
+//		System.out.println("check "+ticketOnWays.size()+" over");
+		
+	}
+
+	@Override
+	public void checkEventStatus() {
+		ArrayList<Event> eventList = eventDao.query();
+		Date now = new Date();
+		Timestamp nowTime = new Timestamp(now.getTime());
+		Timestamp offSaleDate;
+		for(Event event: eventList) {
+			Integer typeId = event.getTypeId();
+			if(typeId==1) {
+				Exhibition exhibition = exhibitionDao.selectByEvent(event.getId());
+				offSaleDate = exhibition.getOffSaleDate();
+			}else if(typeId==2) {
+				Attraction attraction = attractionDao.selectByEvent(event.getId());
+				offSaleDate = attraction.getOffSaleDate();
+			}else {
+			 	Sport sport = sportDao.selectByEvent(event.getId());
+			 	offSaleDate = sport.getOffSaleDate();
+			}
+			
+			if(offSaleDate.before(nowTime)) {
+				event.setStatus(0);
+				eventDao.updateEvent(event);
+			}
 		}
 		
 	}
