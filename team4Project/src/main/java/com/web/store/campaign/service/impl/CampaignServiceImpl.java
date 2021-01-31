@@ -248,7 +248,6 @@ public class CampaignServiceImpl implements CampaignService {
 		int companyId = campaign.getCompany().getId();
 		Set<MemberBean> members = campDao.getMemberByCompanyId(companyId);
 		for(MemberBean mb : members) {
-			System.out.println(mb.getNickname());
 			accountService.addMemberNotification(mb, 3, title, description, "http://localhost:8080/proj/campaign/detail/"+campId);
 		}
 	}

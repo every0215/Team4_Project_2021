@@ -209,12 +209,15 @@ tr>td>button {
 						<c:if test="${!(camp.status && !camp.expired)}">
 							<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>',)">編輯</button>						
 							<c:if test="${camp.discountParams.type==1}">
-								<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/loading/${camp.id}"/>')">套用</button>
+								<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/loading/${camp.id}"/>')">商品</button>
 							</c:if>		
 						</c:if>
 						<c:if test="${camp.status && !camp.expired}">
 							<span style="color:red">活動進行中</span>
 							<button data-id="${camp.id}" class="btn btn-self push-btn">推送</button>
+							<c:if test="${camp.discountParams.type==1}">
+								<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/loading/${camp.id}"/>')">商品</button>
+							</c:if>	
 						</c:if>			
 					</td>
 				</tr>

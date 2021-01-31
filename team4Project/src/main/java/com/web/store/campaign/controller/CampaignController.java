@@ -545,6 +545,7 @@ public class CampaignController {
 	public @ResponseBody String applyCampaign(@RequestBody ApplyBean apply,@PathVariable Integer campaignId){
 		try {
 			campService.applyProductWithCamp(apply, campaignId);
+			campService.updateProductDiscount();
 			return "success";
 		}catch(Exception ex) {
 			ex.printStackTrace();

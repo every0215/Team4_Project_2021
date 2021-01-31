@@ -28,7 +28,7 @@ $(document).ready(function() {
 	});
 
 	//會員通知
-	getMemberNotifications();
+	setInterval(getMemberNotifications,5000); //間隔讀取通知
 	function getMemberNotifications() {
 		console.log('running getMemberNotifications..');
 		let mNotificationDiv = $("#UserNotificationBox");
@@ -39,7 +39,8 @@ $(document).ready(function() {
 			success: function(data) {
 
 				console.log("success: " + data);
-				//可增加動態處理
+				//可增加動態處理		
+				$(".ll-num-count").html(data.length);//增加通知數
 				// ....
 				let htmlstr = '';
 				for (let i = 0; i < data.length; i++) {

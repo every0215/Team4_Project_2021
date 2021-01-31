@@ -3,7 +3,6 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
@@ -192,6 +191,17 @@
 <!--         測試用記得刪 -->
 <!--         測試用記得刪 -->
 <!--         測試用記得刪 -->
+<<<<<<< HEAD
+<!-- 		<div  style="top:500px;left:600px;background-color:yellow"> -->
+<%-- 		<a href="<c:url value='/CompanyInfo' />">修改企業資訊 </a> --%>
+<!-- 		</div> -->
+<!-- 		<div  style="top:500px;left:600px;background-color:yellow"> -->
+<%-- 		<a href="<c:url value='XXX' />">新增企業簡介 </a> --%>
+<!-- 		</div> -->
+<!-- 		<div  style="top:500px;left:600px;background-color:yellow"> -->
+<%-- 		<a href="<c:url value='XXX' />">新增企業服務 </a> --%>
+<!-- 		</div> -->
+=======
 		<div  style="top:500px;left:600px;background-color:yellow">
 		<a href="<c:url value='/company/CmpRegi' />">修改企業資訊 </a>
 		</div>
@@ -201,6 +211,7 @@
 		<div  style="top:500px;left:600px;background-color:yellow">
 		<a href="<c:url value='/company/CompanyServiceRegister' />">新增企業服務 </a>
 		</div>
+>>>>>>> master
 		
         <!-- Right side column. Contains the navbar and content of the page -->
 
@@ -211,7 +222,7 @@
     <!-- jQuery 2.1.3 -->
     <script src="<c:url value='/plugins/jQuery/jQuery-2.1.3.min.js'/>"></script>
     <!-- Bootstrap 3.3.2 JS -->
-    <script src="<c:url value='/bootstrap/js/bootstrap.min.js'/>" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- FastClick -->
     <script src='<c:url value='/plugins/fastclick/fastclick.min.js'/>'></script>
     <!-- AdminLTE App -->
