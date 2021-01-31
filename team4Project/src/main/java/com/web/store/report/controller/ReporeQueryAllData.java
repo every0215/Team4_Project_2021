@@ -164,12 +164,18 @@ public class ReporeQueryAllData {
 	// Tab8-從Adv資料庫搜尋出來
 	@RequestMapping(value = "/queryProductAdv", produces = {
 			"application/json; charset=UTF-8" }, method = RequestMethod.GET)
-	public @ResponseBody List<ReportProductAdv> queryProductAdv(Model model) {
-
-		// 取session companyid
-		Company company = (Company) model.getAttribute("company");
-		int companyid = company.getId();
-		return reportService.queryProductAdv(companyid);
+	public @ResponseBody List<ReportProductAdv> queryProductAdv1(
+			@RequestParam(required = false) String companyid,
+			Model model
+		) {
+		int companyidInt;
+		if (companyid == null) {
+			Company company = (Company) model.getAttribute("company");
+			companyidInt = company.getId();
+		}else {
+			companyidInt = Integer.parseInt(companyid); 
+		}
+		return reportService.queryProductAdv(companyidInt);
 	}
 
 	// Tab8-更新至Adv資料庫

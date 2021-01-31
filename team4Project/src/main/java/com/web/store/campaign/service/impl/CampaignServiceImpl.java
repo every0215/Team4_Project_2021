@@ -23,6 +23,7 @@ import com.web.store.campaign.model.Page;
 import com.web.store.campaign.model.SearchBean;
 import com.web.store.campaign.service.CampaignService;
 import com.web.store.company.model.Company;
+import com.web.store.product.dao.ProductDao;
 import com.web.store.product.model.Product;
 import com.web.store.product.service.ProductService;
 
@@ -148,12 +149,12 @@ public class CampaignServiceImpl implements CampaignService {
 	@Override
 	public double checkProductDiscountById(int productId) {
 		Product product = productService.getProduct(productId);
-		Hibernate.initialize(product);
 		Set<Campaign> campOfProduct = product.getCampaigns();
+		Hibernate.initialize(campOfProduct);
 		double lowestDiscount = 1;
 		for(Campaign camp:campOfProduct) {
 			
-			//當活動類型是折扣，活動進行中才判斷
+			//當活動類型是折扣 進行中，活動進行中才判斷
 			if(camp.getDiscountParams().getType()==1 && camp.getStatus() && !camp.getExpired()) {			
 				if(camp.getDiscountParams().getOffParam()!=null) {
 					double OffParam = camp.getDiscountParams().getOffParam();
@@ -250,6 +251,24 @@ public class CampaignServiceImpl implements CampaignService {
 			System.out.println(mb.getNickname());
 			accountService.addMemberNotification(mb, 3, title, description, "http://localhost:8080/proj/campaign/detail/"+campId);
 		}
+	}
+
+	@Override
+	public void updateProductDiscount() {
+		productService.setProductDiscountToDefault();
+		List<Campaign> camps = campDao.selectActiveCampaign();
+		for(Campaign camp:camps) {
+			Double discount = camp.getDiscountParams().getOffParam();
+			if(discount!=null) {
+				Set<Product> pros = camp.getProducts();
+				for(Product pro:pros) {	
+					if(pro.getdiscount()>discount) {
+						pro.setdiscount(discount);
+					}		
+				}
+			}
+		}
+		System.out.println("更新成功");
 	}
 	
 	

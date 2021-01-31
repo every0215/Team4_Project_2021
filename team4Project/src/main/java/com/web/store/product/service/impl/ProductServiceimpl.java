@@ -69,4 +69,9 @@ public class ProductServiceimpl implements ProductService {
 	public List<Product>  selectbyName(String productName){
 		return productDao.selectbyName(productName);
 	}
+
+	@Override
+	public void setProductDiscountToDefault() {
+		productDao.setProductDiscountToDefault();		
+	}
 }
