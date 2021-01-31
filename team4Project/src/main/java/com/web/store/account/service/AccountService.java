@@ -55,5 +55,7 @@ public interface AccountService {
 	void addMemberNotification(MemberBean member, int type, String title, String description, String url) throws Exception;
 
 	void delete(MemberBean member);
+	
+	MemberBean selectWithNotificationById(String id) throws Exception;
 
 }

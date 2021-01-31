@@ -369,6 +369,8 @@ ul.ll-err-list-msg {
   animation-iteration-count: 1;
   animation-timing-function: all;
   animation-duration: 0.75s;
+  overflow:scroll;
+  height:500px
 }
 .ll-notification-container:before {
   content: "";
