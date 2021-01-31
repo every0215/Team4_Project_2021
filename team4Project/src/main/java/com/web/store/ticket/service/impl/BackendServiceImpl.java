@@ -456,20 +456,25 @@ public class BackendServiceImpl implements BackendService {
 
 	@Override
 	public void checkTicketOnWay() {
-		
+		try {
 		ArrayList<TicketOnWay> ticketOnWays = ticketOnWayDao.queryAll();
-//		System.out.println(ticketOnWays.size());
+		System.out.println(ticketOnWays.size());
 		Date now = new Date();
 		Timestamp nowTime = new Timestamp(now.getTime());
 		List<String> listOfOrderId = new ArrayList<String>();
 		for(TicketOnWay ticketOnWay : ticketOnWays) {
-//			System.out.println("==================1=============================");
+			System.out.println("==================1=============================");
 			Hibernate.initialize(ticketOnWay.getTicketOrder());
+			System.out.println("=================2=============================");
 			Timestamp deleteTime = ticketOnWay.getDeletedTime();
+//			System.out.println(nowTime);
+//			System.out.println(deleteTime);
+//			System.out.println(deleteTime.before(nowTime));
 			if (deleteTime.before(nowTime)) {
 				Event event = eventDao.queryOneEvent(ticketOnWay.getEventId());
+				System.out.println("event.getTypeId()");
+				System.out.println(event.getTypeId());
 				if(event.getTypeId()==3) {
-					
 					Integer value = ticketOnWay.getValue();
 					SportSeat seat = sportSeatDao.queryOneSportSeat(ticketOnWay.getSeatId());
 					Integer oStock = seat.getStock();
@@ -486,6 +491,7 @@ public class BackendServiceImpl implements BackendService {
 				}
 	        }
 		}
+		System.out.println("step 2");
 		for(String orderId : listOfOrderId) {
 			TicketOrder ticketOrderN = ticketOrderDao.queryTicketOrderbyId(orderId);
 			Hibernate.initialize(ticketOrderN);
@@ -499,8 +505,12 @@ public class BackendServiceImpl implements BackendService {
 			
 //		Timestamp validTime = new Timestamp(now.getTime());
 //		System.out.println("=============="+validTime+"==============");
-//		System.out.println("check "+ticketOnWays.size()+" over");
-		
+		System.out.println("check "+ticketOnWays.size()+" over");
+		}catch(Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+			  //  Block of code to handle errors
+		}
 	}
 
 	@Override
@@ -528,6 +538,11 @@ public class BackendServiceImpl implements BackendService {
 			}
 		}
 		
+	}
+
+	@Override
+	public TicketOrder queryTicketOnWayByTicketOrder(String shortId) {
+		return ticketOrderDao.queryTicketOrderbyshortId(shortId);
 	}
 	
 	

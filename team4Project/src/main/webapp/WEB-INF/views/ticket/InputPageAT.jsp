@@ -1,3 +1,4 @@
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		<!DOCTYPE html>
@@ -6,7 +7,7 @@
 		<head>
 			<meta charset="UTF-8">
 			<title>展覽</title>
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -15,6 +16,9 @@
 			<script src="../ticketjs/checkDateTime.js"></script>
 
 			<style>
+			body{
+				background-color: #ECF0F5;
+			}
 				.t1 {
 					width: 150px;
 					float: left;
@@ -33,13 +37,26 @@
 				color:red;
 				font-style:oblique;
 				}
+				.main-header .navbar-custom-menu, .main-header .navbar-right {
+				height:500px;
+				}
+				.ticket_area{
+				background-color: transparent;
+				position: absolute;
+				width: calc(100vw);
+				height: calc(100vh - 80px);
+				bottom: 0px;
+				right: 0px;
+				}
+
 			</style>
 		</head>
 
 		<body>
-			<div class="jumbotron text-center">
-				<h1>E-Ticket票券系統</h1>
-			</div>
+<div class="ticket_area">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper" style="min-height:204px">
+			<!-- Content Header (Page header) -->
 			<script src="https://code.jquery.com/jquery-3.5.1.js"
 				integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 			<a href="InputPageEX">展覽</a>
@@ -62,16 +79,16 @@
 
 					<label class="t1" for="">起始售票時間:</label> <input type="text" id="dateTime1" name="onSaleDate"
 						placeholder="ex:2021-01-01 9:00:01" required="required"> <span id="datetimesp1"></span><br>
-					<br> <span>時間格式:yyyy-MM-dd HH:mm:ss</span><br>
+					<br> <span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br>
 					<br> <label class="t1" for="">結束售票時間:</label> <input type="text" id="dateTime2" name="offSaleDate"
 						placeholder="ex:2021-01-31 21:00:01" required="required"> <span id="datetimesp2"></span><br>
-					<br> <span>時間格式:yyyy-MM-dd HH:mm:ss</span><br>
+					<br> <span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br>
 					<br> <label class="t1" for="">票券起始日:</label> <input type="text" id="date1" name="commDate"
 						placeholder="ex:2021-01-01" required="required"> <span id="datesp1"></span><br>
-					<br> <span>時間格式:yyyy-MM-dd</span> <br>
+					<br> <span style="margin-left:90px">時間格式:yyyy-MM-dd</span> <br>
 					<br> <label class="t1" for="">票券終止日:</label> <input type="text" id="date2" name="dueDate"
 						placeholder="ex:2021-01-31" required="required"> <span id="datesp2"></span><br>
-					<br> <span>時間格式:yyyy-MM-dd</span><br>
+					<br> <span style="margin-left:90px">時間格式:yyyy-MM-dd</span><br>
 					<br> <label class="t1" for="">描述:</label>
 					<textarea style="resize: none; width: 600px; height: 200px;" name="description"></textarea>
 					<br>
@@ -89,10 +106,11 @@
 							</div>
 						</div>
 
-						<input id="Button1" type="button" value="新增價位與名稱" />
-						<input id="submitButton" type="submit" name="sumbmit" />
+						<input id="Button1" class="btn btn-primary btn-sm" type="button" value="新增價位與名稱" />
+						<input id="submitButton" type="submit" class="btn btn-warning" name="sumbmit" />
+						<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
 			</form>
-			<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+			
 			
 			<script>
 			let nowDate = new Date();
@@ -250,6 +268,8 @@
 							
 							
 						</script>
+						</div>
+					</div>
 
 		</body>
 

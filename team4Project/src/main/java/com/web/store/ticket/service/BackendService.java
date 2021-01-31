@@ -75,6 +75,7 @@ public interface BackendService {
 	
 	public TicketOrder queryTicketOrderDetailByTicketOrder(TicketOrder ticketOrder);
 	public TicketOrder queryTicketOnWayByTicketOrder(TicketOrder ticketOrder);
+	public TicketOrder queryTicketOnWayByTicketOrder(String shortId);
 	
 	public void checkTicketOnWay();
 	public void checkEventStatus();

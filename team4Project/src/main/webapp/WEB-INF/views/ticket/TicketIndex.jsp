@@ -1,3 +1,4 @@
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,8 +12,8 @@
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
 <title>票券主頁</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -20,7 +21,26 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!--   =============TSET============= -->
+<style>
 
+body{
+				background-color: #ECF0F5;
+			}
+				
+				.main-header .navbar-custom-menu, .main-header .navbar-right {
+				height:500px;
+				}
+				.ticket_area{
+				background-color: transparent;
+				position: absolute;
+				width: calc(100vw);
+				height: calc(100vh - 80px);
+				bottom: 0px;
+				right: 0px;
+				}
+
+
+</style>
 
 
 
@@ -28,9 +48,10 @@
 
 
 <body>
-	<div class="jumbotron text-center">
-		<h1>E-Ticket票券系統</h1>
-	</div>
+	<div class="ticket_area">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper" style="min-height:204px">
+			<!-- Content Header (Page header) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
@@ -127,6 +148,8 @@
           </c:forEach>
         </tbody>
       </table>
+      </div>
+      </div>
       </div>
 
 	<script>

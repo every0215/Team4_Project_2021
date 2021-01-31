@@ -1,25 +1,45 @@
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- <meta charset="UTF-8"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Event Show Page</title>
+<style>
+
+body{
+				background-color: #ECF0F5;
+			}
+				
+				.main-header .navbar-custom-menu, .main-header .navbar-right {
+				height:500px;
+				}
+				.ticket_area{
+				background-color: transparent;
+				position: absolute;
+				width: calc(100vw);
+				height: calc(100vh - 80px);
+				bottom: 0px;
+				right: 0px;
+				}
+</style>
 </head>
 <body>
-<div class="jumbotron text-center">
-  <h1>E-Ticket票券系統</h1>
-</div>
+<div class="ticket_area">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper" style="min-height:204px">
+			<!-- Content Header (Page header) -->
 
 <h2>您輸入的資訊:</h2><br>
 
-<table style="margin: auto;width: 800px;border:3px #cccccc solid;" cellpadding="10" border='1'>
-<tr><td>序號</td> <td>${event.id}</td></tr>
+<table style="margin: auto;width: 800px;border:3px #336666 solid;background-color:#C4E1E1;text-align:center" cellpadding="10" border='1'>
+
 <tr><td>種類</td> <td>${eventType.typeName}</td></tr>
 <tr><td>名稱</td> <td>${event.eventName}</td></tr>
 <tr><td>地點</td> <td>${event.eventLocation}</td></tr>
@@ -29,16 +49,16 @@
                	 
                	 <c:otherwise>下架</c:otherwise>
                  </c:choose></td></tr>
-<tr><td>售票期間</td> <td>${exhibition.onSaleDate.toString().substring(0, 19)} ~ ${exhibition.offSaleDate.toString().substring(0, 19)}</td></tr>
+<tr><td nowrap="nowrap">售票期間</td> <td>${exhibition.onSaleDate.toString().substring(0, 19)} ~ ${exhibition.offSaleDate.toString().substring(0, 19)}</td></tr>
 <tr><td>展出期間 </td> <td>${exhibition.commDate} ~ ${exhibition.dueDate}</td></tr>
-<tr><td>展覽介紹</td> <td>${exhibition.description}</td></tr>
+<tr><td>展覽介紹</td> <td style="text-align:left">${exhibition.description}</td></tr>
 <tr><td>優惠信用卡</td> <td>${creditCard.cardName}</td></tr>
 <tr><td>優惠信用卡折扣</td> <td>${exhibition.discountRatio}</td></tr>
 </table>
 <br>
 <img height="300px" src="<c:url value='/geteventimage/${event.id}'/>" style="display:block; margin:auto;"/>
 <br>
-<table style="margin: auto;width: 800px;border:3px #cccccc solid;" cellpadding="10" border='1'>
+<table style="margin: auto;width: 800px;border:3px #336666 solid;background-color:#C4E1E1;text-align:center" cellpadding="10" border='1'>
 <tr><td>票券名稱</td> <c:forEach var="price" items="${priceList}"><td>${price.name}</td></c:forEach></tr>
 <tr><td>票券價格</td> <c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach></tr>
 </table>
@@ -54,7 +74,8 @@
 <button id="updateButton" class="btn btn-success" onclick="location.href = '<c:url value="/EventUpdate/${event.id}" />'">修改</button>
 <button id="deleteButton" class="btn btn-danger" onclick="location.href = '<c:url value="/EventDel/${event.id}" />'">刪除</button>
 <a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
-
+</div>
+</div>
 
 <script>
 let unbindFunction = (checkTime) => {

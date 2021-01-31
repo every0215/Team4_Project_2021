@@ -112,7 +112,14 @@
 
 
                   <a id="payByMCoin" href="#" class="btn btn-primary btn-lg" role="button">滿幣支付</a>
-                  <button id="payByCreditCard" type="button" class="btn btn-primary btn-lg">信用卡支付</button>
+                  <form action="<c:url value='../ecpay'/>" method="post">
+                  		<input type="hidden" id="order" name="order"/>
+                  		<input type="hidden" id="orderName" name="orderName"/>
+                  		<input type="hidden" id="orderCost" name="orderCost"/>
+                  		<input type="hidden" id="tradeDesc" name="tradeDesc"/>
+                  	<button id="payByCreditCard" type="submit" class="btn btn-primary btn-lg">信用卡支付</button>
+                  </form>
+                  
                 </div>
               </div>
 
@@ -194,7 +201,11 @@
             $("#ticketOrderId").html('訂單編號:' + ticketOrderJSON.id);
             $("#eventName").html('票券名稱:' + eventJSON.eventName);
             $("#totalCost").html('總價:$' + ticketOrderJSON.totalCost);
-
+            
+            $("#order").val(ticketOrderJSON.id);
+            $("#tradeDesc").val(ticketOrderJSON.id);
+            $("#orderCost").val(ticketOrderJSON.totalCost);
+            $("#orderName").val(eventJSON.eventName);
 
             let discount = ticketOrderDetailsJSON[0].discount;
             let type = eventJSON.typeId;

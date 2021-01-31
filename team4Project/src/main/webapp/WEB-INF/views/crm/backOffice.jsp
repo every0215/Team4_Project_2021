@@ -130,11 +130,6 @@
                         </a>
                     </li>
                     <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-check-square-o"></i> <span>訂單管理</span>
-                        </a>
-                    </li>
-                    <li class="treeview">
                         <a href="<c:url value='/campaign/boIndex/1' />">
                             <i class="fa fa-bullhorn"></i>
                             <span>活動管理</span>
@@ -164,7 +159,7 @@
                     <li class="treeview">
                         <a href="<c:url value='/cs/loginpage' />">
                         
-                            <i class="fa fa-files-o"></i>
+                            <i class="fa fa-check-square-o"></i>
                             <span>客服系統</span>
                         </a>
                     </li>

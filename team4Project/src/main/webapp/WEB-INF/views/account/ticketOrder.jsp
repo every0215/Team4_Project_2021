@@ -225,7 +225,8 @@ input:focus {
 		$('#myTable').DataTable({
 			"dom" : 'rftl',
 			"scrollY" : "200px",
-			"lengthMenu": [6, 9],
+			"lengthMenu": [4, 6],
+			"paging": true,
 			
 		});
 
