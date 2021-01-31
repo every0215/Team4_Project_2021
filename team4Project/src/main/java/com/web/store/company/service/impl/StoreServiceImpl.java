@@ -75,14 +75,19 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public boolean update(Store sto) {
-		
+		if((sto.getProfiles()).equals("") || (sto.getProfiles()) == null) {
+			Company cmp = cmpDao.getCompanyById((sto.getCompany()).getId());
+			String cmpProfiles = cmp.getProfiles();
+			sto.setProfiles(cmpProfiles);
+		}
 		return stoDao.update(sto);
 	}
 
 	@Override
 	public Store getStoreById(Integer id) {
-		
-		return stoDao.getStoreById(id);
+		Store  sto = stoDao.getStoreById(id);
+		Hibernate.initialize(sto.getCompany());
+		return sto;
 	}
 
 	@Override

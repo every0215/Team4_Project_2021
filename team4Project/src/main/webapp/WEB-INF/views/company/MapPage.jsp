@@ -78,13 +78,13 @@ ul {
 						服務
 						<div>
 							<ul class="sevicelist">
-								<li><input type="checkbox" name="" id=""> <span><img
-										height="20px" width="20px" src="" /></span> 廁所</li>
-								<li><input type="checkbox" name="" id=""> <span><img
-										height="20px" width="20px" src="" /></span> ATM</li>
-								<li><input type="checkbox" name="" id=""> <span><img
-										height="20px" width="20px" src="" /></span> 停車場</li>
-								<button id="svSearch">搜尋</button>
+<!-- 								<li><input type="checkbox" name="" id=""> <span><img -->
+<!-- 										height="20px" width="20px" src="" /></span> 廁所</li> -->
+<!-- 								<li><input type="checkbox" name="" id=""> <span><img -->
+<!-- 										height="20px" width="20px" src="" /></span> ATM</li> -->
+<!-- 								<li><input type="checkbox" name="" id=""> <span><img -->
+<!-- 										height="20px" width="20px" src="" /></span> 停車場</li> -->
+<!-- 								<button id="svSearch">搜尋</button> -->
 							</ul>
 
 						</div>
@@ -115,10 +115,6 @@ ul {
 
 		</table>
 	</div>
-	<button id="test">測試</button>
-	<div id="result"></div>
-	<img height="20px" width="20px"
-		src="/company/getCompanyServiceImage/${3}" />
 	<script>
 	//=====================================================================================
 	//地圖程式碼
@@ -128,7 +124,7 @@ ul {
 		function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: 25.0248769, lng: 121.5260833 },
-                zoom: 10,
+                zoom: 8,
                 mapTypeControl: false,
                 fullscreenControl: false,
                 zoomControlOptions: { position: google.maps.ControlPosition.RIGHT_BOTTOM },
@@ -166,8 +162,7 @@ ul {
                             $(".map_info").html("")
 
                             //顯示marker查出來的企業資訊
-                            $(".map_info").append(`
-                            ` + $("#cmpChange").val() + ` ` + data.storeName + `<br>
+                            $(".map_info").append(` ` + data.storeName + `<br>
                             <span><img height="20px" width="20px" src="" /></span>
                             <span><img height="20px" width="20px" src="" /></span>
                             <span><img height="20px" width="20px" src="" /></span>(服務)<br>
@@ -209,21 +204,34 @@ ul {
 	
         //取lat中間值
         function Averagelat(){
-            var avglat = 0;
+            var avglat = 0,totalAmount = 0;
             for (var i = 0; i < position.length; i++) {
-                avglat += position[i].lat
+            	if (position[i].lng != null){
+            		totalAmount++;
+            		avglat += position[i].lat
+            	}
+                
             }
-            return (avglat/position.length);
+            return fix((avglat/totalAmount), 6);
+            //return (avglat/position.length);
         }
         //取lng中間值
         function Averagelng(){
-            var avglng = 0;
+            var avglng = 0,totalAmount = 0;
             for (var i = 0; i < position.length; i++) {
-                avglng += position[i].lng
+            	if (position[i].lng != null){
+            		totalAmount++;
+            		avglng += position[i].lng
+            	}
+                
             }
-            return (avglng/position.length);
+            return fix((avglng/totalAmount), 6);
+            //return (avglng/position.length);
         }
-        
+        function fix(num, N) {
+        	var base = Math.pow(10, N);
+        	return Math.round(num * base) / base;
+        	}
         
 	//=====================================================================================
 	//搜尋欄變更
@@ -310,12 +318,15 @@ ul {
                         $(".sevicelist").append(`
                 				<li>
                                 <input type="checkbox" name="" id="`+ data[i].id + `" >
-                                <span><img height="20px" width="20px" src="/company/getCompanyServiceImage/`+ data[i].id + `" /></span>
+                                <span><img height="20px" width="20px" src="<c:url value='/company/getCompanyServiceImage/`+ data[i].id + `' />" /></span>
                                 `+ data[i].spService + `
                             	</li>
+                            	
                 		`)
                     }
-
+                    $(".sevicelist").append(`
+                    		<button id="svSearch">搜尋</button>
+                    `)
                     console.log(data)
                 }
             });
@@ -327,7 +338,10 @@ ul {
                 success: function (data) {
                     //設置Marker參數
                     position = data;
-                    map.setCenter({lat:Averagelat(),lng:Averagelng()});
+                    console.log("選企業回傳AJAX")
+                    
+                    map.setCenter({lat:Averagelat(),lng:Averagelng()})
+                    console.log(Averagelat(),Averagelng())
                     go();
 
                     console.log(data)

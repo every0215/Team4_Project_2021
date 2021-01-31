@@ -20,6 +20,7 @@
 			<fieldset class="fieldset-auto-width">
 				<legend>門市資料</legend>
 				<table>
+				<form:hidden path="id" />
 					<tr>
 						<td align='right'>門市名稱：</td>
 						<td><form:input path="storeName"  type="text" /></td>
@@ -62,12 +63,22 @@
 						<td align='right'>電話：</td>
 						<td><form:input path="phone"  type="text" />
 						</td>
+						<td align='right'>上下架狀態：</td>
+						<td>
+<!-- 						修改狀態 -->
+                 		<form:radiobutton path = "status" value = "True" label = "上架" />
+                		<form:radiobutton path = "status" value = "False" label = "下架" />
+
+						
+						
+<!-- 						<input type="time" name="closehour" /> -->
+						</td>
 					</tr>
 					<tr>
-						<td align='right'>Fex<font size='-3' color='blue'>(yyyy-MM-dd)</font>：
+						<td align='right'>Fex<font size='-3' color='blue'></font>：
 						</td>
 						<td><form:input path="fex"  type="text" />
-						 <form:hidden path="company" value="${sessionScope.company.id}"/>
+<%-- 						 <form:hidden path="company" value="${sessionScope.company.id}"/> --%>
 						</td>
 					</tr>
 					
@@ -75,10 +86,17 @@
 					
 					<tr>
 						<td colspan='2' align='center'>
+						<div style="padding:5px">
+							門市簡介:<br/>
+						<form:textarea rows="4" cols="50" placeholder="請輸入簡介(不輸入預設企業簡介)" path="profiles"></form:textarea>
+						</div>
+						
 						<input type='submit' value='提交'></td>
 					</tr>
 				</table>
 			</fieldset>
+			
+			
 		</form:form>
 
 <a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
