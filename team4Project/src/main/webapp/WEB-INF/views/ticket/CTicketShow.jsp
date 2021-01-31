@@ -108,12 +108,12 @@
            
            <c:choose>
              <c:when test="${event.typeId==1}">
-             <p style="text-align:left">售票期間:${exhibition.onSaleDate.toString().substring(0, 16)}~${exhibition.offSaleDate.toString().substring(0, 16)}</p>
+             <p id="sailingPeriod" style="text-align:left">售票期間:${exhibition.onSaleDate.toString().substring(0, 16)}~${exhibition.offSaleDate.toString().substring(0, 16)}</p>
              <p style="text-align:left">展出期間:${exhibition.commDate}~${exhibition.dueDate}</p>
              <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${exhibition.discountRatio*10}折</p>
              </c:when>
              <c:when test="${event.typeId==2}">
-             <p style="text-align:left">售票期間:${attraction.onSaleDate.toString().substring(0, 16)}~${attraction.offSaleDate.toString().substring(0, 16)}</p>
+             <p id="sailingPeriod" style="text-align:left">售票期間:${attraction.onSaleDate.toString().substring(0, 16)}~${attraction.offSaleDate.toString().substring(0, 16)}</p>
              <p style="text-align:left">票券有效期:${attraction.commDate}~${attraction.dueDate}</p>
              </c:when>
             <c:otherwise>
@@ -126,7 +126,7 @@
             		<form action="<c:url value='/TicketBuy/${eventId}'/>" method="post">
             			<input type="hidden" name="eventId" value="${event.id}" />
             			
-            			<button type="submit" class="btn btn-info">線上購買</button>
+            			<button id="buyButton" type="submit" class="btn btn-info" disable="true">線上購買</button>
             		</form>       
         </c:if>
            </div>
@@ -276,8 +276,12 @@
             nowDate.setTime(nowDate.getTime()+24*60*60*1000);
             console.log('明天時間'+nowDate);
     		
-    		
-    		$("#sessionTR tr").each(function(){
+            let sailingPeriod =$('#sailingPeriod').html();
+            
+            if (sailingPeriod == undefined){
+            	console.log("這是體育票")
+            	
+            	$("#sessionTR tr").each(function(){
     			 console.log($(this).find("td:first").html());
     			 let strDate = $(this).find("td:first").html();
     			 let sessionDate = new Date(Date.parse(strDate.replace('-','/')));
@@ -294,6 +298,23 @@
     				 console.log("Session比系統目前時間大");
     			 }
     		})
+            }else{
+            	
+            	let onSaleStr = sailingPeriod.substring(5,21);
+                let offSaleStr = sailingPeriod.substring(22,38);
+
+                let onSaleDate = new Date(Date.parse(onSaleStr.replace('-','/')));
+                let offSaleDate = new Date(Date.parse(offSaleStr.replace('-','/')));
+                
+                if (( Date.parse(onSaleDate) < Date.parse(nowDate)) && (Date.parse(nowDate)< Date.parse(offSaleDate))){
+               	 
+                    $('#buyButton').attr('disabled', false)
+                    
+                    
+                     console.log("時間為售票期間 故購買button改為able");
+                
+                }
+            } 
     	}
     	
     	
@@ -318,17 +339,6 @@
     	
         })
         
-        
-        
-       
-            
-          
-            
-        
-        
-        
-    	
-       
         
     </script>
       </body>

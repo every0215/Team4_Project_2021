@@ -10,9 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+
 import ecpay.payment.integration.domain.ATMRequestObj;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 import ecpay.payment.integration.domain.AioCheckOutATM;
@@ -50,7 +48,7 @@ import ecpay.payment.integration.verification.VerifyTradeNoAio;
  */
 public class AllInOne extends AllInOneBase{
 	
-	private final static Logger log = Logger.getLogger(AllInOne.class.getName());
+//	private final static Logger log = Logger.getLogger(AllInOne.class.getName());
 	
 	/**
 	 * AllInOne Constructor
@@ -59,14 +57,14 @@ public class AllInOne extends AllInOneBase{
 	 */
 	public AllInOne(String log4jPropertiesPath){
 		super();
-		if(log4jPropertiesPath != "" && log4jPropertiesPath != null){
-			if(log4jPropertiesPath.substring(log4jPropertiesPath.length()-1) == "/")
-				PropertyConfigurator.configure(log4jPropertiesPath + "log4j.properties");
-			else
-				PropertyConfigurator.configure(log4jPropertiesPath + "/log4j.properties");
-		} else{
-			Logger.getRootLogger().setLevel(Level.OFF);
-		}
+//		if(log4jPropertiesPath != "" && log4jPropertiesPath != null){
+//			if(log4jPropertiesPath.substring(log4jPropertiesPath.length()-1) == "/")
+//				PropertyConfigurator.configure(log4jPropertiesPath + "log4j.properties");
+//			else
+//				PropertyConfigurator.configure(log4jPropertiesPath + "/log4j.properties");
+//		} else{
+//			Logger.getRootLogger().setLevel(Level.OFF);
+//		}
 	}
 	
 	/**
@@ -104,7 +102,7 @@ public class AllInOne extends AllInOneBase{
 		} else {
 			obj.setMerchantID(MerchantID);
 		}
-		log.info("createServerOrder params: " + obj.toString());
+		
 		String result = "";
 		String CheckMacValue = "";
 		try{
@@ -113,16 +111,16 @@ public class AllInOne extends AllInOneBase{
 			createServerOrderUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(obj);
 			CheckMacValue = EcpayFunction.genCheckMacValue(HashKey, HashIV, obj);
-			log.info("createServerOrder generate CheckMacValue: " + CheckMacValue);
+			
 			String httpValue = EcpayFunction.genHttpValue(obj, CheckMacValue);
-			log.info("createServerOrder post String: " + httpValue);
+			
 			result = EcpayFunction.httpPost(createServerOrderUrl, httpValue, "UTF-8");
 		} catch(EcpayException e){
 			e.ShowExceptionMessage();
-			log.error(e.getNewExceptionMessage());
+			
 			throw new EcpayException(e.getNewExceptionMessage());
 		} catch(Exception e){
-			log.error(e.getMessage());
+			
 			throw new EcpayException(e.getMessage());
 		}
 		return result;
@@ -135,7 +133,7 @@ public class AllInOne extends AllInOneBase{
 	 */
 	public String fundingReconDetail(FundingReconDetailObj fundingReconDetailObj){
 		fundingReconDetailObj.setMerchantID(MerchantID);
-		log.info("fundingReconDetail params: " + fundingReconDetailObj.toString());
+		
 		String result = "";
 		String CheckMacValue = "";
 		try{
@@ -143,9 +141,9 @@ public class AllInOne extends AllInOneBase{
 			fundingReconDetailUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(fundingReconDetailObj);
 			CheckMacValue = EcpayFunction.genCheckMacValue(HashKey, HashIV, fundingReconDetailObj);
-			log.info("fundingReconDetail generate CheckMacValue: " + CheckMacValue);
+			
 			String httpValue = EcpayFunction.genHttpValue(fundingReconDetailObj, CheckMacValue);
-			log.info("fundingReconDetail post String: " + httpValue);
+			
 			result = EcpayFunction.httpPost(fundingReconDetailUrl, httpValue, "BIG5");
 			List<String> subRE = new ArrayList<String>();
 			Pattern pattern = Pattern.compile("\\d{8}\\,\\d{6}\\,\\d{5}");
@@ -177,7 +175,7 @@ public class AllInOne extends AllInOneBase{
 			result = result.substring(2);
 		} catch (EcpayException e2) {
 			e2.ShowExceptionMessage();
-			log.error(e2.getNewExceptionMessage());
+			
 			throw new EcpayException(e2.getNewExceptionMessage());
 		}
 		return result;
@@ -190,7 +188,7 @@ public class AllInOne extends AllInOneBase{
 	 */
 	public String queryTrade(QueryTradeObj queryTradeObj){
 		queryTradeObj.setMerchantID(MerchantID);
-		log.info("queryTrade params: " + queryTradeObj.toString());
+		
 		String result = "";
 		String CheckMacValue = "";
 		try {
@@ -198,13 +196,13 @@ public class AllInOne extends AllInOneBase{
 			queryTradeUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(queryTradeObj);
 			CheckMacValue = EcpayFunction.genCheckMacValue(HashKey, HashIV, queryTradeObj);
-			log.info("queryTrade generate CheckMacValue: " + CheckMacValue);
+			
 			String httpValue = EcpayFunction.genHttpValue(queryTradeObj, CheckMacValue);
-			log.info("queryTrade post String: " + httpValue);
+			
 			result = EcpayFunction.httpPost(queryTradeUrl, httpValue, "UTF-8");
 		} catch (EcpayException e2) {
 			e2.ShowExceptionMessage();
-			log.error(e2.getNewExceptionMessage());
+			
 			throw new EcpayException(e2.getNewExceptionMessage());
 		}
 		return result;
@@ -217,7 +215,7 @@ public class AllInOne extends AllInOneBase{
 	 */
 	public String tradeNoAio(TradeNoAioObj tradeNoAioObj){
 		tradeNoAioObj.setMerchantID(MerchantID);
-		log.info("tradeNoAio params: " + tradeNoAioObj.toString());
+		
 		String result = "";
 		String CheckMacValue = "";
 		try{
@@ -225,9 +223,9 @@ public class AllInOne extends AllInOneBase{
 			tradeNoAioUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(tradeNoAioObj);
 			CheckMacValue = EcpayFunction.genCheckMacValue(HashKey, HashIV, tradeNoAioObj);
-			log.info("tradeNoAio generate CheckMacValue: " + CheckMacValue);
+			
 			String httpValue = EcpayFunction.genHttpValue(tradeNoAioObj, CheckMacValue);
-			log.info("tradeNoAio post String: " + httpValue);
+			
 			result = EcpayFunction.httpPost(tradeNoAioUrl, httpValue, "BIG5");
 			List<String> subRE = new ArrayList<String>();
 			if(tradeNoAioObj.getMediaFormated().equals("0")){
@@ -252,7 +250,7 @@ public class AllInOne extends AllInOneBase{
 			}
 		} catch (EcpayException e2) {
 			e2.ShowExceptionMessage();
-			log.error(e2.getNewExceptionMessage());
+			
 			throw new EcpayException(e2.getNewExceptionMessage());
 		}
 		return result;
@@ -278,13 +276,13 @@ public class AllInOne extends AllInOneBase{
 			doActionUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(doActionObj);
 			CheckMacValue = EcpayFunction.genCheckMacValue(HashKey, HashIV, doActionObj);
-			log.info("doAction generate CheckMacValue: " + CheckMacValue);
+			
 			String httpValue = EcpayFunction.genHttpValue(doActionObj, CheckMacValue);
-			log.info("doAction post String: " + httpValue);
+			
 			result = EcpayFunction.httpPost(doActionUrl, httpValue, "UTF-8");
 		} catch (EcpayException e2){
 			e2.ShowExceptionMessage();
-			log.error(e2.getNewExceptionMessage());
+			
 			throw new EcpayException(e2.getNewExceptionMessage());
 		}
 		return result;
@@ -311,13 +309,13 @@ public class AllInOne extends AllInOneBase{
 			queryTradeInfoUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(queryTradeInfoObj);
 			CheckMacValue = EcpayFunction.genCheckMacValue(HashKey, HashIV, queryTradeInfoObj);
-			log.info("queryTradeInfo generate CheckMacValue: " + CheckMacValue);
+			
 			String httpValue = EcpayFunction.genHttpValue(queryTradeInfoObj, CheckMacValue);
-			log.info("queryTradeInfo post String: " + httpValue);
+			
 			result = EcpayFunction.httpPost(queryTradeInfoUrl, httpValue, "UTF-8");
 		} catch (EcpayException e2){
 			e2.ShowExceptionMessage();
-			log.error(e2.getNewExceptionMessage());
+			
 			throw new EcpayException(e2.getNewExceptionMessage());
 		}
 		return result;
@@ -331,7 +329,7 @@ public class AllInOne extends AllInOneBase{
 	public String queryCreditCardPeriodInfo(QueryCreditCardPeriodInfoObj queryCreditCardPeriodInfoObj) {
 		queryCreditCardPeriodInfoObj.setMerchantID(MerchantID);
 		queryCreditCardPeriodInfoObj.setTimeStamp(EcpayFunction.genUnixTimeStamp());
-		log.info("queryCreditCardPeriodeInfo params: " + queryCreditCardPeriodInfoObj.toString());
+		
 		String result = "";
 		String CheckMacValue = "";
 		try {
@@ -339,13 +337,13 @@ public class AllInOne extends AllInOneBase{
 			queryCreditTradeUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(queryCreditCardPeriodInfoObj);
 			CheckMacValue = EcpayFunction.genCheckMacValue(HashKey, HashIV, queryCreditCardPeriodInfoObj);
-			log.info("queryCreditCardPeriodInfo generate CheckMacValue: " + CheckMacValue);
+			
 			String httpValue = EcpayFunction.genHttpValue(queryCreditCardPeriodInfoObj, CheckMacValue);
-			log.info("queryCreditCardPeriodInfo post String: " + httpValue);
+			
 			result = EcpayFunction.httpPost(queryCreditTradeUrl, httpValue, "UTF-8");
 		} catch (EcpayException e2){
 			e2.ShowExceptionMessage();
-			log.error(e2.getNewExceptionMessage());
+			
 			throw new EcpayException(e2.getNewExceptionMessage());
 		}
 		return result;
@@ -375,7 +373,7 @@ public class AllInOne extends AllInOneBase{
 				ignoreParam = ignoreParam.substring(1, ignoreParam.length()-1);
 				((AioCheckOutALL) obj).setIgnorePayment(ignoreParam);
 			}
-			log.info("aioCheckOutALL params: " + ((AioCheckOutALL) obj).toString());
+			
 		} else if(obj instanceof AioCheckOutATM){
 			((AioCheckOutATM) obj).setPlatformID(PlatformID);
 			if(!PlatformID.isEmpty() && ((AioCheckOutATM) obj).getMerchantID().isEmpty()){
@@ -385,7 +383,7 @@ public class AllInOne extends AllInOneBase{
 				((AioCheckOutATM) obj).setMerchantID(MerchantID);
 			}
 			((AioCheckOutATM) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutATM params: " + ((AioCheckOutATM) obj).toString());
+			
 		} else if(obj instanceof AioCheckOutBARCODE){
 			((AioCheckOutBARCODE) obj).setPlatformID(PlatformID);
 			if(!PlatformID.isEmpty() && ((AioCheckOutBARCODE) obj).getMerchantID().isEmpty()){
@@ -395,7 +393,7 @@ public class AllInOne extends AllInOneBase{
 				((AioCheckOutBARCODE) obj).setMerchantID(MerchantID);
 			}
 			((AioCheckOutBARCODE) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutBARCODE params: " + ((AioCheckOutBARCODE) obj).toString());
+			
 		} else if(obj instanceof AioCheckOutCVS){
 			((AioCheckOutCVS) obj).setPlatformID(PlatformID);
 			if(!PlatformID.isEmpty() && ((AioCheckOutCVS) obj).getMerchantID().isEmpty()){
@@ -405,7 +403,7 @@ public class AllInOne extends AllInOneBase{
 				((AioCheckOutCVS) obj).setMerchantID(MerchantID);
 			}
 			((AioCheckOutCVS) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutCVS params: " + ((AioCheckOutCVS) obj).toString());
+			
 		} else if(obj instanceof AioCheckOutDevide){
 			((AioCheckOutDevide) obj).setPlatformID(PlatformID);
 			if(!PlatformID.isEmpty() && ((AioCheckOutDevide) obj).getMerchantID().isEmpty()){
@@ -415,7 +413,7 @@ public class AllInOne extends AllInOneBase{
 				((AioCheckOutDevide) obj).setMerchantID(MerchantID);
 			}
 			((AioCheckOutDevide) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutDevide params: " + ((AioCheckOutDevide) obj).toString());
+			
 		} else if(obj instanceof AioCheckOutOneTime){
 			((AioCheckOutOneTime) obj).setPlatformID(PlatformID);
 			if(!PlatformID.isEmpty() && ((AioCheckOutOneTime) obj).getMerchantID().isEmpty()){
@@ -425,7 +423,7 @@ public class AllInOne extends AllInOneBase{
 				((AioCheckOutOneTime) obj).setMerchantID(MerchantID);
 			}
 			((AioCheckOutOneTime) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutOneTime params: " + ((AioCheckOutOneTime) obj).toString());
+			
 		} else if(obj instanceof AioCheckOutPeriod){
 			((AioCheckOutPeriod) obj).setPlatformID(PlatformID);
 			if(!PlatformID.isEmpty() && ((AioCheckOutPeriod) obj).getMerchantID().isEmpty()){
@@ -435,7 +433,7 @@ public class AllInOne extends AllInOneBase{
 				((AioCheckOutPeriod) obj).setMerchantID(MerchantID);
 			}
 			((AioCheckOutPeriod) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutPeriod params: " + ((AioCheckOutPeriod) obj).toString());
+			
 		}  else if(obj instanceof AioCheckOutWebATM){
 			((AioCheckOutWebATM) obj).setPlatformID(PlatformID);
 			if(!PlatformID.isEmpty() && ((AioCheckOutWebATM) obj).getMerchantID().isEmpty()){
@@ -445,7 +443,7 @@ public class AllInOne extends AllInOneBase{
 				((AioCheckOutWebATM) obj).setMerchantID(MerchantID);
 			}
 			((AioCheckOutWebATM) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutWebATM params: " + ((AioCheckOutWebATM) obj).toString());
+			
 		} else{
 			throw new EcpayException(ErrorMessage.UNDIFINED_OBJECT);
 		}
@@ -454,7 +452,7 @@ public class AllInOne extends AllInOneBase{
 			aioCheckOutUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(obj);
 			if(invoice != null){
-				log.info("aioCheckOut invoice params: " + invoice.toString());
+				
 				verify.verifyParams(invoice);
 				verify.verifyInvoice(invoice);
 				invoice.setCustomerName(EcpayFunction.urlEncode(invoice.getCustomerName()));
@@ -467,7 +465,7 @@ public class AllInOne extends AllInOneBase{
 			out.append(genCheckOutHtmlCode(obj, invoice));
 		} catch (EcpayException e) {
 			e.ShowExceptionMessage();
-			log.error(e.getNewExceptionMessage());
+			
 			throw new EcpayException(e.getNewExceptionMessage());
 		}
 		return out.toString();
@@ -491,11 +489,11 @@ public class AllInOne extends AllInOneBase{
 					throw new EcpayException(ErrorMessage.OBJ_MISSING_FIELD);
 				}
 			}
-			log.info("ATMRequest params: " + obj.toString());
+			
 			String checkMacValue = EcpayFunction.genCheckMacValue(HashKey, HashIV, obj);
-			log.info("ATMRequest self generate CheckMacValue: " + checkMacValue + ", received CheckMacValue: " + obj.getCheckMacValue());
+			
 			if(!checkMacValue.equals(obj.getCheckMacValue())){
-				log.error(ErrorMessage.CHECK_MAC_VALUE_NOT_EQUALL_ERROR);
+				
 				throw new EcpayException(ErrorMessage.CHECK_MAC_VALUE_NOT_EQUALL_ERROR);
 			}
 			return obj;
@@ -510,11 +508,11 @@ public class AllInOne extends AllInOneBase{
 					throw new EcpayException(ErrorMessage.OBJ_MISSING_FIELD);
 				}
 			}
-			log.info("CVSRequest params: " + obj.toString());
+			
 			String checkMacValue = EcpayFunction.genCheckMacValue(HashKey, HashIV, obj);
-			log.info("CVSRequest self generate CheckMacValue: " + checkMacValue + ", received CheckMacValue: " + obj.getCheckMacValue());
+			
 			if(!checkMacValue.equals(obj.getCheckMacValue())){
-				log.error(ErrorMessage.CHECK_MAC_VALUE_NOT_EQUALL_ERROR);
+				
 				throw new EcpayException(ErrorMessage.CHECK_MAC_VALUE_NOT_EQUALL_ERROR);
 			}
 			return obj;

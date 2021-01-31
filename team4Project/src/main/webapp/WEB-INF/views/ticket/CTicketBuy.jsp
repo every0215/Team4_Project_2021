@@ -170,7 +170,7 @@
 
                         </table>
 
-                        <button type="submit" class="btn btn-info">下一步</button>
+                        <button id="buyTicket" type="submit" class="btn btn-info">下一步</button>
                       </form>
 
                     </c:when>
@@ -206,7 +206,7 @@
                           </tbody>
 
                         </table>
-                        <button type="submit" class="btn btn-info">下一步</button>
+                        <button id="buyTicket" type="submit" class="btn btn-info">下一步</button>
                       </form>
 
                     </c:when>
@@ -248,7 +248,7 @@
                           </tbody>
 
                         </table>
-                        <button type="submit" class="btn btn-info">下一步</button>
+                        <button id="buyTicket" type="submit" class="btn btn-info">下一步</button>
                       </form>
                     </c:otherwise>
                   </c:choose>
@@ -382,6 +382,15 @@
               //   			console.log(total);
             }
             $('#totalAmount').html(total);
+          });
+          
+          
+          $("#buyTicket").click(function () {
+              if ($('#totalAmount').html() == '0') {
+   
+                  event.preventDefault();
+              }
+   
           });
 
 
