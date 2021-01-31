@@ -1,32 +1,24 @@
 package com.web.store.home.controller;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.web.store.account.javabean.MemberBean;
 import com.web.store.product.service.ProductService;
+import com.web.store.report.model.Report;
+import com.web.store.report.service.ReportService;
 
 
 //import mvc.examples.model.Cat;
@@ -38,6 +30,9 @@ public class HomeController {
 	ServletContext servletContext;
 	@Autowired
 	ProductService pService;
+	
+	@Autowired
+	ReportService reportService; 
 	
 	@RequestMapping("/")
 	public String index() {
@@ -85,11 +80,19 @@ public class HomeController {
 					member.setProfileImage1Base64(base64Encoded);
 
 					model.addAttribute("user", member);
+					model.addAttribute("userNotificationNo", member.getMemberNotificationList()==null? 0 : member.getMemberNotificationList().size());
 				}
 			}
+			
+
 		}
+		//搜尋列下方所有廠商的銷售前五名商品
+		List<Report> queryProductTop = reportService.queryProductTop();
+		model.addAttribute("queryproducttop", queryProductTop);
+		
 		return "layout/header"; //
 	}
+	
 	
 	@RequestMapping("/bo")
 	public String boIndex() {

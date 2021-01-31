@@ -4,13 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
 <style>
         #rep_advertising {
             float: right;
-            margin: 30px 20px 0px 0px;
-            /* border: 1px solid black; */
+            margin: 10px 100px 0px 0px;
             border-radius: 10px 10px 0px 0px;
+            position: fixed;
+   			right: 10px;
+    		top: 80px;
+     		background-color: rgba(200,200,200,0.6); 
+    		z-index: 10000;
         }
         
         #rep_adv_title {
@@ -29,13 +33,12 @@
         
         #rep_adv_ul li {
             height: 120px;
-            /* border: 1px solid darkblue; */
         }
         
         #rep_adv_ul img {
             width: 110px;
             float: right;
-            /* border: 1px solid darkblue; */
+             padding-right:5px;
         }
         
         #rep_adv_1 {
@@ -45,25 +48,28 @@
         .rep_adv_li_b1 {
             float: left;
             width: 80px;
+            padding-left:5px;
+            font-size: 15px;
         }
         
         .rep_adv_li_b2 {
             float: left;
             color: darkolivegreen;
             font-size: smaller;
+             padding-left:5px;
+             font-size: 12px;
         }
         
         .rep_adv_li_b3 {
             color: red;
             float: left;
-            font-size: larger;
+            font-size: 14px;
+             padding-left:5px;
         }
     </style>
-
-
 </head>
 <body>
-    <div id="rep_advertising">
+    <div id="rep_advertising" >
         <!-- title -->
         <div id="rep_adv_title">
             <b>精選商品</b>
@@ -72,6 +78,8 @@
         <!-- content -->
         <div id="rep_adv_div">
             <ul id="rep_adv_ul">
+            	<div style='float:right;font-size:10px;' onclick='document.getElementById("rep_advertising").remove();'>關閉X </div>
+            	<br>
                 <li id="rep_adv_1">
                     <b class="rep_adv_li_b1">九福葡萄芝麻沙琪瑪</b>
                     <b class="rep_adv_li_b2">春節必備品,特價優惠中</b>
@@ -103,9 +111,6 @@
                     <strong class="rep_adv_li_b3">NT $1476</strong>
                     <img src="img/report/2409220.jpg">
                 </li>
-
-
-
         </div>
 
     </div>

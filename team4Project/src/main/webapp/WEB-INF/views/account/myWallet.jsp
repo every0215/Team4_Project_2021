@@ -315,7 +315,7 @@ h3{
 									    </div>
 									    <hr>
 									    <div class="row">
-											<form:form id="Form" method="POST" class="aa-login-form" style="width:97%;" action="${pageContext.request.contextPath}/member/myWalletTopUp"
+											<form:form id="Form" method="POST" class="" style="width:97%;" action="${pageContext.request.contextPath}/member/myWalletTopUp"
 												modelAttribute="MCoinTopUpDetail" enctype='multipart/form-data'>
 												<div class="form-group">
 													<h2>M幣儲值</h2>
@@ -329,13 +329,19 @@ h3{
 													<label for="paymentAmount">支付金額(台幣TWD)<span>*</span></label> 
 													<input type="number" class="form-control" id="paymentAmount" name="paymentAmount" value="" placeholder="" required disabled>
 												</div>
-												
 												<div class="form-group">
+													<label for="paymentMethod">支付方式<span>*</span></label> 
+													<div class="container">
+														<label class="radio-inline"><input type="radio" name="paymentMethod" value="1" checked>信用卡支付</label>
+														<label class="radio-inline"><input type="radio" name="paymentMethod" value="2" >PayPal支付</label><img src="<c:url value='/img/paypal.jpg'/>"  width="100"  />
+													</div>
+												</div>
+												<div id="CreditCardListDiv" class="form-group">
 													<div class="row">
 													  <div class="col-md-12">
 													  	<label for="validationCustom03">Category:</label>
 													      <select class="form-control form-control-lg" id="creditCardList" name="creditCardId" required>
-													        <option value="">請選擇信用卡</option>
+													        <option value="0">請選擇信用卡</option>
 													      </select>
 													  </div>
 													</div>
@@ -508,6 +514,7 @@ h3{
     		let msg = $("#Msg");
     	  	msgDiv.hide();
     	  
+    	  	let paymentMethodRB = $("input[name='paymentMethod']:checked");
     	  	getMemberCreditCards();
     	  	getMCoinTopUpDetailList();
     	
@@ -530,6 +537,17 @@ h3{
 				$("#paymentAmount").val($(this).val());
 			});
 			
+    	    $("input[name='paymentMethod']").click(function(){
+    	    	paymentMethodRB = $("input[name='paymentMethod']:checked");
+    	    	console.log(paymentMethodRB.val());
+    	    	if(paymentMethodRB.val()=='1'){
+    	    		 $("#CreditCardListDiv").show();
+    	    	}
+    	    	else{
+    	    		$("#CreditCardListDiv").hide();
+    	    	}
+    	    	
+    	    });
 
     	    $("#FormSubmit").click(function(e){
     		    e.preventDefault();
@@ -537,18 +555,25 @@ h3{
     		    
     		    console.log("#creditCardList value: " + $("#creditCardList").val() );
     		    
-    		    if($("#creditCardList").val()!=""){
-    		    	checkCreditCardFlag = true;
-    		    }
-    		    
     		    let errorMSG = "<ul class='ll-err-list-msg' >";
-    		    
-    		    if(!checkCreditCardFlag )
-    		    {
-    		    	errorMSG += "<li>請選擇信用卡</li>";
+    		    if(paymentMethodRB.val()=='1'){
+	    		    if($("#creditCardList").val()!=""){
+	    		    	checkCreditCardFlag = true;
+	    		    }
+	    		    
+	    		   
+	    		    
+	    		    if(!checkCreditCardFlag )
+	    		    {
+	    		    	errorMSG += "<li>請選擇信用卡</li>";
+	    		    }
+	    		    else{
+	    		    	msgDiv.hide();
+	    		    }
     		    }
-    		    else{
-    		    	msgDiv.hide();
+    		    
+    		    if(paymentMethodRB.val()=='2'){
+    		    	checkCreditCardFlag = true;
     		    }
     		    
     		    if (checkCreditCardFlag ) {

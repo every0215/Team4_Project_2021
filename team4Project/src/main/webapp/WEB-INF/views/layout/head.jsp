@@ -46,4 +46,8 @@
 	<link href="<c:url value='/css/luke-style.css' />" rel="stylesheet">
 		   
   </head>
+    
+  <style >
+	@import 'https://fonts.googleapis.com/css?family=Material+Icons';
+  </style>
   

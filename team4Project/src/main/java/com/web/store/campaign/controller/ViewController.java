@@ -33,4 +33,9 @@ public class ViewController {
 		return "campaign/CampaignUpdatePage";
 	}
 	
+//	@GetMapping("/loading")
+//	public String loadingPage() {
+//		return "campaign/loadingPage";
+//	}
+	
 }

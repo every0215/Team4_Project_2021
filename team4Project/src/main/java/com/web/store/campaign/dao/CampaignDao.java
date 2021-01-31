@@ -2,7 +2,9 @@ package com.web.store.campaign.dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import com.web.store.account.javabean.MemberBean;
 import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.Page;
 import com.web.store.campaign.model.SearchBean;
@@ -39,5 +41,9 @@ public interface CampaignDao {
 	int getTotalPageByCompanyId(int id);
 	
 	int deleteById(int id);	
+	
+	Set<MemberBean> getMemberByCompanyId(int companyId);
+	
+	List<Campaign> selectActiveCampaign();
 	
 }

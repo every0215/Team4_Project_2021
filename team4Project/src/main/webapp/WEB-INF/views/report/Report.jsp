@@ -24,39 +24,43 @@
 <style>
 /* datatable按鈕 */
 .dataTables_wrapper .dataTables_paginate {
-	float:none;
+	float: none;
 }
+
 div.dt-buttons {
-    position: relative;
-    float: right;
-    margin-top: 5px;
+	position: relative;
+	float: right;
+	margin-top: 5px;
 }
-@media (max-width: 767px)
-.main-sidebar, .left-side {
-    -ms-transform: unset;
-    -o-transform: unset;
+
+@media ( max-width : 767px) .main-sidebar , . left-side {
+	-ms-transform:unset	
+	-o-transform:unset;
 }
+
+
 </style>
 <!-- li的藍色標籤 -->
 <script>
 	$(function() {
-		
+
 		$("#rep_liaction li").click(function() {
-			console.log($(this).hasClass('last-element'));
+			// 			console.log($(this).hasClass('last-element'));
 			$(".tab-pane").removeClass("active");
-			if($(this).hasClass('last-element')){
+			if ($(this).hasClass('last-element')) {
+				// 				$(".tab-pane.tab-2").addClass("active").css("display","inline-block");		
 				$(".tab-pane.tab-2").addClass("active");
-			}else{
+				$("#rep_data").hide();
+			} else {
 				$(".tab-pane.tab-1").addClass("active");
+				$("#rep_data").show();
 			}
 			$(this).siblings().removeClass("active").end().addClass("active");
-// 			$("#rep_tab_2,#rep_data").removeClass("rep_display_none").end().addClass("rep_display_block");
-				});
+		});
 
 	})
-
-    
 </script>
+
 </head>
 <body>
 	<div class="rep_reportarea">
@@ -77,7 +81,7 @@ div.dt-buttons {
 						<!-- small box -->
 						<div class="small-box bg-yellow">
 							<div class="inner">
-								<h3>200</h3>
+								<h3>${singlemember}</h3>
 								<p>累計會員數</p>
 							</div>
 							<div class="icon">
@@ -91,7 +95,7 @@ div.dt-buttons {
 						<!-- small box -->
 						<div class="small-box bg-green">
 							<div class="inner">
-								<h3>${singlesales}1</h3>
+								<h3>${singlesales}</h3>
 								<p>年度累計銷售金額</p>
 							</div>
 							<div class="icon">
@@ -133,9 +137,9 @@ div.dt-buttons {
 				<!-- Main row -->
 				<!-- START CUSTOM TABS選擇區 -->
 				<div class="row">
-					<div class="col-md-8" >
+					<div class="col-md-8">
 						<!-- Custom Tabs -->
-						<div class="nav-tabs-custom" >
+						<div class="nav-tabs-custom">
 							<ul class="nav nav-tabs" id="rep_liaction">
 								<li class="active">
 									<a id="queryAreaSales">年度各區業績(各店)</a>
@@ -163,31 +167,32 @@ div.dt-buttons {
 											<a id="queryAllStorePayment">各店付款方式</a>
 										</li>
 										<li>
-											<a id="queryAllStoreStock">各店無庫存項數(<5)</a>
+											<a id="queryAllStoreStock">各店無庫存項數(<10)</a>
 											<!-- 											<a id="ReporyQueryAllData">全部明細</a> -->
 										</li>
 									</ul>
 								</li>
 								<li class='last-element'>
-									<a id="rep_adv" href="#rep_tab_8" data-toggle="tab">商品前五名排行(廣告)</a>
+									<!-- 									<a id="rep_adv" href="#rep_tab_8" data-toggle="tab">商品前五名排行(廣告)</a> -->
+									<a id="rep_adv" data-toggle="tab">商品前五名排行(廣告)</a>
 								</li>
 							</ul>
-							
+
 							<!-- 圖表區 -->
 							<div class="tab-content">
 								<div class="tab-pane tab-1 active" id="rep_tab_1">
-									<div id="rep_tab_2" ></div>
+									<div id="rep_tab_2"></div>
 								</div>
 								<!-- 								<div id="chart_container"> -->
 								<%-- 									<canvas id="myChart" width="200px" height="50%"></canvas> --%>
 								<!-- 								</div> -->
 								<div class="tab-pane tab-2">
 									<div id="rep_tab_8">
-									<jsp:include page="ReportRanking.jsp" flush="true" />
-									<jsp:include page="Report_Adv.jsp" flush="true" />
+										<jsp:include page="ReportRanking.jsp" flush="true" />
+										<jsp:include page="Report_Adv.jsp" flush="true" />
+									</div>
 								</div>
-								</div>
-								
+
 								<!-- /.tab-pane -->
 							</div>
 							<!-- /.tab-content -->
@@ -219,12 +224,12 @@ div.dt-buttons {
 												<!-- 資料表區 -->
 												<!-- 全部明細 -->
 												<div>
-													<fieldset class="rep_tabs_db" " style=" height: 170px; margin-bottom: 0px;">
+													<fieldset class="rep_tabs_db" " style="height: 170px; margin-bottom: 0px;">
 														<div id="tabs_1">
 															<table id="rep_table" class="table table-striped" style="margin-bottom: 0px; text-align: center;">
 
 															</table>
-															
+
 														</div>
 													</fieldset>
 												</div>
@@ -237,11 +242,10 @@ div.dt-buttons {
 							<!-- /.box-body -->
 							<!-- ↑資料表區截止 -->
 
-							</div>
-						</div>
-						<!-- /.box -->
 					</div>
-					<!-- /.col -->
+					<!-- /.box -->
+				</div>
+				<!-- /.col -->
 			</section>
 			<!-- /.content -->
 		</div>
@@ -251,41 +255,72 @@ div.dt-buttons {
 
 	<!-- 外掛JS檔-顯示圖與ajax -->
 	<script src="js/Report_Js.js"></script>
-	
+
 	<script type="text/javascript">
-	$(function(){	
-		$("#rep_adv").click(function(){
-			console.log("rep_adv")
-		})
-	});
-// 	function codeInsert(){
-// 		$('#tabs_1 > table').DataTable({
-// 			defaultStyle: {
-// 			    font: 'msyh'
-// 			},
-// 			scrollY: 120,
-// 			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
-// 			buttons: [
-//             {
-//                 extend: 'pdfHtml5',
-//                 title: 'Data export',
-// 				bom:true
-            
-//             },{
-//                 extend: 'excelHtml5',
-//                 title: 'Data export',
-//                 bom:true
-//             },
-//             ,{
-//                 extend: 'csvHtml5',
-//                 title: 'Data export',
-//                 bom:true
-//             }
-// 				,'copy'
-            
-//             ],
-// 		});
-//	}
+// 	function myFunc(){
+// 		console.log('123123');
+// 		setTimeout(function(){
+// // 			$("body").html($('#tabs_1').html())
+// 			$('#tabs_1 > table').DataTable({
+// 				scrollY: 20,
+// 				"dom": "Bftlp",
+// 				buttons: [
+// 			        'copy'
+// 			    ]
+//	 			buttons: [
+//	            {
+//	                 extend:'excelHtml5',
+//	                 title: 'Data export',
+//	                 bom:true,
+//	             },
+//	             {
+//	                 extend:'csvHtml5',
+//	                 title: 'Data export',
+//	                 bom:true,
+//	             },
+	            
+//	 				'copy'
+	            
+//	             ]
+// 			});
+// 		},2000);
+		
+		
+// 	}
+		// 		$(function() {
+		// 			$("#rep_adv").click(function() {
+		// 				console.log("rep_adv")
+		// 			})
+		// 		});
+
+		// 	function codeInsert(){
+		// 		$('#tabs_1 > table').DataTable({
+		// 			defaultStyle: {
+		// 			    font: 'msyh'
+		// 			},
+		// 			scrollY: 120,
+		// 			"dom": '<"top"if>rt<"bottom"lp>B<"clear">',
+		// 			buttons: [
+		//             {
+		//                 extend: 'pdfHtml5',
+		//                 title: 'Data export',
+		// 				bom:true
+
+		//             },{
+		//                 extend: 'excelHtml5',
+		//                 title: 'Data export',
+		//                 bom:true
+		//             },
+		//             ,{
+		//                 extend: 'csvHtml5',
+		//                 title: 'Data export',
+		//                 bom:true
+		//             }
+		// 				,'copy'
+
+		//             ],
+		// 		});
+		//	}
 	</script>
 
 

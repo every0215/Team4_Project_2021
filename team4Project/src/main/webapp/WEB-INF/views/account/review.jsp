@@ -71,7 +71,7 @@
 				  <div class="row">
 				    <div class="col-xs-12">
 				       <h4>儲值確認</h4>
-				       <form id="Form" action="${pageContext.request.contextPath}/member/executePayment" method="post">
+				       <form id="Form" action="${pageContext.request.contextPath}/member/executePayment" method="get">
 						<table>
 							<tr>
 								<td colspan="2"><b>Transaction Details:</b></td>

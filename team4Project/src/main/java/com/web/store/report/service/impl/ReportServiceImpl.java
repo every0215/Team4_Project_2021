@@ -7,8 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.store.product.model.Product;
 import com.web.store.report.dao.ReportDao;
 import com.web.store.report.model.Report;
+import com.web.store.report.model.ReportProductAdv;
 import com.web.store.report.service.ReportService;
 
 @Service
@@ -28,8 +30,8 @@ public class ReportServiceImpl implements ReportService {
 	}
 	//查詢累計會員數
 	@Override
-	public List<Report> queryMember() {
-		List<Report> list = reportDao.queryMember();
+	public String queryMember(int companyid) {
+		String list = reportDao.queryMember(companyid);
 		return list;
 		
 //		return reportDao.queryMember();
@@ -101,29 +103,32 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.queryAllStoreStock(companyid);
 	}
 	
-	//Tab8-商品前五名排行
+	//Tab8-匯入商品前五名排行
 	@Override
-	public List<Report> queryProductRanking(int companyid) {
+	public List<Product> queryProductRanking(int companyid) {
 		return reportDao.queryProductRanking(companyid);
 	}
-
-	//新增廣告排行榜商品
-	@Override
-	public void insert(Report report) {
-		reportDao.insert(report);
-
+	
+	 //Tab8-從adv資料庫搜尋
+//	public List<Report> queryProductAdv(int companyid){
+//		return reportDao.queryProductAdv(companyid);
+//	}
+	public List<ReportProductAdv> queryProductAdv(int companyid){
+		return reportDao.queryProductAdv(companyid);
 	}
+
+
 	//修改廣告排行榜商品
 	@Override
-	public void update(Report report) {
-		reportDao.update(report);
-
+	public boolean updateProductAdv(int companyid,List<ReportProductAdv> list){
+		return reportDao.updateProductAdv(companyid,list);
 	}
-	//刪除廣告排行榜商品
-	@Override
-	public void delete(int reportid) {
-		reportDao.delete(reportid);
 
+	
+	//查詢前五名商品
+	@Override
+	public	List<Report> queryProductTop(){
+		return reportDao.queryProductTop();
 	}
 
 }

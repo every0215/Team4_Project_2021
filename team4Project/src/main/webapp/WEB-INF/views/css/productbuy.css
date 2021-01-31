@@ -1,0 +1,13 @@
+@charset "UTF-8";
+.imgbox {
+/* 	margin-top:100px; */
+/* 	padding-bottom:100px; */
+}
+
+.buybox{
+	border:5; 
+	background-color: white; 
+	width: 1500px; 
+	
+	margin: 0 auto;
+}

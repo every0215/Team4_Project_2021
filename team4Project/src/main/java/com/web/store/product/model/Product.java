@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -38,14 +39,16 @@ public class Product implements Serializable{
 	private String productType;
 	@Column(name= "ProductDescript")
 	private String productDescript;
-	@Column(name= "CompanyName")
+//	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)    // javax.persistence.CascadeType;
+//	@JoinColumn(name= "CompanyName")
 	private String companyName;
+	
 	@Column(name= "productStuck")
 	private Integer productStuck;
 	@Column(name= "ProductPrice")
 	private Integer productPrice;
 	@Column(name= "Discount")
-	private Integer discount=1;
+	private Double discount= 1.0;
 	@Column(name= "ProductPic")
 	private Blob productPic;
 	@Column(name= "PicName")
@@ -61,8 +64,9 @@ public class Product implements Serializable{
                     @JoinColumn(name = "campaign_id", referencedColumnName = "id") })
 	Set<Campaign> campaigns=new HashSet<Campaign>();
 	
+	
 	public  Product(Integer productId,String productName,String productType,String productDescript,
-			String companyName,Integer productStuck,Integer productPrice,Integer discount,Blob productPic
+			String companyName,Integer productStuck,Integer productPrice,Double discount,Blob productPic
 			,Integer status){
 		super();
 		this.productId = productId;
@@ -77,7 +81,7 @@ public class Product implements Serializable{
 		this.status=status;
 	}
 	public  Product(String productName,String productType,String productDescript,
-			String companyName,Integer productStuck,Integer productPrice,Integer discount,Blob productPic,Integer status
+			String companyName,Integer productStuck,Integer productPrice,Double discount,Blob productPic,Integer status
 			){
 		super();
 		this.productName =productName;
@@ -110,6 +114,21 @@ public class Product implements Serializable{
 		this.status=status;
 	}
 	
+	public Product(Integer productId,Blob productPic, String picName, String productName, String productType, String productDescript,
+			String companyName, Integer productStuck, Integer productPrice, Integer status) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.productId=productId;
+		this.productPic=productPic;
+		this.picName=picName;
+		this.productName =productName;
+		this.productType = productType;
+		this.productDescript = productDescript;
+		this.productStuck= productStuck;
+		this.productPrice =productPrice;
+		this.companyName=companyName;
+		this.status=status;
+	}
 	public Integer getproductId() {
 		return productId;
 	}
@@ -153,10 +172,10 @@ public class Product implements Serializable{
 		this.productPrice = productPrice;
 	}
 	
-	public Integer getdiscount() {
+	public Double getdiscount() {
 		return discount;
 	}
-	public void setdiscount(Integer discount) {
+	public void setdiscount(Double discount) {
 		this.discount = discount;
 	}
 	public Blob getProductPic() {

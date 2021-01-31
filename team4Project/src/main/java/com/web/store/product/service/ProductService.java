@@ -21,4 +21,7 @@ public interface ProductService {
 	Product getProduct(Integer productId);
 	List<Product> selectbyCompanyName(String companyName);
 	List<Product> selectbyType(String productType);
+	List<Product>  selectbyName(String productname);
+	
+	void setProductDiscountToDefault();
 }

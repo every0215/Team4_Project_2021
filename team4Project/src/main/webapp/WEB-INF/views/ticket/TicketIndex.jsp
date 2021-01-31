@@ -49,7 +49,10 @@
 		href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 	<script
 		src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+		
 	<div style="width: 1000px; margin: 0 auto">
+	<a href='<c:url value="ticket/InputPageEX" />' class="btn btn-success" role="button">新增票券</a>
+	<br/><br/>
 		<table id="myTable"
 			style="margin: auto; width: 900px; border: 3px #cccccc solid;"
 			cellpadding="10" border='1'>
@@ -58,7 +61,7 @@
 					<th colspan='6' style="text-align: center;">票券一覽表</th>
 				</tr>
 				<tr>
-					<th nowrap="nowrap">序號</th>
+<!-- 					<th nowrap="nowrap">序號</th> -->
 					<th nowrap="nowrap"><svg xmlns="http://www.w3.org/2000/svg"
 							width="16" height="16" fill="currentColor"
 							class="bi bi-ui-checks-grid" viewBox="0 0 16 16">
@@ -74,6 +77,7 @@
                 <path fill-rule="evenodd"
 								d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
               </svg> 地點</th>
+              <th>狀態</th>
 					<th nowrap="nowrap"><svg xmlns="http://www.w3.org/2000/svg"
 							width="16" height="16" fill="currentColor"
 							class="bi bi-card-image" viewBox="0 0 16 16">
@@ -89,7 +93,7 @@
 
           <c:forEach var="event" items="${events}">
             <tr>
-              <td>${event.id}</td>
+<%--               <td>${event.id}</td> --%>
               <td>
   
                <c:choose>
@@ -102,13 +106,22 @@
               </td>
               <td>${event.eventName}</td>
               <td>${event.eventLocation}</td>
+              <td>
+              <c:choose>
+               	 <c:when test="${event.status==1}">上架
+               	 </c:when>
+               	 
+               	 <c:otherwise>下架</c:otherwise>
+                 </c:choose>
+              
+              </td>
               <td><img height="150px" src="<c:url value='/geteventimage/${event.id}'/>" /></td>
               <td>
                 <input type="hidden" name="typeId" value="${event.typeId}" />
-                <input type="hidden" name="companyId" value="1" />
                 <input type="hidden" name="eventId" value="${event.id}" />
                 <button class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventShow/${event.id}" />'">See More</button>
-
+               
+                
               </td>
             </tr>
           </c:forEach>
@@ -118,11 +131,18 @@
 
 	<script>
 		$(document).ready(function() {
-			$('#myTable').DataTable();
+			$('#myTable').DataTable({
+				"lengthMenu": [4, 8]
+			});
+
+			
 		});
+		
+		
+		
 	</script>
 
-	<a href="ticket/InputPageEX" class="btn btn-success" role="button">新增票券</a>
+	
 </body>
 
 </html>

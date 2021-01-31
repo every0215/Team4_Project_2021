@@ -27,9 +27,11 @@
 	position: relative;
 }
 
+
 .indexclassbb:hover {
-	width: 55%;
-	height: 60%;
+	transform: scale(1.1);
+/* 	width: 55%; */
+/* 	height: 60%; */
 	background: rgba(255, 255, 255, 0.6);
 	border-radius: 20px 20px 20px 20px;
 }
@@ -141,5 +143,15 @@ th{
 }
 .main-sidebar{
 	height: 926px;
+}
+
+.tab_adv{
+	display:inline-block;
+	background:pink;
+/* 	float: left; */
+}
+
+#rep_tab_8{
+		display:inline-flex;
 }
 
