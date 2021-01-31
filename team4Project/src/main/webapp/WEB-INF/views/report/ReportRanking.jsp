@@ -218,7 +218,7 @@ $("#rep_Rank_myTable tr:nth-child(3)").find("textarea").val('享受春節日子'
 $("#rep_Rank_myTable tr:nth-child(4)").find("input.name").val('好優頂級牛奶優酪');
 $("#rep_Rank_myTable tr:nth-child(4)").find("textarea").val('100%鮮乳自然發酵');
 $("#rep_Rank_myTable tr:nth-child(5)").find("input.name").val('泰式甜辣醬');
-$("#rep_Rank_myTable tr:nth-child(5)").find("textarea").val('適用各式料理');
+$("#rep_Rank_myTable tr:nth-child(5)").find("textarea").val('適用各式料理喔');
 });   
 });
 
