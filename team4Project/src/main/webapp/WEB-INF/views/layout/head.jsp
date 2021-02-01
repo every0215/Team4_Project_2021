@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>滿滿大平台</title>
-	
+	<link rel="shortcut icon" type="image/jpg" href="<c:url value='/img/favicon.ico' />"/>
     <!-- Font awesome -->
     <link href="<c:url value='/css/font-awesome.css' />" rel="stylesheet">
     <!-- Bootstrap -->
@@ -15,7 +15,7 @@
     <!-- SmartMenus jQuery Bootstrap Addon CSS -->
     <link href="<c:url value='/css/jquery.smartmenus.bootstrap.css' />" rel="stylesheet">
     <!-- Product view slider -->
-    <link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery.simpleLens.cs' />s">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery.simpleLens.css' />">
     <!-- slick slider -->
     <link rel="stylesheet" type="text/css" href="<c:url value='/css/slick.css' />">
     <!-- price picker slider -->
