@@ -48,9 +48,11 @@ import com.web.store.product.service.ProductService;
 
 
 
+
+
 @SuppressWarnings("unchecked")
 @Controller
-@SessionAttributes("product")
+@SessionAttributes({ "product","ProductList"})
 public class ProductController {
 	@Autowired
 	ProductService pService;
@@ -237,6 +239,7 @@ public class ProductController {
 		return "product/ProductPayment";
 	}
 //----------------------購物車
+	@SuppressWarnings("unused")
 	@RequestMapping(value="/ShoppingCart") 
 	public String  ShoppingCart(HttpSession session,Model model){
 		MemberBean member = (MemberBean) session.getAttribute("currentUser");
@@ -253,6 +256,7 @@ public class ProductController {
 	}
 	//-----------------------------確認購買
 	
+	@SuppressWarnings("unused")
 	@RequestMapping(value="/Cartadd") 
 	public String  Cartadd(HttpSession session,Model model ,
 			@RequestParam("qty") Integer qty,
@@ -263,15 +267,17 @@ public class ProductController {
 		if (member == null) {
 			return "redirect:/account/login";
 		}
+		
 		Cart cart = (Cart) model.getAttribute("Cart");
 		if (cart == null) {
 			// 就新建ShoppingCart物件
 			cart = new Cart();
 			// 並將此新建ShoppingCart的物件放到session物件內，成為它的屬性物件
-			model.addAttribute("Cart", cart);   
+			model.addAttribute("Cart", cart);  
+			System.out.println("cart");
 		}
-		else {
-			Map<Integer, Product> ProductMap = (Map<Integer, Product>) session.getAttribute("Product");
+			
+			Map<Integer, Product> ProductMap = (Map<Integer, Product>) session.getAttribute("ProductList");
 			Product bean = ProductMap.get(productId);
 			ProductOrderDetail oib = new ProductOrderDetail(
 					bean.getProductPrice(),
@@ -279,11 +285,12 @@ public class ProductController {
 					null,
 					bean.getproductId(),
 					bean.getdiscount());
-			cart.Cartadd(productId, oib);
-		}
+			cart.addToCart(productId, oib);
+			System.out.println("cart"+cart);
 		
 		
-		return "Cartadd";
+		
+		return "product/Cartadd";
 		
 		
 	}

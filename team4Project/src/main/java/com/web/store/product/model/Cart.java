@@ -4,6 +4,8 @@ package com.web.store.product.model;
 import java.util.LinkedHashMap;
 
 import java.util.Map;
+import java.util.Set;
+
 
 
 
@@ -30,6 +32,40 @@ public class Cart  {
 			ProductOrderDetail oiBean = cart.get(productId);
 			oiBean.setQuanity(oib.getQuanity() + oiBean.getQuanity());
 		}
+	}
+	public boolean modifyQty(int productId, int newQty) {
+		if ( cart.get(productId) != null ) {
+			ProductOrderDetail  bean = cart.get(productId);
+		   bean.setQuanity(newQty);
+	       return true;
+		} else {
+		   return false;
+		}
+	}
+	// 刪除某項商品
+	public int deleteBook(int productId) {
+		if ( cart.get(productId) != null ) {
+	       cart.remove(productId);  // Map介面的remove()方法
+	       return 1;
+		} else {
+		   return 0;
+		}
+	}
+	public int getItemNumber(){   // ShoppingCart.itemNumber
+		return cart.size();
+	}
+	//計算購物車內所有商品的合計金額(每項商品的單價*數量的總和)
+	public double getSubtotal(){
+		double subTotal = 0 ;
+		Set<Integer> set = cart.keySet();
+		for(int n : set){
+			ProductOrderDetail oib = cart.get(n);
+			double price    = oib.getPrice();
+			double discount = oib.getDiscount();
+			int qty      = oib.getQuanity();
+			subTotal +=  price * discount * qty;
+		}
+		return subTotal;
 	}
 
 }
