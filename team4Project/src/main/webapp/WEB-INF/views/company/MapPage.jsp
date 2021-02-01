@@ -15,26 +15,29 @@
 	width: 730px;
 /* 	height:calc(50vh); */
 	top:500px;
-	margin:auto;
+/* 	margin:auto; */
+	margin:0px 0px 0px 100px;
 	bottom:500px;
 }
 /* 搜尋列 */
 .map_left {
 	border: solid 2px gray;
 	width: 250px;
-	height: 530px;
+	height: 500px;
+	margin:15px 5px 0px 0px;
 }
 /* 顯示地圖 */
 .map_show {
 	/* border:solid 2px gray; */
-	width: 450px;
-	height: 390px;
+	width: 850px;
+	height: 350px;
 }
 /* 點擊地圖標記檢視門市資訊 */
 .map_info {
 	border: solid 2px gray;
-	width: 450px;
-	height: 150px;
+	width: 850px;
+	height: 145px;
+	margin-top:5px;
 }
 /* 服務顯示依照企業Id */
 ul li {
@@ -44,6 +47,10 @@ ul li {
 
 ul {
 	padding: 0px;
+}
+.cmpleft{
+	margin-top:15px;
+	display:block;
 }
 </style>
 </head>
@@ -101,7 +108,7 @@ ul {
 			</td>
 			<!-- 右側地圖部分 -->
 
-			<td>
+			<td class="cmpleft">
 				<div id="map" class="map_show">
 					<iframe
 						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28918.428460427356!2d121.53965200064644!3d25.040739817517917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823c1920a1b7f%3A0x6502863b00922978!2zVGliYU1lIOaZuuaFp0FQUOaVtOWQiOmWi-eZvOmkiuaIkOePrSjlj7DljJcp!5e0!3m2!1szh-TW!2stw!4v1611813135444!5m2!1szh-TW!2stw"
