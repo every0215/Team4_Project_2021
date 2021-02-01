@@ -23,7 +23,7 @@ select option[value="-1"] {
 	
 		<fieldset>
 	<legend >註冊企業資料</legend> 
-	<h1>我是沒登入</h1>
+	
 		<form action="<c:url value='/company/CompanyRegister'/>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="status" value="true">
 	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
@@ -96,7 +96,7 @@ select option[value="-1"] {
 
 	<c:otherwise>
 	
-	<h1>我是有登入</h1>
+	
 	
 	
 	
@@ -150,9 +150,9 @@ select option[value="-1"] {
 			<!-- 	驗證 -->
 	
 		</td>
-		<td style="border:1px solid #64A600;border-radius:10px;padding:10px">${sessionScope.company.logo}
+		<td style="border:1px solid #64A600;border-radius:10px;padding:10px">
 <!-- 			放圖片 -->
-<%-- <img height="300px" src="<c:url value='/getCompanyimage/${Cmp.account}'/>" /> --%>
+
 			品牌圖示:	
 			<input type="file" name="logoA" /><br>
 			<!-- 	上傳檔案 -->
