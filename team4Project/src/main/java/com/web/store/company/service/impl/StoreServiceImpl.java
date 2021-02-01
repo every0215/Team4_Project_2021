@@ -142,6 +142,36 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public List<Store> getStoreByService(String[] id) {
+		
+		
+		
+		
+
+//		取StoreService by 3 or 4 
+//		store<list>  sto= get storeid count ()
+//		if (sto.length == sv.list.length) {
+//		int  stoid = sto.getstoreid()
+//		add list
+//		}
+			
+//		List<String> stoidList = Arrays.asList(id);
+//		//SV   list<String> to int
+//		List<Integer> intList = new ArrayList<>();
+//		for (String tstr : stoidList) {
+//			intList.add(Integer.parseInt(tstr));
+//		}
+//		//get stoid list by svid list
+//		List<Integer> stointList = stoDao.getStoreByService( intList);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/////////////////////////////////////////////////
 		//SV   string[] to list<String>
 		List<String> stoidList = Arrays.asList(id);
 		//SV   list<String> to int
@@ -155,6 +185,7 @@ public class StoreServiceImpl implements StoreService {
 		List<Store> stoList = new ArrayList<>();
 		//待做完
 		for(Integer svId : stointList) {
+//			Integer stoId = svId.get(0);
 			Store sto = stoDao.getStoreById(svId);
 			
 			stoList.add(sto);

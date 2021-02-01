@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -14,11 +17,8 @@ import com.web.store.campaign.model.Campaign;
 import com.web.store.company.dao.StoreDao;
 import com.web.store.company.model.Company;
 import com.web.store.company.model.Store;
+import com.web.store.company.model.StoreService;
 
-class StoreService {
-	String StoreId;
-	String ServiceId;
-}
 @Repository
 public class StoreDaoImpl implements StoreDao {
 
@@ -237,15 +237,23 @@ public class StoreDaoImpl implements StoreDao {
 		
 		return queryObj.list();	
 	}
-
+	//, COUNT(*) as cnt
 	@Override
 	public List<Integer> getStoreByService(List<Integer> intList) {
 		Session session = sessionFactory.getCurrentSession();
-		String hqlstr = "SELECT StoreId, COUNT(*) as cnt FROM StoreService where serviceId in (" + getCollectIntString(intList) + ") GROUP BY storeId";
-		Query queryObj = session.createQuery(hqlstr,StoreService.class);
+		String hqlstr ="";
+		for (int i:intList) {
+			hqlstr+="select storeid from StoreService where serviceid in ("+i+") intersect ";
+		}
+		hqlstr=hqlstr.substring(0,hqlstr.lastIndexOf(" intersect "));
+		
+		//		String hqlstr = "SELECT StoreId FROM StoreService where serviceId in (" + getCollectIntString(intList) + ") GROUP BY storeId having count(*) = intList.length()";
+		List<Integer> queryObj = session.createSQLQuery(hqlstr).getResultList();
 //		queryObj.setParameter("ServiceId", companyId);
 		//stoid list
-		return (List<Integer>) queryObj;
+//		System.out.println(queryObj.list());
+		return queryObj;
+//		.uniqueResult();
 		
 		
 	}

@@ -90,7 +90,7 @@ ul {
 <!-- 										height="20px" width="20px" src="" /></span> ATM</li> -->
 <!-- 								<li><input type="checkbox" name="" id=""> <span><img -->
 <!-- 										height="20px" width="20px" src="" /></span> 停車場</li> -->
-<!-- 								<button id="svSearch">搜尋</button> -->
+<!-- 								<button id="svidSearch">搜尋</button> -->
 							</ul>
 
 						</div>
@@ -248,7 +248,7 @@ ul {
         $("#stoSearch").click(function () {
             var stoName = $("#stoName").val();
             var cmpid = $("#cmpChange").val();
-            console.log(stoName)
+            console.log(stoName);
             $.ajax({
                 type: "GET",
                 url: "<c:url value='/company/mapGetStoreByName/" + cmpid + "/" + stoName + "' />",
@@ -265,33 +265,6 @@ ul {
             });
         });
 
-        //服務搜尋(id查詢)
-        $("#svSearch").click(function () {
-            alert($("#cmpChange").val());
-			console.log("服務搜尋")
-            var svId = [];
-            $("input[name='checkbox']:checked").each(function (i) {
-                svId[i] = $(this).val();
-            });
-
-            $.ajax(
-                {
-                    data: { 'svId': svId },
-                    dataType: 'text',
-                    success: function (data) {
-                        //設置Marker參數
-                        position = data;
-                        map.setCenter({lat:Averagelat(),lng:Averagelng()});
-                        go();
-                    },
-                    type: 'post',
-                    url: "<c:url value='/company/mapGetStoreByService' />",
-                    traditional: true
-                }
-            );
-
-
-        });
         //按區域搜尋(後端if(cmpid == 0){查全部})
         $("#areaChange").on("change", function () {
             var area = $("#areaChange").val();
@@ -304,9 +277,10 @@ ul {
                     //設置Marker參數
                     position = data;
                     map.setCenter({lat:Averagelat(),lng:Averagelng()});
+
                     go();
 
-                    console.log(data)
+                    console.log(data);
                 }
             });
         });
@@ -326,7 +300,7 @@ ul {
                     for (var i = 0; i < data.length; i++) {
                         $(".sevicelist").append(`
                 				<li>
-                                <input type="checkbox" name="" id="`+ data[i].id + `" >
+                                <input type="checkbox" name="service" value="`+ data[i].id + `" >
                                 <span><img height="20px" width="20px" src="<c:url value='/company/getCompanyServiceImage/`+ data[i].id + `' />" /></span>
                                 `+ data[i].spService + `
                             	</li>
@@ -334,9 +308,9 @@ ul {
                 		`)
                     }
                     $(".sevicelist").append(`
-                    		<button id="svSearch">搜尋</button>
+                    		<button class="svidSearch">搜尋</button>
                     `)
-                    console.log(data)
+                    console.log(data);
                 }
             });
 
@@ -353,14 +327,68 @@ ul {
                     console.log(Averagelat(),Averagelng())
                     go();
 
-                    console.log(data)
+                    console.log(data);
                 }
             });
 
 
 
         });
+      //服務搜尋(id查詢)
+        $(".sevicelist").on("click",".svidSearch",function () {
+			
+            alert($("#cmpChange").val());
+            var svId = [];
+            $("input[name='service']:checked").each(function (i) {
+                svId[i] = $(this).val();
+            });
+			console.log("服務查詢"+svId);
+            $.ajax(
+                {
+                    data: { 'svId': svId },
+                    dataType: 'json',
+                    success: function (data) {
+                        //設置Marker參數
+                        position = data;
+                        map.setCenter({lat:Averagelat(),lng:Averagelng()});
+                        go();
+                    },
+                    type: 'post',
+                    url: "<c:url value='/company/mapGetStoreByService' />",
+                    traditional: true
+                }
+            );
 
+
+        })
+        
+        //服務搜尋(id查詢)
+//         $(".svidSearch").click(function () {
+// 			console.log("服務搜尋")
+//             alert($("#cmpChange").val());
+//             var svId = [];
+//             $("input[name='checkbox']:checked").each(function (i) {
+//                 svId[i] = $(this).val();
+//             });
+
+//             $.ajax(
+//                 {
+//                     data: { 'svId': svId },
+//                     dataType: 'text',
+//                     success: function (data) {
+//                         //設置Marker參數
+//                         position = data;
+//                         map.setCenter({lat:Averagelat(),lng:Averagelng()});
+//                         go();
+//                     },
+//                     type: 'post',
+//                     url: "<c:url value='/company/mapGetStoreByService' />",
+//                     traditional: true
+//                 }
+//             );
+
+
+//         });
 //不用加了
 // 	$(document).ready(function() {
 
