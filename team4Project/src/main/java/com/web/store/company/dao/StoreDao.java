@@ -46,6 +46,6 @@ public interface StoreDao {
 	
 	List<Store> cmpGetStoreByName(Integer tempcmpid,String stoName);
 	
-	
+	List<Integer> getStoreByService(List<Integer> intList);
 	/////////////////////門市刪除功能////////////////////////
 }

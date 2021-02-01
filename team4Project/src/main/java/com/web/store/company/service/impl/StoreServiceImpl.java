@@ -3,6 +3,8 @@ package com.web.store.company.service.impl;
 
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -139,19 +141,27 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public Set<Store> getStoreByService(String[] id) {
-		
-		for(String svId : id) {
-			CmpService cmpsv = cmpsvService.getCmpsvBysvId(Integer.valueOf(svId));
-			
+	public List<Store> getStoreByService(String[] id) {
+		//SV   string[] to list<String>
+		List<String> stoidList = Arrays.asList(id);
+		//SV   list<String> to int
+		List<Integer> intList = new ArrayList<>();
+		for (String tstr : stoidList) {
+			intList.add(Integer.parseInt(tstr));
 		}
-		//遍歷從Service取store 有重複就塞到新的set
+		//get stoid list by svid list
+		List<Integer> stointList = stoDao.getStoreByService( intList);
 		
-		//取store 有Service id才加入set  (VVV)
-		//HQL select store where cmpsvId = 123
-		
-		
-		return null;
+		List<Store> stoList = new ArrayList<>();
+		//待做完
+		for(Integer svId : stointList) {
+			Store sto = stoDao.getStoreById(svId);
+			
+			stoList.add(sto);
+		}
+
+
+		return stoList;
 	}
 	//地圖取storeByArea
 	@Override
