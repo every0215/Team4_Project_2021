@@ -335,7 +335,7 @@
             const elements = document.getElementsByClassName('subtotal');
             $(".subtotal").html()
             for (const key of elements) {
-
+	
               //   			console.log(key.innerHTML);
               total += +key.innerHTML;
               //   			console.log(total);
@@ -376,7 +376,6 @@
             const elements = document.getElementsByClassName('subtotal');
             $(".subtotal").html()
             for (const key of elements) {
-
               //   			console.log(key.innerHTML);
               total += +key.innerHTML;
               //   			console.log(total);

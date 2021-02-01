@@ -7,20 +7,23 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-public class Order  implements Serializable{
+import javax.persistence.Table;
+@Entity
+@Table(name = "ProductOrder")
+public class ProductOrder  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name= "OrderId")
 	private Integer orderId;
-	@ManyToOne(fetch=FetchType.LAZY)
+//	@ManyToOne(fetch=FetchType.LAZY)
 	@Column(name= "MemberId")
 	private Integer memberId;
 	@Column(name= "Amount")
@@ -30,11 +33,11 @@ public class Order  implements Serializable{
 	@Column(name= "OrderNumber")
 	private Integer orderNumber;
 	
-	public Order() {
+	public ProductOrder() {
 		
 	}
 	
-	public Order(Integer orderId, Integer memberId, Integer amount, Integer count, Integer orderNumber
+	public ProductOrder(Integer orderId, Integer memberId, Integer amount, Integer count, Integer orderNumber
 			) {
 		super();
 		this.orderId = orderId;
@@ -44,7 +47,7 @@ public class Order  implements Serializable{
 		this.orderNumber = orderNumber;
 		
 	}
-	public Order( Integer memberId, Integer amount, Integer count, Integer orderNumber
+	public ProductOrder( Integer memberId, Integer amount, Integer count, Integer orderNumber
 			) {
 		super();
 		this.memberId = memberId;
@@ -53,8 +56,8 @@ public class Order  implements Serializable{
 		this.orderNumber = orderNumber;
 		
 	}
-	public Order(Integer orderId, Integer memberId, Integer amount, Integer count, Integer orderNumber,
-			List<OrderDetail> orderdetail) {
+	public ProductOrder(Integer orderId, Integer memberId, Integer amount, Integer count, Integer orderNumber,
+			List<ProductOrderDetail> orderdetail) {
 		super();
 		this.orderId = orderId;
 		this.memberId = memberId;
@@ -64,7 +67,7 @@ public class Order  implements Serializable{
 		Orderdetail = orderdetail;
 	}
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "Order", cascade = CascadeType.ALL)
-	private List<OrderDetail> Orderdetail = new ArrayList<OrderDetail>();
+	private List<ProductOrderDetail> Orderdetail = new ArrayList<ProductOrderDetail>();
 	
 	
 	public Integer getOrderId() {
