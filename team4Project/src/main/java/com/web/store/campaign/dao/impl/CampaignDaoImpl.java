@@ -293,6 +293,7 @@ public class CampaignDaoImpl implements CampaignDao {
 	}
 
 	@Override
+	//取得公司訂閱用戶
 	public Set<MemberBean> getMemberByCompanyId(int companyId) {
 		Set<MemberBean> mbs = new HashSet<MemberBean>();
 		Session session = sessionFactory.getCurrentSession();
@@ -303,10 +304,12 @@ public class CampaignDaoImpl implements CampaignDao {
 		for(MemberSubscription ms:memberSubscriptions) {
 			mbs.add(ms.getMember());
 		}
+		
 		return mbs;
 	}
 
 	@Override
+	//取得進行中的活動
 	public List<Campaign> selectActiveCampaign() {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM Campaign WHERE status=true AND expired=false";		

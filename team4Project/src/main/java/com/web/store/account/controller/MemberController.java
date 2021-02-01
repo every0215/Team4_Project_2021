@@ -474,7 +474,18 @@ public class MemberController {
 	// ==========================================================================
 	@GetMapping("/getMemberNotifications")
 	public @ResponseBody Set<MemberNotification> getMemberNotifications(HttpSession session) throws Exception {
+		
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
+		
+		if (currentUser==null) {
+			return null;
+		}
+		
+		String id = String.valueOf(currentUser.getId());
+		MemberBean updatedUser = accountService.selectWithNotificationById(id);
+		currentUser.setMemberNotificationList(updatedUser.getMemberNotificationList());
+		session.setAttribute("currentUser", currentUser);
+		
 		return (currentUser.getMemberNotificationList() != null) ? currentUser.getMemberNotificationList() : null;
 	}
 
