@@ -54,6 +54,10 @@
             box-shadow: 0px 0px 10px black;
             background-color:white;
         }
+        
+        .ck-editor__editable_inline {
+            min-height: 300px;      
+        }
 
     </style>
 
@@ -69,7 +73,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js"></script>
 
-
+	
+	
 </head>
 
 <body style="background-color:#f3f3f3">
@@ -88,12 +93,19 @@
             <div class="form-group">
                 <label >活動類型:</label>
                 <select name="type" class="form-select need" aria-label="Default select example ">
-                    <option value="0">不指定活動類型</option>
+                    <c:if test="${camp.discountParams.type==0}">
+                    	<option value="0" selected>不指定活動類型</option>
+                    	<option value="1" >折扣</option>
+                    	<option value="2">滿額折</option>
+                    </c:if>
+                    
                     <c:if test="${camp.discountParams.type==1}">
+                    	<option value="0" >不指定活動類型</option>
                     	<option value="1" selected>折扣</option>
                     	<option value="2">滿額折</option>
                     </c:if>
                     <c:if test="${camp.discountParams.type==2}">
+                    	<option value="0" >不指定活動類型</option>
                     	<option value="1">折扣</option>
                     	<option value="2" selected>滿額折</option>
                     </c:if>              
@@ -157,11 +169,12 @@
 
             <div class="form-group">
                 <label for="comment">活動內容:</label>
-                <textarea name="content" class="form-control need" rows="8">${camp.content}</textarea>
+                <textarea id="editor" name="content" class="form-control">${camp.content}
+                </textarea>
             </div>
 
             <div class="form-group">
-            	<img id="picPreview" style="width:100%;height:150px" src="${camp.picturePath}"/><br>
+            	<img id="picPreview" style="width:100%;height:250px" src="${camp.picturePath}"/><br>
                 <label for="fileUpload">活動圖檔:</label>
                 <input class="form-control" id="fileUpload" name="picture" type="file">
 
@@ -178,10 +191,13 @@
     </div>
 
 
-
+	<script src="<c:url value='/js/ckEditorBuild/ckeditor.js'/>"></script>
+	<script src="<c:url value='/js/ckEditorSetting.js'/>"></script>
     <script>
         $(function () {
-
+        	
+        	$(".ck-content p").html($("textraea[name='content']").html());
+        	
         	$("#fileUpload").change(function(){
                 readURL(this); 
               });

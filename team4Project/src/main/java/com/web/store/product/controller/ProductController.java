@@ -7,10 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +34,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.web.store.account.javabean.MemberBean;
 import com.web.store.company.service.CompanyService;
+import com.web.store.product.model.Cart;
+import com.web.store.product.model.Items;
 import com.web.store.product.model.Product;
+import com.web.store.product.model.ProductOrder;
+import com.web.store.product.model.ProductOrderDetail;
 import com.web.store.product.service.ProductService;
 
 
+
+
+
+
+@SuppressWarnings("unchecked")
 @Controller
-@SessionAttributes("product")
+@SessionAttributes({ "product","ProductList"})
 public class ProductController {
 	@Autowired
 	ProductService pService;
@@ -211,11 +225,75 @@ public class ProductController {
 	}	
 	
 
+	
+//--------------------------購物車
+	
 	@GetMapping("/ProductBuy/{productId}/ProductPayment")
-	public String ProductPayment(@PathVariable int productId,Model model) {
-		Product product = pService.selectbyid(productId);
-		model.addAttribute("product",product);
+	public String ProductPayment(@PathVariable int productId,
+			@RequestParam(value="sessionId",required=false) Integer sessionId, 
+			Model model,HttpSession session,RedirectAttributes ra) {
+//		MemberBean member = (MemberBean) session.getAttribute("currentUser");
+		
+//		Product product = pService.selectbyid(productId);
+//		model.addAttribute("product",product);
 		return "product/ProductPayment";
+	}
+//----------------------購物車
+	@SuppressWarnings("unused")
+	@RequestMapping(value="/ShoppingCart") 
+	public String  ShoppingCart(HttpSession session,Model model){
+		MemberBean member = (MemberBean) session.getAttribute("currentUser");
+		System.out.println("member="+member.getId());
+		
+		if (member == null){
+			return "redirect:/account/login";
+		}
+		
+		List<Cart> list = (List<Cart>) session.getAttribute("cart");
+		
+		
+		return "product/ShoppingCart";
+	}
+	//-----------------------------確認購買
+	
+	@SuppressWarnings("unused")
+	@RequestMapping(value="/Cartadd") 
+	public String  Cartadd(HttpSession session,Model model ,
+			@RequestParam("qty") Integer qty,
+			@RequestParam("productId") Integer productId){
+		MemberBean member = (MemberBean) session.getAttribute("currentUser");
+		
+		
+		if (member == null) {
+			return "redirect:/account/login";
+		}
+		System.out.println("member="+member.getId());
+		Cart cart = (Cart) model.getAttribute("Cart");
+		if (cart == null) {
+			// 就新建ShoppingCart物件
+			cart = new Cart();
+			// 並將此新建ShoppingCart的物件放到session物件內，成為它的屬性物件
+			model.addAttribute("Cart", cart);  
+			System.out.println("cart");
+		}
+		
+			Product bean = pService.getProduct(productId);
+			
+			ProductOrderDetail oib = new ProductOrderDetail(
+					bean.getProductPrice(),
+					qty,
+					null,
+					bean.getproductId(),
+					bean.getdiscount());
+			cart.addToCart(productId, oib);
+			
+			System.out.println("cart"+cart);
+		
+		
+		
+		return "product/Cartadd";
+		
+		
 	}
 //-----------------輸出圖
 	@GetMapping(value = "/getproductimage/{productId}")

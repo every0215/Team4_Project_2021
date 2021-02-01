@@ -74,9 +74,11 @@
 
         <div class="search-bar">
           <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="票券搜尋" aria-label="Search"
-              aria-describedby="search-addon" style="width:200px" />
-            <button type="button" class="btn btn-outline-primary">Search</button>
+            <form action="<c:url value='../TicketSearch'/>" method="get">
+              <input type="text" name="search" class="form-control rounded" placeholder="票券搜尋 ex. '冰雪奇緣'"
+                aria-label="Search" aria-describedby="search-addon" style="width:200px" />
+              <button type="submit" class="btn btn-outline-primary">Search</button>
+            </form>
           </div>
         </div>
 
@@ -101,16 +103,23 @@
             <div class="ticket-info">
               <div class="panel-body">
                 <div style="float:left">
-                
-                <p style="text-align:left;font-size:30px;">訂單內容</p>
+
+                  <p style="text-align:left;font-size:30px;">訂單內容</p>
                   <p id="ticketOrderId" style="text-align:left;font-size:20px;"></p>
                   <p id="eventName" style="text-align:left;font-size:20px;"></p>
                   <p id="totalCost" style="text-align:left;font-size:20px;"></p>
                   <p id="ticketOrderDetailList" style="text-align:left;font-size:20px;">票券明細:</p>
-                  
 
-    			<a id="payByMCoin" href="#" class="btn btn-primary btn-lg" role="button">滿幣支付</a>
-                <button type="button" class="btn btn-primary btn-lg">信用卡支付</button>
+
+                  <a id="payByMCoin" href="#" class="btn btn-primary btn-lg" role="button">滿幣支付</a>
+                  <form action="<c:url value='../ecpay'/>" method="post">
+                  		<input type="hidden" id="order" name="order"/>
+                  		<input type="hidden" id="orderName" name="orderName"/>
+                  		<input type="hidden" id="orderCost" name="orderCost"/>
+                  		<input type="hidden" id="tradeDesc" name="tradeDesc"/>
+                  	<button id="payByCreditCard" type="submit" class="btn btn-primary btn-lg">信用卡支付</button>
+                  </form>
+                  
                 </div>
               </div>
 
@@ -128,98 +137,7 @@
         <!-- 購買票券主頁面 END -->
 
         <!-- footer -->
-        <footer id="aa-footer">
-          <!-- footer bottom -->
-          <div class="aa-footer-top">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="aa-footer-top-area">
-                    <div class="row">
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <h3>Main Menu</h3>
-                          <ul class="aa-footer-nav">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">Our Products</a></li>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <div class="aa-footer-widget">
-                            <h3>Knowledge Base</h3>
-                            <ul class="aa-footer-nav">
-                              <li><a href="#">Delivery</a></li>
-                              <li><a href="#">Returns</a></li>
-                              <li><a href="#">Services</a></li>
-                              <li><a href="#">Discount</a></li>
-                              <li><a href="#">Special Offer</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <div class="aa-footer-widget">
-                            <h3>Useful Links</h3>
-                            <ul class="aa-footer-nav">
-                              <li><a href="#">Site Map</a></li>
-                              <li><a href="#">Search</a></li>
-                              <li><a href="#">Advanced Search</a></li>
-                              <li><a href="#">Suppliers</a></li>
-                              <li><a href="#">FAQ</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 col-sm-6">
-                        <div class="aa-footer-widget">
-                          <div class="aa-footer-widget">
-                            <h3>Contact Us</h3>
-                            <address>
-                              <p> 25 Astor Pl, NY 10003, USA</p>
-                              <p><span class="fa fa-phone"></span>+1 212-982-4589</p>
-                              <p><span class="fa fa-envelope"></span>dailyshop@gmail.com</p>
-                            </address>
-                            <div class="aa-footer-social">
-                              <a href="#"><span class="fa fa-facebook"></span></a>
-                              <a href="#"><span class="fa fa-twitter"></span></a>
-                              <a href="#"><span class="fa fa-google-plus"></span></a>
-                              <a href="#"><span class="fa fa-youtube"></span></a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- footer-bottom -->
-          <div class="aa-footer-bottom">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="aa-footer-bottom-area">
-                    <p>Designed by <a href="http://www.markups.io/">MarkUps.io</a></p>
-                    <div class="aa-footer-payment">
-                      <span class="fa fa-cc-mastercard"></span>
-                      <span class="fa fa-cc-visa"></span>
-                      <span class="fa fa-paypal"></span>
-                      <span class="fa fa-cc-discover"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
-        <!-- / footer -->
+        <c:import url="/layout/footer" />
 
 
 
@@ -249,92 +167,105 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
         <script>
-        
-        function toDateStr(date){
-        	return date.getFullYear()
-        	+ '-' +('' + (date.getMonth()+1)).padStart(2,0)
-        	+ '-' +('' + date.getDate()).padStart(2,0)
-        	+ ' ' +('' + date.getHours()).padStart(2,0)
-        	+ ':' +('' + date.getMinutes()).padStart(2,0);
-        }
-        
-        $(document).ready(function() {
-        	 let eventJSON = ${eventJSON};
-        	 let ticketOrderJSON 	 = ${ticketOrderJSON};
-        	 let ticketOrderDetailsJSON = ${ticketOrderDetailsJSON};
-        	  
-        	 let priceListJSON	  = ${priceListJSON};  //有name跟cost
-        	 
-        	 let dPriceJSON;
-        	 if('${dPriceListJSON}'==''){
-        		 dPriceJSON = {}; //只有cost
-        	 }else{
-        		 dPriceListJSON	= JSON.parse('${dPriceListJSON}');
-        	 }
-        	 
-        	 let sportSessionJSON;
-        	 if('${sportSessionJSON}'==''){
-        		 sportSessionJSON = {};
-        	 }else{
-        		 sportSessionJSON	= JSON.parse('${sportSessionJSON}');
-        	 }
 
-        	 
-        	 $("#ticketOrderId").html('訂單編號:'+ticketOrderJSON.id); 
-			 $("#eventName").html('票券名稱:'+eventJSON.eventName); 			 
-			 $("#totalCost").html('總價:$'+ticketOrderJSON.totalCost);
-			 
-			 
-			 let discount = ticketOrderDetailsJSON[0].discount;
-			 let type=eventJSON.typeId;
-			 let str='';
-			 if(discount==1){
-				 if(type==1){
-					 //有discount的exhibition
-					 $.each(priceListJSON, function( index, value ) {
-						  
-						  str = str + '<p style="text-align:left;">名稱: '+value.name+'/ 價格: '+dPriceListJSON[index]+'/ 張數: '+ticketOrderDetailsJSON[index].value+'</p>'
-						});
-					 
-				 }else{
-					 //有discount的sport 還要放session
-					 ;
-					 str = str + '<p style="text-align:left;">場次: '+toDateStr(new Date(sportSessionJSON.kickOfTime))+'</p>';
-					 $.each(priceListJSON, function( index, value ) {
-						  
-						  str = str + '<p style="text-align:left;">名稱: '+value.name+'/ 價格: '+dPriceListJSON[index]+'/ 張數: '+ticketOrderDetailsJSON[index].value+'</p>'
-						});
-				 }
-				 
-			 }else{
-				 if(type!=3){
-					 //沒有discount的exhibition or attraction
-					 $.each(priceListJSON, function( index, value ) {
-						  
-						  str = str + '<p style="text-align:left;">名稱: '+value.name+'/ 價格: '+value.cost+'/ 張數: '+ticketOrderDetailsJSON[index].value+'</p>'
-						});
-				 }else{
-// 					 沒有discount的sport
-					
-					 str = str + '<p style="text-align:left;">場次: '+toDateStr(new Date(sportSessionJSON.kickOfTime))+'</p>';
-					 $.each(priceListJS, function( index, value ) {
-						  
-						  str = str + '<p style="text-align:left;">名稱: '+value.name+'/ 價格: '+value.cost+'/ 張數: '+ticketOrderDetailsJSON[index].value+'</p>'
-						});
-				 }
-				 
-			 }
-			 console.log(str);
-			 $( "#ticketOrderDetailList" ).after(str);
-			 
-			 $("#payByMCoin").attr("href","<c:url value='"+"/proj/buyByMCoinSucc/"+ticketOrderJSON.id+"'/>");
-			 
-        	});
-        	
-        
-        
-        
-			
+          function toDateStr(date) {
+            return date.getFullYear()
+              + '-' + ('' + (date.getMonth() + 1)).padStart(2, 0)
+              + '-' + ('' + date.getDate()).padStart(2, 0)
+              + ' ' + ('' + date.getHours()).padStart(2, 0)
+              + ':' + ('' + date.getMinutes()).padStart(2, 0);
+          }
+
+          $(document).ready(function () {
+            let eventJSON = ${ eventJSON };
+            let ticketOrderJSON = ${ ticketOrderJSON };
+            let ticketOrderDetailsJSON = ${ ticketOrderDetailsJSON };
+
+            let priceListJSON = ${ priceListJSON };  //有name跟cost
+
+            let dPriceJSON;
+            if ('${dPriceListJSON}' == '') {
+              dPriceJSON = {}; //只有cost
+            } else {
+              dPriceListJSON = JSON.parse('${dPriceListJSON}');
+            }
+
+            let sportSessionJSON;
+            if ('${sportSessionJSON}' == '') {
+              sportSessionJSON = {};
+            } else {
+              sportSessionJSON = JSON.parse('${sportSessionJSON}');
+            }
+
+
+            $("#ticketOrderId").html('訂單編號:' + ticketOrderJSON.id);
+            $("#eventName").html('票券名稱:' + eventJSON.eventName);
+            $("#totalCost").html('總價:$' + ticketOrderJSON.totalCost);
+            
+            $("#order").val(ticketOrderJSON.id);
+            $("#tradeDesc").val(ticketOrderJSON.id);
+            $("#orderCost").val(ticketOrderJSON.totalCost);
+            $("#orderName").val(eventJSON.eventName);
+
+            let discount = ticketOrderDetailsJSON[0].discount;
+            let type = eventJSON.typeId;
+            let str = '';
+            if (discount == 1) {     
+              $("#payByMCoin").attr("disabled", "disabled")
+
+              if (type == 1) {
+                //有discount的exhibition
+                $.each(priceListJSON, function (index, value) {
+
+                  str = str + '<p style="text-align:left;">名稱: ' + value.name + '/ 價格: ' + dPriceListJSON[index] + '/ 張數: ' + ticketOrderDetailsJSON[index].value + '</p>'
+                });
+
+              } else {
+                //有discount的sport 還要放session
+                ;
+                str = str + '<p style="text-align:left;">場次: ' + toDateStr(new Date(sportSessionJSON.kickOfTime)) + '</p>';
+                $.each(priceListJSON, function (index, value) {
+
+                  str = str + '<p style="text-align:left;">名稱: ' + value.name + '/ 價格: ' + dPriceListJSON[index] + '/ 張數: ' + ticketOrderDetailsJSON[index].value + '</p>'
+                });
+              }
+
+            } else {
+              if (type != 3) {
+                //沒有discount的exhibition or attraction
+                $.each(priceListJSON, function (index, value) {
+
+                  str = str + '<p style="text-align:left;">名稱: ' + value.name + '/ 價格: ' + value.cost + '/ 張數: ' + ticketOrderDetailsJSON[index].value + '</p>'
+                });
+              } else {
+                // 					 沒有discount的sport
+
+                str = str + '<p style="text-align:left;">場次: ' + toDateStr(new Date(sportSessionJSON.kickOfTime)) + '</p>';
+                $.each(priceListJSON, function (index, value) {
+
+                  str = str + '<p style="text-align:left;">名稱: ' + value.name + '/ 價格: ' + value.cost + '/ 張數: ' + ticketOrderDetailsJSON[index].value + '</p>'
+                });
+              }
+
+            }
+            console.log(str);
+            $("#ticketOrderDetailList").after(str);
+
+            $("#payByMCoin").attr("href", "<c:url value='" + "/proj/buyByMCoinSucc/" + ticketOrderJSON.id + "'/>");
+            
+
+          });
+
+          $("#payByMCoin").click(function () {
+              if ($(this).attr('disabled') == 'disabled') {
+   
+                  event.preventDefault();
+              }
+   
+          });
+
+
+
 
 
         </script>

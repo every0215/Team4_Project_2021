@@ -49,4 +49,20 @@ public class TicketOnWayDao implements ITicketOnWayDao {
 		return (ArrayList<TicketOnWay>) query.list();
 	}
 
+	@Override
+	public ArrayList<TicketOnWay> queryAll() {
+		Session session = factory.getCurrentSession();
+		String hqlstr="FROM TicketOnWay";
+		Query<TicketOnWay> query = session.createQuery(hqlstr,TicketOnWay.class);
+		return (ArrayList<TicketOnWay>) query.list();
+	}
+
+	@Override
+	public ArrayList<TicketOnWay> queryTicketOrder(TicketOnWay ticketOnWay) {
+		Session session = factory.getCurrentSession();
+		String hqlstr = "FROM TicketOnWay T where T.ticketOrder="+ticketOnWay.getTicketOrder();
+		Query<TicketOnWay> query = session.createQuery(hqlstr,TicketOnWay.class);
+		return (ArrayList<TicketOnWay>) query.list();
+	}
+
 }

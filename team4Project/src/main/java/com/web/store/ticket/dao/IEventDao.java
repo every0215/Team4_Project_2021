@@ -3,7 +3,6 @@ package com.web.store.ticket.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.web.store.product.model.Product;
 import com.web.store.ticket.model.Event;
 
 public interface IEventDao {
@@ -29,4 +28,6 @@ public interface IEventDao {
 	void updateStatusEvent(int eventId);
 	
 	List<Event> selectbyName(String EventName);
+	
+	ArrayList<Event> query();
 }

@@ -10,6 +10,16 @@
 select option[value="-1"] {
  display: none;
 }
+.rep_reportarea {
+	background-color: transparent;
+	position: absolute;
+	width: calc(100vw - 15px);
+	height: calc(100vh - 80px);
+	bottom: 0px;
+	right: 0px;
+	font-family:微軟正黑體;
+	font-weight:900;
+}
 </style>
 <title>企業註冊</title>
 </head>
@@ -23,7 +33,7 @@ select option[value="-1"] {
 	
 		<fieldset>
 	<legend >註冊企業資料</legend> 
-	<h1>我是沒登入</h1>
+	
 		<form action="<c:url value='/company/CompanyRegister'/>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="status" value="true">
 	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
@@ -96,10 +106,12 @@ select option[value="-1"] {
 
 	<c:otherwise>
 	
-	<h1>我是有登入</h1>
 	
 	
-	
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>	
+	<div class="rep_reportarea">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper">
 		<fieldset>
 	<legend >企業資料</legend> 
 	
@@ -150,9 +162,9 @@ select option[value="-1"] {
 			<!-- 	驗證 -->
 	
 		</td>
-		<td style="border:1px solid #64A600;border-radius:10px;padding:10px">${sessionScope.company.logo}
+		<td style="border:1px solid #64A600;border-radius:10px;padding:10px">
 <!-- 			放圖片 -->
-<%-- <img height="300px" src="<c:url value='/getCompanyimage/${Cmp.account}'/>" /> --%>
+
 			品牌圖示:	
 			<input type="file" name="logoA" /><br>
 			<!-- 	上傳檔案 -->
@@ -169,9 +181,10 @@ select option[value="-1"] {
 	
 			</form>
 </fieldset>
-<br>
-<a href="<c:url value='/crm/backOffice'/> " >回前頁</a>
-	
+
+
+	</div>
+	</div>
     </c:otherwise>
 </c:choose>
 

@@ -25,7 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.web.store.account.javabean.MemberBean;
 import com.web.store.account.service.AccountService;
 import com.web.store.company.model.Company;
-import com.web.store.product.model.Product;
 import com.web.store.ticket.model.Attraction;
 import com.web.store.ticket.model.CreditCard;
 import com.web.store.ticket.model.Event;
@@ -52,26 +51,65 @@ public class TicketController {
 	AccountService accountService;
 	
 	@GetMapping(value="/TicketSearch" )
-	public String porductSearch(@RequestParam String search,Model model){
+	public String eventSearch(@RequestParam String search,Model model){
 		System.out.println(search);
 		List<Event> events  = backendService.selectbyName(search);
+		for(Event event:events) {
+			Integer typeId = event.getTypeId();
+			if(typeId==1) {
+				Exhibition exhibition = backendService.selectExhibitionByEvent(event.getId());
+				event.setExhibition(exhibition);
+			}else if(typeId==2) {
+				Attraction attraction = backendService.selectAttractionByEvent(event.getId());
+				event.setAttraction(attraction);
+				
+			}else {
+				Sport sport = backendService.selectSportByEvent(event.getId());
+				event.setSport(sport);
+			}
+		}
 		model.addAttribute("events",events);
 		System.out.println("成功"+search);
 		
 		return "/ticket/CTicketSearch";
 	}
 	
+	
+	@GetMapping("/member/showOrder")
+	public String showOrderbyMemberId(
+			Model model, HttpSession session
+			
+			) {
+			MemberBean member = (MemberBean) session.getAttribute("currentUser");
+			ArrayList<TicketOrder> ticketOrderList = backendService.queryTicketOrderByMemberId(member.getId());
+			model.addAttribute("TicketOrderList", ticketOrderList);
+				return "account/ticketOrder";
+			}
+	
+	
+	
 	@GetMapping("/showOrderDetail/{TicketOrderId}")
 	public String showOrderDetail(
 			Model model, HttpSession session,
 			@PathVariable String TicketOrderId 
-			) {
+			) throws Exception {
+		
+		String s="";
+		MemberBean member = (MemberBean) session.getAttribute("currentUser");
+		BigDecimal userBalance = member.getmCoin().getBalance();
+		TicketOrder ticketOrder = backendService.queryTicketOrderbyId(TicketOrderId);
+		BigDecimal btotalCost = new BigDecimal(ticketOrder.getTotalCost());
+		
+		int result = userBalance.compareTo(btotalCost);
+		
 		List<Price> priceList = new ArrayList<>();
 		Double discountRatio;
 		ArrayList<Double> dPriceList = new ArrayList<>();
-		TicketOrder ticketOrder = backendService.queryTicketOrderbyId(TicketOrderId);
 		
-		TicketOrder ticketOrderF = backendService.queryTicketOrderDetailByTicketOrder(ticketOrder);
+		if(result==-1) {
+			s="account/myWallet";
+		}else {
+			TicketOrder ticketOrderF = backendService.queryTicketOrderDetailByTicketOrder(ticketOrder);
 		Set<TicketOrderDetail> ticketOrderDetails = ticketOrderF.getTicketOrderDetails();
 		
 		List<TicketOrderDetail> list = new ArrayList<TicketOrderDetail>(ticketOrderDetails);
@@ -104,8 +142,11 @@ public class TicketController {
 		model.addAttribute("priceList", priceList);
 		model.addAttribute("dPriceList", dPriceList);
 		model.addAttribute("discount", discount);
+		backendService.ticketOrderNotice(TicketOrderId);
+		s = "account/ticketOrderDetail";
+		}
+		return s;
 		
-		return "account/ticketOrderDetail";
 		
 	}
 	
@@ -184,7 +225,9 @@ public class TicketController {
 			
 			model.addAttribute("dPriceList", dPriceList);
 			model.addAttribute("discount", discount);
+			
 			s="account/ticketOrderDetail";
+			backendService.ticketOrderNotice(TicketOrderId);
 		}
 
 		return s;
@@ -572,7 +615,7 @@ public class TicketController {
 		Date now = new Date();
 		
 		//==============afterDate為Date型別的deletTime
-		Date afterDate = new Date(now.getTime() + 300000);
+		Date afterDate = new Date(now.getTime() + 600000);
 		Timestamp deleteTime = new Timestamp(afterDate.getTime());
 		return deleteTime;
 	}

@@ -1,6 +1,8 @@
 package com.web.store.ticket.service.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.service.AccountService;
 import com.web.store.company.dao.impl.CompanyDaoImpl;
 import com.web.store.company.model.Company;
 import com.web.store.ticket.dao.impl.AttractionDao;
@@ -71,6 +75,8 @@ public class BackendServiceImpl implements BackendService {
 	TicketOrderDetailDao ticketOrderDetailDao;
 	@Autowired
 	TicketOnWayDao ticketOnWayDao;
+	@Autowired
+	AccountService accountService;
 	
 	
 	@SuppressWarnings("null")
@@ -349,7 +355,7 @@ public class BackendServiceImpl implements BackendService {
 	}
 
 	@Override
-	public void deleteTicketOrder(int ticketOrderId) {
+	public void deleteTicketOrder(String ticketOrderId) {
 		ticketOrderDao.delete(ticketOrderId);
 		
 	}
@@ -450,6 +456,106 @@ public class BackendServiceImpl implements BackendService {
 		Set<TicketOnWay> ticketOnWays = ticketOrderN.getTicketOnWays();
 		Hibernate.initialize(ticketOnWays);
 		return ticketOrderN;
+	}
+
+	@Override
+	public void checkTicketOnWay() {
+		try {
+		ArrayList<TicketOnWay> ticketOnWays = ticketOnWayDao.queryAll();
+		System.out.println(ticketOnWays.size());
+		Date now = new Date();
+		Timestamp nowTime = new Timestamp(now.getTime());
+		List<String> listOfOrderId = new ArrayList<String>();
+		for(TicketOnWay ticketOnWay : ticketOnWays) {
+			System.out.println("==================1=============================");
+			Hibernate.initialize(ticketOnWay.getTicketOrder());
+			System.out.println("=================2=============================");
+			Timestamp deleteTime = ticketOnWay.getDeletedTime();
+//			System.out.println(nowTime);
+//			System.out.println(deleteTime);
+//			System.out.println(deleteTime.before(nowTime));
+			if (deleteTime.before(nowTime)) {
+				Event event = eventDao.queryOneEvent(ticketOnWay.getEventId());
+				System.out.println("event.getTypeId()");
+				System.out.println(event.getTypeId());
+				if(event.getTypeId()==3) {
+					Integer value = ticketOnWay.getValue();
+					SportSeat seat = sportSeatDao.queryOneSportSeat(ticketOnWay.getSeatId());
+					Integer oStock = seat.getStock();
+					seat.setStock(value+oStock);
+					sportSeatDao.updateSportSeat(seat);
+					
+				}
+				TicketOrder ticketOrder = ticketOnWay.getTicketOrder();
+				String orderId = ticketOrder.getId();
+				ticketOnWay.setTicketOrder(null);
+				ticketOnWayDao.delete(ticketOnWay.getId());
+				if (!listOfOrderId.contains(orderId)) {
+					listOfOrderId.add(orderId);
+				}
+	        }
+		}
+		System.out.println("step 2");
+		for(String orderId : listOfOrderId) {
+			TicketOrder ticketOrderN = ticketOrderDao.queryTicketOrderbyId(orderId);
+			Hibernate.initialize(ticketOrderN);
+			Set<TicketOrderDetail> ticketOrderDetails = ticketOrderN.getTicketOrderDetails();
+			Hibernate.initialize(ticketOrderDetails);
+//			System.out.println("=================="+ticketOrderN.getId()+"=============================");
+			ticketOrderDao.delete(ticketOrderN.getId());
+			
+			
+		}
+			
+//		Timestamp validTime = new Timestamp(now.getTime());
+//		System.out.println("=============="+validTime+"==============");
+		System.out.println("check "+ticketOnWays.size()+" over");
+		}catch(Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+			  //  Block of code to handle errors
+		}
+	}
+
+	@Override
+	public void checkEventStatus() {
+		ArrayList<Event> eventList = eventDao.query();
+		Date now = new Date();
+		Timestamp nowTime = new Timestamp(now.getTime());
+		Timestamp offSaleDate;
+		for(Event event: eventList) {
+			Integer typeId = event.getTypeId();
+			if(typeId==1) {
+				Exhibition exhibition = exhibitionDao.selectByEvent(event.getId());
+				offSaleDate = exhibition.getOffSaleDate();
+			}else if(typeId==2) {
+				Attraction attraction = attractionDao.selectByEvent(event.getId());
+				offSaleDate = attraction.getOffSaleDate();
+			}else {
+			 	Sport sport = sportDao.selectByEvent(event.getId());
+			 	offSaleDate = sport.getOffSaleDate();
+			}
+			
+			if(offSaleDate.before(nowTime)) {
+				event.setStatus(0);
+				eventDao.updateEvent(event);
+			}
+		}
+		
+	}
+
+	@Override
+	public TicketOrder queryTicketOnWayByTicketOrder(String shortId) {
+		return ticketOrderDao.queryTicketOrderbyshortId(shortId);
+	}
+
+	@Override
+	public void ticketOrderNotice(String ticketOrderId) throws Exception {
+		TicketOrder ticketOrder = ticketOrderDao.queryTicketOrderbyId(ticketOrderId);
+		Hibernate.initialize(ticketOrder);
+		MemberBean member = accountService.selectById(String.valueOf(ticketOrder.getMemberId()));
+		String title = "訂單編號"+ticketOrder.getId();
+		accountService.addMemberNotification(member, 2, title, "您的訂單已成立", "http://localhost:8080/proj/showOrderDetail/"+ticketOrder.getId());
 	}
 	
 	

@@ -73,15 +73,14 @@ public class EventController {
 	public String deleteEvent(@PathVariable int eventId) {
 		System.out.println("========================================="+eventId);
 		backendService.delete(eventId);
-		return "redirect:/ticket/TicketIndex";
+		return "redirect:/TicketIndex";
 	}
 	
 	//上下架
 		@GetMapping("/EventUpdateStatus/{eventId}")
 		public String updateEventStatus(@PathVariable int eventId) {
-			System.out.println("========================================="+eventId);
 			backendService.updateStatusEvent(eventId);
-			return "redirect:/ticket/TicketIndex";
+			return "redirect:/TicketIndex";
 		}
 	
 	//更新票券
@@ -179,7 +178,7 @@ public class EventController {
 	public String showAllEvent(
 			Model model
 			) {
-		System.out.println("123123");
+
 		System.out.println(RequestContextHolder.currentRequestAttributes().getSessionId());
 		Company company = (Company)model.getAttribute("company");
 		System.out.println(company);

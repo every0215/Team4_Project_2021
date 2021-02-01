@@ -52,10 +52,19 @@
             border:solid black 1px;
             border-radius:10px;
         	box-shadow: 0px 0px 10px black;
+        	background-color:white;
 		}
-	
+		
+		.ck-editor__editable_inline {
+            min-height: 300px;      
+        }
+        
+        #fileUpload{
+        	width:300px
+        }
 
     </style>
+	
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
 
@@ -68,11 +77,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js"></script>
-
+	
+	<script src="<c:url value='/js/ckEditorBuild/ckeditor.js'/>"></script>
 
 </head>
 
-<body>
+<body style="background-color:#f3f3f3">
 
 
     <div id="container" class="container">
@@ -142,11 +152,12 @@
 
             <div class="form-group">
                 <label for="comment">活動內容:</label>
-                <textarea name="content" class="form-control need" rows="8"></textarea>
+                <textarea id="editor" name="content" class="form-control">
+                </textarea>
             </div>
 
             <div class="form-group">
-            	<img id="picPreview" style="width:100%;height:200px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
+            	<img id="picPreview" style="width:100%;height:250px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
                 <label for="fileUpload">活動圖檔:</label>
                 <input class="form-control need" id="fileUpload" name="picture" type="file">
 
@@ -164,8 +175,9 @@
     </div>
 
 
-
-    <script>
+	<script src="<c:url value='/js/ckEditorSetting.js'/>"></script>
+	
+	<script>
         $(function () {
 
             setDate(); //將開始日期設定為今天後一天的日期，結束日期為後兩天
@@ -187,6 +199,12 @@
                         isOk = false;
                     }
                 }) 
+                
+                if($(".ck-content p").text==""||$(".ck-content p").text==null){
+                	isOk = false;
+                }
+                
+
                 // -----------------------------------------------------------------------------------------------
                 if (!isOk) {
                     //如果資料驗證不ok
@@ -247,7 +265,7 @@
             $("#quickBtn").click(()=>{
                 var titleField = $("input[name='name']");
                 var descriptionField = $("input[name='description']");
-                var contentField =  $("textarea[name='content']");
+                var contentField =  $(".ck-content p");
 
                 var titleStr = "咖啡全品項八折優惠";
                 var descriptionStr = "即日起咖啡全品項只要八折優惠";
@@ -256,7 +274,7 @@
 
                 titleField.val(titleStr);
                 descriptionField.val(descriptionStr)
-                contentField.val(contentStr);
+                contentField.html(contentStr);
       
                 $("select[name='type'] option").eq(type).attr("selected","selected");
                 $("select[name='type']").trigger("change");

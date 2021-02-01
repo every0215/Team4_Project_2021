@@ -67,7 +67,7 @@
         }
 
         .container{
-            background-color: #white;
+            background-color: rgba(11,129,255,0.07);
             margin-top:10px;
             border:solid 1px black;
             border-radius: 10px;
@@ -100,9 +100,17 @@
 		
 		
     </style>
+<link rel="stylesheet" href="<c:url value='/css/loading_circle.css'/>">
 
 </head>
 <body>
+<div class="loading-bg" style="display:none">
+        <div id = "circle-wraper">
+            <div id="loading-circle">
+                <div>Loading</div>
+			</div>
+		</div>
+</div>
     <div class="container" id="container">
         <div class="row"><h2 class="pageTitle">選擇套用的商品</h2></div>
         <div class="row">
@@ -179,11 +187,12 @@
         	var productNotIncamp =[];
         	
         	$("#cancel-btn").on("click",function(){
-        		history.go(-1);
+        		close();
         	})
         	
 			$("#comfirm").click(function(){
 				
+				$(".loading-bg").css("display","block")
 				readTheProductId();
 			
 				$.ajax({
@@ -193,6 +202,7 @@
 					contentType : 'application/json;charset=UTF-8',
 					data:JSON.stringify(applyBean),
 					success:function(result){
+						$(".loading-bg").css("display","none")
 						if(result=="success"){
 							alert("已成功套用");
 						}else{
@@ -204,7 +214,7 @@
             //動態綁定每列資料的click事件，點擊變黑，其他列還原
             $(".panel").on("click","tbody>tr",function(){
 
-                if($(this).css("background-color")=="#00808c"){
+                if($(this).css("background-color")=="rgb(0, 128, 140)"){
                     $(this).css("background-color","")
                     $(this).css("color","rgb(0, 0, 0)")
                     $(this).css("border","")

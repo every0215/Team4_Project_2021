@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,6 +43,7 @@
 <script>
 
 </script>
+<script src="<c:url value='/js/Report_Adv_a.js' />"></script>
 <script>
 
 
@@ -52,6 +54,7 @@ $("#com1").live( 'click', function(){
 	$("#comp1").css('display','block'); 
 	$("#comp2").css('display','none'); 
 	$("#comp3").css('display','none'); 
+	loadAdv(1);
 	alert(cname);
 	
 });
@@ -72,9 +75,20 @@ $("#com3").live('click', function(){
 	$("#comp1").css('display','none'); 
 	$("#comp2").css('display','none'); 
 	$("#comp2").css('display','block'); 
-	
+	 loadAdv(2);
 	alert(cname);
 });
+$("#com5").live('click', function(){
+	var cname="統一超商";
+	$(this).css('background-color','white');
+	$(this).siblings().css('background-color','gray');
+	$("#comp1").css('display','none'); 
+	$("#comp2").css('display','none'); 
+	$("#comp2").css('display','block'); 
+	 loadAdv(3);
+	alert(cname);
+});
+
 
 $("#com4").live('click', function(){
 	var cname="all";
@@ -130,6 +144,7 @@ $("#can4").live('click', function(){
 			<div id="com1" style="text-align: center;">全家</div>
 			<div id='com2' style="text-align: center;">全聯</div>
 			<div id='com3' style="text-align: center;">萊爾富</div>
+			<div id='com5' style="text-align: center;">統一超商</div>
 			<div id='com4' style="text-align: center ; background-color:white ;">取消篩選</div>
 		</div>
 	</div>
@@ -148,10 +163,18 @@ $("#can4").live('click', function(){
 						class="img-responsive" style="width: 100%; height: 164px">
 				</div>
 				<div class="panel-footer"
-					style="height: 50px; text-align: center; font-size: 16px;">
+					style="height: 50px; text-align: center; font-size: 16px;padding:0">
 			
-					店家:${product.companyName} &nbsp; <div id ="price1">$${product.productPrice}</div></div>
+					店家:${product.companyName} &nbsp; <div id ="price1">$${product.productPrice}
+					<c:if test="${product.productPrice!=product.productPrice*product.discount}">
+					<span style="color:red;font-size:14px">特價:$<fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></span>
+					</c:if>
+					</div>
 					
+					
+					
+					
+				</div>	
 			</div>
 		</div>
 
@@ -162,6 +185,39 @@ $("#can4").live('click', function(){
 		<c:forEach var="product" items="${ProductList}">
 		<span style="display:none" id ="companyName">${product.companyName}</span>
 		<c:if test="${product.companyName == '萊爾富'}">
+		<div class="col-sm-4" style="width: 250px; float: left;">
+			<div class="panel panel-primary"
+				onclick="location.href = '<c:url value='/ProductBuy/${product.productId}'/>'">
+				<div class="panel-heading" style="height: 60px; text-align: center;">${product.productName}</div>
+				<div class="panel-body">
+					<img src="<c:url value='/getproductimage/${product.productId}'/>"
+						class="img-responsive" style="width: 100%; height: 164px">
+				</div>
+				<div class="panel-footer"
+					style="height: 50px; text-align: center; font-size: 16px; padding:0">
+
+					店家:${product.companyName} &nbsp; <div id ="price2">$${product.productPrice}
+					<c:if test="${product.productPrice!=product.productPrice*product.discount}">
+					<span style="color:red;font-size:14px">特價:$<fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></span>
+					</c:if>
+					</div>
+					
+				</div>
+
+			</div>
+		</div>
+	
+	
+			
+	
+	
+	</c:if>
+	</c:forEach>
+	</div>
+		<div id="comp5">
+		<c:forEach var="product" items="${ProductList}">
+		<span style="display:none" id ="companyName">${product.companyName}</span>
+		<c:if test="${product.companyName == '統一超商'}">
 		<div class="col-sm-4" style="width: 250px; float: left;">
 			<div class="panel panel-primary"
 				onclick="location.href = '<c:url value='/ProductBuy/${product.productId}'/>'">
@@ -198,9 +254,15 @@ $("#can4").live('click', function(){
 						class="img-responsive" style="width: 100%; height: 164px">
 				</div>
 				<div class="panel-footer"
-					style="height: 50px; text-align: center; font-size: 16px;">
+					style="height: 50px; text-align: center; font-size: 16px;padding:0">
 
-					店家:${product.companyName} &nbsp; <div id ="price3">$${product.productPrice}</div></div>
+					店家:${product.companyName} &nbsp; <div id ="price3">$${product.productPrice}
+					<c:if test="${product.productPrice!=product.productPrice*product.discount}">
+					<span style="color:red;font-size:14px">特價:$<fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></span>
+					</c:if>
+					</div>
+					
+				</div>
 
 			</div>
 		</div>

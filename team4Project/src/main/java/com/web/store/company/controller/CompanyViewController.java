@@ -26,6 +26,11 @@ public class CompanyViewController {
 		System.out.println("redirect");
 		return "/crm/backOffice";
 	}
+	@GetMapping("/company/MapPage")
+	public String getMap() {
+		System.out.println("redirect");
+		return "/company/MapPage";
+	}
 	
 	@GetMapping("/index")
 	public String companyRegister() {
@@ -53,7 +58,7 @@ public class CompanyViewController {
 		Company company=(Company)session.getAttribute("company");
 		System.out.println("================================================"+company.getId());
 		Integer id = company.getId();
-		List<CmpService> CmpsvList = cmpsvService.getAllServiceBycmpId(id);
+		List<CmpService> CmpsvList = cmpsvService.getAllServiceBycmpId(company);
 		model.addAttribute("CmpsvList", CmpsvList);
 		return "/company/StoreRegister_Service";
 	}

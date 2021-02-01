@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="Service")
 public class CmpService {
@@ -30,27 +32,26 @@ public class CmpService {
 	private Integer id;
 	@Column(name= "SpService")
 	private String spService;
+	@JsonIgnore
 	@Column(name= "SpServiceImg")
 	private Blob spServiceImg;
 	@Column(name= "SVFilename")
 	private String svFilename;
 	@Transient
 	 MultipartFile sMultipartFile;
-
-	@ManyToMany(mappedBy = "cmpServiceS")
+	@JsonIgnore
+	@ManyToMany(mappedBy = "cmpServiceS",fetch = FetchType.EAGER)
 	private Set<Store> sto = new HashSet<Store>();
 	
 //	@ManyToMany(mappedBy = "cmpServiceC")
 //	private Set<Company> cmp = new HashSet<Company>();
 	
-	@Transient
-	@Column(name= "CompanyId")
-	private Integer companyId;
 	
 	
-//	@Transient
+	
+//	@JsonIgnore
 	@JoinColumn(name = "CompanyId")
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	@JsonIgnore
 	private Company company;
 	
@@ -71,15 +72,7 @@ public class CmpService {
 		this.company = company;
 		
 	}
-	public CmpService(String spService, Blob spServiceImg, String svFilename, Integer companyId) {
-		super();
-		
-		this.spService = spService;
-		this.spServiceImg = spServiceImg;
-		this.svFilename = svFilename;
-		this.companyId = companyId;
-		
-	}
+	
 	public CmpService(String spService, Blob spServiceImg, String svFilename) {
 		super();
 		

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.web.store.company.dao.CmpServiceDao;
 import com.web.store.company.model.CmpService;
+import com.web.store.company.model.Company;
 import com.web.store.company.service.CmpServiceService;
 
 
@@ -32,7 +33,7 @@ public class CmpServiceServiceImpl implements CmpServiceService {
 	}
 
 	@Override
-	public List<CmpService> getAllServiceBycmpId(Integer cmpId) {
+	public List<CmpService> getAllServiceBycmpId(Company cmpId) {
 		
 		return cmpsvDao.getAllServiceBycmpId(cmpId);
 	}
@@ -41,6 +42,12 @@ public class CmpServiceServiceImpl implements CmpServiceService {
 	public CmpService getCmpsvById(Integer id,Integer cmpId) {
 		
 		return cmpsvDao.getCmpsvById(id,cmpId);
+	}
+
+	@Override
+	public CmpService getCmpsvBysvId(Integer id) {
+		
+		return cmpsvDao.getCmpsvBysvId(id);
 	}
 
 }

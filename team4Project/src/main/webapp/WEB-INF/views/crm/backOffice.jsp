@@ -34,6 +34,7 @@
 <%--     <link href="<c:url value='${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css'/>" rel="stylesheet" type="text/css" /> --%>
     <link href="<c:url value='/dist/css/skins/_all-skins.min.css'/>" rel="stylesheet" type="text/css" />
 
+
 </head>
 
 <body class="skin-blue">
@@ -101,7 +102,9 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="<c:url value='/company/getCompanyimage/${sessionScope.company.id}'/>" alt="demo demo" title="demo" id="user-profile" class="img-circle" height="45" /> &nbsp;&nbsp;${sessionScope.company.companyName} <i class="fa fa-caret-down fa-fw"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="#"><i class="fa fa-book fa-fw" aria-hidden="true"></i>你的帳號</a></li>
+                                <li><a href="<c:url value='/company/CmpRegi' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>修改企業資訊</a></li>
+                                <li><a href="<c:url value='/company/CompanyProfiles' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>新增企業簡介</a></li>
+                                <li><a href="<c:url value='/company/CompanyServiceRegister' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>新增企業服務</a></li>
                                 <li role="separator" class="divider"></li>
 
                                 <li class="dropdown-header">Help</li>
@@ -126,11 +129,6 @@
                     <li>
                         <a href="<c:url value='/ProductIndex' />">
                             <i class="fa fa-th"></i> <span>商品管理</span>
-                        </a>
-                    </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-check-square-o"></i> <span>訂單管理</span>
                         </a>
                     </li>
                     <li class="treeview">
@@ -163,7 +161,7 @@
                     <li class="treeview">
                         <a href="<c:url value='/cs/loginpage' />">
                         
-                            <i class="fa fa-files-o"></i>
+                            <i class="fa fa-check-square-o"></i>
                             <span>客服系統</span>
                         </a>
                     </li>
@@ -191,15 +189,15 @@
 <!--         測試用記得刪 -->
 <!--         測試用記得刪 -->
 <!--         測試用記得刪 -->
-		<div  style="top:500px;left:600px;background-color:yellow">
-		<a href="<c:url value='/company/CmpRegi' />">修改企業資訊 </a>
-		</div>
-		<div  style="top:500px;left:600px;background-color:yellow">
-		<a href="<c:url value='/company/CompanyProfiles' />">新增企業簡介 </a>
-		</div>
-		<div  style="top:500px;left:600px;background-color:yellow">
-		<a href="<c:url value='/company/CompanyServiceRegister' />">新增企業服務 </a>
-		</div>
+<!-- 		<div  style="top:500px;left:600px;background-color:yellow"> -->
+<%-- 		<a href="<c:url value='/company/CmpRegi' />">修改企業資訊 </a> --%>
+<!-- 		</div> -->
+<!-- 		<div  style="top:500px;left:600px;background-color:yellow"> -->
+<%-- 		<a href="<c:url value='/company/CompanyProfiles' />">新增企業簡介 </a> --%>
+<!-- 		</div> -->
+<!-- 		<div  style="top:500px;left:600px;background-color:yellow"> -->
+<%-- 		<a href="<c:url value='/company/CompanyServiceRegister' />">新增企業服務 </a> --%>
+<!-- 		</div> -->
 		
         <!-- Right side column. Contains the navbar and content of the page -->
 
@@ -207,7 +205,6 @@
 
     </div>
     <!-- ./wrapper -->
-
     <!-- jQuery 2.1.3 -->
     <script src="<c:url value='/plugins/jQuery/jQuery-2.1.3.min.js'/>"></script>
     <!-- Bootstrap 3.3.2 JS -->
