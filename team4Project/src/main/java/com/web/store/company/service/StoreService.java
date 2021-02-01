@@ -23,7 +23,7 @@ public interface StoreService {
 	
 	boolean combineStoreService(String[] svid,Integer stoid);
 	
-	Set<Store> getStoreByService(String[] id);
+	List<Store> getStoreByService(String[] id);
 	
 	List<Store> getStoreByArea(String cmpid,String area);
 	

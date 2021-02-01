@@ -13,7 +13,7 @@
 <!--   企業登入連結 -->
 <!--   企業登入連結 -->
 <!--   企業登入連結 -->
- <a href="<c:url value='/company/MapPage' />">地圖頁面 </a>
+<%--  <a href="<c:url value='/company/MapPage' />">地圖頁面 </a> --%>
 
  
    <!-- wpf loader Two -->
@@ -149,12 +149,12 @@
 				</h4>
 			</div>
 			
-			<a href="<c:url value='#'/>">
+			<a href="<c:url value='/company/MapPage' />">
 			<img class="indexclassbb" src="<c:url value='/img/indexclass/store1.jpg'/>" alt="img"></a>
 			<div class="indexclassspan">
 <!-- 				<span>當地特色</span> -->
 				<h4>
-					<a class="indexclassa" href="#">各地門市</a>
+					<a class="indexclassa" href="<c:url value='/company/MapPage' />">各地門市</a>
 				</h4>
 			</div>
 
