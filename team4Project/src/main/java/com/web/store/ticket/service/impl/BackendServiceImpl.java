@@ -554,8 +554,8 @@ public class BackendServiceImpl implements BackendService {
 		TicketOrder ticketOrder = ticketOrderDao.queryTicketOrderbyId(ticketOrderId);
 		Hibernate.initialize(ticketOrder);
 		MemberBean member = accountService.selectById(String.valueOf(ticketOrder.getMemberId()));
-		String title = "訂單編號"+ticketOrder.getId();
-		accountService.addMemberNotification(member, 2, title, "您的訂單已成立", "http://localhost:8080/proj/showOrderDetail/"+ticketOrder.getId());
+		String des = "訂單編號"+ticketOrder.getId();
+		accountService.addMemberNotification(member, 2, "您的訂單已成立",des , "http://localhost:8080/proj/showOrderDetail/"+ticketOrder.getId());
 	}
 	
 	

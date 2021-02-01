@@ -69,8 +69,9 @@
 				<hr />
 				<input type="hidden" name="typeId" value="2" />
 				<label class="t1" for="">景點名稱:</label>
-				<input type="text" name="eventName" required="required"><br> <br> <label class="t1" for="">景點地點:</label>
-				<input type="text" name="eventLocation" required="required"><br> <br>
+				<input type="text" id="eventName" name="eventName" required="required"><br> <br>
+				<label class="t1" for="">景點地點:</label>
+				<input type="text" id="eventLocation" name="eventLocation" required="required"><br> <br>
 				
 				<label class="t1" for="image_input">景點宣傳圖片:</label>
 				<input id="image_input" type="file" name="eventImage"><br>
@@ -81,20 +82,23 @@
 				<input type="hidden" name="status" value="1" />
 				<%-- 以上為eventBean 以下為attractionBean --%>
 
-					<label class="t1" for="">起始售票時間:</label> <input type="text" id="dateTime1" name="onSaleDate"
-						placeholder="ex:2021-01-01 9:00:01" required="required"> <span id="datetimesp1"></span><br>
-					<br> <span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br>
-					<br> <label class="t1" for="">結束售票時間:</label> <input type="text" id="dateTime2" name="offSaleDate"
-						placeholder="ex:2021-01-31 21:00:01" required="required"> <span id="datetimesp2"></span><br>
-					<br> <span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br>
-					<br> <label class="t1" for="">票券起始日:</label> <input type="text" id="date1" name="commDate"
+					<label class="t1" for="">起始售票時間:</label>
+					<input type="text" id="dateTime1" name="onSaleDate"
+						placeholder="ex:2021-01-01 09:00:01" required="required">
+						<span id="datetimesp1"></span><br><br>
+						<span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
+					<label class="t1" for="">結束售票時間:</label>
+					<input type="text" id="dateTime2" name="offSaleDate" placeholder="ex:2021-01-31 21:00:01" required="required">
+						<span id="datetimesp2"></span><br><br>
+						<span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
+					<label class="t1" for="">票券起始日:</label> <input type="text" id="date1" name="commDate"
 						placeholder="ex:2021-01-01" required="required"> <span id="datesp1"></span><br>
 					<br> <span style="margin-left:90px">時間格式:yyyy-MM-dd</span> <br>
 					<br> <label class="t1" for="">票券終止日:</label> <input type="text" id="date2" name="dueDate"
 						placeholder="ex:2021-01-31" required="required"> <span id="datesp2"></span><br>
 					<br> <span style="margin-left:90px">時間格式:yyyy-MM-dd</span><br>
 					<br> <label class="t1" for="">描述:</label>
-					<textarea style="resize: none; width: 600px; height: 200px;" name="description"></textarea>
+					<textarea style="resize: none; width: 600px; height: 200px;" id="description" name="description"></textarea>
 					<br>
 					<br>
 
@@ -113,10 +117,23 @@
 						<input id="Button1" class="btn btn-primary btn-sm" type="button" value="新增價位與名稱" />
 						<input id="submitButton" type="submit" class="btn btn-warning" name="sumbmit" />
 						<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+						<input id="autoInput" class="btn btn-primary btn-sm" type="button" value="一鍵輸入" />
 			</form>
 			
 			
 			<script>
+			
+			$("#autoInput").click(function () {
+	              $("#eventName").val("國立海洋生物博物館");
+	              $("#eventLocation").val("屏東縣車城鄉後灣路2號");
+	              $("#dateTime1").val("2021-03-01 09:00:01");
+	              $("#dateTime2").val("2021-03-13 18:00:01");
+	              $("#date1").val("2021-03-10");
+	              $("#date2").val("2021-03-14");
+	              $("#description").val("國立海洋生物博物館繼「台灣水域館」、「珊瑚王國館」開幕之後，結合水族館及全數位影像化的方式，介紹涵蓋全球水域、古海洋的「世界水域館」，透過先端科技的整合展示古代海洋、海藻森林、深海水域、極地水域等四大主題。使來訪的人們在虛擬和實體結合的情境營造中，達到寓教於樂的參觀體驗。");
+	          });
+			
+			
 			$("#image_input").change(function(){
 	               readURL(this); 
 	             });
