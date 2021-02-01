@@ -2,6 +2,7 @@ package com.web.store.account.service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import com.web.store.account.javabean.MCoinTopUpDetail;
 import com.web.store.account.javabean.MemberBean;
@@ -19,8 +20,6 @@ public interface AccountService {
 	MemberBean selectById(String id) throws Exception;
 
 	int deleteById(int id) throws Exception;
-
-//	int update(MemberBean member) throws Exception;
 
 	int updateProfileImages(MemberBean member) throws Exception;
 
@@ -56,4 +55,17 @@ public interface AccountService {
 
 	void delete(MemberBean member);
 
+	MemberBean checkForgotPasswordCode(byte[] forgotPasswordCode) throws SQLException;
+	
+	MemberBean selectByQidEmail(String qid, String email) throws SQLException;
+
+	Set<MemberNotification> getMemberNotificationList(int memberId) throws SQLException;
+
+	int getMemberNotificationCount(int memberId) throws SQLException;
+
+	void updateMemberNotificationIsRead(int mNotificationId) throws SQLException;
+
+	Set<MemberSubscription> getMemberSubscriptionList(int memberId) throws SQLException;
+	
+	
 }

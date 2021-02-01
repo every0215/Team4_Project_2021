@@ -132,6 +132,25 @@ ul.ll-err-list-msg {
     color: #337ab7;
 }
 
+.ll-danger-btn {
+	display: inline-block;
+    font-size: 16px;
+    padding: 12px 18px;
+    color: #fff;
+    background-color: #e86621;
+    border: 1px solid #dc4d00;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.ll-danger-btn:hover, .ll-danger-btn:focus {
+    background-color: #fff;
+    color: #e86621;
+}
+
 /* Header-個人帳號Menu */
 .usermenu_usermenu>li>a, .usermenu_usermenu>li>button {
 	/* font-family: Lato,Lucida Grande,Lucida Sans Unicode,Tahoma,Sans-Serif; */
@@ -457,5 +476,19 @@ span.ll-mn-span {
 	padding:15px 0px 15px 0px;
 	
 }
+
+
+/*
+ Luke Font
+*/
+
+.ll-label-large{
+	padding:10px; font-size:16px; 
+}
+
+
+/*
+ Luke Table
+*/
 
 

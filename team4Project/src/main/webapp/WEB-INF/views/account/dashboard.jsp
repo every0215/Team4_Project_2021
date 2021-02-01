@@ -170,18 +170,6 @@
 // 		  //alert('clicked.');
 // 		});
 	  
-		 $(document).on("click","#UserNotificationBox",function(e){
-			 console.log('#UserNotificationBox clicked');
-			  //e.preventDefault();
-			  //alert('clicked.');
-			  
-		  });
-		 
-	  $(document).on("click",".ll-mn-span",function(e){
-		  e.preventDefault();
-		  let url = $(this).data("url");
-		  console.log('.ll-mn-span clicked: ' + url);
-		  window.location.href = url;
-	  });
+		
     	</script>
 </html>

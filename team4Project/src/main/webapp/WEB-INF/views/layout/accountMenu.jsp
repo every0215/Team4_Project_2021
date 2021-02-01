@@ -45,6 +45,6 @@
 		</a></li>
 
 	</ul>
-	<a href="<c:url value='/admin/memberManage' />" style="color: #fff; "><b>MemberManage</b>
+	<a href="<c:url value='/admin/login' />" style="color: #fff; "><b>ADMIN LOGIN</b>
 		</a>
 </div>

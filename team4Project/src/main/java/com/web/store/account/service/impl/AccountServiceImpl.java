@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,7 @@ public class AccountServiceImpl implements AccountService {
 
 	}
 	
+	
 	@Override
 	public List<MemberBean> selectAllMembers() throws Exception {
 		List<MemberBean> members = memberDao.selectAll();
@@ -68,6 +70,18 @@ public class AccountServiceImpl implements AccountService {
 		MemberBean member = memberDao.selectByLoginInfo(email, pwd);
 
 		return member;
+	}
+	
+	@Override
+	public MemberBean selectByQidEmail(String qid, String email) throws SQLException {
+		
+		return memberDao.selectByQidEmail(qid, email);
+	}
+	
+	@Override
+	public MemberBean checkForgotPasswordCode(byte[] forgotPasswordCode) throws SQLException {
+		
+		return memberDao.checkForgotPasswordCode(forgotPasswordCode);
 	}
 	
 	@Override
@@ -145,6 +159,11 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	@Override
+	public Set<MemberSubscription> getMemberSubscriptionList(int memberId) throws SQLException {
+		return memberDao.getMemberSubscriptionList(memberId);
+	}
+	
+	@Override
 	public void delete(MemberSubscription memberSubscription) throws Exception {
 		memberDao.delete(memberSubscription);
 
@@ -177,11 +196,30 @@ public class AccountServiceImpl implements AccountService {
 	// 會員通知
 	//
 	@Override
+	public Set<MemberNotification> getMemberNotificationList(int memberId) throws SQLException {
+		
+		return memberDao.getMemberNotificationList(memberId);	
+	}
+	
+	@Override
+	public int getMemberNotificationCount(int memberId) throws SQLException {
+		
+		return memberDao.getMemberNotificationCount(memberId);
+	}
+	
+	@Override
+	public void updateMemberNotificationIsRead(int mNotificationId) throws SQLException {
+		
+		memberDao.updateMemberNotificationIsRead(mNotificationId);
+	}
+	
+	@Override
 	public void addMemberNotification(MemberBean member, int type, String title, String description, String url) throws Exception {
-		if (member.getMemberNotificationList() == null) {
-			Set<MemberNotification> mNotificationList = new LinkedHashSet<MemberNotification>();
-			member.setMemberNotificationList(mNotificationList);
-		}
+		//Set<MemberNotification> mNotificationList  = memberDao.getMemberNotificationList(member.getId());
+//		if (member.getMemberNotificationList() == null ) {
+//			mNotificationList = new LinkedHashSet<MemberNotification>();
+//			member.setMemberNotificationList(mNotificationList);
+//		}
 		MemberNotification mNotification = new MemberNotification();
 		mNotification.setType(type);
 		mNotification.setTitle(title);
@@ -190,9 +228,10 @@ public class AccountServiceImpl implements AccountService {
 		mNotification.setRead(false);
 		mNotification.setUrl(url);
 		mNotification.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+
 		member.getMemberNotificationList().add(mNotification);
 		
-		update(member);
+		memberDao.update(member);
 	}
 	
 	

@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.net.http.HttpRequest;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -81,7 +82,13 @@ public class MemberController {
 	}
 
 	@RequestMapping("/myWallet")
-	public String myWallet() {
+	public String myWallet(HttpSession session) {
+		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
+		if(currentUser== null) {
+			return "redirect:/";
+			
+		}
+		
 		return "account/myWallet";
 	}
 
@@ -100,6 +107,12 @@ public class MemberController {
 	public String notification() throws Exception {
 
 		return "account/notification";
+	}
+
+	@RequestMapping("/forgotPassword")
+	public String forgotPassword() throws Exception {
+
+		return "account/forgotPassword";
 	}
 
 	@GetMapping("/list")
@@ -414,34 +427,6 @@ public class MemberController {
 	}
 
 	// ==========================================================================
-	// 會員忘記密碼
-	// ==========================================================================
-	@GetMapping("/forgotPassword")
-	public String forgotPassword() {
-		return "account/forgotPassword";
-	}
-
-	@PostMapping("/forgotPassword")
-	public String forgotPassword(@ModelAttribute("member") MemberBean member, Model model, HttpSession session)
-			throws Exception {
-		byte[] encryptedNewPwd = Utility.encryptUsingSHA512(member.getOrigpwd());
-
-		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-		if (Arrays.equals(currentUser.getPassword(), encryptedNewPwd)) {
-			currentUser.setPassword(Utility.encryptUsingSHA512(member.getPwd()));
-			accountService.updatePassword(currentUser);
-			model.addAttribute("verified", true);
-			model.addAttribute("msg", "密碼變更成功");
-			session.setAttribute("currentUser", currentUser);
-
-		} else {
-			model.addAttribute("verified", false);
-			model.addAttribute("msg", "會員密碼輸入錯誤");
-		}
-		return "account/changePassword";
-	}
-
-	// ==========================================================================
 	// 會員密碼變更
 	// ==========================================================================
 	@GetMapping("/changePassword")
@@ -475,7 +460,40 @@ public class MemberController {
 	@GetMapping("/getMemberNotifications")
 	public @ResponseBody Set<MemberNotification> getMemberNotifications(HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-		return (currentUser.getMemberNotificationList() != null) ? currentUser.getMemberNotificationList() : null;
+		return (currentUser != null) ? accountService.getMemberNotificationList(currentUser.getId()) : null;
+	}
+
+	// ==========================================================================
+	// 會員忘記密碼
+	// ==========================================================================
+	@SuppressWarnings("unused")
+	@PostMapping("/forgotPassword")
+	public String forgotPassword(@RequestParam("qid") String qid, @RequestParam("email") String email, @RequestParam("pwd") String pwd, Model model,
+			HttpSession session) throws Exception {
+
+		// 先用qid,email去找會員
+		MemberBean member = accountService.selectByQidEmail(qid, email);
+
+		//
+		//String code = "forgotPasswordCode";
+		byte[] newpwd = Utility.encryptUsingSHA512(pwd);
+		member.setPassword(newpwd);
+		//
+
+		// 發送Email信件
+
+		//
+		if (member != null) {
+			accountService.updatePassword(member);
+			model.addAttribute("verified", true);
+			model.addAttribute("msg", "已成功變更密碼");
+
+		} else {
+			model.addAttribute("verified", false);
+			model.addAttribute("msg", "資料輸入錯誤");
+		}
+
+		return "account/forgotPassword";
 	}
 
 }

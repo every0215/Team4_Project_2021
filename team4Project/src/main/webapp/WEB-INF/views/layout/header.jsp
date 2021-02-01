@@ -23,6 +23,7 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                       <li><a href="#"><img src="img/flag/french.jpg" alt="">FRENCH</a></li>
                       <li><a href="#"><img src="img/flag/english.jpg" alt="">ENGLISH</a></li>
+                      <li><a href="<c:url value='/admin/login' />" style="color: #fff; "><b>ADMIN LOGIN</b></a></li>
                     </ul>
                   </div>
                 </div>
@@ -315,6 +316,19 @@
   </div>
   </section>
   <script>
- 
+	//會員通知-點擊後顯示通知列表與導頁功能
+	 $(document).on("click","#UserNotificationBox",function(e){
+			 console.log('#UserNotificationBox clicked');
+			  //e.preventDefault();
+			  //alert('clicked.');
+			  
+		  });
+			 
+		  $(document).on("click",".ll-mn-span",function(e){
+			  e.preventDefault();
+			  let url = $(this).data("url");
+			  console.log('.ll-mn-span clicked: ' + url);
+			  window.location.href = url;
+		  });
   </script>
   <!-- / menu -->

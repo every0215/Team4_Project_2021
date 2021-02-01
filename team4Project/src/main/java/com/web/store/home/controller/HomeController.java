@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.service.AccountService;
 import com.web.store.product.service.ProductService;
 import com.web.store.report.model.Report;
 import com.web.store.report.service.ReportService;
@@ -35,9 +37,12 @@ import com.web.store.report.service.ReportService;
 
 @Controller
 public class HomeController {
-
+	@Autowired
+	AccountService accountService;
+	
 	@Autowired
 	ServletContext servletContext;
+	
 	@Autowired
 	ProductService pService;
 	
@@ -68,7 +73,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/layout/header")
-	public String layoutHeader(Model model, HttpSession session) throws IOException {
+	public String layoutHeader(Model model, HttpSession session) throws IOException, SQLException {
 		MemberBean member = (MemberBean) session.getAttribute("currentUser");
 		if (member != null) {
 			System.out.println("MemeberId: " + member.getId() + ", Fullname: " + member.getFullname() + ", Email: "
@@ -92,7 +97,7 @@ public class HomeController {
 					member.setProfileImage1Base64(base64Encoded);
 
 					model.addAttribute("user", member);
-					model.addAttribute("userNotificationNo", member.getMemberNotificationList()==null? 0 : member.getMemberNotificationList().size());
+					model.addAttribute("userNotificationNo", accountService.getMemberNotificationCount(member.getId()));
 				}
 			}
 			
