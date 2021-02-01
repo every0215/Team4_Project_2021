@@ -71,8 +71,12 @@
 				<label class="t1" for="">景點名稱:</label>
 				<input type="text" name="eventName" required="required"><br> <br> <label class="t1" for="">景點地點:</label>
 				<input type="text" name="eventLocation" required="required"><br> <br>
-				<label class="t1" for="">景點宣傳圖片:</label>
+				
+				<label class="t1" for="image_input">景點宣傳圖片:</label>
 				<input id="image_input" type="file" name="eventImage"><br>
+				<img id="picPreview" style="width:400px;height:200px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
+
+				
 				<br>
 				<input type="hidden" name="status" value="1" />
 				<%-- 以上為eventBean 以下為attractionBean --%>
@@ -113,6 +117,20 @@
 			
 			
 			<script>
+			$("#image_input").change(function(){
+	               readURL(this); 
+	             });
+			
+			function readURL(input){
+          	  if(input.files && input.files[0]){
+          	    var reader = new FileReader();
+          	    reader.onload = function (e) {
+          	       $("#picPreview").attr('src', e.target.result);
+          	    }
+          	    reader.readAsDataURL(input.files[0]);
+          	  }
+          }
+			
 			let nowDate = new Date();
 						
 						function checkDateTime1(x,y){

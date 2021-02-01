@@ -98,11 +98,12 @@ let buttonDUdisabe = () => {
     let nowDate = new Date();
     console.log('現在時間'+nowDate);
     
-    let period = $("table tr:nth-child(6) td:last-child").html();
+    let period = $("table tr:nth-child(5) td:last-child").html();
     console.log(period);
     let onSaleStr = period.substring(0,19);
+    console.log(onSaleStr)
     let offSaleStr = period.substring(22,41);
-    
+    console.log(offSaleStr)
     let onSaleDate = new Date(Date.parse(onSaleStr.replace('-','/')));
     let offSaleDate = new Date(Date.parse(offSaleStr.replace('-','/')));
          
@@ -111,20 +112,23 @@ let buttonDUdisabe = () => {
              $('#updateButton').attr('disabled', true)
              $('#deleteButton').attr('disabled', true)
              
+              console.log("已開賣");
               console.log("更新與刪除Button變為disable");
          
          }else{
              console.log("Session比系統目前時間大");
          }
          
-		if ( Date.parse(offSaleDate) < Date.parse(nowDate)){
+		if ( Date.parse(offSaleDate) > Date.parse(nowDate)){
         	 
-			$('#statusButton').attr('disabled', true)
+			
              
-              console.log("上下架Button變為disable");
+			console.log("還在售票期間");
          
          }else{
-             console.log("Session比系統目前時間大");
+        	 $('#statusButton').attr('disabled', true)
+        	 console.log("上下架Button變為disable");
+             
          }
          
          

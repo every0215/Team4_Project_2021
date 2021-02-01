@@ -89,7 +89,7 @@ let buttonDUdisabe = () => {
     let nowDate = new Date();
     console.log('現在時間'+nowDate);
     
-    let period = $("table tr:nth-child(6) td:last-child").html();
+    let period = $("table tr:nth-child(5) td:last-child").html();
     console.log(period);
     let onSaleStr = period.substring(0,19);
     let offSaleStr = period.substring(22,41);

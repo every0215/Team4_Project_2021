@@ -80,7 +80,9 @@ select option[value="0"] {
 			
 
 		<label class="t1" for="">展覽宣傳圖片:</label>
-			<input id="image_input" type="file" name="eventImage"><br><br>
+		<input id="image_input" type="file" name="eventImage"><br>
+		<img id="picPreview" style="width:400px;height:200px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
+		<br/>
 		<input type="hidden" name="status" value="1" />
 		<%-- 以上為eventBean 以下為exhibitionBean --%>
 
@@ -121,6 +123,19 @@ select option[value="0"] {
 			<input type="text" name="discountRatio" required="required" placeholder="ex 0.8 表8折"><br><br>
 
 		<script>
+		$("#image_input").change(function(){
+            readURL(this); 
+          });
+		
+		function readURL(input){
+   	  if(input.files && input.files[0]){
+   	    var reader = new FileReader();
+   	    reader.onload = function (e) {
+   	       $("#picPreview").attr('src', e.target.result);
+   	    }
+   	    reader.readAsDataURL(input.files[0]);
+   	  }
+   }
 		
 		$(function(){	
 			$.ajax({
