@@ -1,3 +1,4 @@
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,11 +8,25 @@
 <head>
 <meta charset="UTF-8">
 <title>門市修改</title>
+<style >
+.rep_reportarea {
+	background-color: transparent;
+	position: absolute;
+	width: calc(100vw - 15px);
+	height: calc(100vh - 80px);
+	bottom: 0px;
+	right: 0px;
+	font-family:微軟正黑體;
+	font-weight:900;
+}
+</style>
 </head>
 <body>
+<div class="rep_reportarea">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper">
 
-把Store的Bean全部顯示
-<%-- <c:url value='/updateStore'/> --%>
+
 <form:form method='POST' modelAttribute="storeBean"  action="${pageContext.request.contextPath}/company/updateStore" >
 			
 			<c:if test='${Store.id != null}'>
@@ -100,5 +115,7 @@
 		</form:form>
 
 <a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
+</div>
+</div>
 </body>
 </html>
