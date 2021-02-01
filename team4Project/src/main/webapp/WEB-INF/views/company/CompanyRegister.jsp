@@ -10,6 +10,16 @@
 select option[value="-1"] {
  display: none;
 }
+.rep_reportarea {
+	background-color: transparent;
+	position: absolute;
+	width: calc(100vw - 15px);
+	height: calc(100vh - 80px);
+	bottom: 0px;
+	right: 0px;
+	font-family:微軟正黑體;
+	font-weight:900;
+}
 </style>
 <title>企業註冊</title>
 </head>
@@ -98,8 +108,10 @@ select option[value="-1"] {
 	
 	
 	
-	
-	
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>	
+	<div class="rep_reportarea">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper">
 		<fieldset>
 	<legend >企業資料</legend> 
 	
@@ -169,9 +181,10 @@ select option[value="-1"] {
 	
 			</form>
 </fieldset>
-<br>
-<a href="<c:url value='/crm/backOffice'/> " >回前頁</a>
-	
+
+
+	</div>
+	</div>
     </c:otherwise>
 </c:choose>
 

@@ -1,3 +1,4 @@
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,9 +8,23 @@
 <head>
 <meta charset="UTF-8">
 <title>門市新增</title>
+<style >
+.rep_reportarea {
+	background-color: transparent;
+	position: absolute;
+	width: calc(100vw - 15px);
+	height: calc(100vh - 80px);
+	bottom: 0px;
+	right: 0px;
+	font-family:微軟正黑體;
+	font-weight:900;
+}
+</style>
 </head>
 <body>
-
+<div class="rep_reportarea">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper">
 
 
 <form:form method='POST' modelAttribute="storeBean" >
@@ -18,7 +33,7 @@
                  <form:hidden path="id" />
 			</c:if>
 			<fieldset class="fieldset-auto-width">
-				<legend>門市資料${sessionScope.company.id}</legend>
+				<legend>門市資料</legend>
 				<table>
 					<tr>
 						<td align='right'>門市名稱：</td>
@@ -64,7 +79,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td align='right'>Fex<font size='-3' color='blue'>(yyyy-MM-dd)</font>：
+						<td align='right'>Fex<font size='-3' color='blue'></font>：
 						</td>
 						<td><form:input path="fex"  type="text" />
 <%-- 						 <form:hidden path="company" value="${sessionScope.company}"/> --%>
@@ -82,6 +97,7 @@
 		</form:form>
 
 <a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
-
+</div>
+</div>
 </body>
 </html>

@@ -186,7 +186,7 @@ public class CompanyController {
 		
 		/////////////////存圖片轉成Byte陣列////////////////////
 		
-		return "redirect:/crm/backOffice";
+		return "redirect:/reportin";
 		
 	}
 	
@@ -413,7 +413,7 @@ public class CompanyController {
 		}
 		//如果有找到就更新
 
-		return "redirect:/crm/backOffice";
+		return "redirect:/reportin";
 	}
 
 	///////////////////////////////////////企業服務///////////////////////////////////////////
