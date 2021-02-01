@@ -292,9 +292,9 @@ public class CompanyController {
 			int companyId = company.getId();
 			System.out.println("登入companyId:"+companyId);
 			
-			return "redirect:/crm/backOffice";
+			return "redirect:/reportin";
 		}else {
-			return "/company/CompanyLogin";
+			return "redirect:/";
 		}	
 	}
 //	當@ModelAttribute標註在方法前，表示這個方法回傳的值會以model.addAttribute()攜帶，並且

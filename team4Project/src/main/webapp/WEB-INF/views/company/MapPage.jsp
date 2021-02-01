@@ -10,9 +10,13 @@
 <style>
 /* 地圖大框框 */
 .mapall {
-	border: solid 2px gray;
-	height: 550px;
+/* 	border: solid 2px gray; */
+/*  	height: 550px;  */
 	width: 730px;
+/* 	height:calc(50vh); */
+	top:500px;
+	margin:auto;
+	bottom:500px;
 }
 /* 搜尋列 */
 .map_left {
@@ -43,6 +47,8 @@ ul {
 }
 </style>
 </head>
+ <c:import url="/layout/head" />
+<c:import url="/layout/header" />
 <body>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"
 		data-integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -166,6 +172,8 @@ ul {
                             <span><img height="20px" width="20px" src="" /></span>
                             <span><img height="20px" width="20px" src="" /></span>
                             <span><img height="20px" width="20px" src="" /></span>(服務)<br>
+                            電話:`+data.phone+`<br>
+                            地址:`+data.storeAddress+`<br>
                             門店簡介:<br>
                             <div>
                                 `+ data.profiles + `
@@ -361,6 +369,6 @@ ul {
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnY8qwXMnZl1DtF0cYvNfhd2gCcWuWbbo&callback=initMap"
 		async defer></script>
-
+<c:import url="/layout/footer" />
 </body>
 </html>
