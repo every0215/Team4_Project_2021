@@ -259,7 +259,8 @@ ul {
 
         //服務搜尋(id查詢)
         $("#svSearch").click(function () {
-
+            alert($("#cmpChange").val());
+			console.log("服務搜尋")
             var svId = [];
             $("input[name='checkbox']:checked").each(function (i) {
                 svId[i] = $(this).val();

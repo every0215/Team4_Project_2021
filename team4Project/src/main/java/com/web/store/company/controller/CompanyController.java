@@ -677,14 +677,14 @@ public class CompanyController {
 	
 	//服務搜尋(未完成)
 	@PostMapping(value="/company/mapGetStoreByService ",produces = "application/json; charset=UTF-8")
-	public @ResponseBody Set<Store> mapGetStoreByService(
+	public @ResponseBody List<Store> mapGetStoreByService(
 			@RequestParam(value="service") String[] id,
 			HttpSession session,
 			Model model
 			) throws IOException {
 		System.out.println("Ajax接收資料 地圖服務搜尋");
 		
-		Set<Store> stoByService= stoService.getStoreByService(id);
+		List<Store> stoByService= stoService.getStoreByService(id);
 		//要寫好SERVICE
 		return stoByService;
 		

@@ -1,6 +1,8 @@
 package com.web.store.company.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +15,10 @@ import com.web.store.company.dao.StoreDao;
 import com.web.store.company.model.Company;
 import com.web.store.company.model.Store;
 
+class StoreService {
+	String StoreId;
+	String ServiceId;
+}
 @Repository
 public class StoreDaoImpl implements StoreDao {
 
@@ -232,5 +238,27 @@ public class StoreDaoImpl implements StoreDao {
 		return queryObj.list();	
 	}
 
-
+	@Override
+	public List<Integer> getStoreByService(List<Integer> intList) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "SELECT StoreId, COUNT(*) as cnt FROM StoreService where serviceId in (" + getCollectIntString(intList) + ") GROUP BY storeId";
+		Query queryObj = session.createQuery(hqlstr,StoreService.class);
+//		queryObj.setParameter("ServiceId", companyId);
+		//stoid list
+		return (List<Integer>) queryObj;
+		
+		
+	}
+	
+	//轉List<Integer> to 3,4,5
+	private String getCollectIntString(List<Integer> intList) {
+		List<String> strList = new ArrayList<>();
+		for (Integer tInt : intList) {
+			strList.add(tInt.toString());
+		}
+		
+		String result = strList.stream().collect(Collectors.joining(","));
+//		System.out.println("result = " + result);
+		return result;
+	}
 }
