@@ -233,6 +233,12 @@ public class AccountServiceImpl implements AccountService {
 		
 		memberDao.update(member);
 	}
+
+	@Override
+	public MemberBean selectWithNotificationById(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 //	@Override
