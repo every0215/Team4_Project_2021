@@ -42,11 +42,11 @@ public class ProductOrderDetail implements Serializable{
 	@Column(name= "ProductId")
 	private Integer productId;
 	@Column(name= "Discount")
-	private Integer discount;
-	public Integer getDiscount() {
+	private Double discount;
+	public Double getDiscount() {
 		return discount;
 	}
-	public void setDiscount(Integer discount) {
+	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
 
@@ -56,7 +56,7 @@ public class ProductOrderDetail implements Serializable{
 	
 	
 	public ProductOrderDetail( Integer price, Integer quanity, Integer orderNumber, Integer productId,
-			Integer discount) {
+			Double discount) {
 		super();
 		
 		this.price = price;
@@ -67,7 +67,7 @@ public class ProductOrderDetail implements Serializable{
 		
 	}
 	public ProductOrderDetail(Integer orderDetailId,  Integer price, Integer quanity,
-			Integer orderNumber, Integer productId, Integer discount) {
+			Integer orderNumber, Integer productId, Double discount) {
 		super();
 		this.orderDetailId = orderDetailId;
 		this.price = price;
