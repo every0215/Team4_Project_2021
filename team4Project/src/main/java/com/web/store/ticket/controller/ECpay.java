@@ -413,7 +413,7 @@ public class ECpay {
 		obj.setTradeDesc(java.net.URLEncoder.encode(tradeDesc, "UTF-8"));
 		obj.setItemName(itemName);
 		//ngrok連線需要定時更新
-		obj.setReturnURL("https://78086489c7ed.ngrok.io/proj/ecpay/response");
+		obj.setReturnURL("https://0328698066a9.ngrok.io/proj/ecpay/response");
 		obj.setNeedExtraPaidInfo("Y");
 		String form = all.aioCheckOut(obj, null);
 		return form;
