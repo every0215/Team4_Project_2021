@@ -57,7 +57,6 @@ $("#com1").live( 'click', function(){
 	$("#comp5").css('display','none'); 
 	alert(cname);
 	loadAdv(1);
-	
 });
 $("#com2").live( 'click', function(){
 	var cname="全聯福利中心";
@@ -108,14 +107,13 @@ $("#com4").live('click', function(){
 $("#can1").live('click', function(){
 	var price="0~100";
 	var price1 = $('#price1').html();
-	
+		
 
 	if(($("#price1").html()) >0 && ($("#price").html())<=100){
 		$("#price1").parent().parent().css('display','block');
 		}else{
 			$("#price1").parent().parent().css('display','none');
 		}
-
 	alert(price1);
 });
 
