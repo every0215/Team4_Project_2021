@@ -80,4 +80,5 @@ public interface BackendService {
 	public void checkTicketOnWay();
 	public void checkEventStatus();
 	
+	public void ticketOrderNotice(String ticketOrderId) throws Exception;
 }

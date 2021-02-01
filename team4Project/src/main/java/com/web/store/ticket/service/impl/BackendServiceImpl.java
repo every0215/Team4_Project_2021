@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.web.store.account.javabean.MemberBean;
+import com.web.store.account.service.AccountService;
 import com.web.store.company.dao.impl.CompanyDaoImpl;
 import com.web.store.company.model.Company;
 import com.web.store.ticket.dao.impl.AttractionDao;
@@ -73,6 +75,8 @@ public class BackendServiceImpl implements BackendService {
 	TicketOrderDetailDao ticketOrderDetailDao;
 	@Autowired
 	TicketOnWayDao ticketOnWayDao;
+	@Autowired
+	AccountService accountService;
 	
 	
 	@SuppressWarnings("null")
@@ -543,6 +547,15 @@ public class BackendServiceImpl implements BackendService {
 	@Override
 	public TicketOrder queryTicketOnWayByTicketOrder(String shortId) {
 		return ticketOrderDao.queryTicketOrderbyshortId(shortId);
+	}
+
+	@Override
+	public void ticketOrderNotice(String ticketOrderId) throws Exception {
+		TicketOrder ticketOrder = ticketOrderDao.queryTicketOrderbyId(ticketOrderId);
+		Hibernate.initialize(ticketOrder);
+		MemberBean member = accountService.selectById(String.valueOf(ticketOrder.getMemberId()));
+		String title = "訂單編號"+ticketOrder.getId();
+		accountService.addMemberNotification(member, 2, title, "您的訂單已成立", "http://localhost:8080/proj/showOrderDetail/"+ticketOrder.getId());
 	}
 	
 	
