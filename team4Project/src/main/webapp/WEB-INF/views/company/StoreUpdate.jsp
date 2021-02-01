@@ -1,3 +1,4 @@
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,11 +8,25 @@
 <head>
 <meta charset="UTF-8">
 <title>門市修改</title>
+<style >
+.rep_reportarea {
+	background-color: transparent;
+	position: absolute;
+	width: calc(100vw - 15px);
+	height: calc(100vh - 80px);
+	bottom: 0px;
+	right: 0px;
+	font-family:微軟正黑體;
+	font-weight:900;
+}
+</style>
 </head>
 <body>
+<div class="rep_reportarea">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper">
 
-把Store的Bean全部顯示
-<%-- <c:url value='/updateStore'/> --%>
+
 <form:form method='POST' modelAttribute="storeBean"  action="${pageContext.request.contextPath}/company/updateStore" >
 			
 			<c:if test='${Store.id != null}'>
@@ -20,6 +35,7 @@
 			<fieldset class="fieldset-auto-width">
 				<legend>門市資料</legend>
 				<table>
+				<form:hidden path="id" />
 					<tr>
 						<td align='right'>門市名稱：</td>
 						<td><form:input path="storeName"  type="text" /></td>
@@ -62,12 +78,22 @@
 						<td align='right'>電話：</td>
 						<td><form:input path="phone"  type="text" />
 						</td>
+						<td align='right'>上下架狀態：</td>
+						<td>
+<!-- 						修改狀態 -->
+                 		<form:radiobutton path = "status" value = "True" label = "上架" />
+                		<form:radiobutton path = "status" value = "False" label = "下架" />
+
+						
+						
+<!-- 						<input type="time" name="closehour" /> -->
+						</td>
 					</tr>
 					<tr>
-						<td align='right'>Fex<font size='-3' color='blue'>(yyyy-MM-dd)</font>：
+						<td align='right'>Fex<font size='-3' color='blue'></font>：
 						</td>
 						<td><form:input path="fex"  type="text" />
-						 <form:hidden path="companyId" value="${sessionScope.company.id}"/>
+<%-- 						 <form:hidden path="company" value="${sessionScope.company.id}"/> --%>
 						</td>
 					</tr>
 					
@@ -75,12 +101,21 @@
 					
 					<tr>
 						<td colspan='2' align='center'>
+						<div style="padding:5px">
+							門市簡介:<br/>
+						<form:textarea rows="4" cols="50" placeholder="請輸入簡介(不輸入預設企業簡介)" path="profiles"></form:textarea>
+						</div>
+						
 						<input type='submit' value='提交'></td>
 					</tr>
 				</table>
 			</fieldset>
+			
+			
 		</form:form>
 
 <a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
+</div>
+</div>
 </body>
 </html>

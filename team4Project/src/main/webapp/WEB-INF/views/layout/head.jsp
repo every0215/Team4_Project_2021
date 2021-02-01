@@ -49,5 +49,12 @@
     
   <style >
 	@import 'https://fonts.googleapis.com/css?family=Material+Icons';
+	
+	.ll-notification-container::-webkit-scrollbar { width: 0 !important }
+	
+	.ll-notification-container { -ms-overflow-style: none; }
+	
+	.ll-notification-container { overflow: -moz-scrollbars-none; }
+	
   </style>
   

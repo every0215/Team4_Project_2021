@@ -64,7 +64,7 @@ import com.web.store.utils.ImgurAPI;
 
 @Controller
 @RequestMapping("/campaign/")
-@SessionAttributes(names = {"company"}) ////存取session屬性
+@SessionAttributes(names = {"company"})
 public class CampaignController {
 	
 	@Autowired
@@ -545,6 +545,7 @@ public class CampaignController {
 	public @ResponseBody String applyCampaign(@RequestBody ApplyBean apply,@PathVariable Integer campaignId){
 		try {
 			campService.applyProductWithCamp(apply, campaignId);
+			campService.updateProductDiscount();
 			return "success";
 		}catch(Exception ex) {
 			ex.printStackTrace();

@@ -102,7 +102,9 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="<c:url value='/company/getCompanyimage/${sessionScope.company.id}'/>" alt="demo demo" title="demo" id="user-profile" class="img-circle" height="45" /> &nbsp;&nbsp;${sessionScope.company.companyName} <i class="fa fa-caret-down fa-fw"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="#"><i class="fa fa-book fa-fw" aria-hidden="true"></i>你的帳號</a></li>
+                                <li><a href="<c:url value='/company/CmpRegi' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>修改企業資訊</a></li>
+                                <li><a href="<c:url value='/company/CompanyProfiles' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>新增企業簡介</a></li>
+                                <li><a href="<c:url value='/company/CompanyServiceRegister' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>新增企業服務</a></li>
                                 <li role="separator" class="divider"></li>
 
                                 <li class="dropdown-header">Help</li>
@@ -192,15 +194,15 @@
 <!--         測試用記得刪 -->
 <!--         測試用記得刪 -->
 <!--         測試用記得刪 -->
-		<div  style="top:500px;left:600px;background-color:yellow">
-		<a href="<c:url value='/company/CmpRegi' />">修改企業資訊 </a>
-		</div>
-		<div  style="top:500px;left:600px;background-color:yellow">
-		<a href="<c:url value='/company/CompanyProfiles' />">新增企業簡介 </a>
-		</div>
-		<div  style="top:500px;left:600px;background-color:yellow">
-		<a href="<c:url value='/company/CompanyServiceRegister' />">新增企業服務 </a>
-		</div>
+<!-- 		<div  style="top:500px;left:600px;background-color:yellow"> -->
+<%-- 		<a href="<c:url value='/company/CmpRegi' />">修改企業資訊 </a> --%>
+<!-- 		</div> -->
+<!-- 		<div  style="top:500px;left:600px;background-color:yellow"> -->
+<%-- 		<a href="<c:url value='/company/CompanyProfiles' />">新增企業簡介 </a> --%>
+<!-- 		</div> -->
+<!-- 		<div  style="top:500px;left:600px;background-color:yellow"> -->
+<%-- 		<a href="<c:url value='/company/CompanyServiceRegister' />">新增企業服務 </a> --%>
+<!-- 		</div> -->
 		
         <!-- Right side column. Contains the navbar and content of the page -->
 

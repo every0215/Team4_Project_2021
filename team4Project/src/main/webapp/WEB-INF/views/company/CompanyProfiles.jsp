@@ -1,3 +1,4 @@
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
@@ -7,8 +8,23 @@
 <head>
 <meta charset="UTF-8">
 <title>修改企業簡介</title>
+<style >
+.rep_reportarea {
+	background-color: transparent;
+	position: absolute;
+	width: calc(100vw - 15px);
+	height: calc(100vh - 80px);
+	bottom: 0px;
+	right: 0px;
+	font-family:微軟正黑體;
+	font-weight:900;
+}
+</style>
 </head>
 <body>
+<div class="rep_reportarea">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper">
 <fieldset>
 	<legend >企業簡介</legend> 
 	
@@ -38,6 +54,8 @@
 	
 			</form>
 </fieldset>
-<a href="<c:url value='/crm/backOffice'/> " >回企業管理頁</a>
+</div>
+</div>
+
 </body>
 </html>

@@ -178,7 +178,7 @@
     			var docHeight = $(document).height();
     			var windowHeight = $(this).height();
     			
-    			if((docHeight-1)<(windowScrollTop+windowHeight)){
+    			if((docHeight-2)<(windowScrollTop+windowHeight)){
     				console.log("reach bottom");
     				currentPage+=1;
     				$.ajax({

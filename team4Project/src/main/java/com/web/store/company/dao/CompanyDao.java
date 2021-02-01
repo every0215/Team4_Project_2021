@@ -1,7 +1,9 @@
 package com.web.store.company.dao;
 
 import java.util.List;
+import java.util.Set;
 
+import com.web.store.company.model.CmpService;
 import com.web.store.company.model.Company;
 
 public interface CompanyDao {
@@ -42,6 +44,8 @@ public interface CompanyDao {
 	boolean updateProfiles(Integer id,String profiles);
 	
 	/////////////////////後台功能////////////////////////
+	
+	Set<CmpService> getAllServiceBycmpId(Integer cmpId);
 	
 //	簡介修改 特定Service新增
 //	簡介修改 特定Service新增

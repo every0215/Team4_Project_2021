@@ -1,7 +1,9 @@
 package com.web.store.company.service;
 
 import java.util.List;
+import java.util.Set;
 
+import com.web.store.company.model.CmpService;
 import com.web.store.company.model.Company;
 
 public interface CompanyService {
@@ -21,5 +23,7 @@ public interface CompanyService {
 	boolean statusCheck(Integer id);
 	
 	boolean updateProfiles(Integer id,String profiles);
+
+	Set<CmpService> getCompanyService(Integer id);
 	
 }

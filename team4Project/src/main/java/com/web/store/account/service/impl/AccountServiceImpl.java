@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -193,6 +194,14 @@ public class AccountServiceImpl implements AccountService {
 		member.getMemberNotificationList().add(mNotification);
 		
 		update(member);
+	}
+
+	@Override
+	public MemberBean selectWithNotificationById(String id) throws Exception {
+		MemberBean member = selectById(id);
+		Set<MemberNotification> notifications= member.getMemberNotificationList();
+		Hibernate.initialize(notifications); 
+		return member;
 	}
 	
 	
