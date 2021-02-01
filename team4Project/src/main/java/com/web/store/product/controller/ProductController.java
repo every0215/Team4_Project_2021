@@ -262,12 +262,12 @@ public class ProductController {
 			@RequestParam("qty") Integer qty,
 			@RequestParam("productId") Integer productId){
 		MemberBean member = (MemberBean) session.getAttribute("currentUser");
-		System.out.println("member="+member.getId());
+		
 		
 		if (member == null) {
 			return "redirect:/account/login";
 		}
-		
+		System.out.println("member="+member.getId());
 		Cart cart = (Cart) model.getAttribute("Cart");
 		if (cart == null) {
 			// 就新建ShoppingCart物件
@@ -276,9 +276,9 @@ public class ProductController {
 			model.addAttribute("Cart", cart);  
 			System.out.println("cart");
 		}
+		
+			Product bean = pService.getProduct(productId);
 			
-			Map<Integer, Product> ProductMap = (Map<Integer, Product>) session.getAttribute("ProductList");
-			Product bean = ProductMap.get(productId);
 			ProductOrderDetail oib = new ProductOrderDetail(
 					bean.getProductPrice(),
 					qty,
@@ -286,6 +286,7 @@ public class ProductController {
 					bean.getproductId(),
 					bean.getdiscount());
 			cart.addToCart(productId, oib);
+			
 			System.out.println("cart"+cart);
 		
 		

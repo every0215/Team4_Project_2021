@@ -53,11 +53,11 @@ public class MemberDaoImpl implements MemberDao {
 		Session session = factory.getCurrentSession();
 		byte[] aa = Utility.encryptUsingSHA512(pwd);
 		List<MemberBean> memberList = (List<MemberBean>) session.createQuery("From MemberBean m  "
-				+ "JOIN FETCH m.memberCreditCardList "
-				+ "JOIN FETCH m.mCoinTopupDetailList "
-				+ "JOIN FETCH m.mCoin "
+				+ "Left JOIN FETCH m.memberCreditCardList "
+				+ "Left JOIN FETCH m.mCoinTopupDetailList "
+				+ "Left JOIN FETCH m.mCoin "
 				//+ "JOIN FETCH m.memberSubscriptionList "
-				+ "JOIN FETCH m.memberNotificationList "
+				+ "Left JOIN FETCH m.memberNotificationList "
 				+ "WHERE m.email = :email AND m.password = :password")
 				.setParameter("email", email)
 				.setParameter("password", Utility.encryptUsingSHA512(pwd))
