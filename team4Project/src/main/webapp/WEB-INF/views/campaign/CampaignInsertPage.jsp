@@ -58,6 +58,10 @@
 		.ck-editor__editable_inline {
             min-height: 300px;      
         }
+        
+        #fileUpload{
+        	width:300px
+        }
 
     </style>
 	
@@ -153,7 +157,7 @@
             </div>
 
             <div class="form-group">
-            	<img id="picPreview" style="width:100%;height:200px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
+            	<img id="picPreview" style="width:100%;height:250px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
                 <label for="fileUpload">活動圖檔:</label>
                 <input class="form-control need" id="fileUpload" name="picture" type="file">
 

@@ -93,12 +93,19 @@
             <div class="form-group">
                 <label >活動類型:</label>
                 <select name="type" class="form-select need" aria-label="Default select example ">
-                    <option value="0">不指定活動類型</option>
+                    <c:if test="${camp.discountParams.type==0}">
+                    	<option value="0" selected>不指定活動類型</option>
+                    	<option value="1" >折扣</option>
+                    	<option value="2">滿額折</option>
+                    </c:if>
+                    
                     <c:if test="${camp.discountParams.type==1}">
+                    	<option value="0" >不指定活動類型</option>
                     	<option value="1" selected>折扣</option>
                     	<option value="2">滿額折</option>
                     </c:if>
                     <c:if test="${camp.discountParams.type==2}">
+                    	<option value="0" >不指定活動類型</option>
                     	<option value="1">折扣</option>
                     	<option value="2" selected>滿額折</option>
                     </c:if>              
@@ -167,7 +174,7 @@
             </div>
 
             <div class="form-group">
-            	<img id="picPreview" style="width:100%;height:150px" src="${camp.picturePath}"/><br>
+            	<img id="picPreview" style="width:100%;height:250px" src="${camp.picturePath}"/><br>
                 <label for="fileUpload">活動圖檔:</label>
                 <input class="form-control" id="fileUpload" name="picture" type="file">
 

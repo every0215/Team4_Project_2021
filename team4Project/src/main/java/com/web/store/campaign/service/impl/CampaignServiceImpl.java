@@ -2,6 +2,7 @@ package com.web.store.campaign.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -176,17 +177,19 @@ public class CampaignServiceImpl implements CampaignService {
 		List<Product> productsInCamp = new LinkedList<Product>();
 		List<Product> productsNotInCamp = new LinkedList<Product>();
 		List<Product> products = productService.selectbyCompanyName(companyName);
+		Set<Product> currentProductIncamp = getCampaignById(campId).getProducts();
 		
-		for(Product product:products) {
+		//檢查商品是否為活動套用中
+		for(Product product:products) {	
 			boolean flag = true;
-			for(Campaign campaign:product.getCampaigns()) {
-				if(campaign.getId()==campId) {
+			for(Product productInCamp:currentProductIncamp) {		
+				if(productInCamp.getproductId()==product.getproductId()) {
 					productsInCamp.add(product);
 					flag = false;
 					break;
 				}
 			}
-			if(flag) {
+			if (flag) {
 				productsNotInCamp.add(product);
 			}
 		}
@@ -202,44 +205,21 @@ public class CampaignServiceImpl implements CampaignService {
 	//套用活動商品方法
 	public int applyProductWithCamp(ApplyBean apply, int campaignId) {
 		Campaign camp = getCampaignById(campaignId);
-		Set<Product> cueerntProductsInCamp = camp.getProducts();
-		//將活動關聯的商品遍歷出來
-		System.out.println("遍歷目前套用商品------ ");
-		//若collection利用迴圈新增刪除後同時讀取會造成ConcurrentModificationException
-		//因此利用CopyOnWriteArrayListc來clone一個collection來進行遍歷,實際上是修改原來的collection
-		CopyOnWriteArrayList<Product> cueerntProductsInCampClone = new CopyOnWriteArrayList<Product>(cueerntProductsInCamp);
+		List<Integer> productIds = apply.getProductsIdInCamp();
+		Set<Product> productSet = new HashSet<Product>();
 		
-		for(Product productIncamp:cueerntProductsInCampClone) {
-			System.out.println("\t遍歷商品------ id: "+productIncamp.getproductId());
-			//檢查活動未套用的商品id的list，如果有跟目前關聯商品相同，則刪除
-			for(int productsIdNotInCamp:apply.getProductsIdNotInCamp()) {
-				if(productsIdNotInCamp==productIncamp.getproductId()) {
-					cueerntProductsInCamp.remove(productIncamp);
-					System.out.println("刪除關聯商品: "+productIncamp.getCompanyName());
-				}
-			}
+		for(int productId:productIds) {
+			Product product = productService.getProduct(productId);
+			productSet.add(product);
 		}
 		
-		System.out.println("遍歷欲套用商品id------");
-		for(int productsIdInCamp:apply.getProductsIdInCamp()) {
-			System.out.println("\t欲套用商品id: "+productsIdInCamp);
-			boolean flag = true;
-			for(Product productIncamp:cueerntProductsInCampClone) {
-				if(productIncamp.getproductId()==productsIdInCamp) {
-					flag = false;
-					break;			
-				}			
-			}
-			if(flag) {		
-				Product product = productService.selectbyid(productsIdInCamp);
-				System.out.println("套用商品:"+product.getproductId());
-				cueerntProductsInCamp.add(product);
-			}		
-		}
+		camp.setProducts(productSet);	
+		
 		return 0;
 	}
 
 	@Override
+	//依照訂閱推播活動
 	public void pushCampaign(int campId) throws Exception {
 		Campaign campaign = getCampaignById(campId);
 		String title = campaign.getName();
@@ -254,8 +234,9 @@ public class CampaignServiceImpl implements CampaignService {
 
 	@Override
 	public void updateProductDiscount() {
-		productService.setProductDiscountToDefault();
-		List<Campaign> camps = campDao.selectActiveCampaign();
+		productService.setProductDiscountToDefault();//先將所有折扣參數初始化為1
+		List<Campaign> camps = campDao.selectActiveCampaign();//撈出進行中的活動
+		//遍歷活動，並且遍歷活動套用的商品，如果商品套用折扣大於目前商品折扣，則將目前商品折扣取代
 		for(Campaign camp:camps) {
 			Double discount = camp.getDiscountParams().getOffParam();
 			if(discount!=null) {
@@ -267,6 +248,7 @@ public class CampaignServiceImpl implements CampaignService {
 				}
 			}
 		}
+		
 		System.out.println("更新成功");
 	}
 	

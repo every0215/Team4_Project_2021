@@ -64,7 +64,7 @@ import com.web.store.utils.ImgurAPI;
 
 @Controller
 @RequestMapping("/campaign/")
-@SessionAttributes(names = {"company"}) ////存取session屬性
+@SessionAttributes(names = {"company"})
 public class CampaignController {
 	
 	@Autowired
