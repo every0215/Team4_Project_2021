@@ -65,11 +65,15 @@ select option[value="0"] {
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
-	<a href="InputPageEX">展覽</a>
-	<a href="InputPageAT">樂園與景點</a>
-	<a href="InputPageSP">運動賽事</a>
+		<br/>
+			<div>
+			<a href="InputPageEX" role="button" class="btn btn-success">展覽</a>
+			<a href="InputPageAT" role="button" class="btn btn-success">樂園與景點</a>
+			<a href="InputPageSP" role="button" class="btn btn-success">運動賽事</a>		
+		</div>
+		<div style="margin:10px auto;padding:10px;border-radius:20px;width:900px;background-color:#FDFFFF;box-shadow:3px 3px 9px #C4E1FF;">
 
-	<h3>Event Input Page-展覽</h3>
+	<h1 style="text-align:center;margin-top:10px;font-weight:bolder;color:#003D79">展覽新增</h1>
 	<form name="myForm" action="<c:url value='/ticket/InputPageEX'/>" method="post" enctype="multipart/form-data">
 		<hr />
 			<input type="hidden" name="typeId" value="1" />
@@ -81,8 +85,9 @@ select option[value="0"] {
 
 		<label class="t1" for="">展覽宣傳圖片:</label>
 		<input id="image_input" type="file" name="eventImage"><br>
-		<img id="picPreview" style="width:400px;height:200px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
-		<br/>
+		
+		<img id="picPreview" style="width:400px;height:200px;display:block; margin:auto;" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
+		
 		<input type="hidden" name="status" value="1" />
 		<%-- 以上為eventBean 以下為exhibitionBean --%>
 
@@ -173,11 +178,12 @@ select option[value="0"] {
 					<input type="text" name="priceCost" required="required"><br> <br> <br>
 			</div>
 		</div>
-
+		<div style="margin:10px auto;width:320px">
 		<input id="Button1" type="button" class="btn btn-primary btn-sm" value="新增價位與名稱" />
 		<input type="submit" name="sumbmit" id="submitButton" class="btn btn-warning">
 		<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
-		<input id="autoInput" class="btn btn-primary btn-sm" type="button" value="一鍵輸入" /> 
+		<input id="autoInput" class="btn btn-primary btn-sm" type="button" value="一鍵輸入" />
+		</div> 
 		<script>
 		$("#autoInput").click(function () {
             $("#eventName").val("Keigo展-我的生活不可能那麼壞");
@@ -351,6 +357,8 @@ select option[value="0"] {
 		
 		
 	</form>
+	</div>
+	
 	</div>
 	</div>
 	

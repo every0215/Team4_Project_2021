@@ -36,9 +36,10 @@ body{
 		<div class="content-wrapper" style="min-height:204px">
 			<!-- Content Header (Page header) -->
 
-<h2>您輸入的資訊:</h2><br>
-
-<table style="margin: auto;width: 800px;border:3px #336666 solid;background-color:#C4E1E1;text-align:center" cellpadding="10" border='1'>
+<br>
+<div style="margin:10px auto;padding:10px;border-radius:20px;width:900px;background-color:#FDFFFF;box-shadow:3px 3px 9px #C4E1FF;">
+<h1 style="text-align:center;margin-top:10px;font-weight:bolder;color:	#003D79">${event.eventName}</h1>
+<table style="margin: auto;width: 800px;border:3px 	#003060 solid;background-color:#ECF5FF;text-align:center" cellpadding="10" border='1'>
 
 <tr><td>種類</td> <td>${eventType.typeName}</td></tr>
 <tr><td>名稱</td> <td>${event.eventName}</td></tr>
@@ -53,15 +54,16 @@ body{
 <tr><td>展出期間 </td> <td>${exhibition.commDate} ~ ${exhibition.dueDate}</td></tr>
 <tr><td>展覽介紹</td> <td style="text-align:left">${exhibition.description}</td></tr>
 <tr><td>優惠信用卡</td> <td>${creditCard.cardName}</td></tr>
-<tr><td>優惠信用卡折扣</td> <td>${exhibition.discountRatio}</td></tr>
+<tr><td style="width:100px">優惠信用卡折扣</td> <td>${exhibition.discountRatio}</td></tr>
 </table>
 <br>
 <img height="300px" src="<c:url value='/geteventimage/${event.id}'/>" style="display:block; margin:auto;"/>
 <br>
-<table style="margin: auto;width: 800px;border:3px #336666 solid;background-color:#C4E1E1;text-align:center" cellpadding="10" border='1'>
-<tr><td>票券名稱</td> <c:forEach var="price" items="${priceList}"><td>${price.name}</td></c:forEach></tr>
+<table style="margin: auto;width: 800px;border:3px 	#003060 solid;background-color:#ECF5FF;text-align:center" cellpadding="10" border='1'>
+<tr><td style="width:100px">票券名稱</td> <c:forEach var="price" items="${priceList}"><td>${price.name}</td></c:forEach></tr>
 <tr><td>票券價格</td> <c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach></tr>
 </table>
+<div style="margin:10px auto;width:250px">
 <c:choose>
                	 <c:when test="${event.status==1}">
                	 	<button id="statusButton" class="deleteBtn btn btn-success" onclick="location.href = '<c:url value="/EventUpdateStatus/${event.id}" />'">下架</button>
@@ -74,6 +76,8 @@ body{
 <button id="updateButton" class="btn btn-success" onclick="location.href = '<c:url value="/EventUpdate/${event.id}" />'">修改</button>
 <button id="deleteButton" class="btn btn-danger" onclick="location.href = '<c:url value="/EventDel/${event.id}" />'">刪除</button>
 <a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+</div>
+</div>
 </div>
 </div>
 
