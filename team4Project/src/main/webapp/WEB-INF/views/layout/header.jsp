@@ -303,8 +303,13 @@
             <label for="">密碼<span>*</span></label>
             <input type="password" name="password" placeholder="Password" value="123">
             <button class="aa-browse-btn" type="submit" name="enter" >登入</button>
-            <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-            <p class="aa-lost-password"><a href="#">忘記密碼</a></p>
+            <label for="rememberme" class="rememberme">
+<!--             <input type="checkbox" id="rememberme"> -->
+             <br>
+             </label>
+            <p class="aa-lost-password">
+            <a href="#"></a>
+            </p>
             <div class="aa-register-now">
               
               <a href="<c:url value='/company/CmpRegi' />">企業註冊</a>
