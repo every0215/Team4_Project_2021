@@ -1,4 +1,4 @@
-d<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -281,21 +281,9 @@ input:focus {
 	<c:import url="/layout/header" />
 
 	<!-- catg header banner section -->
-	<section id="aa-catg-head-banner">
-		<img src="<c:url value='/img/fashion/fashion-header-bg-8.jpg' />"
-			alt="fashion img">
-		<div class="aa-catg-head-banner-area">
-			<div class="container">
-				<div class="aa-catg-head-banner-content">
-					<h2>Account Page</h2>
-					<ol class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
-						<li class="active">Account</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-	</section>
+	
+  <c:import url="/layout/accountHeader" />
+  
 	<!-- / catg header banner section -->
 
 	<!-- Cart view section -->
@@ -375,37 +363,11 @@ input:focus {
 
 	<!-- / Cart view section -->
  <!-- footer -->
-        <c:import url="/layout/footer" />
-
-
-
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="<c:url value='/js/bootstrap.js' />"></script>
-	<!-- SmartMenus jQuery plugin -->
-	<script type="text/javascript"
-		src="<c:url value='/js/jquery.smartmenus.js' />"></script>
-	<!-- SmartMenus jQuery Bootstrap Addon -->
-	<script type="text/javascript"
-		src="<c:url value='/js/jquery.smartmenus.bootstrap.js' />"></script>
-	<!-- To Slider JS -->
-	<script src="<c:url value='/js/sequence.js' />"></script>
-	<script src="<c:url value='/js/sequence-theme.modern-slide-in.js' />"></script>
-	<!-- Product view slider -->
-	<script type="text/javascript"
-		src="<c:url value='/js/jquery.simpleGallery.js' />"></script>
-	<script type="text/javascript"
-		src="<c:url value='/js/jquery.simpleLens.js' />"></script>
-	<!-- slick slider -->
-	<script type="text/javascript" src="<c:url value='/js/slick.js' />"></script>
-	<!-- Price picker slider -->
-	<script type="text/javascript"
-		src="<c:url value='/js/nouislider.js' />"></script>
-	<!-- Custom js -->
-	<script src="<c:url value='/js/custom.js' />"></script>
-
-	<script src="<c:url value='/js/luke_js.js' />"></script>
+       <br>
+<br>
+<br>
+<br>
+<c:import url="/layout/footer" />
 
 	<script
 		src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>

@@ -206,6 +206,7 @@ public class AccountServiceImpl implements AccountService {
 		
 		return memberDao.getMemberNotificationCount(memberId);
 	}
+
 	
 	@Override
 	public void updateMemberNotificationIsRead(int mNotificationId) throws SQLException {

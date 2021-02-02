@@ -75,7 +75,7 @@
 					</div>
                     <div class="form-group">
 						<hr style="border-bottom: 1px solid #ccc; height:3px;margin-top:50px;" />
-						<p><a href="#">會員註冊</a>&nbsp;<a href="<c:url value='/member/forgotPassword' />">忘記密碼</a></p> 
+						<p><a href="<c:url value='/account/register' />">會員註冊</a>&nbsp;<a href="<c:url value='/member/forgotPassword' />">忘記密碼</a></p> 
 					</div>
                       
 <!--                   </form> -->
