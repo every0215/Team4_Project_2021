@@ -193,7 +193,7 @@ tr>td>button {
 			
 			<c:forEach items="${page.content}" var="camp">
 				<tr>
-					<td><a target="_blank" href="<c:url value='/campaign/boDetail/'/>${camp.id}">${camp.name}</a></td>
+					<td style="max-width:250px"><a target="_blank" href="<c:url value='/campaign/boDetail/'/>${camp.id}">${camp.name}</a></td>
 					<td>
 						<c:choose>
 							<c:when test="${camp.discountParams.type==0}">未指定</c:when>
@@ -209,8 +209,8 @@ tr>td>button {
 						<c:if test="${camp.launchStatus}"><td>上架</td></c:if>
 						<c:if test="${!camp.launchStatus}"><td>下架</td></c:if>
 					</c:if>				
-					<td>${camp.description}</td>
-					<td style="text-align:left">
+					<td style="max-width:250px">${camp.description}</td>
+					<td style="text-align:left;min-width:180px">
 						<c:if test="${!(camp.status && !camp.expired)}">
 							<div>
 								<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>',)">編輯</button>						
