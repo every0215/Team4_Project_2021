@@ -42,9 +42,14 @@ body{
 	text-align:center;
 	}
 	
-	table tbody>tr:nth-child(odd)>th { 
-    background-color: #f9f9f9; 
-} 
+	tr th{
+	background-color:#003D79;
+	color:white;
+	}
+	
+	tr:nth-child(odd) td{
+	background-color:#ECF5FF;
+	}
 	
 
 
@@ -170,6 +175,9 @@ body{
 					"search" : "查詢: ",
 					"info" : "顯示第 _START_ - _END_ 筆記錄，共 _TOTAL_ 筆",
 					"sLengthMenu" : "顯示 _MENU_筆記錄",
+                    "zeroRecords" : "沒有符合條件的記錄",
+                    "infoEmpty": "沒有符合條件的記錄",
+                    "emptyTable" : "沒有符合條件的記錄",
 					"paginate" : {
                         sFirst : " 首頁", sLast : "末頁 ", sPrevious : " 上一頁 ", sNext : " 下一頁"
                         

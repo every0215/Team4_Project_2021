@@ -225,7 +225,18 @@ input:focus {
 		$('#myTable').DataTable({
 // 			"dom" : 'ftl',
 			"scrollY" : "200px",
-// 			"lengthMenu": [4, 6],
+			"language" :{
+				"search" : "查詢: ",
+				"info" : "顯示第 _START_ - _END_ 筆記錄，共 _TOTAL_ 筆",
+				"sLengthMenu" : "顯示 _MENU_筆記錄",
+                "zeroRecords" : "沒有符合條件的記錄",
+                "infoEmpty": "沒有符合條件的記錄",
+                "emptyTable" : "沒有符合條件的記錄",
+				"paginate" : {
+                    sFirst : " 首頁", sLast : "末頁 ", sPrevious : " 上一頁 ", sNext : " 下一頁"
+                    
+                 }
+			}
 			
 		});
 
@@ -299,18 +310,18 @@ input:focus {
 							</div>
 							<div class="container col-md-10">
 								<div class="row">
-									<div class="col-xs-8">
+									<div class="col-xs-10">
 										<h4>訂單明細</h4>
-										<div class="modal__container">
-											<div class="modal__content">
+										<div class="modal__container" style="width:900px;max-width:900px">
+											<div class="modal__content" style="width:700px">
 												<table id="myTable" style="text-align: center;">
 
 													<thead >
 														<tr>
 															
-															<td id="eventName" >訂單編號</td>
-															<td id="totalCost" >總金額</td>
-															<td id="status">付款狀態</td>
+															<td id="eventName" style="width:60px">訂單編號</td>
+															<td id="totalCost" style="width:60px">總金額</td>
+															<td id="status" style="width:80px">付款狀態</td>
 															<td id="ticketOrderDetailList">交易成功時間</td>
 															<td id="ticketOrderDetils">點我看明細</td>
 														</tr>
