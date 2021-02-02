@@ -18,25 +18,16 @@
 <style>
 body{
 font-size:16px;
-background-color:#b6b6b6;
+background-color:#f3f3f3;
 }
 
-#csPicCon{
-	width:150px;
-	height:150px;
-	overflow:hidden;
-	float:right;
-}
 
-#csPicCon img{
-	width:100%;
-	height:100%;
-}
+
 </style>
 </head>
 
 <body>
-<!--头部开始-->
+<!--header start-->
 <section class="chatSec">
 <div class="header">
 	<div class="inHeader">
@@ -49,8 +40,8 @@ background-color:#b6b6b6;
         </div>
     </div>
 </div>
-<!--头部end-->
-<!--聊天区域开始-->	
+<!--header end-->
+<!--chatting section start-->	
 <div class="chatArea" id="chatArea">
 	<div class="inChatArea">
     	<div id="chatSidebar" class="chatSidebar">
@@ -77,17 +68,17 @@ background-color:#b6b6b6;
                 <button class="btn" id="sendBtn">發送</button>
             </div>
         </div>
-        <div id="csPicCon" style="width:150px;height:150px;"><img src=""/></div>
+        
     </div>
 </div>
 </section>
-<!--聊天区域结束-->
+<!--chatting section start end-->
 
 <script type="text/javascript">
 	var path = '<%=basePath%>';
 	
 	var uid='${sessionScope.customer.id}';
-	//发送人编号
+	//發送人编号
 	var from='${sessionScope.customer.id}';
 	var fromName='${sessionScope.customer.nickName}';
 	//接收人编号

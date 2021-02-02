@@ -34,7 +34,7 @@
 
 
     <div id="container" class="container">
-        <h2 class="title">活動修改</h2>
+        <h2 class="title" style="color:white">活動修改</h2>
 		
 		<div class="bottom-part">
 	        <form id="campForm" action="${pageContext.request.contextPath}/campaign/update/${camp.id}" method="POST" enctype="multipart/form-data">

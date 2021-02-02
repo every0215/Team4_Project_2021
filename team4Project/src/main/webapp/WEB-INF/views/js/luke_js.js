@@ -28,16 +28,20 @@ $(document).ready(function() {
 	});
 
 	//會員通知
+	getMemberNotifications();
 	setInterval(getMemberNotifications,5000); //間隔讀取通知
 	function getMemberNotifications() {
 		console.log('running getMemberNotifications..');
 		let mNotificationDiv = $("#UserNotificationBox");
+		
+		$(".ll-notification").remove();
+		
 		$.ajax({
 			type: "Get",
 			url: "/proj//member/getMemberNotifications",
 			//data: { memberId: id },
 			success: function(data) {
-
+				
 				console.log("success: " + data);
 				//可增加動態處理		
 				$(".ll-num-count").html(data.length);//增加通知數

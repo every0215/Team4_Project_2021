@@ -11,9 +11,16 @@
 	}
 .style{
 	float:left;
-	margin-top:20px;
+	margin-top:15px;
+	margin-left:10px;
 	}
-.style p{ float:left; line-height:15px; color:#a73434;font-weight:800}
+.style p{ 
+	float:left; 
+	line-height:18px; 
+	color:black;
+	font-weight:800;
+	font-size:18px
+	}
 .style span{
 	width:15px;
 	height:15px;
@@ -23,8 +30,8 @@
 	cursor:pointer;
 	}
 .chatArea{
-	min-height:600px;
-	background:url(../images/bg1.jpg) no-repeat top;
+	min-height:550px;
+	background:#ccd2cc;
 	background-size:cover;
 	padding:0 2%;
 	}
@@ -51,12 +58,12 @@
 	float:right;
 	}
 .chatSidebar h2{
-	background:#00ae10;
-	font-size:14px;
+	background:#295581;
+	font-size:16px;
 	line-height:40px; height:40px;
 	padding:0 10px;
 	color:#ffffff;
-	font-family:微软雅黑;
+	font-family:微軟正黑體;
 	}
 .chatSidebar ul{
 	line-height:30px;
@@ -83,9 +90,11 @@
 	}
 .down textarea{
 	width:99%;
-	height:80px;
+	height:100px;
 	margin-top:5px;
-	resize:none;	
+	resize:none;
+	font-size: 20px;
+    font-weight: 700;	
 	}
 .otherArea{ position:relative;}
 .otherArea .bqb{ 
@@ -123,10 +132,12 @@
 	margin-left:auto;
 	display:block;
 	margin-top:10px;
+	border: solid 1px;
+    border-radius: 10px;
 	}
 .chatSec{
-	width:1000px;
-	margin:auto;
+	width:900px;
+	margin: 20px auto;
 	border:solid #184878 3px;
 	border-radius:10px;
 }
