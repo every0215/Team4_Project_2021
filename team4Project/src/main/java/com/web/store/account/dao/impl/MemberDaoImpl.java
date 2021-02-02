@@ -317,7 +317,7 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Set<MemberSubscription> getMemberSubscriptionList(int memberId) throws SQLException {
 		Session session = factory.getCurrentSession();
-		List<MemberSubscription> memberSubscriptionList = (List<MemberSubscription>) session.createQuery("From MemberSubscription mn WHERE mn.member.id = :memberId AND mn.read = 0")
+		List<MemberSubscription> memberSubscriptionList = (List<MemberSubscription>) session.createQuery("From MemberSubscription ms WHERE ms.member.id = :memberId ")
 				.setParameter("memberId", memberId)
 				.getResultList();
 	

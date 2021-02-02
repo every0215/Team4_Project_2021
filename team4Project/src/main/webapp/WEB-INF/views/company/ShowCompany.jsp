@@ -92,55 +92,9 @@
 </section>
 
 
-<!--     <section class="container"> -->
-<!--         <div class="row"> -->
-<%--         <c:forEach var='Cmp' items='${CompanyList}'> --%>
-<!--             <div class="col-sm-6 col-md-3" style="width: 360px; height: 360px"> -->
-<!--                 <div class="thumbnail" style="width: 320px; height: 340px"> -->
-<!--                     <div class="caption"> -->
-<!--                         <p> -->
-<%--                         <img height="300px" src="<c:url value='/company/getCompanyimage/${Cmp.id}'/>" /> --%>
- <%--                             <b style='font-size: 16px;'>${Company.title}</b> --%> 
-<!--                         </p> -->
-<%--                         <p>${Cmp.companyName}</p> --%>
-<%--                         <p>企業類別:${Cmp.categories}</p> --%>
-<%--                         <p>簡介: ${Cmp.profiles}</p> --%>
-<!--                         <p> -->
- <%--                          <a href="<c:url value='/product?id=${Cmp.id}' />" --%> 
- <!--     						class="btn btn-primary"> --> 
- <!--     						<span class="glyphicon-info-sigh glyphicon"></span>詳細資料-OK --> 
- <!--  						</a> -->
-<!--                         </p> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<%--             </c:forEach> --%>
-<!--         </div> -->
-<!--     </section> -->
  <c:import url="/layout/footer" />
 
 
-        <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="<c:url value='/js/bootstrap.js' />"></script>
-        <!-- SmartMenus jQuery plugin -->
-        <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.js' />"></script>
-        <!-- SmartMenus jQuery Bootstrap Addon -->
-        <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.bootstrap.js' />"></script>
-        <!-- To Slider JS -->
-        <script src="<c:url value='/js/sequence.js' />"></script>
-        <script src="<c:url value='/js/sequence-theme.modern-slide-in.js' />"></script>
-        <!-- Product view slider -->
-        <script type="text/javascript" src="<c:url value='/js/jquery.simpleGallery.js' />"></script>
-        <script type="text/javascript" src="<c:url value='/js/jquery.simpleLens.js' />"></script>
-        <!-- slick slider -->
-        <script type="text/javascript" src="<c:url value='/js/slick.js' />"></script>
-        <!-- Price picker slider -->
-        <script type="text/javascript" src="<c:url value='/js/nouislider.js' />"></script>
-        <!-- Custom js -->
-        <script src="<c:url value='/js/custom.js' />"></script>
-
-        <script src="<c:url value='/js/luke_js.js' />"></script>
+      
       </body>
 </html>

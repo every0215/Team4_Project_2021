@@ -8,59 +8,12 @@
     <meta charset="UTF-8">
     <title>活動修改</title>
     <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
-        
-        body{
-        	background-color:#f3f3f3;
-        }
-
-        .title {
-            text-align: center;
-            border-bottom:solid black;
-            padding: 10px 0px;
-        }
-
-        textarea {
-            resize: none;
-        }
-
-        #queryBtn {
-            margin-left: 20px;
-        }
-
-        .controlBar {
-            width: 400px;
-            margin: auto;
-            text-align: center;
-        }
-
-        .controlBar button {
-            width: 100px;
-        }
-
-        #warning {
-            text-align: center;
-            font-weight: 600;
-        }
-
-
-        #container{
-            width:700px;
-            border:solid black 1px;
-            border-radius:10px;
-            box-shadow: 0px 0px 10px black;
-            background-color:white;
-        }
-        
-        .ck-editor__editable_inline {
-            min-height: 300px;      
-        }
+       
 
     </style>
-
+	
+	<link rel="stylesheet" href=<c:url value='/css/insertPage.css'/>>
+	
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -82,112 +35,112 @@
 
     <div id="container" class="container">
         <h2 class="title">活動修改</h2>
-
-
-        <form id="campForm" action="${pageContext.request.contextPath}/campaign/update/${camp.id}" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="name">活動名稱:</label>
-                <input type="text" class="form-control need" id="name" name="name" value="${camp.name}" >
-            </div>
-
-            <div class="form-group">
-                <label >活動類型:</label>
-                <select name="type" class="form-select need" aria-label="Default select example ">
-                    <c:if test="${camp.discountParams.type==0}">
-                    	<option value="0" selected>不指定活動類型</option>
-                    	<option value="1" >折扣</option>
-                    	<option value="2">滿額折</option>
-                    </c:if>
-                    
-                    <c:if test="${camp.discountParams.type==1}">
-                    	<option value="0" >不指定活動類型</option>
-                    	<option value="1" selected>折扣</option>
-                    	<option value="2">滿額折</option>
-                    </c:if>
-                    <c:if test="${camp.discountParams.type==2}">
-                    	<option value="0" >不指定活動類型</option>
-                    	<option value="1">折扣</option>
-                    	<option value="2" selected>滿額折</option>
-                    </c:if>              
-                </select>
-            </div>
-
-            <div id="paramField">
-				<c:if test="${camp.discountParams.type==1}">
-					<div class="offField form-group noShow">
-						<label for="comment">折數:</label> 
-						<input name="offParam"
-							class="form-control need" type="text" placeholder="1.0、0.9..." value="${camp.discountParams.offParam}"></input>
-					</div>
-				</c:if>
-
-				<c:if test="${camp.discountParams.type==2}">
-					<div class="upToAmmountFiled form-group noShow">
-						<label for="comment">滿額:</label> <input name="amountUpTo"
-						value="${camp.discountParams.amountUpTo}" class="form-control need" type="text" placeholder="滿多少元"></input>
-					</div>
-					<div class="upToAmmountFiled form-group noShow">
-						<label for="comment">折多少:</label> <input name="amountOffParam"
-						value="${camp.discountParams.amountOffParam}" class="form-control need" type="text" placeholder="折多少元"></input>
-					</div>
-				</c:if>
-            </div>
-            
-            <div class="form-group">
-                <label for="strdate">開始時間:</label>
-                <input type="date" name="startDate" id="strDate" class="form-control" value="${camp.startDate}"> 
-                <input type="time" name="startTime" class="form-control need" value="${camp.startTime}">
-
-            </div>
-
-            <div class="form-group">
-                <label for="usr">結束時間:</label>
-                <input type="date"  id="endDate" name="endDate" class="form-control" value="${camp.endDate}"> 
-                <input type="time" name="endTime" class="form-control need" value="${camp.endTime}">
-
-            </div>
-
-            <div class="form-check-inline">
-                <label class="form-check-label"> 上架狀態:<br>
-                
-					<c:if test="${camp.launchStatus}">
-						<input type="radio" class="form-check-input " name="launchStatus" value="true" checked>上架 
-                    	<input type="radio" class="form-check-input" name="launchStatus" value="false" >下架
+		
+		<div class="bottom-part">
+	        <form id="campForm" action="${pageContext.request.contextPath}/campaign/update/${camp.id}" method="POST" enctype="multipart/form-data">
+	            <div class="form-group">
+	                <label for="name">活動名稱:</label>
+	                <input type="text" class="form-control need" id="name" name="name" value="${camp.name}" >
+	            </div>
+	
+	            <div class="form-group">
+	                <label >活動類型:</label>
+	                <select name="type" class="form-select need" aria-label="Default select example ">
+	                    <c:if test="${camp.discountParams.type==0}">
+	                    	<option value="0" selected>不指定活動類型</option>
+	                    	<option value="1" >折扣</option>
+	                    	<option value="2">滿額折</option>
+	                    </c:if>
+	                    
+	                    <c:if test="${camp.discountParams.type==1}">
+	                    	<option value="0" >不指定活動類型</option>
+	                    	<option value="1" selected>折扣</option>
+	                    	<option value="2">滿額折</option>
+	                    </c:if>
+	                    <c:if test="${camp.discountParams.type==2}">
+	                    	<option value="0" >不指定活動類型</option>
+	                    	<option value="1">折扣</option>
+	                    	<option value="2" selected>滿額折</option>
+	                    </c:if>              
+	                </select>
+	            </div>
+	
+	            <div id="paramField">
+					<c:if test="${camp.discountParams.type==1}">
+						<div class="offField form-group noShow">
+							<label for="comment">折數:</label> 
+							<input name="offParam"
+								class="form-control need" type="text" placeholder="1.0、0.9..." value="${camp.discountParams.offParam}"></input>
+						</div>
 					</c:if>
-					
-                    <c:if test="${!camp.launchStatus}">
-						<input type="radio" class="form-check-input " name="launchStatus" value="true" >上架 
-                    	<input type="radio" class="form-check-input" name="launchStatus" value="false" checked>下架
+	
+					<c:if test="${camp.discountParams.type==2}">
+						<div class="upToAmmountFiled form-group noShow">
+							<label for="comment">滿額:</label> <input name="amountUpTo"
+							value="${camp.discountParams.amountUpTo}" class="form-control need" type="text" placeholder="滿多少元"></input>
+						</div>
+						<div class="upToAmmountFiled form-group noShow">
+							<label for="comment">折多少:</label> <input name="amountOffParam"
+							value="${camp.discountParams.amountOffParam}" class="form-control need" type="text" placeholder="折多少元"></input>
+						</div>
 					</c:if>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="comment">活動描述:</label>
-                <input name="description" class="form-control need" type="text" value="${camp.description}"></input>
-            </div>
-
-            <div class="form-group">
-                <label for="comment">活動內容:</label>
-                <textarea id="editor" name="content" class="form-control">${camp.content}
-                </textarea>
-            </div>
-
-            <div class="form-group">
-            	<img id="picPreview" style="width:100%;height:250px" src="${camp.picturePath}"/><br>
-                <label for="fileUpload">活動圖檔:</label>
-                <input class="form-control" id="fileUpload" name="picture" type="file">
-
-            </div>
-
-            <div class="controlBar">
-                <button id="addCamp" type="submit" class="btn btn-primary">修改</button>
-                <button type="reset" class="btn btn-primary">清除</button>
-            </div>
-
-            <div id="warning" style="color: red; font-size: 20px"></div>
-        </form>
-
+	            </div>
+	            
+	            <div class="form-group">
+	                <label for="strdate">開始時間:</label>
+	                <input type="date" name="startDate" id="strDate" class="form-control" value="${camp.startDate}"> 
+	                <input type="time" name="startTime" class="form-control need" value="${camp.startTime}">
+	
+	            </div>
+	
+	            <div class="form-group">
+	                <label for="usr">結束時間:</label>
+	                <input type="date"  id="endDate" name="endDate" class="form-control" value="${camp.endDate}"> 
+	                <input type="time" name="endTime" class="form-control need" value="${camp.endTime}">
+	
+	            </div>
+	
+	            <div class="form-check-inline">
+	                <label class="form-check-label"> 上架狀態:<br>
+	                
+						<c:if test="${camp.launchStatus}">
+							<input type="radio" class="form-check-input " name="launchStatus" value="true" checked>上架 
+	                    	<input type="radio" class="form-check-input" name="launchStatus" value="false" >下架
+						</c:if>
+						
+	                    <c:if test="${!camp.launchStatus}">
+							<input type="radio" class="form-check-input " name="launchStatus" value="true" >上架 
+	                    	<input type="radio" class="form-check-input" name="launchStatus" value="false" checked>下架
+						</c:if>
+	                </label>
+	            </div>
+	
+	            <div class="form-group">
+	                <label for="comment">活動描述:</label>
+	                <input name="description" class="form-control need" type="text" value="${camp.description}"></input>
+	            </div>
+	
+	            <div class="form-group">
+	                <label for="comment">活動內容:</label>
+	                <textarea id="editor" name="content" class="form-control">${camp.content}
+	                </textarea>
+	            </div>
+	
+	            <div class="form-group">
+	            	<img id="picPreview" style="width:100%;height:250px" src="${camp.picturePath}"/><br>
+	                <label for="fileUpload">活動圖檔:</label>
+	                <input class="form-control" id="fileUpload" name="picture" type="file">
+	
+	            </div>
+	
+	            <div class="controlBar">
+	                <button id="addCamp" type="submit" class="btn btn-primary">修改</button>
+	                <button type="reset" class="btn btn-primary">清除</button>
+	            </div>
+	
+	            <div id="warning" style="color: red; font-size: 20px"></div>
+	        </form>
+		</div>
     </div>
 
 

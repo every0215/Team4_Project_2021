@@ -117,3 +117,9 @@
 <!--   自定義js -->
   <script type="text/javascript" src="<c:url value='/js/Carousel.js' />"></script>
   <script src="<c:url value='/js/luke_js.js' />"></script> 
+  
+  <script>
+   
+
+  
+  </script>

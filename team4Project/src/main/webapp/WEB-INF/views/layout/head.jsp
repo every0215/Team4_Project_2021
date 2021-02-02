@@ -56,5 +56,29 @@
 	
 	.ll-notification-container { overflow: -moz-scrollbars-none; }
 	
+	/*會員帳號管理Header呈現*/
+	#aa-catg-head-banner .aa-catg-head-banner-area {
+    	background-color: rgba(0, 0, 0, 0.4);
+	}
+	
+	#aa-catg-head-banner .aa-catg-head-banner-area .aa-catg-head-banner-content {
+    	display: inline-block;
+	    float: left;
+	    padding: 5% 0;
+	    text-align: center;
+	    width: 100%;
+	}
+
+	#aa-catg-head-banner {
+		height:200px;
+		overflow: hidden; 
+	}
+	
+	#aa-catg-head-banner img{
+		
+		
+	}
+	
+	
   </style>
   

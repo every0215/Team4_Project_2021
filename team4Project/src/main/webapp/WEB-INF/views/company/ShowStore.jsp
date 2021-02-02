@@ -18,7 +18,12 @@
 	font-family:微軟正黑體;
 	font-weight:900;
 }
-
+.main-header .navbar-custom-menu, .main-header .navbar-right {
+	height:50px;
+	}
+body{
+	background-color: #ECF0F5;
+	}
 </style>
 </head>
 <body>

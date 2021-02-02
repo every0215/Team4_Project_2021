@@ -3,7 +3,7 @@
  */
 
 $(document).ready(function() {
-	console.log('loading header infos..');
+	console.log('loading header info..');
 	$("#user-menu").hide();
 	$("#UserNotificationBox").hide();
 
@@ -71,6 +71,21 @@ $(document).ready(function() {
 			  console.log('.ll-mn-span clicked: ' + url);
 			  window.location.href = url;
 		  });
+		  
+		  
+	//會員AccountMenu-頁面訪問後連結背景呈現
+	//var pageURL = $(location).attr("href");
+	
+    var pageName = document.location.href.match(/[^\/]+$/)[0];
+    
+    console.log('accountMenu(pageName:'+pageName+')');
+    
+    $('#menu-content>li').removeClass('active');
+    $('#menu-content').find('li[data-target="#'+pageName+'"]').addClass('active');
+    console.log('accountMenu...');
+    console.log($('#menu-content>li'));
+    
+    
 });
 
 

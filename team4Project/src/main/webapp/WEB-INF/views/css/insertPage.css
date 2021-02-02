@@ -1,0 +1,64 @@
+ * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        body{
+        	background-color: #f3f3f3;
+        	
+        }
+
+        .title {
+            text-align: center;
+            padding: 15px 0px;
+            background-color: #54959f;
+            font-family:微軟正黑體;
+        	font-weight: 900;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        #queryBtn {
+            margin-left: 20px;
+        }
+
+        .controlBar {
+            width: 400px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .controlBar button {
+            width: 100px;
+        }
+
+        #warning {
+            text-align: center;
+            font-weight: 600;
+        }
+
+
+        #container{
+            width:700px;
+            border:solid black 1px;
+            border-radius:10px;
+        	box-shadow: 0px 0px 10px black;
+        	background-color:white;
+        	padding: 0;
+        	font-family:微軟正黑體;
+        	font-weight: 700
+		}
+		
+		.ck-editor__editable_inline {
+            min-height: 300px;      
+        }
+        
+        #fileUpload{
+        	width:300px
+        }
+	
+		.bottom-part{
+			padding:0px 15px 
+		}

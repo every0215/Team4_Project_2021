@@ -48,6 +48,12 @@ public class CompanyViewController {
 		return "/company/CompanyProfiles";
 	}
 	
+	@GetMapping("/company/Cmpupdate")
+	public String Companypupdate() {
+		
+		return "/company/Companyupdate";
+	}
+	
 	@GetMapping("/company/StoreRegister_Profile")
 	public String storeRegister_Profile() {
 		

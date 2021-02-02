@@ -170,6 +170,7 @@ ul.ll-err-list-msg {
 .usermenu_usermenu>li>a:hover, .usermenu_usermenu>li>button:hover {
 	border-bottom: solid 0.5px #ff9203;
 	background-color: #fff7dd;
+	text-decoration: none;
 }
 
 .usermenu_usermenu {

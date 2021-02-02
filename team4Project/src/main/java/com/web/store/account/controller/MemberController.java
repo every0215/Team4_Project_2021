@@ -357,19 +357,22 @@ public class MemberController {
 
 		return companyList;
 	}
-
+	
+	//////////////////////////
+	////// 會員訂閱資料取得
+	//////////////////////////
 	@GetMapping(value = "/getMemberSubscriptions", produces = "application/json")
 	public @ResponseBody int[] getMemberSubscriptions(HttpSession session) throws Exception {
 
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-
-		if (currentUser.getMemberSubscriptionList() == null) {
+		Set<MemberSubscription> memberSubscriptionList = accountService.getMemberSubscriptionList(currentUser.getId());
+		if (memberSubscriptionList == null) {
 			currentUser.setMemberSubscriptionList(new LinkedHashSet<MemberSubscription>());
 		}
 
-		int[] subscribedCompanyIds = new int[currentUser.getMemberSubscriptionList().size()];
+		int[] subscribedCompanyIds = new int[memberSubscriptionList.size()];
 		int i = 0;
-		for (MemberSubscription memberSubscription : currentUser.getMemberSubscriptionList()) {
+		for (MemberSubscription memberSubscription : memberSubscriptionList) {
 			subscribedCompanyIds[i] = memberSubscription.getCompany().getId();
 			i++;
 		}
@@ -381,36 +384,38 @@ public class MemberController {
 	public String updateMemberSubscriptions(@RequestParam("subscribeCompany") String subscribeCompany, Model model,
 			HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-
-		Set<MemberSubscription> memberSubscriptionList = new LinkedHashSet<MemberSubscription>();
+		Set<MemberSubscription> memberSubscriptionList = accountService.getMemberSubscriptionList(currentUser.getId());
+		
 		String[] subscribeCompanyIds = subscribeCompany.split(",");
 		for (Company company : companyService.getAllCompany()) {
 			// 需要訂閱此公司
 			if (Arrays.asList(subscribeCompanyIds).contains(String.valueOf(company.getId()))) {
 				// 此公司尚未訂閱
-				if (!currentUser.getMemberSubscriptionList().stream()
+				if (!memberSubscriptionList.stream()
 						.anyMatch(obj -> obj.getCompany().getId() == company.getId())) {
 					MemberSubscription memberSubscription = new MemberSubscription();
 					memberSubscription.setMember(currentUser);
 					memberSubscription.setCompany(company);
-					currentUser.getMemberSubscriptionList().add(memberSubscription);
+					memberSubscriptionList.add(memberSubscription);
 				}
 
 			}
 			// 沒有要訂閱此公司
 			else {
-				if (currentUser.getMemberSubscriptionList() != null
-						&& currentUser.getMemberSubscriptionList().size() > 0) {
-					Optional<MemberSubscription> mSubscription = currentUser.getMemberSubscriptionList().stream()
+				if (memberSubscriptionList != null && memberSubscriptionList.size() > 0) {
+					
+					//找出是否已訂閱此公司(需要做移除)
+					Optional<MemberSubscription> mSubscription = memberSubscriptionList.stream()
 							.filter(obj -> obj.getCompany().getId() == company.getId()).findFirst();
 					if (!mSubscription.isEmpty()) {
-						currentUser.getMemberSubscriptionList().remove(mSubscription.get());
+						memberSubscriptionList.remove(mSubscription.get());
 						accountService.delete(mSubscription.get());
 
 					}
 				}
 			}
 		}
+		currentUser.setMemberSubscriptionList(memberSubscriptionList);
 
 		try {
 			accountService.update(currentUser);
