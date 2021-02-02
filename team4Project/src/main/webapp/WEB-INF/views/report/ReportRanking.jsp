@@ -142,10 +142,10 @@ function loadAdv(){
 	    type: 'GET',
 		dataType: "json",
 	    success: function(datas){
-	    	$("html").append(`<div id="rep_advertising" style="float: right; margin: 10px 100px 0px 0px; border-radius: 10px 10px 0px 0px;position: fixed;right: 10px;top: 80px;background-color: rgba(200,200,200,0.6); z-index: 10000;" >
-	            <div id="rep_adv_title" style="	display: block;border-radius: 10px 10px 0px 0px;background-color: rgb(116, 109, 106);color: cornsilk;padding: 5px 0px 5px 0px;text-align: center;"><b>精選商品</b></div>
+	    	$("html").append(`<div id="rep_advertising" style="float: right; margin: 10px 100px 0px 0px; border-radius: 10px 10px 0px 0px;position: fixed;right: 10px;top: 70px;background-color: hsl(0deg 0% 100% / 80%); z-index: 10000;" >
+	            <div id="rep_adv_title" style="	display: block;border-radius: 10px 10px 0px 0px;background-color: rgb(116, 109, 106);color: cornsilk;padding: 5px 0px 5px 0px;text-align: center;"><b style="font-size: 20px;">精選商品</b></div>
 	            <div style='float:right;font-size:10px;' onclick='document.getElementById("rep_advertising").remove();'>關閉X</div><br>    
-	            <div id="rep_adv_div" style="width: 200px;overflow: hidden;">
+	            <div id="rep_adv_div" style="width: 250px;overflow: hidden;">
 	            <ul id="rep_adv_ul">
 	                	\${
 	                		datas.map((data)=>`<li id="rep_adv_1" style="column-count: 2;">
@@ -210,11 +210,11 @@ $(function(){
 $("#onenewinput").click(function(){
 
 $("#rep_Rank_myTable tr:nth-child(1)").find("input.name").val('蜂膠草本抗菌皂花果香');
-$("#rep_Rank_myTable tr:nth-child(1)").find("textarea").val('防疫神品');
+$("#rep_Rank_myTable tr:nth-child(1)").find("textarea").val('防疫神品居家必備品');
 $("#rep_Rank_myTable tr:nth-child(2)").find("input.name").val('依必朗防霉抗菌洗衣精');
-$("#rep_Rank_myTable tr:nth-child(2)").find("textarea").val('防霉抗菌');
+$("#rep_Rank_myTable tr:nth-child(2)").find("textarea").val('防霉抗菌穿起來香香');
 $("#rep_Rank_myTable tr:nth-child(3)").find("input.name").val('【限量】優雅食點心餅');
-$("#rep_Rank_myTable tr:nth-child(3)").find("textarea").val('享受春節日子');
+$("#rep_Rank_myTable tr:nth-child(3)").find("textarea").val('享受春節好日子');
 $("#rep_Rank_myTable tr:nth-child(4)").find("input.name").val('好優頂級牛奶優酪');
 $("#rep_Rank_myTable tr:nth-child(4)").find("textarea").val('100%鮮乳自然發酵');
 $("#rep_Rank_myTable tr:nth-child(5)").find("input.name").val('泰式甜辣醬');
