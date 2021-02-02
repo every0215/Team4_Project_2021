@@ -43,6 +43,7 @@ public class CampaignServiceImpl implements CampaignService {
 	
 	@Override
 	public int insert(Campaign camp) {
+		camp.isActive();
 		return campDao.insert(camp);
 	}
 
@@ -80,6 +81,7 @@ public class CampaignServiceImpl implements CampaignService {
 
 	@Override
 	public int update(Campaign camp) {
+		camp.isActive();
 		return campDao.update(camp);
 	}
 

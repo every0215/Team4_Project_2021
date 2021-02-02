@@ -155,9 +155,8 @@ public class Campaign implements Serializable {
 				&& currentTime.compareTo(endDateTime) < 0)
 				&& launchStatus) {
 			this.status = true;
-			return true;
 		}
-		return false;
+		return status;
 	}
 	
 	public Boolean isExpired() {
