@@ -251,11 +251,15 @@ public class CompanyDaoImpl implements CompanyDao {
 	@Override
 	public Set<CmpService> getAllServiceBycmpId(Integer cmpId) {
 		Session session = sessionFactory.getCurrentSession();
-		
-		String hqlstr = "from Company c join fetch c.cmpServiceC join fetch c.campaigns where c.id = :CmpId";
+		System.out.println("1");
+		String hqlstr = "from Company c join fetch c.cmpServiceC where c.id = :CmpId";
+		System.out.println("2");
 		Query queryObj = session.createQuery(hqlstr,Company.class); 			
+		System.out.println("3");
 		queryObj.setParameter("CmpId", cmpId);
+		System.out.println("4");
 		Company cmp = (Company) queryObj.uniqueResult();
+		System.out.println("5");
 		 Set<CmpService> serve = cmp.getCmpServiceC();
 		return serve;
 	}
