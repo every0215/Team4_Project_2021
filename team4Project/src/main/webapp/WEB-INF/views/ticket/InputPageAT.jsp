@@ -59,11 +59,14 @@
 			<!-- Content Header (Page header) -->
 			<script src="https://code.jquery.com/jquery-3.5.1.js"
 				integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-			<a href="InputPageEX">展覽</a>
-			<a href="InputPageAT">樂園與景點</a>
-			<a href="InputPageSP">運動賽事</a>
-
-			<h3>Event Input Page-樂園與景點</h3>
+			<br/>
+			<div>
+			<a href="InputPageEX" role="button" class="btn btn-success">展覽</a>
+			<a href="InputPageAT" role="button" class="btn btn-success">樂園與景點</a>
+			<a href="InputPageSP" role="button" class="btn btn-success">運動賽事</a>		
+			</div>
+	<div style="margin:10px auto;padding:10px;border-radius:20px;width:900px;background-color:#FDFFFF;box-shadow:3px 3px 9px #C4E1FF;">
+			<h1 style="text-align:center;margin-top:10px;font-weight:bolder;color:	#003D79">樂園與景點新增</h1>
 			<form name="myForm" action="<c:url value='/ticket/InputPageAT'/>" method="post"
 				enctype="multipart/form-data">
 				<hr />
@@ -75,7 +78,7 @@
 				
 				<label class="t1" for="image_input">景點宣傳圖片:</label>
 				<input id="image_input" type="file" name="eventImage"><br>
-				<img id="picPreview" style="width:400px;height:200px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
+				<img id="picPreview" style="width:400px;height:200px;display:block; margin:auto;" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
 
 				
 				<br>
@@ -113,11 +116,12 @@
 								<br>
 							</div>
 						</div>
-
+					<div style="margin:10px auto;width:320px">
 						<input id="Button1" class="btn btn-primary btn-sm" type="button" value="新增價位與名稱" />
 						<input id="submitButton" type="submit" class="btn btn-warning" name="sumbmit" />
 						<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
 						<input id="autoInput" class="btn btn-primary btn-sm" type="button" value="一鍵輸入" />
+					</div>
 			</form>
 			
 			
@@ -303,6 +307,7 @@
 							
 							
 						</script>
+						</div>
 						</div>
 					</div>
 
