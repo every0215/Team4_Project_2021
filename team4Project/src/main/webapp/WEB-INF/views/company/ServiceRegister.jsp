@@ -6,6 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Service Register</title>
+<style>
+.main-header .navbar-custom-menu, .main-header .navbar-right {
+	height:500px;
+	}
+body{
+	background-color: #ECF0F5;
+	}
+</style>
 </head>
 <body>
 <fieldset>

@@ -102,7 +102,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="<c:url value='/company/getCompanyimage/${sessionScope.company.id}'/>" alt="demo demo" title="demo" id="user-profile" class="img-circle" height="45" /> &nbsp;&nbsp;${sessionScope.company.companyName} <i class="fa fa-caret-down fa-fw"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="<c:url value='/company/CmpRegi' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>修改企業資訊</a></li>
+                                <li><a href="<c:url value='/company/Cmpupdate' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>修改企業資訊</a></li>
                                 <li><a href="<c:url value='/company/CompanyProfiles' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>新增企業簡介</a></li>
                                 <li><a href="<c:url value='/company/CompanyServiceRegister' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>新增企業服務</a></li>
                                 <li role="separator" class="divider"></li>
