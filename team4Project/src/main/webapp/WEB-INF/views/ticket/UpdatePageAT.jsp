@@ -61,7 +61,9 @@
 			<script src="https://code.jquery.com/jquery-3.5.1.js"
 				integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
-			<h3>Event Update Page-樂園與景點</h3>
+			<div style="margin:10px auto;padding:10px;border-radius:20px;width:900px;background-color:#FDFFFF;box-shadow:3px 3px 9px #C4E1FF;">
+
+	<h1 style="text-align:center;margin-top:10px;font-weight:bolder;color:#003D79">樂園與景點更新</h1>
 			<form name="myForm" action="<c:url value='/ticket/InputPageAT'/>" method="post"
 				enctype="multipart/form-data">
 				<hr />
@@ -74,7 +76,7 @@
 				
 				<label class="t1" for="">景點宣傳圖片:</label>
 				<input id="image_input" type="file" name="eventImage"><br>
-				<img id="picPreview" style="width:400px;height:200px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
+				<img id="picPreview" style="width:400px;height:200px;display:block; margin:auto;" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
 				<br/>
 				<input type="hidden" name="status" value="1" />
 				<%-- 以上為eventBean 以下為attractionBean --%>
@@ -126,10 +128,11 @@
 						</div>
 
 
-
+<div style="margin:10px auto;width:250px">
 						<input id="Button1" class="btn btn-primary btn-sm" type="button" value="新增價位與名稱" />
 						<input type="submit" name="sumbmit" id="submitButton" class="btn btn-warning">
 						<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+						</div>
 						<script>
 						
 						$("#image_input").change(function(){
@@ -311,7 +314,7 @@
 						
 						
 			</form>
-			
+			</div>
 			</div>
 			</div>
 		</body>

@@ -65,7 +65,8 @@ select option[value="0"] {
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
 
-	<h3>Event Update Page-運動賽事</h3>
+	<div style="margin:10px auto;padding:10px;border-radius:20px;width:900px;background-color:#FDFFFF;box-shadow:3px 3px 9px #C4E1FF;">
+			<h1 style="text-align:center;margin-top:10px;font-weight:bolder;color:	#003D79">運動賽事更新</h1>
 	<form name="myForm" action="<c:url value='/ticket/InputPageSP'/>" method="post" enctype="multipart/form-data">
 		<hr />
 			<input type="hidden" name="id" value='${event.id}'/>
@@ -77,7 +78,7 @@ select option[value="0"] {
 			
 		<label class="t1" for="">賽事宣傳圖片:</label>
 			<input id="image_input" type="file" name="eventImage"><br>
-				<img id="picPreview" style="width:400px;height:200px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
+				<img id="picPreview" style="width:400px;height:200px;display:block; margin:auto;" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
 				<br/>
 		<input type="hidden" name="status" value="1" />
 		<%-- 以上為eventBean 以下為SportBean --%>
@@ -112,10 +113,10 @@ select option[value="0"] {
 
 		<%-- 以上為sportBean 以下為priceBean --%>
 		<label class="t1" for="">票價與座位表:</label>
-		<table style="width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>
+		<table style="margin:auto;width: 800px;border:3px #cccccc solid;text-align:center;" cellpadding="10" border='1'>
 			<thead>
-				<tr><th rowspan="2"><th colspan="2">內野區</th><th colspan="2">外野區</th></tr>
-				<tr><th>A區</th><th>B區</th><th>A區</th><th>B區</th></tr>
+				<tr><th rowspan="2"><th colspan="2" style="text-align:center;">內野區</th><th colspan="2" style="text-align:center;">外野區</th></tr>
+				<tr><th style="text-align:center;">A區</th><th style="text-align:center;">B區</th><th style="text-align:center;">A區</th><th style="text-align:center;">B區</th></tr>
 			</thead>
 			<tbody>
 			<tr>
@@ -141,8 +142,8 @@ select option[value="0"] {
 
 
 									<c:if test="${status.index!=0}">
-
-										<a href="#" class="btn btn-danger">刪除</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="#" class="btn btn-danger">刪除</a>
 
 									</c:if>
 									<br><br>
@@ -150,10 +151,11 @@ select option[value="0"] {
 							</c:forEach>
 						</div>
 		
-		
+		<div style="margin:10px auto;width:250px">
 		<input id="Button1" type="button" value="新增場次" class="btn btn-primary btn-sm"/>
 		<input type="submit" name="sumbmit" id="submitButton" class="btn btn-warning"> 
 		<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+		</div>
 		<script>
 		$("#image_input").change(function(){
             readURL(this); 
@@ -202,7 +204,7 @@ select option[value="0"] {
 			ele = $('<div />').html('<div>'+
 					'<label class="t1" for="">開賽時間:</label>'+
 					'<input type="text" name="kickOfTime" placeholder="ex:2021-01-01 09:00" required="required"><br>'+
-					' <span>時間格式:yyyy-MM-dd HH:mm</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+					' <span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
 					'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
 					'<span><a href="#" class="btn btn-danger">刪除</a></span><br><br><br>');
 			
@@ -304,7 +306,7 @@ select option[value="0"] {
 		
 		
 	</form>
-	
+	</div>
 	</div>
 	</div>
 </body>
