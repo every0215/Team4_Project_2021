@@ -5,6 +5,168 @@
 <!DOCTYPE html>
 <html lang="en">
   <c:import url="/layout/head" />
+  <style>
+  	
+button {
+  cursor: pointer;
+}
+
+
+
+.pdfobject-container {
+  height: 30rem;
+  border: 1rem solid rgba(0, 0, 0, 0.1);
+}
+
+ .trigger { 
+   text-decoration: underline;
+   color: #0037ff;
+}
+
+/* .trigger i { */
+/*   margin-right: 0.3125rem; */
+/* } */
+/* .trigger:hover { */
+/*   box-shadow: 0 0.875rem 1.75rem rgba(0, 0, 0, 0.25), 0 0.625rem 0.625rem rgba(0, 0, 0, 0.22); */
+/* } */
+
+.ll-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0vh;
+  background-color: transparent;
+  overflow: hidden;
+  transition: background-color 0.25s ease;
+  z-index: 9999;
+}
+.ll-modal.open {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: background-color 0.25s;
+}
+.ll-modal.open > .content-wrapper {
+  transform: scale(1);
+}
+.ll-modal .content-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50%;
+  margin: 0;
+  padding: 2.5rem;
+  background-color: white;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.5);
+  transform: scale(0);
+  transition: transform 0.25s;
+  transition-delay: 0.15s;
+}
+.ll-modal .content-wrapper .close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  transition: 0.25s linear;
+}
+.ll-modal .content-wrapper .close:before, .ll-modal .content-wrapper .close:after {
+  position: absolute;
+  content: "";
+  width: 1.25rem;
+  height: 0.125rem;
+  background-color: black;
+}
+.ll-modal .content-wrapper .close:before {
+  transform: rotate(-45deg);
+}
+.ll-modal .content-wrapper .close:after {
+  transform: rotate(45deg);
+}
+.ll-modal .content-wrapper .close:hover {
+  transform: rotate(360deg);
+}
+.ll-modal .content-wrapper .close:hover:before, .modal .content-wrapper .close:hover:after {
+  background-color: tomato;
+}
+.ll-modal .content-wrapper .ll-modal-header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 1.25rem;
+}
+.ll-modal .content-wrapper .ll-modal-header h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.ll-modal .content-wrapper .content {
+  position: relative;
+  display: flex;
+}
+.ll-modal .content-wrapper .content p {
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+.ll-modal .content-wrapper .ll-modal-footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 0;
+  padding: 1.875rem 0 0;
+}
+.ll-modal .content-wrapper .ll-modal-footer .action {
+  position: relative;
+  margin-left: 0.625rem;
+  padding: 0.625rem 1.25rem;
+  border: none;
+  background-color: slategray;
+  border-radius: 0.25rem;
+  color: white;
+  font-size: 0.87rem;
+  font-weight: 300;
+  overflow: hidden;
+  z-index: 1;
+}
+.ll-modal .content-wrapper .ll-modal-footer .action:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: width 0.25s;
+  z-index: 0;
+}
+.ll-modal .content-wrapper .ll-modal-footer .action:first-child {
+  background-color: #2ecc71;
+}
+.ll-modal .content-wrapper .ll-modal-footer .action:last-child {
+  background-color: #e74c3c;
+}
+.ll-modal .content-wrapper .ll-modal-footer .action:hover:before {
+  width: 100%;
+}
+  </style>
   <body> 
    <!-- wpf loader Two -->
     <div id="wpf-loader-two">          
@@ -91,9 +253,9 @@
 						<img id="password2CheckImg" class="CheckStatus" src="<c:url value='/img/check.png' />" style="width: 25px;">
 					</div>
 					<div class="form-group form-check">
-						<label class="form-check-label"> <input class="form-check-input" type="checkbox" id="acceptAgreement" name="acceptAgreement" required>
-							我已閱讀並同意以上條件及條款
-						</label>
+						<label class="form-check-lab" style="margin-right:5px;"><input class="form-check-input" type="checkbox" id="acceptAgreement" name="acceptAgreement" required>
+							
+						</label>我已閱讀並同意<a class="trigger" data-modal-trigger="trigger-1">條件及條款</a>
 					</div>
 					<div class="form-group" >
 	                   <div class="g-recaptcha" data-callback="captchaCallback" data-sitekey="6LdV6CYaAAAAAKhDJ6LusYaCpuu6EVvCnNMw2tDV" ></div>
@@ -116,7 +278,57 @@
     </div>
   </div>
 </section>
- <!-- / Cart view section -->
+
+ <!-- Agreement section -->
+
+
+<button class="trigger" data-modal-trigger="trigger-2"><i class="fa fa-fire" aria-hidden="true"></i>	Modal 2</button>
+<button class="trigger" data-modal-trigger="trigger-3"><i class="fa fa-fire" aria-hidden="true"></i>	Modal 3</button>
+<div class="ll-modal" data-modal="trigger-1">
+  <article class="content-wrapper">
+    <button class="close"></button>
+    <header class="ll-modal-header">
+      <h2>This is a modal 1</h2>
+    </header>
+    <div class="content">
+      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.</p>
+    </div>
+    <footer class="ll-modal-footer">
+      <button class="action">Accept</button>
+      <button class="action">Decline</button>
+    </footer>
+  </article>
+</div>
+<div class="ll-modal" data-modal="trigger-2">
+  <article class="content-wrapper">
+    <button class="close"></button>
+    <header class="ll-modal-header">
+      <h2>This is a modal 2</h2>
+    </header>
+    <div class="content">
+      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.</p>
+    </div>
+    <footer class="ll-modal-footer">
+      <button class="action">Accept</button>
+      <button class="action">Decline</button>
+    </footer>
+  </article>
+</div>
+<div class="ll-modal" data-modal="trigger-3">
+  <article class="content-wrapper">
+    <button class="close"></button>
+    <header class="ll-modal-header">
+      <h2>This is a modal 3</h2>
+    </header>
+    <div class="content">
+      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.</p>
+    </div>
+    <footer class="ll-modal-footer">
+      <button class="action">Accept</button>
+      <button class="action">Decline</button>
+    </footer>
+  </article>
+</div>
 
   <!-- footer -->  
   <footer id="aa-footer">
@@ -211,30 +423,9 @@
     </div>
   </footer>
   <!-- / footer -->
+  
 
-  <!-- Login Modal -->  
-  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">                      
-        <div class="modal-body">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4>Login or Register</h4>
-          <form class="aa-login-form" action="">
-            <label for="">Username or Email address<span>*</span></label>
-            <input type="text" placeholder="Username or email">
-            <label for="">Password<span>*</span></label>
-            <input type="password" placeholder="Password">
-            <button class="aa-browse-btn" type="submit">Login</button>
-            <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-            <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
-            <div class="aa-register-now">
-              Don't have an account?<a href="account.html">Register now!</a>
-            </div>
-          </form>
-        </div>                        
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div>    
+  
 
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -638,6 +829,33 @@
 		    }
 		       
 		});
+	    
+	    
+	    
+	    //
+	    // 使用者說明同意書
+	    //
+	    
+	    const buttons = document.querySelectorAll('.trigger[data-modal-trigger]');
+
+		for (let button of buttons) {
+		  modalEvent(button);
+		}
+		
+		function modalEvent(button) {
+		  button.addEventListener('click', () => {
+		    const trigger = button.getAttribute('data-modal-trigger');
+		    const modal = document.querySelector('[data-modal='+trigger+']');
+		    const contentWrapper = modal.querySelector('.content-wrapper');
+		    const close = modal.querySelector('.close');
+		
+		    close.addEventListener('click', () => modal.classList.remove('open'));
+		    modal.addEventListener('click', () => modal.classList.remove('open'));
+		    contentWrapper.addEventListener('click', e => e.stopPropagation());
+		
+		    modal.classList.toggle('open');
+		  });
+		}
 	    
 	});
 	

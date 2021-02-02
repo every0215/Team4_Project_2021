@@ -93,7 +93,7 @@
           <div class="container text-center">
           <!-- 第一行 -->
             <div class="sub-title">
-              <span class="inner">
+              <span class="inner" style="font-size:20px">
               	<c:if test="${queryType==1}">
               		${company.companyName}
               	</c:if>

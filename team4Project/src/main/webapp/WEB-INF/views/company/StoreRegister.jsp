@@ -19,6 +19,14 @@
 	font-family:微軟正黑體;
 	font-weight:900;
 }
+.block{
+	margin-right:20px;
+	margin-left:10px;
+	margin-bottom:20px;
+
+}
+
+
 </style>
 </head>
 <body>
@@ -33,71 +41,121 @@
                  <form:hidden path="id" />
 			</c:if>
 			<fieldset class="fieldset-auto-width">
-				<legend>門市資料</legend>
+				<legend><h1>門市資料</h1></legend>
 				<table>
 					<tr>
-						<td align='right'>門市名稱：</td>
-						<td><form:input path="storeName"  type="text" /></td>
-						<td align='right'>24hr Y/N：</td>
-						<td><form:select path="businessHour" >
-							<form:option value="1">24hr</form:option>
-							<form:option value="0">其他</form:option>
-							</form:select>
+						<td align='right'>
+						<div class="block">門市名稱：</div>
+						</td>
+						<td>
+						<div class="block"><form:input path="storeName"  type="text" /></div>
+						</td>
+<!-- 						<td align='right'>24hr Y/N：</td> -->
+						<td>
+						<div class="block">
+<%-- 							<form:select path="businessHour" id="openallday"> --%>
+<%-- 							<form:option value="1">24hr</form:option> --%>
+<%-- 							<form:option value="0">其他</form:option> --%>
+<%-- 							</form:select> --%>
+							<form:radiobutton path = "businessHour" value = "1" label = "24hr" id="openallday"/>
+                			<form:radiobutton path = "businessHour" value = "0" label = "請輸入營業時間" id="inputtime" checked="checked"/>
+						</div>
 						</td>
 					</tr>
 					<tr>
-						<td align='right'>地區：</td>
-						<td><form:select path="storeArea"  type="text" >
+						<td align='right'>
+					<div class="block">地區：</div>
+						</td>
+						<td>
+						<div class="block">
+							<form:select path="storeArea"  type="text" >
 							<form:option value="0">北區</form:option>
 							<form:option value="1">中區</form:option>
 							<form:option value="2">南區</form:option>
 							</form:select>
+						</div>
 						</td>
-						<td align='right'>開店時間：</td>
+						<td align='justify' class="opentime" >
+						<div class="block">開店時間：
+						<form:input path="openhour"  type="time" class="opentime" />
+						</div>
+						</td>
 						<td>
-						<form:input path="openhour"  type="time" />
-<!-- 						<input type="time" name="openhour" /> -->
-						</td>
-						
+
 						
 					</tr>
 					<tr>
-						<td align='right'>地址：</td>
-						<td><form:input path="storeAddress"  type="text" />
+						<td align='right' >
+						<div class="block">地址：</div>
 						</td>
-						<td align='right'>關店時間：</td>
 						<td>
-						<form:input path="closehour"  type="time" />
-<!-- 						<input type="time" name="closehour" /> -->
+						<div class="block">
+						<form:input path="storeAddress"  type="text"/>
+						</div>
 						</td>
-						
+						<td align='justify' class="opentime">
+						<div class="block">關店時間：
+						<form:input path="closehour"  type="time" class="opentime"/>
+						</div>
+						</td>
+
 						
 					</tr>
 					<tr>
-						<td align='right'>電話：</td>
-						<td><form:input path="phone"  type="text" />
+						<td align='right'>
+						<div class="block">電話：</div>
+						</td>
+						<td>
+						<div class="block">
+						<form:input path="phone"  type="text" />
+						</div>
 						</td>
 					</tr>
 					<tr>
-						<td align='right'>Fex<font size='-3' color='blue'></font>：
+						<td align='right'>
+						<div class="block">
+						Fex<font size='-3' color='blue'></font>：
+						</div>
 						</td>
-						<td><form:input path="fex"  type="text" />
+						<td>
+						<div class="block">
+						<form:input path="fex"  type="text" />
 <%-- 						 <form:hidden path="company" value="${sessionScope.company}"/> --%>
+						</div>
 						</td>
 					</tr>
-					
-				
-					
 					<tr>
 						<td colspan='2' align='center'>
-						<input type='submit' value='提交'></td>
+						<div class="block">
+						<input type='submit' value='提交'>
+						</div>
+						</td>
 					</tr>
 				</table>
 			</fieldset>
 		</form:form>
 
-<a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
+<%-- <a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a> --%>
 </div>
 </div>
+<script >
+
+// $("#openallday").on("change", function () {
+// 	console.log($("#openallday").val());
+// 	if ($("#openallday").val() == 1 ){
+// 		$(".opentime").hide();
+// 	}else if($("#openallday").val() == 0 ){
+// 		$(".opentime").show();
+// 	}
+// });
+$("#openallday").click(function () {
+	$(".opentime").hide();
+});
+/////////////////////////////////////////////////
+$("#inputtime").click(function () {
+	$(".opentime").show();
+});
+
+</script>
 </body>
 </html>

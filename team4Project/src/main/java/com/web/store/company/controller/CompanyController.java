@@ -676,15 +676,23 @@ public class CompanyController {
 	}
 	
 	//服務搜尋(未完成)
-	@PostMapping(value="/company/mapGetStoreByService ",produces = "application/json; charset=UTF-8")
+	@PostMapping(value="/company/mapGetStoreByService",produces = "application/json; charset=UTF-8")
 	public @ResponseBody List<Store> mapGetStoreByService(
-			@RequestParam(value="service") String[] id,
+			@RequestParam(value="svId") String[] id,
 			HttpSession session,
 			Model model
 			) throws IOException {
 		System.out.println("Ajax接收資料 地圖服務搜尋");
+		System.out.println("Ajax接收資料 服務");
+//		for(String a:id) {
+//			System.out.println(a);
+//		}
 		
 		List<Store> stoByService= stoService.getStoreByService(id);
+		for(Store s:stoByService) {
+			System.out.println(s.getId());
+		}
+		
 		//要寫好SERVICE
 		return stoByService;
 		

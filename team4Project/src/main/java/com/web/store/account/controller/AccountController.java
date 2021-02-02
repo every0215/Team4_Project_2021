@@ -73,10 +73,6 @@ public class AccountController {
 		return new ModelAndView("redirect:/");
 	}
 
-	@RequestMapping("/account/forgotPassword")
-	public String changePwd() {
-		return "account/forgotPassword"; 
-	}
 
 	@PostMapping("/account/login")
 	public ModelAndView login(@ModelAttribute("member") MemberBean member,
@@ -103,16 +99,18 @@ public class AccountController {
 			return new ModelAndView("account/login");
 		}
 		
-		session.setAttribute("currentUser", m);
+		
 		if (!m.isVerified()) {
 			return new ModelAndView("account/verifyAccount");
-			
 		}
 		
 		if (!m.isActive()) {
-			//return new ModelAndView("account/logout");
+			model.addAttribute("verified", false);
+			model.addAttribute("msg", "帳號已被暫停");
+			return new ModelAndView("account/login");
 		}
-
+		
+		session.setAttribute("currentUser", m);
 		return new ModelAndView("redirect:/");
 	}
 

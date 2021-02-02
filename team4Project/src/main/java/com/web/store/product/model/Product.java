@@ -39,7 +39,7 @@ public class Product implements Serializable{
 	private String productType;
 	@Column(name= "ProductDescript")
 	private String productDescript;
-//	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)    // javax.persistence.CascadeType;
+//	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)    
 //	@JoinColumn(name= "CompanyName")
 	private String companyName;
 	
