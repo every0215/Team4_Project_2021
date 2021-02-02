@@ -133,7 +133,7 @@
              <p style="text-align:left;color:#003D79;">票券有效期:${attraction.commDate}~${attraction.dueDate}</p>
              </c:when>
             <c:otherwise>
-            <p style="text-align:left;color:#003D79;">售票期間:${sport.onSaleDate.toString().substring(0, 16)}~${sport.offSaleDate.toString().substring(0, 16)}</p>
+            <p id="sportPeriod" style="text-align:left;color:#003D79;">售票期間:${sport.onSaleDate.toString().substring(0, 16)}~${sport.offSaleDate.toString().substring(0, 16)}</p>
             <p style="text-align:left;color:#003D79;">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
             <p style="text-align:left;font-size:12px;color:#003D79;">*請點選場次表，選擇場次進行購買。</p>
             </c:otherwise>
@@ -142,7 +142,7 @@
             		<form action="<c:url value='/TicketBuy/${eventId}'/>" method="post">
             			<input type="hidden" name="eventId" value="${event.id}" />
             			
-            			<button id="buyButton" type="submit" class="btn btn-info" disable="true">線上購買</button>
+            			<button id="buyButton" type="submit" class="btn btn-info" disabled="disabled">線上購買</button>
             		</form>       
         </c:if>
            </div>
@@ -293,6 +293,17 @@
             console.log('明天時間'+nowDate);
     		
             let sailingPeriod =$('#sailingPeriod').html();
+            console.log(sailingPeriod);
+            
+            let sportPeriod = $('#sportPeriod').html();
+            console.log(sportPeriod);
+            let onSaleDateSpo="";
+            if(sportPeriod!=undefined){
+            	onSaleSpo = sportPeriod.substring(5,21);
+            	onSaleDateSpo = new Date(Date.parse(onSaleSpo.replace('-','/')));
+            }
+           
+            
             
             if (sailingPeriod == undefined){
             	console.log("這是體育票")
@@ -310,6 +321,10 @@
     				 
     			 	 console.log("Button變為disable");
     			 
+    			 }else if(Date.parse(onSaleDateSpo) > Date.parse(nowDate)){
+    				 $(this).find("td:first").next().find(':submit').attr('disabled', true)
+    				 $(this).find("td:first").next().find(':submit').html('尚未開始販售');
+    				 
     			 }else{
     				 console.log("Session比系統目前時間大");
     			 }
@@ -317,12 +332,29 @@
             }else{
             	
             	let onSaleStr = sailingPeriod.substring(5,21);
+            	
+            	
                 let offSaleStr = sailingPeriod.substring(22,38);
-
+                
+                console.log(onSaleStr);
+            	console.log(offSaleStr);
+            	
+                console.log("這不是體育票");
                 let onSaleDate = new Date(Date.parse(onSaleStr.replace('-','/')));
                 let offSaleDate = new Date(Date.parse(offSaleStr.replace('-','/')));
+//                 console.log(( Date.parse(onSaleDate) < Date.parse(nowDate));
+                 console.log(Date.parse(onSaleDate));
+                 console.log(Date.parse(nowDate));
+                 console.log(Date.parse(offSaleDate));
+                 let a = (Date.parse(onSaleDate)<Date.parse(nowDate))
+                 console.log(a)
+                 let b = (Date.parse(nowDate)< Date.parse(offSaleDate));
+                 console.log(b)
+                 console.log(a&&b)
+                 
+//                 console.log((Date.parse(nowDate)< Date.parse(offSaleDate));
                 
-                if (( Date.parse(onSaleDate) < Date.parse(nowDate)) && (Date.parse(nowDate)< Date.parse(offSaleDate))){
+                if ( a && b){
                	 
                     $('#buyButton').attr('disabled', false)
                     

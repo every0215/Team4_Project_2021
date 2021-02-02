@@ -238,7 +238,7 @@
 		    </div>`;
         }
         let events = ${eventsJSON};
-        let cursor = 10;
+        let cursor = 9;
         
           $("#showMoreEvent").click(function () {
        		str = '';
