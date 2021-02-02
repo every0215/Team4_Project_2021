@@ -74,7 +74,7 @@ body{
 	<script
 		src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 		
-	<div style="width: 1100px; margin: 0 auto">
+	<div style="width: 1100px; margin: 10px auto">
 	<a href='<c:url value="ticket/InputPageEX" />' class="btn btn-success" role="button">新增票券</a>
 	<br/><br/>
 		<table id="myTable"

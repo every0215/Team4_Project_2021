@@ -33,9 +33,9 @@
           position: relative;
           text-align: center;
           font-size: 14px;
-          color: #999;
+          color: #ff871c;
           overflow: hidden;
-          padding: 1.2em 0;
+          padding: 1.6em 0;
           /**把高度撐起來**/
         }
 
@@ -44,14 +44,30 @@
         }
 
         .inner {
+          font-size:28px;
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
           white-space: nowrap;
           line-height: 1px;
-          border-left: 9999px solid #ccc;
-          border-right: 9999px solid #ccc;
+          border-left: 9999px solid #ff871c;
+          border-right: 9999px solid #ff871c;
           padding: 0 10px;
+        }
+        .sidehref{
+        font-weight:500;
+        font-size:16px;
+		color:	#337ab7;
+        }
+        .sidehref:hover{
+        font-weight:bold;
+        font-size:18px;
+		color:#FF5151;
+        }
+        .sidehref:active{
+        font-weight:bold;
+        font-size:18px;
+		color:#ff871c;
         }
         
       </style>
@@ -84,16 +100,16 @@
         <div class="ticket-content" style="margin-bottom:10px">
           <div class="side-bar well" style="height:600px;width:170px">
             <div class="well">
-              <p>票券種類</p>
-              <p><a href="<c:url value='/TicketType/1'/>">展覽</a></p>
-              <p><a href="<c:url value='/TicketType/2'/>">樂園與景點</a></p>
-              <p><a href="<c:url value='/TicketType/3'/>">運動賽事</a></p>
+               <p style="color:#ff871c;font-size:20px;font-weight:bold">票券種類</p>
+              <p><a class="sidehref" href="<c:url value='/TicketType/1'/>">展覽</a></p>
+              <p><a class="sidehref" href="<c:url value='/TicketType/2'/>">樂園與景點</a></p>
+              <p><a class="sidehref" href="<c:url value='/TicketType/3'/>">運動賽事</a></p>
             </div>
             <div class="well">
-              <p>經銷店面</p>
-              <p><a href="<c:url value='/TicketCompany/1'/>">全家便利店</a></p>
-              <p><a href="<c:url value='/TicketCompany/3'/>">統一超商</a></p>
-              <p><a href="<c:url value='/TicketCompany/2'/>">萊爾富</a></p>
+              <p style="color:#ff871c;font-size:20px;font-weight:bold">經銷店面</p>
+              <p><a class="sidehref" href="<c:url value='/TicketCompany/1'/>">全家便利店</a></p>
+              <p><a class="sidehref" href="<c:url value='/TicketCompany/3'/>">統一超商</a></p>
+              <p><a class="sidehref" href="<c:url value='/TicketCompany/2'/>">萊爾富</a></p>
             </div>
           </div>
   
@@ -102,24 +118,24 @@
            <div class="ticket-info">
            <div class="panel-body">
            <img src="<c:url value='/geteventimage/${event.id}'/>" class="img-responsive"style="width:500px;float:left;border-right:5px #ffffff solid" alt="Image">
-           <p style="text-align:left;font-size:20px;">${event.eventName}</p>
-           <p style="text-align:left">經銷便利店:${company.companyName}</p>
-           <p style="text-align:left">場地/地區:${event.eventLocation}</p>
+           <p style="text-align:left;font-size:20px;color: #ff871c;">${event.eventName}</p>
+           <p style="text-align:left;color:	#003D79;">經銷便利店:${company.companyName}</p>
+           <p style="text-align:left;color:	#003D79;">場地/地區:${event.eventLocation}</p>
            
            <c:choose>
              <c:when test="${event.typeId==1}">
-             <p id="sailingPeriod" style="text-align:left">售票期間:${exhibition.onSaleDate.toString().substring(0, 16)}~${exhibition.offSaleDate.toString().substring(0, 16)}</p>
-             <p style="text-align:left">展出期間:${exhibition.commDate}~${exhibition.dueDate}</p>
-             <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${exhibition.discountRatio*10}折</p>
+             <p id="sailingPeriod" style="text-align:left;color:#003D79;">售票期間:${exhibition.onSaleDate.toString().substring(0, 16)}~${exhibition.offSaleDate.toString().substring(0, 16)}</p>
+             <p style="text-align:left;color:#003D79;">展出期間:${exhibition.commDate}~${exhibition.dueDate}</p>
+             <p style="text-align:left;color:#003D79;">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${exhibition.discountRatio*10}折</p>
              </c:when>
              <c:when test="${event.typeId==2}">
-             <p id="sailingPeriod" style="text-align:left">售票期間:${attraction.onSaleDate.toString().substring(0, 16)}~${attraction.offSaleDate.toString().substring(0, 16)}</p>
-             <p style="text-align:left">票券有效期:${attraction.commDate}~${attraction.dueDate}</p>
+             <p id="sailingPeriod" style="text-align:left;color:#003D79;">售票期間:${attraction.onSaleDate.toString().substring(0, 16)}~${attraction.offSaleDate.toString().substring(0, 16)}</p>
+             <p style="text-align:left;color:#003D79;">票券有效期:${attraction.commDate}~${attraction.dueDate}</p>
              </c:when>
             <c:otherwise>
-            <p style="text-align:left">售票期間:${sport.onSaleDate.toString().substring(0, 16)}~${sport.offSaleDate.toString().substring(0, 16)}</p>
-            <p style="text-align:left">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
-            <p style="text-align:left;font-size:12px">*請點選場次表，選擇場次進行購買。</p>
+            <p style="text-align:left;color:#003D79;">售票期間:${sport.onSaleDate.toString().substring(0, 16)}~${sport.offSaleDate.toString().substring(0, 16)}</p>
+            <p style="text-align:left;color:#003D79;">卡友優惠與折扣數:${creditCard.cardName}/&nbsp;${sport.discountRatio*10}折</p>
+            <p style="text-align:left;font-size:12px;color:#003D79;">*請點選場次表，選擇場次進行購買。</p>
             </c:otherwise>
             </c:choose>
             <c:if test="${event.typeId!=3}">    
