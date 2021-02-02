@@ -87,6 +87,7 @@
 	</div>
 
 	<!-- 購買票券主頁面START -->
+	${member.Id}的訂單
 	<div class="ticket-content" style="margin-bottom: 10px ;">
 			<div class="ticket-info">
 			 	
@@ -109,19 +110,19 @@
 
 				</tr>
 			</thead>
-
+			
 			<tbody class="">
-				<c:forEach var="product" items="${ProductList}">
+				<c:forEach var="product" items="${Cart}">
 					<tr>
-						<td width="100">${product.productName}</td>
+						<td width="100"></td>
 						<td width="100"><img height="150px"
 							src="<c:url value='/getproductimage/${product.productId}'/>" /></td>
-						<td width="100">${product.companyName}</td>
-						<td width="100">${product.productStuck}</td>
-						<td width="100">${product.productType}</td>
-						<td width="100">${product.productPrice}</td>
-						<td width="100">${product.discount}</td>
-						<td width="100">${product.discount*product.productPrice*product.productStuck}</td>
+						<td width="100"></td>
+						<td width="100"></td>
+						<td width="100"></td>
+						<td width="100"></td>
+						<td width="100"></td>
+						<td width="100">${cart.showtotal}</td>
 						
 						
 					</tr>

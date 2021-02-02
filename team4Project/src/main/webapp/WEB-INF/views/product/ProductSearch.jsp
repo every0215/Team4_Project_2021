@@ -131,7 +131,7 @@ $("#can4").live('click', function(){
 
 <body>
 	<div
-		style="background-color: gray; height: 100vh; width: 170px; font-size: 22px; float: left;">
+		style="background-color: gray; height: 100vh; width: 250px; font-size: 22px; float: left;">
 <!-- 		<div> -->
 <!-- 			商品價格:<br> -->
 <!-- 			<div id = "can1" style="text-align: center;">0~100</div> -->
