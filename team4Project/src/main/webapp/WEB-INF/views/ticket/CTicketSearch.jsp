@@ -23,9 +23,9 @@
           position: relative;
           text-align: center;
           font-size: 14px;
-          color: #999;
+          color: #ff871c;
           overflow: hidden;
-          padding: 1.2em 0;
+          padding: 1.6em 0;
           /**把高度撐起來**/
         }
 
@@ -34,14 +34,30 @@
         }
 
         .inner {
+          font-size:28px;
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
           white-space: nowrap;
           line-height: 1px;
-          border-left: 9999px solid #ccc;
-          border-right: 9999px solid #ccc;
+          border-left: 9999px solid #ff871c;
+          border-right: 9999px solid #ff871c;
           padding: 0 10px;
+        }
+        .sidehref{
+        font-weight:500;
+        font-size:16px;
+		color:	#337ab7;
+        }
+        .sidehref:hover{
+        font-weight:bold;
+        font-size:18px;
+		color:#FF5151;
+        }
+        .sidehref:active{
+        font-weight:bold;
+        font-size:18px;
+		color:#ff871c;
         }
       </style>
 
@@ -75,17 +91,17 @@
             
         <div class="ticket-content">
           <div class="side-bar well" style="height:600px;width:170px">
-            <div class="well">
-              <p>票券種類</p>
-              <p><a href="<c:url value='/TicketType/1'/>">展覽</a></p>
-              <p><a href="<c:url value='/TicketType/2'/>">樂園與景點</a></p>
-              <p><a href="<c:url value='/TicketType/3'/>">運動賽事</a></p>
+             <div class="well">
+               <p style="color:#ff871c;font-size:20px;font-weight:bold">票券種類</p>
+              <p><a class="sidehref" href="<c:url value='/TicketType/1'/>">展覽</a></p>
+              <p><a class="sidehref" href="<c:url value='/TicketType/2'/>">樂園與景點</a></p>
+              <p><a class="sidehref" href="<c:url value='/TicketType/3'/>">運動賽事</a></p>
             </div>
             <div class="well">
-              <p>經銷店面</p>
-              <p><a href="<c:url value='/TicketCompany/1'/>">全家便利店</a></p>
-              <p><a href="<c:url value='/TicketCompany/3'/>">統一超商</a></p>
-              <p><a href="<c:url value='/TicketCompany/2'/>">萊爾富</a></p>
+              <p style="color:#ff871c;font-size:20px;font-weight:bold">經銷店面</p>
+              <p><a class="sidehref" href="<c:url value='/TicketCompany/1'/>">全家便利店</a></p>
+              <p><a class="sidehref" href="<c:url value='/TicketCompany/3'/>">統一超商</a></p>
+              <p><a class="sidehref" href="<c:url value='/TicketCompany/2'/>">萊爾富</a></p>
             </div>
           </div>
 

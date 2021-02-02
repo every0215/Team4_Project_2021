@@ -13,7 +13,7 @@
             position: fixed;
    			right: 10px;
     		top: 80px;
-     		background-color: rgba(200,200,200,0.6); 
+     		background-color:  hsl(0deg 0% 100% / 80%); 
     		z-index: 10000;
         }
         
@@ -27,7 +27,7 @@
         }
         
         #rep_adv_div {
-            width: 200px;
+            width: 250px;
             overflow: hidden;
         }
         
@@ -72,7 +72,7 @@
     <div id="rep_advertising" >
         <!-- title -->
         <div id="rep_adv_title">
-            <b>精選商品</b>
+            <b style="font-size: 20px;">精選商品</b>
 
         </div>
         <!-- content -->

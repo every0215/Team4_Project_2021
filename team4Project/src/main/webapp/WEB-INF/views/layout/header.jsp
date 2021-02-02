@@ -14,46 +14,48 @@
               <!-- start header top left -->
               <div class="aa-header-top-left">
                 <!-- start language -->
-                <div class="aa-language">
+                <div class="aa-language" style="border-right: 1px solid #fff;">
                   <div class="dropdown">
-                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      <img src="<c:url value='/img/flag/english.jpg' />" alt="english flag">ENGLISH
-                      <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li><a href="#"><img src="img/flag/french.jpg" alt="">FRENCH</a></li>
-                      <li><a href="#"><img src="img/flag/english.jpg" alt="">ENGLISH</a></li>
-                      <li><a href="<c:url value='/admin/login' />" style="color: #fff; "><b>ADMIN LOGIN</b></a></li>
-                    </ul>
+                  <a href="<c:url value='/admin/login' />" style="color: #fff; "><b>ADMIN LOGIN</b></a>
+<!--                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> -->
+<%--                        <img src="<c:url value='/img/flag/english.jpg' />" alt="english flag">ENGLISH  --%>
+<!--                        <span class="caret"></span>  -->
+<!--                     </a> -->
+<!--                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> -->
+                    	
+<!--                        <li><a href="#"><img src="img/flag/french.jpg" alt="">FRENCH</a></li>  -->
+<!--                        <li><a href="#"><img src="img/flag/english.jpg" alt="">ENGLISH</a></li>  -->
+<%--                        <li><a href="<c:url value='/admin/login' />" style="color: #fff; "><b>ADMIN LOGIN</b></a></li>  --%>
+<!--                     </ul> -->
                   </div>
                 </div>
                 <!-- / language -->
 
-                <!-- start currency -->
-                <div class="aa-currency">
-                  <div class="dropdown">
-                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      <i class="fa fa-usd"></i>USD
-                      <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li><a href="#"><i class="fa fa-euro"></i>EURO</a></li>
-                      <li><a href="#"><i class="fa fa-jpy"></i>YEN</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <!-- / currency -->
-                <!-- start cellphone -->
-                <div class="cellphone hidden-xs">
-                  <p><span class="fa fa-phone"></span>00-62-658-658</p>
-                </div>
+<!--                 start currency -->
+<!--                 <div class="aa-currency"> -->
+<!--                   <div class="dropdown"> -->
+<!--                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> -->
+<!--                       <i class="fa fa-usd"></i>USD -->
+<!--                       <span class="caret"></span> -->
+<!--                     </a> -->
+<!--                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> -->
+<!--                       <li><a href="#"><i class="fa fa-euro"></i>EURO</a></li> -->
+<!--                       <li><a href="#"><i class="fa fa-jpy"></i>YEN</a></li> -->
+<!--                     </ul> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 / currency -->
+<!--                 start cellphone -->
+<!--                 <div class="cellphone hidden-xs"> -->
+<!--                   <p><span class="fa fa-phone"></span>00-62-658-658</p> -->
+<!--                 </div> -->
                 <!-- / cellphone -->
               </div>
               <!-- / header top left -->
               <div class="aa-header-top-right" style="position: relative;">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="<c:url value='/member/myWallet' />">我的帳號</a></li>
-                  <c:if test="${ user != null }" >
+                	<c:if test="${ user != null }" >
+                  	 <li><a href="<c:url value='/member/myWallet' />">我的帳號</a></li>
                  	 <li id="UserNotification" class="hidden-xs"><a href="#">通知</a></li>
                   	 <li><div><span class="ll-num-count">${userNotificationNo}</span></div></li>
                   </c:if>
@@ -72,17 +74,20 @@
 
                 </ul>
                 <ul id="user-menu" class="usermenu_usermenu" >
-                  <li><a href="/your-work/">Dashboard</a></li>
-                  <li><a href="/lukelin311">個人資訊</a></li>
-                  <li class="UserMenuLinks_sepBefore-2dqSV"><a href="/pen/">訂單一覽</a></li>
-                  <li><a href="/project/">變更密碼</a></li>
-                  <li class="UserMenuLinks_sepAfter-yFrww"><button>New Collection</button></li>
-                  <li><a href="/assets/">Asset Manager</a></li>
-                  <li class="UserMenuLinks_sepAfter-yFrww"><a href="/embed-theme-builder">Embed Theme Builder</a></li>
-                  <li><a href="/accounts/signup">Upgrade to <span class="badge-pro svg BadgePro_svg-3Hmbx badge" data-test-id="pro-badge"><img src="https://cpwebassets.codepen.io/assets/packs/badge-pro-4d863f9a634627f269bdc611cb477b9f.svg" alt="PRO"></span></a></li>
-                  <li><a href="https://blog.codepen.io/documentation/">Documentation</a></li><li class="UserMenuLinks_sepAfter-yFrww"><a href="/support/">Support</a></li>
-                  <li><a href="/settings/"><svg width="20" height="20" class="icon icon-gear"><use xlink:href="/svgs/compiled/svgs.40016ff2.svg#gear"></use></svg>Settings</a></li>
-                  <li><a id="logout" href="<c:url value='/account/logout' />"><svg width="20" height="20" class="icon icon-log-out"><use xlink:href="/svgs/compiled/svgs.40016ff2.svg#log-out"></use></svg>Log Out</a></li>
+	              <li><a href="<c:url value='/member/creditCard' />">信用卡管理</a>
+				  </li>
+				  <li><a href="<c:url value='/member/myProfile' />">個人資料</a>
+				  </li>
+				  <li><a href="<c:url value='/member/showOrder' />" >票券訂單</a>
+				  </li>
+				  <li><a href="<c:url value='/XXXXXXXXXX' />" >商品訂單</a>
+				  </li>
+				  <li><a href="<c:url value='/member/subscription' />">訂閱管理</a>
+				  </li>
+				  <li><a href="<c:url value='/member/changePassword' />">密碼變更</a>
+				  </li>
+                  <li><a href="<c:url value='/account/logout' />">登出</a></li>
+                  
                 </ul>
                 <div id="UserNotificationBox" class="ll-notification-container" >
 						    <h3>通知訊息
@@ -125,43 +130,43 @@
                 <a class="aa-cart-link" href="#">
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">我的購物車</span>
-                  <span class="aa-cart-notify">2</span>
+                  <span class="aa-cart-notify"></span>
                 </a>
-                <div class="aa-cartbox-summary">
-                  <ul>
-                    <li>
-                      <a class="aa-cartbox-img" href="#"><img src="<c:url value='/img/woman-small-2.jpg' />" alt="img"></a>
-                      <div class="aa-cartbox-info">
-                        <h4><a href="#">Product Name</a></h4>
-                        <p>1 x $250</p>
-                      </div>
-                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                    </li>
-                    <li>
-                      <a class="aa-cartbox-img" href="#"><img src="<c:url value='/img/woman-small-1.jpg' />" alt="img"></a>
-                      <div class="aa-cartbox-info">
-                        <h4><a href="#">Product Name</a></h4>
-                        <p>1 x $250</p>
-                      </div>
-                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                    </li>                    
-                    <li>
-                      <span class="aa-cartbox-total-title">
-                        Total
-                      </span>
-                      <span class="aa-cartbox-total-price">
-                        $500
-                      </span>
-                    </li>
-                  </ul>
-                  <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.html">Checkout</a>
-                </div>
+<!--                 <div class="aa-cartbox-summary"> -->
+<!--                   <ul> -->
+<!--                     <li> -->
+<%--                       <a class="aa-cartbox-img" href="#"><img src="<c:url value='/img/woman-small-2.jpg' />" alt="img"></a> --%>
+<!--                       <div class="aa-cartbox-info"> -->
+<!--                         <h4><a href="#">Product Name</a></h4> -->
+<!--                         <p>1 x $250</p> -->
+<!--                       </div> -->
+<!--                       <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a> -->
+<!--                     </li> -->
+<!--                     <li> -->
+<%--                       <a class="aa-cartbox-img" href="#"><img src="<c:url value='/img/woman-small-1.jpg' />" alt="img"></a> --%>
+<!--                       <div class="aa-cartbox-info"> -->
+<!--                         <h4><a href="#">Product Name</a></h4> -->
+<!--                         <p>1 x $250</p> -->
+<!--                       </div> -->
+<!--                       <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a> -->
+<!--                     </li>                     -->
+<!--                     <li> -->
+<!--                       <span class="aa-cartbox-total-title"> -->
+<!--                         Total -->
+<!--                       </span> -->
+<!--                       <span class="aa-cartbox-total-price"> -->
+<!--                         $500 -->
+<!--                       </span> -->
+<!--                     </li> -->
+<!--                   </ul> -->
+<!--                   <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.html">Checkout</a> -->
+<!--                 </div> -->
               </div>
               <!-- / cart box -->
               <!-- search box -->
               <div class="aa-search-box">
                 <form action="<c:url value='ProductSearch'/>"  method="get" >
-                  <input type="text"  name="search"  placeholder="Search here ex. '洗髮乳' ">
+                  <input type="text"  name="search"  placeholder="請輸入商品名稱，例如. 洗髮乳 ">
                   <button type="submit"><span class="fa fa-search"></span></button>
                 </form>
               </div>
@@ -274,15 +279,15 @@
                 </ul>
               </li>
               <li><a href="<c:url value='/cs/clientLogin'/>">智慧客服</a></li>
-             <li><a href="#">Digital <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="#">Camera</a></li>
-                  <li><a href="#">Mobile</a></li>
-                  <li><a href="#">Tablet</a></li>
-                  <li><a href="#">Laptop</a></li>                                                
-                  <li><a href="#">Accesories</a></li>                
-                </ul>
-              </li>
+<!--              <li><a href="#">Digital <span class="caret"></span></a> -->
+<!--                 <ul class="dropdown-menu">                 -->
+<!--                   <li><a href="#">Camera</a></li> -->
+<!--                   <li><a href="#">Mobile</a></li> -->
+<!--                   <li><a href="#">Tablet</a></li> -->
+<!--                   <li><a href="#">Laptop</a></li>                                                 -->
+<!--                   <li><a href="#">Accesories</a></li>                 -->
+<!--                 </ul> -->
+<!--               </li> -->
                     
               
             </ul>
@@ -303,8 +308,13 @@
             <label for="">密碼<span>*</span></label>
             <input type="password" name="password" placeholder="Password" value="123">
             <button class="aa-browse-btn" type="submit" name="enter" >登入</button>
-            <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-            <p class="aa-lost-password"><a href="#">忘記密碼</a></p>
+            <label for="rememberme" class="rememberme">
+<!--             <input type="checkbox" id="rememberme"> -->
+             <br>
+             </label>
+            <p class="aa-lost-password">
+            <a href="#"></a>
+            </p>
             <div class="aa-register-now">
               
               <a href="<c:url value='/company/CmpRegi' />">企業註冊</a>

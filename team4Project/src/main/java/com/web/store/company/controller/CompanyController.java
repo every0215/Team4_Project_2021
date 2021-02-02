@@ -124,6 +124,7 @@ public class CompanyController {
 		/////////////////存圖片轉成Byte陣列////////////////////
 		//密碼洩漏問題
 		sessionStatus.setComplete();
+		System.out.println("新增成功");
 		return "redirect:/index";
 		
 		

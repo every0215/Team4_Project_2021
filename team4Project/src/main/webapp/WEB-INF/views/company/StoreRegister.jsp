@@ -25,7 +25,12 @@
 	margin-bottom:20px;
 
 }
-
+.main-header .navbar-custom-menu, .main-header .navbar-right {
+	height:500px;
+	}
+body{
+	background-color: #ECF0F5;
+	}
 
 </style>
 </head>
