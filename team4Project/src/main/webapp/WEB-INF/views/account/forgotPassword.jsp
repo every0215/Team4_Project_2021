@@ -207,23 +207,9 @@ button {
            <div class="row">
              <div class="col-md-12">
                <div class="aa-myaccount-register">                 
-                <h4>會員註冊</h4>
-                <form:form id="RegisterForm" method="POST" class="aa-login-form" action="${pageContext.request.contextPath}/account/register" modelAttribute="member" enctype='multipart/form-data'>
-                	<div class="form-group">
-						<label for="fullname">姓名:<span>*</span></label> 
-						<input type="text" class="form-control" id="fullname" name="fullname" placeholder="請輸入全名" required>
-						<img id="fullnameErrorImg" class="CheckStatus" src="<c:url value='/img/Warning_icon.png' />" style="width: 15px;">
-						<small id="fullnameErrorMsg" class="form-text ll-err-msg CheckStatus">(至少2個字以上且必須全部為中文字)</small>
-						<img id="fullnameCheckImg" class="CheckStatus" src="<c:url value='/img/check.png' />" style="width: 25px;">
-	
-					</div>
-					<div class="form-group">
-						<label for="nickname">暱稱:<span>*</span></label> 
-						<input type="text" class="form-control" id="nickname" name="nickname" placeholder="請輸入暱稱" required>
-						<img id="nicknameErrorImg" class="CheckStatus" src="<c:url value='/img/Warning_icon.png' />" style="width: 15px;">
-						<small id="nicknameErrorMsg" class="form-text ll-err-msg CheckStatus">(5個到30個字)</small>
-						<img id="nicknameCheckImg" class="CheckStatus" src="<c:url value='/img/check.png' />" style="width: 25px;">
-					</div>
+                <h4>忘記密碼</h4>
+                <form:form id="RegisterForm" method="POST" class="aa-login-form" action="${pageContext.request.contextPath}/member/forgotPassword" modelAttribute="member" enctype='multipart/form-data'>
+                	
 					<div class="form-group">
 						<label for="qid">身份證字號:<span>*</span></label> <input type="text"
 							class="form-control" id="qid" name="qid" placeholder="請輸入身份證字號" required>
@@ -239,35 +225,22 @@ button {
 						<img id="emailCheckImg" class="CheckStatus" src="<c:url value='/img/check.png' />" style="width: 25px;">
 					</div>
 					<div class="form-group">
-						<label for="password">密碼:<span>*</span></label> <input type="password"
-							class="form-control" id="password" name="pwd" placeholder="請輸入密碼" required>
-						<img id="passwordErrorImg" class="CheckStatus" src="<c:url value='/img/Warning_icon.png' />" style="width: 15px;">
+	                   	<label for="">密碼<span>*</span></label>
+	                   	<input type="password" id="pwd" name="pwd" placeholder="密碼" ">
+	                   	<img id="passwordErrorImg" class="CheckStatus" src="<c:url value='/img/Warning_icon.png' />" style="width: 15px;">
 						<small id="passwordErrorMsg" class="form-text ll-err-msg CheckStatus"></small>
 						<img id="passwordCheckImg" class="CheckStatus" src="<c:url value='/img/check.png' />" style="width: 25px;">
-					</div>
-					<div class="form-group">
-						<label for="password2">再次輸入密碼:<span>*</span></label> <input type="password"
-							class="form-control" id="password2" name="pwd2" placeholder="請輸入密碼" required>
-						<img id="password2ErrorImg" class="CheckStatus" src="<c:url value='/img/Warning_icon.png' />" style="width: 15px;">
-						<small id="password2ErrorMsg" class="form-text ll-err-msg CheckStatus">(1.不可為空白)</small>
-						<img id="password2CheckImg" class="CheckStatus" src="<c:url value='/img/check.png' />" style="width: 25px;">
-					</div>
-					<div class="form-group form-check">
-						<label class="form-check-lab" style="margin-right:5px;"><input class="form-check-input" type="checkbox" id="acceptAgreement" name="acceptAgreement" required>
-							
-						</label>我已閱讀並同意<a class="trigger" data-modal-trigger="trigger-1">條件及條款</a>
-					</div>
-					<div class="form-group" >
-	                   <div class="g-recaptcha" data-callback="captchaCallback" data-sitekey="6LdV6CYaAAAAAKhDJ6LusYaCpuu6EVvCnNMw2tDV" ></div>
                     </div>
 					<hr style="border-bottom: 1px solid #ccc; height:3px;" />
 					<div class="form-group">
-						<button type="submit" id="RegisterSubmit" class="aa-browse-btn">送出</button>
+						<button type="submit" id="SubmitButton" class="aa-browse-btn">送出</button>
 						<button type="reset" id="reset" class="aa-browse-btn">清除</button><br/><br/>
                    	</div>  
                    	<div class="form-group">
-	               		<div id="RegisterMsgDiv" class="alert alert-danger"><strong>註冊失敗</strong><br><span id="RegisterMsg"></span></div>
-					</div>  
+						<div id="MsgDiv" class="alert alert-info"><strong id="MsgLabel">XXX:</strong><br>
+						<span id="Msg">xxx</span>
+						</div>
+					</div>
 					
                  </form:form>
                </div>
@@ -281,54 +254,6 @@ button {
 
  <!-- Agreement section -->
 
-
-<button class="trigger" data-modal-trigger="trigger-2"><i class="fa fa-fire" aria-hidden="true"></i>	Modal 2</button>
-<button class="trigger" data-modal-trigger="trigger-3"><i class="fa fa-fire" aria-hidden="true"></i>	Modal 3</button>
-<div class="ll-modal" data-modal="trigger-1">
-  <article class="content-wrapper">
-    <button class="close"></button>
-    <header class="ll-modal-header">
-      <h2>This is a modal 1</h2>
-    </header>
-    <div class="content">
-      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.</p>
-    </div>
-    <footer class="ll-modal-footer">
-      <button class="action">Accept</button>
-      <button class="action">Decline</button>
-    </footer>
-  </article>
-</div>
-<div class="ll-modal" data-modal="trigger-2">
-  <article class="content-wrapper">
-    <button class="close"></button>
-    <header class="ll-modal-header">
-      <h2>This is a modal 2</h2>
-    </header>
-    <div class="content">
-      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.</p>
-    </div>
-    <footer class="ll-modal-footer">
-      <button class="action">Accept</button>
-      <button class="action">Decline</button>
-    </footer>
-  </article>
-</div>
-<div class="ll-modal" data-modal="trigger-3">
-  <article class="content-wrapper">
-    <button class="close"></button>
-    <header class="ll-modal-header">
-      <h2>This is a modal 3</h2>
-    </header>
-    <div class="content">
-      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.</p>
-    </div>
-    <footer class="ll-modal-footer">
-      <button class="action">Accept</button>
-      <button class="action">Decline</button>
-    </footer>
-  </article>
-</div>
 
   <!-- footer -->  
   <footer id="aa-footer">
@@ -457,11 +382,24 @@ button {
 	 }
 	 
 	$(document).ready(function(){
-		var checkFullnameFlag;
-		var checkNicknameFlag;
+		let msgDiv = $("#MsgDiv");
+		let msgLabel = $("#MsgLabel");
+		let msg = $("#Msg");
+	  	msgDiv.hide();
+	  	
+	  //密碼變更成功
+	  	<c:if test='${(verified != null)&&(verified== true)}'>
+	  		showMsg('成功訊息:','<c:out value="${msg}" />','alert-info');
+			</c:if>
+  		//密碼變更錯誤
+  		<c:if test='${(verified != null)&&(verified== false)}'>
+  			showMsg('錯誤訊息:','<c:out value="${msg}" />','alert-danger');
+  	  	</c:if>
+  	  	
+  	  	
 		var checkQidFlag;
 		var checkEmailFlag;
-		var checkPwdFlag;
+
 		oneClickSetValues();
 		
 	    $(".CheckStatus").hide();
@@ -469,39 +407,22 @@ button {
 	    let registerMsgDiv = $("#RegisterMsgDiv");
 	    let registerMsg = $("#RegisterMsg");
 	    registerMsgDiv.hide();
-	    
-	    checkName();
-	    checkNickname();
+
 	    checkQid();
 	    checkEmail();
 	    checkPassword();
 
-	    
-	    $("#fullname").change(checkName);
-	    $("#nickname").change(checkNickname);
 	    $("#qid").change(checkQid);
 	    $("#email").change(checkEmail);
-	    $("#password").change(checkPassword);
-	    $("#password2").change(checkPassword);
-	    //document.querySelector('#pwd').oninput = checkPwd;
-	    //document.querySelector('#date1').oninput = checkDate1;
-	    //document.querySelector('#name').onchange = submitCheck;
-	    //document.querySelector('#pwd').onchange = submitCheck;
-	    //document.querySelector('#date1').onchange = submitCheck;
-	
-	
-	
+	    $("#pwd").change(checkPassword);
 	
 	    //=============================================================================
 	    //================================  FUNCTIONS  ================================
 	    //=============================================================================
 	    function oneClickSetValues(){
-	    	$("#fullname").val("林林林");
-	    	$("#nickname").val("Nickname 1");
 	    	$("#qid").val("A111122222");
 	    	$("#email").val("test@gmail.com");
-	    	$("#password").val("123456!q");
-	    	$("#password2").val("123456!q");
+
 	    	checkFullnameFlag=true;
 			checkNicknameFlag=true;
 			checkQidFlag=true;
@@ -510,101 +431,7 @@ button {
 	    }
 	    	
 	
-	    //1. 檢查姓名
-	    function checkName() {
-	        let nameVal = $("#fullname").val();
-	        let nameErrorMsg = $("#fullnameErrorMsg");
-			console.log("nameVal: "+nameVal);
-	        let msg = "";
-	        let check = true;
-	        if (nameVal == "") {
-	            msg = "不可為空白"; check = false;
-	        }
-	        else if (nameVal.length < 2) {
-	            msg = "至少2個字以上"; check = false;
-	        }
-	        else {
-	            
-	            let matched1 = nameVal.match(/[,./;\[\]\\\|{}`~!@#$%^&*()\'+= ]+/g);
-	            //if(!hasChinese()){
-	            if (matched1) {
-	                msg = "不可有特殊字元";
-	                check = false;
-	                console.log("check nickname: "+check);
-	            }
-// 	            for (i = 0; i < nameVal.length; i++) {
-// 	                let charUnicode = nameVal.charCodeAt(i);
-// 	                //if(!hasChinese()){
-// 	                if (charUnicode < 0x4e00 || charUnicode > 0x9fff) {
-// 	                    msg = "必須為中文字";
-// 	                    check = false;
-// 	                }
-// 	            }
-	        }
-	
-	        hideFullnameImgMsg();
-	        console.log("check fullname: "+check);
-	        if (!check) {
-	            nameErrorMsg.html(msg);
-	            $("#fullnameErrorImg").show();
-	            $("#fullnameErrorMsg").show();
-	        }
-	        else {
-	        	 $("#fullnameCheckImg").show();
-	        }
-	        checkFullnameFlag = check;
-	    }
-	
-	    function hideFullnameImgMsg() {
-	    	$("#fullnameCheckImg").hide();
-	    	$("#fullnameErrorImg").hide();
-	        $("#fullnameErrorMsg").hide();
-	
-	    }
 	    
-	  	//2. 檢查暱稱
-	    function checkNickname() {
-	        let nickVal = $("#nickname").val();
-	        let nickCheckImg = $("#nicknameCheckImg");
-	        let nickErrorMsg = $("#nicknameErrorMsg");
-	        let nickErrorImg = $("#nicknameErrorImg");
-	        let msg = "";
-	        let check = true;
-	        if (nickVal == "") {
-	            msg = "不可為空白"; check = false;
-	        }
-	        else if ((nickVal.length < 5)||(nickVal.length > 30)) {
-	            msg = "5個到30個字"; check = false;
-	        }
-	        else {
-	            let matched1 = nickVal.match(/[,./;\[\]\\\|{}`~!@#$%^&*()\'+=]+/g);
-	            //if(!hasChinese()){
-	            if (matched1) {
-	                msg = "不可有特殊字元";
-	                check = false;
-	                console.log("check nickname: "+check);
-	            }
-	        }
-	
-	        hideNicknameImgMsg();
-	
-	        if (!check) {
-	        	nickErrorMsg.html(msg);
-	            nickErrorMsg.show();
-	            nickErrorImg.show();
-	        }
-	        else {
-	        	nickCheckImg.show();
-	        }
-	        checkNicknameFlag = check;
-	    }
-	
-	    function hideNicknameImgMsg() {
-	    	 $("#nicknameCheckImg").hide();
-	         $("#nicknameErrorMsg").hide();
-	         $("#nicknameErrorImg").hide();
-	
-	    }
 	
 	  	//3. 檢查身份證字號
 	    function checkQid() {
@@ -693,24 +520,18 @@ button {
 	
 	    }
 	
-	 	 //5. 檢查密碼
+	    //5. 檢查密碼
 	    function checkPassword() {
-	        let pwdVal = $("#password").val();
-	        let pwdVal2 = $("#password2").val();
+	        let pwdVal = $("#pwd").val();
 	        let pwdCheckImg = $("#passwordCheckImg");
 	        let pwdErrorMsg = $("#passwordErrorMsg");
 	        let pwdErrorImg = $("#passwordErrorImg");
-	        let pwd2CheckImg = $("#password2CheckImg");
-	        let pwd2ErrorMsg = $("#password2ErrorMsg");
-	        let pwd2ErrorImg = $("#password2ErrorImg");
 	        console.log("passwordVal: "+pwdVal);
 	        console.log("passwordCheckImg: "+ pwdCheckImg.attr("id"));
-	        console.log("password2Val: "+pwdVal);
-	        console.log("password2CheckImg: "+ pwdCheckImg.attr("id"));
+
 	        let msg = "";
-	        let msg2 = "";
 	        let check = true;
-	        let check2 = true;
+	        
 	      	
 	        //password1的check
 	        if (pwdVal == "") {
@@ -733,14 +554,7 @@ button {
 	            }
 	            console.log(matched1+":"+matched2+":"+matched2);
 	        }
-	        
-	      	//password2的check
-	        if (pwdVal2 == "") {
-  	            msg2 = "不可為空白"; check2 = false;
-  	        }
-  	      	else if( pwdVal != pwdVal2 ){
-  	        	msg2 = "密碼不一致"; check2 = false;
-  	        }
+	      	
 	
 	        hidePwdImgMsg();
 	
@@ -755,43 +569,28 @@ button {
 	        }
 	        checkPwdFlag = check;
 	
-	        //password2的check結果動作
-	        if (!check2) {
-	        	pwd2ErrorMsg.html(msg2);
-	        	pwd2ErrorMsg.show();
-	        	pwd2ErrorImg.show();
-	        }
-	        else {
-	        	pwd2CheckImg.show();
-	        }
-	        checkPwd2Flag = check2;
+	        
 	    }
 	
 	    function hidePwdImgMsg() {
 	    	 $("#passwordCheckImg").hide();
 	         $("#passwordErrorMsg").hide();
 	         $("#passwordErrorImg").hide();
-	         $("#password2CheckImg").hide();
-	         $("#password2ErrorMsg").hide();
-	         $("#password2ErrorImg").hide();
 	    }
-	
-	   
 
-	    $("#RegisterSubmit").click(function(e){
+	    $("#SubmitButton").click(function(e){
 		    e.preventDefault();
 		    let AgreementChecked = $("#acceptAgreement").is(":checked");
-		    console.log("checkFullnameFlag: "+checkFullnameFlag +" checkNicknameFlag:" + checkNicknameFlag+" checkQidFlag:"  + checkQidFlag+" checkEmailFlag:"  + checkEmailFlag + " checkPwdFlag:" + checkPwdFlag + "checkPwd2Flag:" + checkPwd2Flag );
+		    console.log(" checkQidFlag:"  + checkQidFlag+" checkEmailFlag:"  + checkEmailFlag + " checkPwdFlag:" + checkPwdFlag);
 		    console.log($("#acceptAgreement").is(":checked"));
-		    checkName();
-		    checkNickname();
+		    
 		    checkQid();
 		    checkEmail();
 		    checkPassword();
 		    
 		    let errorMSG = "<ul class='ll-err-list-msg' >";
 		    
-		    if(!checkFullnameFlag || !checkNicknameFlag || !checkQidFlag || !checkEmailFlag || !checkPwdFlag || !checkPwd2Flag )
+		    if(checkQidFlag || !checkEmailFlag  || !checkPwdFlag )
 		    {
 		    	errorMSG += "<li>表單填寫有誤</li>";
 		    }
@@ -799,29 +598,8 @@ button {
 		    	registerMsgDiv.hide();
 		    }
 		    
-		 	//check使用者服務條款
-		    let acceptAgreementFlag = $("#acceptAgreement").is(":checked");
-		    if(!acceptAgreementFlag){
-		    	errorMSG += "<li>請同意以上條件及條款</li>";
-		    	registerMsgDiv.show();
-		    }
-		    else{
-		    	registerMsgDiv.hide();
-		    }
-		    //check Google ReCAPTCHA Code
-		    console.log("gReCAPTCHAchecked:" + gReCAPTCHAchecked);
-
-		    if (!gReCAPTCHAchecked){
-		    	errorMSG += "<li>Google驗證碼驗證錯誤</li>";
-		    	registerMsgDiv.show();
-		    }
-		    else{
-		    	registerMsgDiv.hide();
-		    }
-		    errorMSG += "</ul>";
-		    registerMsg.html(errorMSG);
 		    
-		    if (checkFullnameFlag && checkNicknameFlag && checkQidFlag && checkEmailFlag && checkPwdFlag && checkPwd2Flag && AgreementChecked && acceptAgreementFlag && gReCAPTCHAchecked) {
+		    if (checkQidFlag && checkEmailFlag && checkPwdFlag) {
 		        $("#RegisterForm").submit();
 		    }
 		    else {
@@ -831,32 +609,7 @@ button {
 		});
 	    
 	    
-	    
-	    //
-	    // 使用者說明同意書
-	    //
-	    
-	    const buttons = document.querySelectorAll('.trigger[data-modal-trigger]');
-
-		for (let button of buttons) {
-		  modalEvent(button);
-		}
-		
-		function modalEvent(button) {
-		  button.addEventListener('click', () => {
-		    const trigger = button.getAttribute('data-modal-trigger');
-		    const modal = document.querySelector('[data-modal='+trigger+']');
-		    const contentWrapper = modal.querySelector('.content-wrapper');
-		    const close = modal.querySelector('.close');
-		
-		    close.addEventListener('click', () => modal.classList.remove('open'));
-		    modal.addEventListener('click', () => modal.classList.remove('open'));
-		    contentWrapper.addEventListener('click', e => e.stopPropagation());
-		
-		    modal.classList.toggle('open');
-		  });
-		}
-	    
+	   
 	});
 	
 	

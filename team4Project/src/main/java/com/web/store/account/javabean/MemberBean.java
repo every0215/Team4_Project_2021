@@ -46,6 +46,8 @@ public class MemberBean implements Serializable {
 	private String email;
 	@Column(name="Password")
 	private byte[] password;
+	@Column(name="ForgotPasswordCode")
+	private byte[] forgotPasswordCode;
 	
 	@Transient
 	private String origpwd;
@@ -89,6 +91,9 @@ public class MemberBean implements Serializable {
 
 	@Column(name="Active", nullable = false, columnDefinition = "BIT", length = 1)
 	private Boolean active;
+	
+	@Column(name="lock", columnDefinition = "BIT", length = 1)
+	private Boolean lock;
 	
 	@Column(name="CreatedDate")
 	private Timestamp createdDate;
@@ -233,6 +238,14 @@ public class MemberBean implements Serializable {
 		this.password = password;
 	}
 	
+	public byte[] getForgotPasswordCode() {
+		return forgotPasswordCode;
+	}
+
+	public void setForgotPasswordCode(byte[] forgotPasswordCode) {
+		this.forgotPasswordCode = forgotPasswordCode;
+	}
+
 	public String getOrigpwd() {
 		return origpwd;
 	}
@@ -359,6 +372,14 @@ public class MemberBean implements Serializable {
 		if(active == null) this.active = false;
 	}
 
+	
+	public Boolean getLock() {
+		return lock;
+	}
+
+	public void setLock(Boolean lock) {
+		this.lock = lock;
+	}
 
 	public Timestamp getCreatedDate() {
 		return createdDate;
