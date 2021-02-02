@@ -109,7 +109,7 @@
 
                                 <li class="dropdown-header">Help</li>
 
-                                <li><a href="#" target="_blank"><i class="fa fa-long-arrow-left fa-fw" aria-hidden="true"></i>聯絡我們</a></li>
+<!--                                 <li><a href="#" target="_blank"><i class="fa fa-long-arrow-left fa-fw" aria-hidden="true"></i>聯絡我們</a></li> -->
                             </ul>
                         </li>
                         <li><a href="<c:url value='/company/Logout' />"><i class="fa fa-sign-out fa-3x"></i></a></li>

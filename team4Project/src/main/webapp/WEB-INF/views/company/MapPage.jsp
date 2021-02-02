@@ -176,10 +176,9 @@ ul {
 
                             //顯示marker查出來的企業資訊
                             $(".map_info").append(` ` + data.storeName + `<br>
-                            <span><img height="20px" width="20px" src="" /></span>
-                            <span><img height="20px" width="20px" src="" /></span>
-                            <span><img height="20px" width="20px" src="" /></span>(服務)<br>
+                            
                             電話:`+data.phone+`<br>
+                            
                             地址:`+data.storeAddress+`<br>
                             門店簡介:<br>
                             <div>
