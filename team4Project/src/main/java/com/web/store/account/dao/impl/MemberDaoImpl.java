@@ -336,7 +336,7 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Set<MemberNotification> getMemberNotificationList(int memberId) throws SQLException {
 		Session session = factory.getCurrentSession();
-		List<MemberNotification> memberNotificationList = (List<MemberNotification>) session.createQuery("From MemberNotification mn WHERE mn.member.id = :memberId AND mn.read = 0")
+		List<MemberNotification> memberNotificationList = (List<MemberNotification>) session.createQuery("From MemberNotification mn WHERE mn.member.id = :memberId AND mn.read = 0 ORDER BY CreatedDate DESC")
 				.setParameter("memberId", memberId)
 				.getResultList();
 	
