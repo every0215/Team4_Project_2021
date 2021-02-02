@@ -78,9 +78,9 @@ select option[value="0"] {
 		<hr />
 			<input type="hidden" name="typeId" value="3" />
 		<label class="t1" for="">賽事名稱:</label>
-			<input type="text" name="eventName" required="required"><br> <br>
+			<input type="text" id="eventName" name="eventName" required="required"><br> <br>
 		<label class="t1" for="">賽事地點:</label>
-			<input type="text" name="eventLocation" required="required"><br> <br>
+			<input type="text" id="eventLocation" name="eventLocation" required="required"><br> <br>
 			
 		<label class="t1" for="">賽事宣傳圖片:</label>
 		<input id="image_input" type="file" name="eventImage"><br>
@@ -90,7 +90,7 @@ select option[value="0"] {
 		<%-- 以上為eventBean 以下為exhibitionBean --%>
 
 		<label class="t1" for="">起始售票時間:</label>
-			<input type="text" id="dateTime1" name="onSaleDate" placeholder="ex:2021-01-01 9:00:01" required="required">
+			<input type="text" id="dateTime1" name="onSaleDate" placeholder="ex:2021-01-01 09:00:01" required="required">
 				<span id="datetimesp1"></span><br><br>
 				<span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
 		<label class="t1" for="">結束售票時間:</label>
@@ -99,7 +99,7 @@ select option[value="0"] {
 				<span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
 		
 		<label class="t1" for="">描述:</label>
-			<textarea style="resize: none; width: 600px; height: 200px;" name="description"></textarea><br><br>
+			<textarea style="resize: none; width: 600px; height: 200px;" id="description" name="description"></textarea><br><br>
 
 		<label class="t1" for="">優惠銀行:</label>
 		<select name="bankId" id="bank" onChange="renew(this.selectedIndex)" required>
@@ -125,17 +125,17 @@ select option[value="0"] {
 			<tbody>
 			<tr>
 				<td>票價</td>
-				<td><input type="hidden" name="priceName" value="內野A區票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="內野B區票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="外野A區票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="外野B區票" /><input type="text" name="priceCost" required="required"></td>
+				<td><input type="hidden" name="priceName" value="內野A區票" /><input type="text" id="priceCost1" name="priceCost" required="required"></td>
+				<td><input type="hidden" name="priceName" value="內野B區票" /><input type="text" id="priceCost2" name="priceCost" required="required"></td>
+				<td><input type="hidden" name="priceName" value="外野A區票" /><input type="text" id="priceCost3" name="priceCost" required="required"></td>
+				<td><input type="hidden" name="priceName" value="外野B區票" /><input type="text" id="priceCost4" name="priceCost" required="required"></td>
 			</tr>
 			<tr>
 				<td>座位數</td>
-				<td><input type="text" name="seatNo" required="required"></td>
-				<td><input type="text" name="seatNo" required="required"></td>
-				<td><input type="text" name="seatNo" required="required"></td>
-				<td><input type="text" name="seatNo" required="required"></td>
+				<td><input type="text" id="seatNo1" name="seatNo" required="required"></td>
+				<td><input type="text" id="seatNo2" name="seatNo" required="required"></td>
+				<td><input type="text" id="seatNo3" name="seatNo" required="required"></td>
+				<td><input type="text" id="seatNo4" name="seatNo" required="required"></td>
 			</tr>
 			</tbody>
 		</table>
@@ -151,8 +151,27 @@ select option[value="0"] {
 		
 		<input id="Button1" type="button" value="新增場次" class="btn btn-primary btn-sm"/>
 		<input type="submit" name="sumbmit" id="submitButton" class="btn btn-warning">
-		<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a> 
+		<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+		<input id="autoInput" class="btn btn-primary btn-sm" type="button" value="一鍵輸入" /> 
 		<script>
+		$("#autoInput").click(function () {
+            $("#eventName").val("富邦悍將");
+            $("#eventLocation").val("新北市立新莊棒球場");
+            $("#dateTime1").val("2021-03-01 09:00:01");
+            $("#dateTime2").val("2021-03-22 18:00:01");
+            $("#seatNo1").val("3000");
+            $("#seatNo2").val("3000");
+            $("#seatNo3").val("3000");
+            $("#seatNo4").val("3000");
+            $("#priceCost1").val("400");
+            $("#priceCost2").val("400");
+            $("#priceCost3").val("350");
+            $("#priceCost4").val("350");
+            
+            $("#description").val("富邦悍將英文隊名 Guardians 有守護之意，如同富邦金控守護著每一位客戶、員工及社會的企業精神，而守護者具備的強悍能力，也代表富邦同仁們驍勇善戰，攻無不克的團隊文化。");
+        });
+		
+		
 		$("#image_input").change(function(){
             readURL(this); 
           });

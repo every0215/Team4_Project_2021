@@ -74,9 +74,9 @@ select option[value="0"] {
 		<hr />
 			<input type="hidden" name="typeId" value="1" />
 		<label class="t1" for="">展覽名稱:</label>
-			<input type="text" name="eventName" required="required"><br><br>
+			<input type="text" id="eventName" name="eventName" required="required"><br><br>
 		<label class="t1" for="">展覽地點:</label>
-			<input type="text" name="eventLocation" required="required"><br><br>
+			<input type="text" id="eventLocation" name="eventLocation" required="required"><br><br>
 			
 
 		<label class="t1" for="">展覽宣傳圖片:</label>
@@ -103,7 +103,7 @@ select option[value="0"] {
 				<span id="datesp2"></span><br><br>
 				<span style="margin-left:90px">時間格式:yyyy-MM-dd</span><br><br>
 		<label class="t1" for="">描述:</label>
-			<textarea style="resize: none; width: 600px; height: 200px;" name="description"></textarea>
+			<textarea style="resize: none; width: 600px; height: 200px;" id="description" name="description"></textarea>
 		<br> <br>
 
 		<label class="t1" for="">優惠銀行:</label>
@@ -176,8 +176,20 @@ select option[value="0"] {
 
 		<input id="Button1" type="button" class="btn btn-primary btn-sm" value="新增價位與名稱" />
 		<input type="submit" name="sumbmit" id="submitButton" class="btn btn-warning">
-		<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a> 
+		<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+		<input id="autoInput" class="btn btn-primary btn-sm" type="button" value="一鍵輸入" /> 
 		<script>
+		$("#autoInput").click(function () {
+            $("#eventName").val("Keigo展-我的生活不可能那麼壞");
+            $("#eventLocation").val("華山紅磚六合院");
+            $("#dateTime1").val("2021-03-01 09:00:01");
+            $("#dateTime2").val("2021-04-05 18:00:01");
+            $("#date1").val("2021-03-10");
+            $("#date2").val("2021-04-10");
+            $("#description").val("《我的生活不可能那麼壞》作者-日本超人氣厭世插畫家Keigo首度來台<br/>經典畫作、百張手稿以及展覽限定台灣特色新作品！<br/>快來一睹keigo特別的手繪風格，並親臨現場感受讓全球超過百萬人看懂的幽默正面力量！");
+        });
+		
+		
 		$("#Button1").click(function addPrice(){
 			console.log($("#price").html());
 			
