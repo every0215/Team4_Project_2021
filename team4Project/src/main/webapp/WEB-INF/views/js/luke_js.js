@@ -3,7 +3,7 @@
  */
 
 $(document).ready(function() {
-	console.log('loading header info..');
+	console.log('loading header infos..');
 	$("#user-menu").hide();
 	$("#UserNotificationBox").hide();
 
@@ -29,19 +29,18 @@ $(document).ready(function() {
 
 	//會員通知
 	getMemberNotifications();
-	setInterval(getMemberNotifications,5000); //間隔讀取通知
+	setInterval(getMemberNotifications,3000); //間隔讀取通知
 	function getMemberNotifications() {
 		console.log('running getMemberNotifications..');
 		let mNotificationDiv = $("#UserNotificationBox");
 		
-		$(".ll-notification").remove();
 		
 		$.ajax({
 			type: "Get",
 			url: "/proj//member/getMemberNotifications",
 			//data: { memberId: id },
 			success: function(data) {
-				
+				$(".ll-notification").remove();
 				console.log("success: " + data);
 				//可增加動態處理		
 				$(".ll-num-count").html(data.length);//增加通知數
@@ -75,21 +74,6 @@ $(document).ready(function() {
 			  console.log('.ll-mn-span clicked: ' + url);
 			  window.location.href = url;
 		  });
-		  
-		  
-	//會員AccountMenu-頁面訪問後連結背景呈現
-	//var pageURL = $(location).attr("href");
-	
-    var pageName = document.location.href.match(/[^\/]+$/)[0];
-    
-    console.log('accountMenu(pageName:'+pageName+')');
-    
-    $('#menu-content>li').removeClass('active');
-    $('#menu-content').find('li[data-target="#'+pageName+'"]').addClass('active');
-    console.log('accountMenu...');
-    console.log($('#menu-content>li'));
-    
-    
 });
 
 

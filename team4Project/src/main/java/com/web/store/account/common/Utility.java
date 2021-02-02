@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Utility {
@@ -37,7 +38,7 @@ public class Utility {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T> Set<T> ConvertListToSet(Collection<T> collection) {
-		Set<T> setCollection = new HashSet<T>();
+		Set<T> setCollection = new LinkedHashSet<T>();
 		for (Iterator iter = collection.iterator(); iter.hasNext();) {
 			T obj = (T) iter.next();
 			setCollection.add(obj);
