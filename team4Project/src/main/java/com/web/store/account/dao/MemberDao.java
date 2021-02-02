@@ -32,4 +32,5 @@ public interface MemberDao {
 	int getMemberNotificationCount(int memberId) throws SQLException;
 	void updateMemberNotificationIsRead(int mNotificationId) throws SQLException;
 	Set<MemberSubscription> getMemberSubscriptionList(int memberId) throws SQLException;
+
 }
