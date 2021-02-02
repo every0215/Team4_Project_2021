@@ -20,6 +20,18 @@ body{
 font-size:16px;
 background-color:#b6b6b6;
 }
+
+#csPicCon{
+	width:150px;
+	height:150px;
+	overflow:hidden;
+	float:right;
+}
+
+#csPicCon img{
+	width:100%;
+	height:100%;
+}
 </style>
 </head>
 
@@ -46,7 +58,7 @@ background-color:#b6b6b6;
     			<h2 id="chatOnline">諮詢人數<span></span>人</h2>
     		</c:if>   
     		<c:if test="${empty sessionScope.customerService}">
-    			<h2 id="chatOnline">服務人數<span></span>人</h2>
+    			<h2 id="chatOnline">服務客服<span></span>人</h2>
     		</c:if>    	
             <ul id="chatUserList">
                <!--  <li>bobo老师</li>
@@ -65,6 +77,7 @@ background-color:#b6b6b6;
                 <button class="btn" id="sendBtn">發送</button>
             </div>
         </div>
+        <div id="csPicCon" style="width:150px;height:150px;"><img src=""/></div>
     </div>
 </div>
 </section>

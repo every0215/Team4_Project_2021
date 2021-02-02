@@ -16,10 +16,15 @@
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script> -->
 
+<head>
 <title>活動查詢</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js"></script>
+    
 <style>
 body{
-	background-color:#f3f3f3;
+	background-color:#ECF0F5;
 }
 .title {
 	text-align: center;
@@ -247,7 +252,8 @@ tr>td>button {
 </div>
 
 	<script>
-	
+		
+		
 		
 		
 		$(function(){
@@ -379,15 +385,27 @@ tr>td>button {
 					success:function(data){
 						if(data=="success"){
 							$(".loading-bg").css("display","none");
-							alert("推送成功")
+							swal({
+								title:"成功推送",
+								type:"success",
+								confirmButtonText:"確認"
+							})
 						}else{
 							$(".loading-bg").css("display","none");
-							alert("推送失敗")
-						}
+							swal({
+								title:"推送失敗",
+								type:"error",
+								confirmButtonText:"確認"
+							})
+						}	
 					},
 					error:function (jqXHR, textStatus, errorThrown) {
 						$(".loading-bg").css("display","none");
-						alert("推送失敗");
+						swal({
+							title:"推送失敗",
+							type:"error",
+							confirmButtonText:"確認"
+						})
 						console.log("status:"+jqXHR.status+",statusText"+jqXHR.statusText)
 			        }
 				})
