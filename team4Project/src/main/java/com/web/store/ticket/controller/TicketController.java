@@ -92,13 +92,24 @@ public class TicketController {
 	public String showOrderDetail(
 			Model model, HttpSession session,
 			@PathVariable String TicketOrderId 
-			) {
+			) throws Exception {
+		
+		String s="";
+		MemberBean member = (MemberBean) session.getAttribute("currentUser");
+		BigDecimal userBalance = member.getmCoin().getBalance();
+		TicketOrder ticketOrder = backendService.queryTicketOrderbyId(TicketOrderId);
+		BigDecimal btotalCost = new BigDecimal(ticketOrder.getTotalCost());
+		
+		int result = userBalance.compareTo(btotalCost);
+		
 		List<Price> priceList = new ArrayList<>();
 		Double discountRatio;
 		ArrayList<Double> dPriceList = new ArrayList<>();
-		TicketOrder ticketOrder = backendService.queryTicketOrderbyId(TicketOrderId);
 		
-		TicketOrder ticketOrderF = backendService.queryTicketOrderDetailByTicketOrder(ticketOrder);
+		if(result==-1) {
+			s="account/myWallet";
+		}else {
+			TicketOrder ticketOrderF = backendService.queryTicketOrderDetailByTicketOrder(ticketOrder);
 		Set<TicketOrderDetail> ticketOrderDetails = ticketOrderF.getTicketOrderDetails();
 		
 		List<TicketOrderDetail> list = new ArrayList<TicketOrderDetail>(ticketOrderDetails);
@@ -131,8 +142,11 @@ public class TicketController {
 		model.addAttribute("priceList", priceList);
 		model.addAttribute("dPriceList", dPriceList);
 		model.addAttribute("discount", discount);
+		backendService.ticketOrderNotice(TicketOrderId);
+		s = "account/ticketOrderDetail";
+		}
+		return s;
 		
-		return "account/ticketOrderDetail";
 		
 	}
 	
@@ -211,7 +225,9 @@ public class TicketController {
 			
 			model.addAttribute("dPriceList", dPriceList);
 			model.addAttribute("discount", discount);
+			
 			s="account/ticketOrderDetail";
+			backendService.ticketOrderNotice(TicketOrderId);
 		}
 
 		return s;

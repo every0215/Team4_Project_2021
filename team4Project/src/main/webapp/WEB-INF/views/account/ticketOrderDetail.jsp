@@ -263,7 +263,17 @@ input {
                   				</table>
                   				<br/>
 	               				<c:if test="${ticketOrder.status==0}">
-	               				<a href="<c:url value='/buyByMCoinSucc/${ticketOrder.id}'/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">滿幣支付</a>
+	               				<c:if test="${discount==0}">
+	               					
+	               					<a href="<c:url value='/buyByMCoinSucc/${ticketOrder.id}'/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">滿幣支付</a>
+	               				</c:if>
+	               					<form action="<c:url value='../ecpay'/>" method="post">
+                  						<input type="hidden" id="order" name="order" value="${ticketOrder.id}"/>
+                  						<input type="hidden" id="orderName" name="orderName" value="${event.eventName}" />
+                  						<input type="hidden" id="orderCost" name="orderCost" value="${ticketOrder.totalCost}"/>
+                  						<input type="hidden" id="tradeDesc" name="tradeDesc" value="${ticketOrder.id}"/>
+                  						<button id="payByCreditCard" type="submit" class="btn btn-primary btn-lg">信用卡支付</button>
+                  					</form>
 	               				</c:if>	
 	               					
 					        
