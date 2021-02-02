@@ -68,7 +68,7 @@ body{
 			</thead>
 			<tbody>
 			<tr>
-				<td>票價</td>
+				<td style="width:100px">票價</td>
 				<c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach>
 			</tr>
 			<tr>

@@ -57,7 +57,7 @@ body{
                  </c:choose></td></tr>
 <tr><td nowrap="nowrap">售票期間</td> <td>${attraction.onSaleDate.toString().substring(0, 19)} ~ ${attraction.offSaleDate.toString().substring(0, 19)}</td></tr>
 <tr><td>展出期間 </td> <td>${attraction.commDate} ~ ${attraction.dueDate}</td></tr>
-<tr><td>展覽介紹</td> <td style="text-align:left">${attraction.description}</td></tr>
+<tr><td style="width:100px">展覽介紹</td> <td style="text-align:left">${attraction.description}</td></tr>
 </table>
 <br>
 <img height="300px" src="<c:url value='/geteventimage/${event.id}'/>" style="display:block; margin:auto;"/>

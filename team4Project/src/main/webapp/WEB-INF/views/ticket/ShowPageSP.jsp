@@ -64,13 +64,13 @@ body{
 
 		<table style="margin: auto;width: 800px;border:3px 	#003060 solid;background-color:#ECF5FF;text-align:center; " cellpadding="10" border='1'>
 			<thead>
-				<tr><th colspan="5">票價與座位表:</th></tr>
-				<tr><th rowspan="2"><th colspan="2">內野區</th><th colspan="2">外野區</th></tr>
-				<tr><th>A區</th><th>B區</th><th>A區</th><th>B區</th></tr>
+				<tr><th colspan="5" style="text-align:center">票價與座位表</th></tr>
+				<tr><th rowspan="2" ><th colspan="2" style="text-align:center">內野區</th><th colspan="2" style="text-align:center">外野區</th></tr>
+				<tr ><th style="text-align:center">A區</th><th style="text-align:center">B區</th><th style="text-align:center">A區</th><th style="text-align:center">B區</th></tr>
 			</thead>
 			<tbody>
 			<tr>
-				<td>票價</td>
+				<td style="width:100px">票價</td>
 				<c:forEach var="price" items="${priceList}"><td>${price.cost}</td></c:forEach>
 			</tr>
 			<tr>
