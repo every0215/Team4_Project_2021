@@ -76,7 +76,7 @@
 <ul>
 <c:forEach var='Cmp' items='${CompanyList}'>
 	<li>
-	<div style="min-height:150px;position:relative;border-top:1px solid gray">
+	<div style="min-height:150px;position:relative;border-top:1px solid gray;margin:5px 20px;">
 		<div style="height:200px;position:absolute;left:20px;margin:5px;">
 			<img width="150px" src="<c:url value='/company/getCompanyimage/${Cmp.id}'/>" />
 		</div>

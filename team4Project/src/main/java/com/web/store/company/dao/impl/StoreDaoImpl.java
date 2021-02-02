@@ -137,7 +137,7 @@ public class StoreDaoImpl implements StoreDao {
 
 	@Override
 	public Store getStoreById(Integer id) {
-		
+		System.out.println("GETSTORE DAO"+id);
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "from Store where Id = :newId";
 		Query<Store> queryObj = session.createQuery(hqlstr,Store.class);

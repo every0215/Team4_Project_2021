@@ -18,6 +18,7 @@
 	right: 0px;
 	font-family:微軟正黑體;
 	font-weight:900;
+	font-size:18px;
 }
 .main-header .navbar-custom-menu, .main-header .navbar-right {
 	height:500px;
@@ -30,9 +31,9 @@ body{
 <body>
 <div class="rep_reportarea">
 		<!-- Right side column. Contains the navbar and content of the page -->
-		<div class="content-wrapper">
+		<div class="content-wrapper" align="center">
 <fieldset>
-	<legend >企業簡介</legend> 
+	<legend ><h1>企業簡介</h1></legend> 
 	
 		<form action="<c:url value='/company/updateCompanyProfile'/>" method="post" enctype="multipart/form-data">
 <%-- 		<input type="hidden" name="cmpid" value="${sessionScope.company.id}"> --%>
@@ -43,7 +44,7 @@ body{
 
 			<div style="padding:5px">
 			企業簡介:<br/>
-			<textarea rows="4" cols="50" placeholder="請輸入簡介" name="profiles" >${sessionScope.company.profiles}</textarea>
+			<textarea rows="10" cols="80" placeholder="請輸入簡介" name="profiles" >${sessionScope.company.profiles}</textarea>
 			</div>
 			<div style="background-color:yellow">
 			${resp}
@@ -56,7 +57,7 @@ body{
 </table>
 				<hr/>
 			<input type="submit" value="送出"/>
-			<input type="reset" value="delete"/>
+			<input type="reset" value="重新編輯"/>
 	
 			</form>
 </fieldset>

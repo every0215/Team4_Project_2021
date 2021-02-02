@@ -33,13 +33,14 @@ body{
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-<a href="<c:url value='/company/storeRegister' />">新增門市</a>
+<%-- <a href="<c:url value='/company/storeRegister' />">新增門市</a> --%>
 
+<button type="button" style="height:40px;width:100px;margin-top:10px"><a href="<c:url value='/company/storeRegister' />" style="font-size:18px">新增門市</a></button>
 
 <link rel="stylesheet" href="<c:url value='https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css' />">
 <script src="<c:url value='https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js' />"></script>
 
- <div style="width:1000px;margin:0 auto">
+ <div style="width:1000px;margin:20px auto">
       <table id="myTable" style="margin: auto;width: 1000px;border:3px #cccccc solid;" cellpadding="10" border='1'>
         <thead>
           <tr>
@@ -59,7 +60,14 @@ body{
               <td>${Sto.storeName}</td>
               <td>${Sto.storeArea}</td>
               <td>${Sto.storeAddress}</td>
-              <td>${Sto.status}</td>
+              <td>
+              <c:choose>
+              <c:when test="${Sto.status==true}">上架
+              </c:when>
+              <c:otherwise>下架</c:otherwise>
+              </c:choose>
+              
+              </td>
               
               <td>
 <%--                 <input type="hidden" name="typeId" value="${event.typeId}" /> --%>
@@ -79,7 +87,24 @@ body{
 
 	  <script>
         $(document).ready(function () {
-          $('#myTable').DataTable();
+          $('#myTable').DataTable(
+        		  {
+        	  "language" :{
+        		     "search" : "查詢: ",
+        		     "info" : "",
+        		     "sLengthMenu" : "顯示_MENU_筆記錄",
+        		                    "zeroRecords" : "沒有符合條件的記錄",
+        		                    "infoEmpty": "沒有符合條件的記錄",
+        		                    "emptyTable" : "沒有符合條件的記錄",
+        		                    "infoFiltered":   "",
+        		     "paginate" : {
+        		                        sFirst : " 首頁", sLast : "末頁 ", sPrevious : " 上一頁 ", sNext : " 下一頁"
+        		                        
+        		                     }
+        		    }
+          }
+        		  );
+          
         });
       </script>
 </div>

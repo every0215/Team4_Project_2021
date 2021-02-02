@@ -18,6 +18,7 @@
 	right: 0px;
 	font-family:微軟正黑體;
 	font-weight:900;
+	font-size:20px;
 }
 .block{
 	margin-right:20px;
@@ -37,7 +38,7 @@ body{
 <body>
 <div class="rep_reportarea">
 		<!-- Right side column. Contains the navbar and content of the page -->
-		<div class="content-wrapper">
+		<div class="content-wrapper" align="center">
 
 
 <form:form method='POST' modelAttribute="storeBean" >
@@ -46,7 +47,7 @@ body{
                  <form:hidden path="id" />
 			</c:if>
 			<fieldset class="fieldset-auto-width">
-				<legend><h1>門市資料</h1></legend>
+				<legend><h1>&emsp;&emsp;&emsp;門市資料</h1></legend>
 				<table>
 					<tr>
 						<td align='right'>
@@ -74,9 +75,9 @@ body{
 						<td>
 						<div class="block">
 							<form:select path="storeArea"  type="text" >
-							<form:option value="0">北區</form:option>
-							<form:option value="1">中區</form:option>
-							<form:option value="2">南區</form:option>
+							<form:option value="北區">北區</form:option>
+							<form:option value="中區">中區</form:option>
+							<form:option value="南區">南區</form:option>
 							</form:select>
 						</div>
 						</td>
@@ -131,12 +132,13 @@ body{
 					</tr>
 					<tr>
 						<td colspan='2' align='center'>
-						<div class="block">
-						<input type='submit' value='提交'>
-						</div>
+						
 						</td>
 					</tr>
 				</table>
+				<div class="block">
+						<input type='submit' value='提交'>
+						</div>
 			</fieldset>
 		</form:form>
 
