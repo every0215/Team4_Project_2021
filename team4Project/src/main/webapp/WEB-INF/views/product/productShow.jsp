@@ -54,6 +54,7 @@ $("#com1").live( 'click', function(){
 	$("#comp1").css('display','block'); 
 	$("#comp2").css('display','none'); 
 	$("#comp3").css('display','none'); 
+	$("#comp5").css('display','none'); 
 	loadAdv(1);
 	alert(cname);
 	
@@ -65,7 +66,7 @@ $("#com2").live( 'click', function(){
 	$("#comp1").css('display','none'); 
 	$("#comp2").css('display','block'); 
 	$("#comp3").css('display','none'); 
-
+	$("#comp5").css('display','none'); 
 	alert(cname);
 });
 $("#com3").live('click', function(){
@@ -74,7 +75,8 @@ $("#com3").live('click', function(){
 	$(this).siblings().css('background-color','gray');
 	$("#comp1").css('display','none'); 
 	$("#comp2").css('display','none'); 
-	$("#comp2").css('display','block'); 
+	$("#comp3").css('display','block'); 
+	$("#comp5").css('display','none'); 
 	 loadAdv(2);
 	alert(cname);
 });
@@ -84,7 +86,8 @@ $("#com5").live('click', function(){
 	$(this).siblings().css('background-color','gray');
 	$("#comp1").css('display','none'); 
 	$("#comp2").css('display','none'); 
-	$("#comp2").css('display','block'); 
+	$("#comp3").css('display','none'); 
+	$("#comp5").css('display','block'); 
 	 loadAdv(3);
 	alert(cname);
 });
@@ -97,7 +100,7 @@ $("#com4").live('click', function(){
 	$("#comp1").css('display','block'); 
 	$("#comp2").css('display','block'); 
 	$("#comp3").css('display','block'); 
-	
+	$("#comp5").css('display','block'); 
 	alert(cname);
 });
 
@@ -127,9 +130,9 @@ $("#can4").live('click', function(){
 
 </head>
 
-<body>
+<body style="height:100%;">
 	<div
-		style="background-color: gray; height: 100vh; width: 170px; font-size: 22px; float: left;">
+		style="background-color: gray; height: 100vh; width: 250px; font-size: 22px; float: left;">
 <!-- 		<div> -->
 <!-- 			商品價格:<br> -->
 <!-- 			<div id = "can1" style="text-align: center;">0~100</div> -->
@@ -138,6 +141,7 @@ $("#can4").live('click', function(){
 <!-- 			<div id = 'can4' style="text-align: center;">取消條件</div> -->
 
 <!-- 		</div> -->
+
 		<div>
 			店家類別:<br>
 

@@ -1,4 +1,4 @@
-
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,11 +12,11 @@
 <title>ProductIndex</title>
 
 <title>商品管理</title>
-<link href="css/styles1.css" rel="stylesheet">
+
 <!-- 外掛Chart.js cdn -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.js">
@@ -32,7 +32,7 @@
 		
 	</script>
 </head>
-<script language="javascript">
+<script >
 function ProductDelete() {
 　
 	if (confirm ("確定要刪除嗎 ") )
@@ -41,14 +41,28 @@ function ProductDelete() {
 }
 </script>
 
+<style>
 
+.ins {
+	background-color: transparent;
+	position: absolute;
+	width: calc(100vw - 15px);
+	height: calc(100vh - 80px);
+	bottom: 0px;
+	right: 0px;
+	font-family:微軟正黑體;
+	font-weight:900;
+}
+</style>
 <body>
-	<div class="content-wrapper">
-	</div>
-	<h1>商品管理</h1>
+	<div class="rep_reportarea">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper">
+	
+	<h1>商品管理 &nbsp; <a href="product/ProductInsert" class="btn btn-success" role="button">新增商品</a></h1>
 	<br>
-	<div>
-		<a href="product/ProductInsert" class="btn btn-success" role="button">新增商品</a>
+	<div id="ins">
+		
 		<table id="productlist" class="display">
 			<thead>
 				<tr>
@@ -88,7 +102,8 @@ function ProductDelete() {
 			</tbody>
 		</table>
 	</div>
-
+	</div>
+</div>
 </body>
 
 </html>

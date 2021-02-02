@@ -37,6 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.store.account.javabean.MemberBean;
+import com.web.store.company.model.Company;
 import com.web.store.company.service.CompanyService;
 import com.web.store.product.model.Cart;
 import com.web.store.product.model.Items;
@@ -62,14 +63,19 @@ public class ProductController {
 	CompanyService cService;
 //-----------------------後台顯示商品
 	@RequestMapping("/ProductIndex")
-	public String View(Model model) {
-		List<Product> list = pService.selectAll();
+	public String View(Model model,HttpSession session) {
+		Company company=(Company)session.getAttribute("company");
+		List<Product> list = pService.selectbyCompanyName(company.getCompanyName());
+		
 		for (Product pb : list) {
 			System.out.println(pb.getProductName());
 		}
+		
+		
 		model.addAttribute("ProductList", list);
 		return "/product/ProductIndex";
 	}
+	
 //	@GetMapping("/ProductIndex/{companyName}")
 //	public String ViewIndex(@PathVariable String companyName,Model model) {
 //		List<Product> list = pService.selectbyCompanyName(companyName);
@@ -201,17 +207,21 @@ public class ProductController {
 	@GetMapping(value="/productShow/{productType}")
 	public String porductShow(@PathVariable String productType,Model model){
 		System.out.println(productType);
-		List<Product> list  = pService.selectbyType(productType);
+		List<Product> list=null;
+		if(productType.equals("all")) {
+			list  = pService.selectAll();
+			System.out.println("alllllllllll");
+		}
+		else {
+			 list  = pService.selectbyType(productType);
+			 System.out.println("成功"+productType);
+		}
 		model.addAttribute("ProductList",list);
-		System.out.println("成功"+productType);
+		
 		
 		return "/product/productShow";
 	}	
-//	@GetMapping(value="/productShow")
-//	public String porductShow(){
-//		
-//		return "/productShow";
-//	}	
+
 //-----------	搜尋
 	
 	@GetMapping(value="/ProductSearch" )
@@ -268,6 +278,7 @@ public class ProductController {
 			return "redirect:/account/login";
 		}
 		System.out.println("member="+member.getId());
+		model.addAttribute("Member", member);  
 		Cart cart = (Cart) model.getAttribute("Cart");
 		if (cart == null) {
 			// 就新建ShoppingCart物件
@@ -285,6 +296,7 @@ public class ProductController {
 					null,
 					bean.getproductId(),
 					bean.getdiscount());
+			
 			cart.addToCart(productId, oib);
 			
 			System.out.println("cart"+cart);
