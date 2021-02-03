@@ -44,7 +44,7 @@ body{
 
 			<div style="padding:5px">
 			企業簡介:<br/>
-			<textarea rows="10" cols="80" placeholder="請輸入簡介" name="profiles" >${sessionScope.company.profiles}</textarea>
+			<textarea id="tex" rows="10" cols="80" placeholder="請輸入簡介" name="profiles" >${sessionScope.company.profiles}</textarea>
 			</div>
 			<div style="background-color:yellow">
 			${resp}
@@ -61,8 +61,14 @@ body{
 	
 			</form>
 </fieldset>
+<button id="insert">一鍵輸入</button>
 </div>
 </div>
-
+<script>
+$("#insert").click(function(){
+	$("#tex").val("民國七十七年九月豐群企業集團在台灣同時開幕了三家OK，從此展開了 「OK超商」在台灣發展的序幕。豐群企業集團是由知名的企業家張國安 先生所創立，他秉持「豐富人群」的理想，將企業取名為「豐群」。")
+	
+})
+</script>
 </body>
 </html>
