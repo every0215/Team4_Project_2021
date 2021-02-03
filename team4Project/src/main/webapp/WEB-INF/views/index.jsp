@@ -976,41 +976,41 @@
                               </div>
                             </div>
                             <!-- Modal view content -->
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <div class="aa-product-view-content">
-                                <h3>排骨雞麵</h3>
-                                <div class="aa-price-block">
-                                  <span class="aa-product-view-price">$34.99</span>
-                                  <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
-                                </div>
-                                <p>湯頭最純、最香濃的經典口味，超過30年長青品牌，歷久彌新，是許多人念念不忘的好滋味！有四大天王中的味味A排骨雞，也有深受年輕消費者喜愛的冬菜鴨肉冬粉…沒吃過味味A的話，那你就別說自己有吃過速食麵！</p>
-                                <!-- <h4>Size</h4>
-                                <div class="aa-prod-view-size">
-                                  <a href="#">S</a>
-                                  <a href="#">M</a>
-                                  <a href="#">L</a>
-                                  <a href="#">XL</a> -->
-                                </div>
-                                <div class="aa-prod-quantity">
-                                  <form action="">
-                                    <select name="" id="">
-                                      <option value="0" selected="1">1</option>
-                                      <option value="1">2</option>
-                                      <option value="2">3</option>
-                                      <option value="3">4</option>
-                                      <option value="4">5</option>
-                                      <option value="5">6</option>
-                                    </select>
-                                  </form>
-                                  <p class="aa-prod-category">
-                                    Category: <a href="#">泡麵</a>
-                                  </p>
-                                </div>
-                                <div class="aa-prod-view-bottom">
-                                  <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>加入購物車</a>
-                                  <a href="#" class="aa-add-to-cart-btn">View Details</a>
-                                </div>
-                              </div>
+<!--                             <div class="col-md-6 col-sm-6 col-xs-12"> -->
+<!--                               <div class="aa-product-view-content"> -->
+<!--                                 <h3>排骨雞麵</h3> -->
+<!--                                 <div class="aa-price-block"> -->
+<!--                                   <span class="aa-product-view-price">$34.99</span> -->
+<!--                                   <p class="aa-product-avilability">Avilability: <span>In stock</span></p> -->
+<!--                                 </div> -->
+<!--                                 <p>湯頭最純、最香濃的經典口味，超過30年長青品牌，歷久彌新，是許多人念念不忘的好滋味！有四大天王中的味味A排骨雞，也有深受年輕消費者喜愛的冬菜鴨肉冬粉…沒吃過味味A的話，那你就別說自己有吃過速食麵！</p> -->
+<!--                                 <h4>Size</h4>
+<!--                                 <div class="aa-prod-view-size"> -->
+<!--                                   <a href="#">S</a> -->
+<!--                                   <a href="#">M</a> -->
+<!--                                   <a href="#">L</a> -->
+<!--                                   <a href="#">XL</a> -->
+<!--                                 </div> -->
+<!--                                 <div class="aa-prod-quantity"> -->
+<!--                                   <form action=""> -->
+<!--                                     <select name="" id=""> -->
+<!--                                       <option value="0" selected="1">1</option> -->
+<!--                                       <option value="1">2</option> -->
+<!--                                       <option value="2">3</option> -->
+<!--                                       <option value="3">4</option> -->
+<!--                                       <option value="4">5</option> -->
+<!--                                       <option value="5">6</option> -->
+<!--                                     </select> -->
+<!--                                   </form> -->
+<!--                                   <p class="aa-prod-category"> -->
+<!--                                     Category: <a href="#">泡麵</a> -->
+<!--                                   </p> -->
+<!--                                 </div> -->
+<!--                                 <div class="aa-prod-view-bottom"> -->
+<!--                                   <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>加入購物車</a> -->
+<!--                                   <a href="#" class="aa-add-to-cart-btn">View Details</a> -->
+<!--                                 </div> -->
+<!--                               </div> -->
                             </div>
                           </div>
                         </div>                        
