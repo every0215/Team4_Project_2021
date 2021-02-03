@@ -798,8 +798,13 @@ public class CompanyController {
 			) {
 		System.out.println("Ajax接收資料 座標搜尋門市 ");
 		Store sto = stoService.getStoreByMarker(lat,lng);
-		
-		System.out.println(sto);
+		////////////////////////////////////////////////////
+		//在store裡加一個List<Integer> 以StoreService找到svid set進去
+		List<Integer> svid = cmpsvService.getCmpsvBystoId(sto.getId());
+		System.out.println("=====================================拿到門市服務的id");
+		sto.setSvid(svid);
+		////////////////////////////////////////////////////
+		//System.out.println(sto);
 		return sto;
 	}
 }

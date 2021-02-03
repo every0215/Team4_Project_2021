@@ -88,12 +88,12 @@ public class CmpServiceDaoImpl implements CmpServiceDao {
 		
 	}
 	@Override
-	public List<StoreService> getCmpsvBystoId(Integer stoid){
+	public List<Integer> getCmpsvBystoId(Integer stoid){
 		Session session = sessionFactory.getCurrentSession();
 		
 		String hqlstr ="select serviceid from StoreService where storeid = "+stoid+"";
 
-		List<StoreService> queryObj = session.createSQLQuery(hqlstr).getResultList();
+		List<Integer> queryObj = session.createSQLQuery(hqlstr).getResultList();
 
 		return queryObj;
 

@@ -53,13 +53,18 @@ public class CmpServiceServiceImpl implements CmpServiceService {
 	}
 	@Override
 	public List<Integer> getCmpsvBystoId(Integer stoid){
-		List<StoreService> stosv = cmpsvDao.getCmpsvBystoId(stoid);
-		List<Integer> svidlist = new ArrayList<>();
-		for(StoreService stos :stosv) {
-			Integer svid = stos.getServiceId();
-			svidlist.add(svid);
-		}
-		return svidlist;
+		List<Integer> stosv = cmpsvDao.getCmpsvBystoId(stoid);
+		//List<Integer> svidlist = new ArrayList<>();
+		
+//		System.out.println("stosv有資料"+stosv);
+//		System.out.println("轉型前");
+//		for(StoreService stos :stosv) {
+//			Integer svid = stos.getServiceId();
+//			System.out.println("1==========="+stos.getServiceId());
+//			System.out.println("2==========="+svid);
+//			svidlist.add(svid);
+//		}
+		return stosv;
 		
 	}
 

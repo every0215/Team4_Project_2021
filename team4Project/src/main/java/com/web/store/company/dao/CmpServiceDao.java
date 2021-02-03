@@ -19,5 +19,5 @@ public interface CmpServiceDao {
 	
 	CmpService getCmpsvBysvId(Integer id);
 	
-	List<StoreService> getCmpsvBystoId(Integer stoid);
+	List<Integer> getCmpsvBystoId(Integer stoid);
 }
