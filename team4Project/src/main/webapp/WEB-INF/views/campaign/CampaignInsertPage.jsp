@@ -214,9 +214,9 @@
                 var descriptionField = $("input[name='description']");
                 var contentField =  $(".ck-content p");
 
-                var titleStr = "咖啡全品項八折優惠";
-                var descriptionStr = "即日起咖啡全品項只要八折優惠";
-                var contentStr = "2021年來了，大家期盼快走不送的2020年總算走入歷史，2021年或多或少還是會受到武漢肺炎疫情影響，你我的日常生活可能還是得與口罩作伴，但這並無法澆熄你我的咖啡癮。早已悄悄盤據你我生活的 咖啡 ，一整年光是外帶咖啡就有6億杯的基本盤，這數字都可以繞地球1.35圈了，更別說是一整年的咖啡數量了。如果你也是咖啡消耗總量的貢獻者之一，你有沒有算過你單獨在咖啡這個區塊的消費是多少金額呢？當咖啡幾乎是每人每日不可或缺的飲料之一，聰明使用各種優惠，不單省錢，還能多喝幾杯咖啡。2021年，你可以這樣一邊喝咖啡一邊省錢～"
+                var titleStr = "布丁系列全品項8折優惠";
+                var descriptionStr = "即日起布丁全品項只要八折優惠";
+                var contentStr = "布丁控揪過來，不管是開心或是不開心，就是要吃布丁，即日起為慶祝布丁狗20歲生日，布丁全品項優惠8折，千萬不能錯過。"
                 var type = 1; //1 折扣  2 滿額
 
                 titleField.val(titleStr);
@@ -227,7 +227,7 @@
                 $("select[name='type']").trigger("change");
 
                 if(type==1){
-                    $("input[name='offParam']").val(0.9);
+                    $("input[name='offParam']").val(0.8);
                 }
                 
             });

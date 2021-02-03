@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 	//會員通知
 	getMemberNotifications();
-	setInterval(getMemberNotifications,3000); //間隔讀取通知
+	setInterval(getMemberNotifications,5000); //間隔讀取通知
 	function getMemberNotifications() {
 		console.log('running getMemberNotifications..');
 		let mNotificationDiv = $("#UserNotificationBox");

@@ -44,88 +44,7 @@
 
 </script>
 <script src="<c:url value='/js/Report_Adv_a.js' />"></script>
-<script>
 
-
-$("#com1").live( 'click', function(){
-	var cname="全家便利店";
-	$(this).css('background-color','white');
-	$(this).siblings().css('background-color','gray');
-	$("#comp1").css('display','block'); 
-	$("#comp2").css('display','none'); 
-	$("#comp3").css('display','none'); 
-	$("#comp5").css('display','none'); 
-	alert(cname);
-	loadAdv(1);
-});
-$("#com2").live( 'click', function(){
-	var cname="全聯福利中心";
-	$(this).css('background-color','white');
-	$(this).siblings().css('background-color','gray');
-	$("#comp1").css('display','none'); 
-	$("#comp2").css('display','none'); 
-	$("#comp3").css('display','block'); 
-	$("#comp5").css('display','none');
-	alert(cname);
-	 loadAdv(4);
-});
-$("#com3").live('click', function(){
-	var cname="萊爾富";
-	$(this).css('background-color','white');
-	$(this).siblings().css('background-color','gray');
-	$("#comp1").css('display','none'); 
-	$("#comp2").css('display','block'); 
-	$("#comp3").css('display','none'); 
-	$("#comp5").css('display','none'); 
-	alert(cname);
-	 loadAdv(2);
-});
-$("#com5").live('click', function(){
-	var cname="統一超商";
-	$(this).css('background-color','white');
-	$(this).siblings().css('background-color','gray');
-	$("#comp1").css('display','none'); 
-	$("#comp2").css('display','none'); 
-	$("#comp3").css('display','none'); 
-	$("#comp5").css('display','block'); 
-	alert(cname);
-	loadAdv(3);
-});
-
-
-$("#com4").live('click', function(){
-	var cname="all";
-	$(this).css('background-color','white');
-	$(this).siblings().css('background-color','gray');
-	$("#comp1").css('display','block'); 
-	$("#comp2").css('display','block'); 
-	$("#comp3").css('display','block'); 
-	
-	alert(cname);
-});
-
-$("#can1").live('click', function(){
-	var price="0~100";
-	var price1 = $('#price1').html();
-		
-
-	if(($("#price1").html()) >0 && ($("#price").html())<=100){
-		$("#price1").parent().parent().css('display','block');
-		}else{
-			$("#price1").parent().parent().css('display','none');
-		}
-	alert(price1);
-});
-
-$("#can4").live('click', function(){
-	var price="取消條件";
-	
-		$("#price").parent().parent().css('display','block');
-
-	alert(price);
-});
-
-</script>
 
 </head>
 
@@ -276,7 +195,95 @@ $("#can4").live('click', function(){
 </div>
 
 
+<script>
 
+
+$("#com1").live( 'click', function(){
+	var cname="全家便利店";
+	$(this).css('background-color','white');
+	$(this).siblings().css('background-color','gray');
+	$("#comp1").css('display','block'); 
+	$("#comp2").css('display','none'); 
+	$("#comp3").css('display','none'); 
+	$("#comp5").css('display','none'); 
+	alert(cname);
+	loadAdv(1);
+});
+$("#com2").live( 'click', function(){
+	var cname="全聯福利中心";
+	$(this).css('background-color','white');
+	$(this).siblings().css('background-color','gray');
+	$("#comp1").css('display','none'); 
+	$("#comp2").css('display','none'); 
+	$("#comp3").css('display','block'); 
+	$("#comp5").css('display','none');
+	alert(cname);
+	 loadAdv(4);
+});
+$("#com3").live('click', function(){
+	var cname="萊爾富";
+	$(this).css('background-color','white');
+	$(this).siblings().css('background-color','gray');
+	$("#comp1").css('display','none'); 
+	$("#comp2").css('display','block'); 
+	$("#comp3").css('display','none'); 
+	$("#comp5").css('display','none'); 
+	alert(cname);
+	 loadAdv(2);
+});
+$("#com5").live('click', function(){
+	var cname="統一超商";
+	$(this).css('background-color','white');
+	$(this).siblings().css('background-color','gray');
+	$("#comp1").css('display','none'); 
+	$("#comp2").css('display','none'); 
+	$("#comp3").css('display','none'); 
+	$("#comp5").css('display','block'); 
+	alert(cname);
+	loadAdv(3);
+});
+
+
+$("#com4").live('click', function(){
+	var cname="all";
+	$(this).css('background-color','white');
+	$(this).siblings().css('background-color','gray');
+	$("#comp1").css('display','block'); 
+	$("#comp2").css('display','block'); 
+	$("#comp3").css('display','block'); 
+	
+	alert(cname);
+});
+
+$("#can1").live('click', function(){
+	var price="0~100";
+	var price1 = $('#price1').html();
+		
+
+	if(($("#price1").html()) >0 && ($("#price").html())<=100){
+		$("#price1").parent().parent().css('display','block');
+		}else{
+			$("#price1").parent().parent().css('display','none');
+		}
+	alert(price1);
+});
+
+$("#can4").live('click', function(){
+	var price="取消條件";
+	
+		$("#price").parent().parent().css('display','block');
+
+	alert(price);
+});
+
+$(function(){
+	$("#UserNotification").click(function(){
+		$("#UserNotificationBox").css("display","block")
+		console.log("123")
+	})
+})
+
+</script>
 
 
 </body>

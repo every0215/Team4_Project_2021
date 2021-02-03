@@ -165,7 +165,7 @@
               <!-- / cart box -->
               <!-- search box -->
               <div class="aa-search-box">
-                <form action="<c:url value='ProductSearch'/>"  method="get" >
+                <form action="<c:url value='/ProductSearch'/>"  method="get" >
                   <input type="text"  name="search"  placeholder="請輸入商品名稱，例如. 洗髮乳 ">
                   <button type="submit"><span class="fa fa-search"></span></button>
                 </form>
