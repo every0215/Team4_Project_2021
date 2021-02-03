@@ -45,7 +45,7 @@ body{
 
 			<div style="padding:5px">
 			門市簡介:<br/>
-			<textarea rows="10" cols="80" placeholder="請輸入簡介(不輸入預設企業簡介)" name="profiles"></textarea>
+			<textarea id="tex" rows="10" cols="80" placeholder="請輸入簡介(不輸入預設企業簡介)" name="profiles"></textarea>
 			</div>
 
 	
@@ -60,7 +60,15 @@ body{
 			</form>
 </fieldset>
 <%-- <a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a> --%>
+<button id="insert">一鍵輸入</button>
 </div>
 </div>
+<script>
+$("#insert").click(function(){
+	$("#tex").val("梨山店是由蚨盈企業與和平區農會合作加盟，地點就在和平區農會梨山信用分部旁，外觀與一旁的梨山賓館都是宮殿式建築，古色古香，極有特色。")
+	
+})
+
+</script>
 </body>
 </html>
