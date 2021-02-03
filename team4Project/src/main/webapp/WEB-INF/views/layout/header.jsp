@@ -59,7 +59,7 @@
                  	 <li id="UserNotification" class="hidden-xs"><a href="#">通知</a></li>
                   	 <li><div><span class="ll-num-count">${userNotificationNo}</span></div></li>
                   </c:if>
-                  <li class="hidden-xs"><a href="cart.html">購物車</a></li>
+                  <li class="hidden-xs"><a href="#">購物車</a></li>
                   <c:choose>
                   	<c:when test="${ user == null }" >
                   		<li class="hidden-xs"><a href="<c:url value='/account/register' />">註冊</a></li>
@@ -304,11 +304,10 @@
           
           <form class="aa-login-form" action="<c:url value='/company/CompanyLogin' />" method="post">
             <label for="">帳號(或Email)<span>*</span></label>
-            <input id="logacc" type="text" name="account" placeholder="Username (or email)" value="familymart">
+            <input type="text" name="account" placeholder="Username (or email)" value="familymart">
             <label for="">密碼<span>*</span></label>
-            <input  id="logpas" type="password" name="password" placeholder="Password" value="123">
+            <input type="password" name="password" placeholder="Password" value="123">
             <button class="aa-browse-btn" type="submit" name="enter" >登入</button>
-            
             <label for="rememberme" class="rememberme">
 <!--             <input type="checkbox" id="rememberme"> -->
              <br>
@@ -321,29 +320,12 @@
               <a href="<c:url value='/company/CmpRegi' />">企業註冊</a>
             </div>
           </form>
-          
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div>
   </section>
   <script>
-
-		
-
-	//會員通知-點擊後顯示通知列表與導頁功能
-	 $(document).on("click","#UserNotificationBox",function(e){
-			 console.log('#UserNotificationBox clicked');
-			  //e.preventDefault();
-			  //alert('clicked.');
-			  
-		  });
-			 
-		  $(document).on("click",".ll-mn-span",function(e){
-			  e.preventDefault();
-			  let url = $(this).data("url");
-			  console.log('.ll-mn-span clicked: ' + url);
-			  window.location.href = url;
-		  });
+	
   </script>
   <!-- / menu -->

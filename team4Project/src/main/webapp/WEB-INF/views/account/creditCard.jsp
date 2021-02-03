@@ -425,7 +425,7 @@ input {
 				
 				$("#oneclickbutton").click(function(e){
 					$("input[name='OwnerName']").val("luke");
-					$("input[name='CardNo']").val("1111222233334444");
+					$("input[name='CardNo']").val("1111222233338888");
 					$("input[name='ExpireDateMM']").val("01");
 					$("input[name='ExpireDateYY']").val("22");
 					$("input[name='CVV']").val("999");

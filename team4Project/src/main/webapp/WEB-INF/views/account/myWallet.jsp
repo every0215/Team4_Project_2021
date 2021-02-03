@@ -412,6 +412,7 @@ h3{
 				
 			$("#topUpAmount").change(function(){
 				$("#paymentAmount").val($(this).val());
+				msgDiv.hide();
 			});
 			
     	    $("input[name='paymentMethod']").click(function(){
@@ -428,17 +429,29 @@ h3{
 
     	    $("#FormSubmit").click(function(e){
     		    e.preventDefault();
+    		    let topUpAmountFlag = false;
     		    let checkCreditCardFlag = false;
     		    
     		    console.log("#creditCardList value: " + $("#creditCardList").val() );
     		    
     		    let errorMSG = "<ul class='ll-err-list-msg' >";
+    		    
+    		    if($("#topUpAmount").val()!=""){
+    		    	topUpAmountFlag = true;
+    		    }
+    		    
+    		    if(!topUpAmountFlag )
+    		    {
+    		    	errorMSG += "<li>請輸入儲值金額</li>";
+    		    }
+    		    else{
+    		    	msgDiv.hide();
+    		    }
+    		    
     		    if(paymentMethodRB.val()=='1'){
-	    		    if($("#creditCardList").val()!=""){
+	    		    if($("#creditCardList").val()!="0"){
 	    		    	checkCreditCardFlag = true;
 	    		    }
-	    		    
-	    		   
 	    		    
 	    		    if(!checkCreditCardFlag )
 	    		    {
@@ -450,10 +463,10 @@ h3{
     		    }
     		    
     		    if(paymentMethodRB.val()=='2'){
-    		    	checkCreditCardFlag = true;
+	    		    checkCreditCardFlag = true;
     		    }
     		    
-    		    if (checkCreditCardFlag ) {
+    		    if (topUpAmountFlag && checkCreditCardFlag ) {
     		        $("#Form").submit();
     		    }
     		    else {

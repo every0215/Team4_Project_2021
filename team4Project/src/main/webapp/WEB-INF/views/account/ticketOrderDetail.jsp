@@ -186,20 +186,7 @@ input {
 	<c:import url="/layout/header" />
 
   <!-- catg header banner section -->
-  <section id="aa-catg-head-banner">
-    <img src="<c:url value='/img/fashion/fashion-header-bg-8.jpg' />" alt="fashion img">
-    <div class="aa-catg-head-banner-area">
-     <div class="container">
-      <div class="aa-catg-head-banner-content">
-        <h2>Account Page</h2>
-        <ol class="breadcrumb">
-          <li><a href="index.html">Home</a></li>                   
-          <li class="active">Account</li>
-        </ol>
-      </div>
-     </div>
-   </div>
-  </section>
+  <c:import url="/layout/accountHeader" />
   <!-- / catg header banner section -->
 
  <!-- Cart view section -->
@@ -266,6 +253,7 @@ input {
 	               				<c:if test="${discount==0}">
 	               					
 	               					<a href="<c:url value='/buyByMCoinSucc/${ticketOrder.id}'/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">滿幣支付</a>
+	               					<br/><br/>
 	               				</c:if>
 	               					<form action="<c:url value='../ecpay'/>" method="post">
                   						<input type="hidden" id="order" name="order" value="${ticketOrder.id}"/>
@@ -304,27 +292,27 @@ input {
  
 
   <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
   <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="<c:url value='/js/bootstrap.js' />"></script>  
+<%--   <script src="<c:url value='/js/bootstrap.js' />"></script>   --%>
   <!-- SmartMenus jQuery plugin -->
-  <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.js' />"></script>
+<%--   <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.js' />"></script> --%>
   <!-- SmartMenus jQuery Bootstrap Addon -->
-  <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.bootstrap.js' />"></script>  
+<%--   <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.bootstrap.js' />"></script>   --%>
   <!-- To Slider JS -->
-  <script src="<c:url value='/js/sequence.js' />"></script>
-  <script src="<c:url value='/js/sequence-theme.modern-slide-in.js' />"></script>  
+<%--   <script src="<c:url value='/js/sequence.js' />"></script> --%>
+<%--   <script src="<c:url value='/js/sequence-theme.modern-slide-in.js' />"></script>   --%>
   <!-- Product view slider -->
-  <script type="text/javascript" src="<c:url value='/js/jquery.simpleGallery.js' />"></script>
-  <script type="text/javascript" src="<c:url value='/js/jquery.simpleLens.js' />"></script>
+<%--   <script type="text/javascript" src="<c:url value='/js/jquery.simpleGallery.js' />"></script> --%>
+<%--   <script type="text/javascript" src="<c:url value='/js/jquery.simpleLens.js' />"></script> --%>
   <!-- slick slider -->
-  <script type="text/javascript" src="<c:url value='/js/slick.js' />"></script>
+<%--   <script type="text/javascript" src="<c:url value='/js/slick.js' />"></script> --%>
   <!-- Price picker slider -->
-  <script type="text/javascript" src="<c:url value='/js/nouislider.js' />"></script>
+<%--   <script type="text/javascript" src="<c:url value='/js/nouislider.js' />"></script> --%>
   <!-- Custom js -->
-  <script src="<c:url value='/js/custom.js' />"></script> 
+<%--   <script src="<c:url value='/js/custom.js' />"></script>  --%>
   
-  <script src="<c:url value='/js/luke_js.js' />"></script> 
+<%--   <script src="<c:url value='/js/luke_js.js' />"></script>  --%>
   
   <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
   <script  src="https://cdpn.io/cp/internal/boomboom/pen.js?key=pen.js-70199a3b-d922-2eff-4b6c-1b5626afc909" crossorigin></script>

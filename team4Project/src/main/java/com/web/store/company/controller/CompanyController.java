@@ -291,6 +291,8 @@ public class CompanyController {
 			Model model,
 			///////////////////
 			HttpSession session
+			HttpSession session,
+			RedirectAttributes redirectAttributes
 			///////////////////
 			
 			) {
@@ -311,6 +313,7 @@ public class CompanyController {
 			return "redirect:/reportin";
 		}else {
 			model.addAttribute("msg", "輸入帳號或密碼資訊有誤");
+			redirectAttributes.addFlashAttribute("loginFail", true);
 			return "redirect:/";
 		}	
 	}
