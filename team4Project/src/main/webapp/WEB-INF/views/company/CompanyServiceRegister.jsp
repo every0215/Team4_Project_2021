@@ -17,6 +17,7 @@
 	right: 0px;
 	font-family:微軟正黑體;
 	font-weight:900;
+	font-size:18px;
 }
 .main-header .navbar-custom-menu, .main-header .navbar-right {
 	height:500px;
@@ -27,17 +28,21 @@ body{
 </style>
 </head>
 <body>
-<div class="rep_reportarea">
+<div class="rep_reportarea" align="center">
 		<!-- Right side column. Contains the navbar and content of the page -->
 		<div class="content-wrapper">
 <fieldset>
-	<legend >企業服務登錄</legend> 
+	<legend ><h1>企業服務登錄</h1></legend> 
 		<div style="background-color:yellow">
 			${respsv}
 			</div>
 		<form action="<c:url value='/company/serviceRegister'/>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="CompanyId" value="${sessionScope.company.id}">
 	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
+<!-- 	<tr> -->
+<!-- 	<img id="picPreview" style="width:100%;height:250px" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/> -->
+<!-- 	</tr> -->
+	
 	<tr>
 		<td >
 			<div style="padding:5px">
@@ -53,13 +58,28 @@ body{
 	</table>
 				<hr/>
 			<input type="submit" value="登錄"/>
-			<input type="reset" value="delete"/>
+			
 	
 		</form>
 </fieldset>
 </div>
 </div>
-
+<script>
+// $(function () {
+// $("#fileUpload").change(function(){
+//     readURL(this); 
+//   });
+// function readURL(input){
+// 	  if(input.files && input.files[0]){
+// 	    var reader = new FileReader();
+// 	    reader.onload = function (e) {
+// 	       $("#picPreview").attr('src', e.target.result);
+// 	    }
+// 	    reader.readAsDataURL(input.files[0]);
+// 	  }
+// }
+// })
+</script>
 
 </body>
 </html>

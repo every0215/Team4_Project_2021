@@ -79,6 +79,14 @@
 		
 	}
 	
+	/* Header Search Box*/
+	#aa-header .aa-header-bottom .aa-header-bottom-area .aa-search-box {
+	    float: right;
+	    margin-right: 15%;
+	    margin-top: 13px;
+	    position: relative;
+	    width: 500px;
+	}
 	
   </style>
   

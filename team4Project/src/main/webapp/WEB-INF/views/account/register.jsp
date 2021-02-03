@@ -141,7 +141,6 @@ button {
   background-color: slategray;
   border-radius: 0.25rem;
   color: white;
-  font-size: 0.87rem;
   font-weight: 300;
   overflow: hidden;
   z-index: 1;
@@ -182,20 +181,9 @@ button {
 	<c:import url="/layout/header" />
 
   <!-- catg header banner section -->
-  <section id="aa-catg-head-banner">
-    <img src="<c:url value='/img/fashion/fashion-header-bg-8.jpg' />" alt="fashion img">
-    <div class="aa-catg-head-banner-area">
-     <div class="container">
-      <div class="aa-catg-head-banner-content">
-        <h2>Account Page</h2>
-        <ol class="breadcrumb">
-          <li><a href="index.html">Home</a></li>                   
-          <li class="active">Account</li>
-        </ol>
-      </div>
-     </div>
-   </div>
-  </section>
+
+  <c:import url="/layout/accountHeader" />
+  
   <!-- / catg header banner section -->
 
  <!-- Cart view section -->
@@ -255,7 +243,7 @@ button {
 					<div class="form-group form-check">
 						<label class="form-check-lab" style="margin-right:5px;"><input class="form-check-input" type="checkbox" id="acceptAgreement" name="acceptAgreement" required>
 							
-						</label>我已閱讀並同意<a class="trigger" data-modal-trigger="trigger-1">條件及條款</a>
+						</label>我已閱讀並同意<a class="trigger" data-modal-trigger="trigger-1">使用者服務條款</a>
 					</div>
 					<div class="form-group" >
 	                   <div class="g-recaptcha" data-callback="captchaCallback" data-sitekey="6LdV6CYaAAAAAKhDJ6LusYaCpuu6EVvCnNMw2tDV" ></div>
@@ -282,43 +270,41 @@ button {
  <!-- Agreement section -->
 
 
-<button class="trigger" data-modal-trigger="trigger-2"><i class="fa fa-fire" aria-hidden="true"></i>	Modal 2</button>
-<button class="trigger" data-modal-trigger="trigger-3"><i class="fa fa-fire" aria-hidden="true"></i>	Modal 3</button>
+<!-- <button class="trigger" data-modal-trigger="trigger-2"><i class="fa fa-fire" aria-hidden="true"></i>	Modal 2</button> -->
+<!-- <button class="trigger" data-modal-trigger="trigger-3"><i class="fa fa-fire" aria-hidden="true"></i>	Modal 3</button> -->
 <div class="ll-modal" data-modal="trigger-1">
   <article class="content-wrapper">
     <button class="close"></button>
     <header class="ll-modal-header">
-      <h2>This is a modal 1</h2>
+
     </header>
-    <div class="content">
-      <article style="overflow: auto;">
-		    <h2 class="title">「Pi 拍錢包」金流代收轉付服務使用者服務條款<span>（以下稱「本服務條款」）</span></h2>
-		    <p class="indent">為順應新型態電子商務之發展，促進消費之便利及安全性，拍付國際資訊股份有限公司（以下稱「本公司」）特建置「Pi
-		        拍錢包」代收轉付服務（以下稱「本服務」），提供網路交易代收轉付服務及環繞行動商務而生之各項衍生服務。</p>
-		    <p class="indent">
+    <div id="AgreementBox" class="content" style="overflow: auto; height:600px;">
+      <article >
+		    <h2 class="title">「滿滿大平台」服務使用者服務條款<span>（以下稱「本服務條款」）</span></h2>
+		    <p >為順應新型態電子商務之發展，促進消費之便利及安全性，拍付國際資訊股份有限公司（以下稱「本公司」）特建置「滿滿大平台」代收轉付服務（以下稱「本服務」），提供網路交易代收轉付服務及環繞行動商務而生之各項衍生服務。</p>
+		    <p >
 		        申請及使用本服務前應詳閱本服務條款，除與本公司另有書面約定外，使用者完成註冊程序或開始使用本服務之一部或全部功能，即代表使用者已詳閱、了解、並完全同意本服務條款及本服務之相關使用規範，包含但不限於本公司公布於本服務網站或本服務App之相關使用規範及限制，若使用者對本服務、本服務條款及相關使用規範之任一部分有疑義或反對時，應立即停止使用本服務。
 		    </p>
 		    <ol class="cjk-decimal">
 		        <li>名詞定義
 		            <ol>
-		                <li>使用者：下載、安裝本服務App之人，以及申請使用本服務之人，不論使用本服務之一部或全部功能，均為本服務條款所稱之使用者，依其實際情況，使用者可能為付款方、亦可能為收款方。</li>
+		                <li>使用者：使用本服務之人，以及申請使用本服務之人，不論使用本服務之一部或全部功能，均為本服務條款所稱之使用者，依其實際情況，使用者可能為付款方、亦可能為收款方。</li>
 		                <li>付款方：係指商品或服務之買方，利用本服務付款予交易相對人者。</li>
 		                <li>收款方：係指商品或服務之賣方，利用本服務收受交易相對人所支付之款項者。</li>
-		                <li>本服務App：指本服務所提供，供使用者下載並安裝於行動裝置，以利進行本服務之申請、查詢、提出交易指示等操作之軟體，包含但不限於本公司自行開發並提供下載之App以及由本公司開發之網頁、App或SDK並授權提供予其他公司使用於該公司開發之App內，可藉此使用本公司所提供代收轉付等服務之軟體。
+		                <li>本服務：指本服務所提供，供使用者以利進行本服務之申請、查詢、提出交易指示等操作之軟體，包含但不限於本公司自行開發並提供由本公司開發之網頁或SDK並授權提供予其他公司使用於該公司開發之站台內，可藉此使用本公司所提供代收轉付等服務之軟體。
 		                </li>
-		                <li>本服務網站：指本公司為本服務所建置之網站（piapp.com.tw），包括該主網域下之相關網頁。</li>
+		                <li>本服務網站：指本公司為本服務所建置之網站，包括該主網域下之相關網頁。</li>
 		                <li>本服務發出之各種通知：指本服務以書面、電子郵件、行動電話簡訊、行動裝置訊息推播或其他形式所公告或傳遞予使用者之文字、圖形、聲音或影像訊息及其內容。</li>
-		                <li>綁定行動裝置：指使用者於特定行動裝置上安裝本服務App，並經註冊、登入或其他驗證程序，使該特定行動裝置具備經由本服務App發出交易指示功能者，稱該特定行動裝置為「綁定行動裝置」。</li>
-		                <li>「Pi
-		                    行動商店」App：為本服務App所提供服務功能之一，係提供收款方得透過此服務功能刊載其所銷售商品或服務之說明內容、價格、圖片、及相關訊息，且接受付款方得透過本服務App向其訂購商品或服務。此服務功能目前僅提供「商業會員」登入使用。
+		                <li>綁定行動裝置：指使用者於特定行動裝置上安裝本服務，並經註冊、登入或其他驗證程序，使該特定行動裝置具備經由本服務發出交易指示功能者，稱該特定行動裝置為「綁定行動裝置」。</li>
+		                <li>為本服務App所提供服務功能之一，係提供收款方得透過此服務功能刊載其所銷售商品或服務之說明內容、價格、圖片、及相關訊息，且接受付款方得透過本服務向其訂購商品或服務。此服務功能目前僅提供「商業會員」登入使用。
 		                </li>
-		                <li>點餐功能：指「一般會員」得透過本服務App向收款方發出訂購商品或服務之要約，收款方得藉由操作「Pi 行動商店」App來表示是否同意接受訂購並於同意後經由「Pi 行動商店」App回覆處理交易內容之服務。
+		                <li>點餐功能：指「一般會員」得透過本服務向收款方發出訂購商品或服務之要約，收款方得藉由操作「滿滿大平台」來表示是否同意接受訂購並於同意後經由「滿滿大平台」回覆處理交易內容之服務。
 		                </li>
-		                <li>資訊系統服務功能：指本公司單純提供資訊串接服務予對接方(指接收資訊串接之一方)，對接方可透過此功能接收使用者同意提供留存於本服務App之各項資料(含信用卡資料)，藉以進行保險費用續保、交易款項支付等各項經由資訊串接所提供之服務，進而使對接方可直接與銀行端進行交易與請款作業。
+		                <li>資訊系統服務功能：指本公司單純提供資訊串接服務予對接方(指接收資訊串接之一方)，對接方可透過此功能接收使用者同意提供留存於本服務之各項資料(含信用卡資料)，藉以進行保險費用續保、交易款項支付等各項經由資訊串接所提供之服務，進而使對接方可直接與銀行端進行交易與請款作業。
 		                </li>
 		                <li>圖書館借閱證功能：指使用者可透過此功能產生行動借閱證之條碼供使用者於圖書館使用。</li>
-		                <li>拍享券功能：指使用者可透過本服務App之支付功能向票券提供方購買各類電子票券商品。</li>
-		                <li>電子發票載具功能：指使用者可透過本服務App之「發票載具」，由本公司代為向財政部電子發票整合服務平台申請手機條碼等電子發票載具服務，使用者於消費時出示載具條碼或使用本服務App進行交易時，本公司將把發票載具資訊提供給合作通路，則通路系統可將使用者消費之電子發票上傳儲存於發票載具內。
+		                <li>拍享券功能：指使用者可透過本服務之支付功能向票券提供方購買各類電子票券商品。</li>
+		                <li>電子發票載具功能：指使用者可透過本服務之「發票載具」，由本公司代為向財政部電子發票整合服務平台申請手機條碼等電子發票載具服務，使用者於消費時出示載具條碼或使用本服務進行交易時，本公司將把發票載具資訊提供給合作通路，則通路系統可將使用者消費之電子發票上傳儲存於發票載具內。
 		                </li>
 		            </ol>
 		        </li>
@@ -615,7 +601,7 @@ button {
 		            </ol>
 		        </li>
 		        <br>
-		        <li>管轄法院及準據法
+		        <li id="AgreementCheckLi">管轄法院及準據法
 		            <ol>
 		                <li>本服務條款以中華民國法令為準據法。</li>
 		                <li>使用者與本公司間因本服務、或本服務條款所生之爭議，如因此而涉訟，除法令另有強制規定者應依其規定者外，以台灣台北地方法院為第一審管轄法院。</li>
@@ -625,8 +611,8 @@ button {
 		</article>                       
     </div>
     <footer class="ll-modal-footer">
-      <button class="action">Accept</button>
-      <button class="action">Decline</button>
+      <button id="AgreeButton" class="action" style="display:none;">同意</button>
+      <button id="CancelButton" class="action">取消</button>
     </footer>
   </article>
 </div>
@@ -1187,7 +1173,32 @@ button {
 		    modal.classList.toggle('open');
 		  });
 		}
-	    
+		
+		//
+		$( "#AgreementBox" ).scroll(function() {
+			let agreeButtonY = $('#AgreeButton').offset().top;
+			let agreementY = $('#AgreementCheckLi').offset().top;
+			
+		  	console.log( agreeButtonY + ' : ' + agreementY + '(' + (agreementY - agreeButtonY) + ')');
+		  	if((agreementY - agreeButtonY) < 1000){
+		  		$('#AgreeButton').show(500);
+		  	}
+		  	else{
+		  		$('#AgreeButton').hide(500);
+		  	}
+		});
+
+		$('#AgreeButton').click(function(){
+			$("#acceptAgreement").prop('checked', true);
+			$("[data-modal='trigger-1']").removeClass('open');
+		});
+		
+		$('#CancelButton').click(function(){
+			$("#acceptAgreement").prop('checked', false);
+			$("[data-modal='trigger-1']").removeClass('open');
+		});
+		
+		
 	});
 	
 	

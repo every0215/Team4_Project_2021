@@ -91,7 +91,6 @@ public class CompanyDaoImpl implements CompanyDao {
 		
 		Session session = sessionFactory.getCurrentSession();
 		
-		
 //		String hqlstr = "UPDATE Company SET id = :newId , companyName = :newName , logo = :newLogo , logoName = :newLogoName , uniformNumbers = :newUniformNum ,categories = :newCategories , email = :newEmail ,phone = :newPhone ,busRC = :newBusRC ,busRCName = :newBusRCName WHERE id = :Cid";
 		
 		

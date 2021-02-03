@@ -38,6 +38,7 @@ public class MemberSubscription implements Serializable {
 	@JsonIgnore
 	private MemberBean member;
 	
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CompanyId")
 	@JsonIgnore

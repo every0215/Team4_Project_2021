@@ -136,7 +136,7 @@ public class CompanyController {
 			@RequestParam String companyName,
 			@RequestParam String uniformNumbers,
 			@RequestParam Integer categories,
-			@RequestParam String account,
+			//@RequestParam String account,
 			@RequestParam String password,
 			@RequestParam String phone,
 			@RequestParam String email,
@@ -148,8 +148,10 @@ public class CompanyController {
 			HttpSession session,
 			Model model
 			) throws IOException {
+		Company company=(Company)session.getAttribute("company");
+		String cmpACC = company.getAccount();
 		
-//		sessionStatus.setComplete();
+		
 		session.removeAttribute("company");
 		
 		System.out.println("更新企業資料");
@@ -168,7 +170,7 @@ public class CompanyController {
 			String busRCName = busRC.getOriginalFilename();
 			//得到的參數塞到建構子                     Blob物件  Filename
 			System.out.println("更新企業資料 加入Bean");
-			Company cmp = new Company(id,companyName,logoblob,logoName,uniformNumbers,categories,account,password,email,phone,busRCblob,busRCName);
+			Company cmp = new Company(id,companyName,logoblob,logoName,uniformNumbers,categories,cmpACC,password,email,phone,busRCblob,busRCName);
 			//呼叫Service更新資料庫
 //			System.out.println(cmp);
 			cmpService.updateCompany(cmp);
@@ -431,7 +433,17 @@ public class CompanyController {
 		int companyId = company.getId();
 		System.out.println("companyId:"+companyId);
 		List<Store> sto = stoService.getAllStoreByCompanyId(companyId);
+//		List<String> stoStatus = new ArrayList<>();
+//		for(Store eachsto :sto) {
+//			if(eachsto.getStatus()) {
+//				stoStatus.add("上架");
+//			}else {
+//				stoStatus.add("下架");
+//			}
+//		}
 		
+		
+//		model.addAttribute("statusList", stoStatus);
 		model.addAttribute("storeList", sto);
 		return "/company/ShowStore";
 	}
@@ -607,7 +619,7 @@ public class CompanyController {
 		session.removeAttribute("tempStoreId");
 
 
-		return "redirect:/company/storeRegister";
+		return "redirect:/company/ShowStore";
 		
 		
 	}
@@ -626,6 +638,7 @@ public class CompanyController {
 		Store sto = stoService.getStoreById(id);
 		
 		model.addAttribute("storeBean", sto);
+		
 		return "/company/StoreUpdate";
 	}
 	//門市修改
@@ -652,10 +665,12 @@ public class CompanyController {
 		
 //		stoService.addStore(sto);
 		/////////////////////////////////
-		ra.addFlashAttribute("storeBean", sto);
-		
+		session.setAttribute("tempStoreId", sto.getId());
+		//ra.addFlashAttribute("storeBean", sto);
+		System.out.println("門市更新有拿到");
+		System.out.println("stoid"+sto.getId());
 		/////////////////////////////////
-		return "/company/StoreRegister_Service";
+		return "redirect:/company/StoreRegister_Service";
 	}
 	
 	
@@ -676,7 +691,7 @@ public class CompanyController {
 		return storeByName;
 	}
 	
-	//服務搜尋(未完成)
+	//服務搜尋(V)
 	@PostMapping(value="/company/mapGetStoreByService",produces = "application/json; charset=UTF-8")
 	public @ResponseBody List<Store> mapGetStoreByService(
 			@RequestParam(value="svId") String[] id,

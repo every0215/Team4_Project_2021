@@ -18,6 +18,7 @@
 	right: 0px;
 	font-family:微軟正黑體;
 	font-weight:900;
+	font-size:20px;
 }
 .block{
 	margin-right:20px;
@@ -37,7 +38,7 @@ body{
 <body>
 <div class="rep_reportarea">
 		<!-- Right side column. Contains the navbar and content of the page -->
-		<div class="content-wrapper">
+		<div class="content-wrapper" align="center">
 
 
 <form:form method='POST' modelAttribute="storeBean" >
@@ -46,14 +47,14 @@ body{
                  <form:hidden path="id" />
 			</c:if>
 			<fieldset class="fieldset-auto-width">
-				<legend><h1>門市資料</h1></legend>
+				<legend><h1>&emsp;&emsp;&emsp;門市資料</h1></legend>
 				<table>
 					<tr>
 						<td align='right'>
 						<div class="block">門市名稱：</div>
 						</td>
 						<td>
-						<div class="block"><form:input path="storeName"  type="text" /></div>
+						<div class="block"><form:input id="stoname" path="storeName"  type="text" /></div>
 						</td>
 <!-- 						<td align='right'>24hr Y/N：</td> -->
 						<td>
@@ -62,8 +63,8 @@ body{
 <%-- 							<form:option value="1">24hr</form:option> --%>
 <%-- 							<form:option value="0">其他</form:option> --%>
 <%-- 							</form:select> --%>
-							<form:radiobutton path = "businessHour" value = "1" label = "24hr" id="openallday"/>
-                			<form:radiobutton path = "businessHour" value = "0" label = "請輸入營業時間" id="inputtime" checked="checked"/>
+							<form:radiobutton  path = "businessHour" value = "1" label = "24hr" id="openallday"/>
+                			<form:radiobutton  path = "businessHour" value = "0" label = "請輸入營業時間" id="inputtime" checked="checked"/>
 						</div>
 						</td>
 					</tr>
@@ -73,10 +74,10 @@ body{
 						</td>
 						<td>
 						<div class="block">
-							<form:select path="storeArea"  type="text" >
-							<form:option value="0">北區</form:option>
-							<form:option value="1">中區</form:option>
-							<form:option value="2">南區</form:option>
+							<form:select id="area" path="storeArea"  type="text" >
+							<form:option value="北區">北區</form:option>
+							<form:option value="中區">中區</form:option>
+							<form:option value="南區">南區</form:option>
 							</form:select>
 						</div>
 						</td>
@@ -95,7 +96,7 @@ body{
 						</td>
 						<td>
 						<div class="block">
-						<form:input path="storeAddress"  type="text"/>
+						<form:input id="add" path="storeAddress"  type="text"/>
 						</div>
 						</td>
 						<td align='justify' class="opentime">
@@ -112,7 +113,7 @@ body{
 						</td>
 						<td>
 						<div class="block">
-						<form:input path="phone"  type="text" />
+						<form:input id="pho" path="phone"  type="text" />
 						</div>
 						</td>
 					</tr>
@@ -124,35 +125,37 @@ body{
 						</td>
 						<td>
 						<div class="block">
-						<form:input path="fex"  type="text" />
+						<form:input id="fe" path="fex"  type="text" />
 <%-- 						 <form:hidden path="company" value="${sessionScope.company}"/> --%>
 						</div>
 						</td>
 					</tr>
 					<tr>
 						<td colspan='2' align='center'>
-						<div class="block">
-						<input type='submit' value='提交'>
-						</div>
+						
 						</td>
 					</tr>
 				</table>
+				<div class="block">
+						<input type='submit' value='提交'>
+						</div>
 			</fieldset>
 		</form:form>
-
 <%-- <a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a> --%>
+<button id="insert">一鍵輸入</button>
 </div>
 </div>
 <script >
-
-// $("#openallday").on("change", function () {
-// 	console.log($("#openallday").val());
-// 	if ($("#openallday").val() == 1 ){
-// 		$(".opentime").hide();
-// 	}else if($("#openallday").val() == 0 ){
-// 		$(".opentime").show();
-// 	}
-// });
+$("#insert").click(function(){
+	$("#stoname").val("和平梨山店")
+	$("#area").val("中區")
+	$("#openallday").attr("checked", true);
+	$("#add").val("台中市和平區中正路88號")
+	$("#pho").val("0425980098")
+	$("#fe").val("0425980098")
+	$(".opentime").hide();
+})
+/////////////////////////////////////////////////
 $("#openallday").click(function () {
 	$(".opentime").hide();
 });

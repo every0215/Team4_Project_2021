@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,11 +66,20 @@
 						</td>
 					</tr>
 					<tr>
-						<td>商品單價:
+						<c:if test="${product.productPrice==product.productPrice*product.discount}">
+							<td>商品單價:
+								<div class='textbox'>
+									<p id="price">${product.productPrice}</p>
+								</div> <br>
+							</td>
+						</c:if>
+						<c:if test="${product.productPrice!=product.productPrice*product.discount}">
+							<td>商品單價:
 							<div class='textbox'>
-								<p id="price">${product.productPrice}</p>
+								<p id="price" style="color:red"><fmt:formatNumber value="${product.productPrice*product.discount}" minFractionDigits="0" maxFractionDigits="0"/></p>
 							</div> <br>
 						</td>
+						</c:if>
 					</tr>
 
 					<tr>
@@ -89,14 +99,16 @@
 						</td>
 					</tr>
 					<tr>
-						<td><br> 總價:$
+						<td>
+						<br> 總價:$
 							<p id="total" name="total" onchange="setTotalPrice();">0</p> <!-- 					onchange="setTotalprice();" -->
 							<br>
-						<br></td>
+						<br>
+						</td>
 					</tr>
 					<tr>
 						<td>
-							<button type="submit" class="btn btn-primary">前往購物車</button> <br>
+							<button type="submit" class="btn btn-primary">加入購物車</button> <br>
 						</td>
 					</tr>
 				</table>

@@ -466,6 +466,7 @@ public class CampaignController {
 	public String ComapnyCampaignFP(@PathVariable int companyId,
 			Model model) {
 		Page<Campaign> page = new Page<Campaign>();
+		page.setPageSize(6);
 		page.setCurrentPage(1);
 		campService.getActiveCampaignPageByCompany(page,companyId);
 		model.addAttribute("page", page);

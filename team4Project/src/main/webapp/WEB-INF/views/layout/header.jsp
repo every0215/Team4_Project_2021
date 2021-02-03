@@ -59,7 +59,7 @@
                  	 <li id="UserNotification" class="hidden-xs"><a href="#">通知</a></li>
                   	 <li><div><span class="ll-num-count">${userNotificationNo}</span></div></li>
                   </c:if>
-                  <li class="hidden-xs"><a href="cart.html">購物車</a></li>
+                  <li class="hidden-xs"><a href="#">購物車</a></li>
                   <c:choose>
                   	<c:when test="${ user == null }" >
                   		<li class="hidden-xs"><a href="<c:url value='/account/register' />">註冊</a></li>
@@ -165,7 +165,7 @@
               <!-- / cart box -->
               <!-- search box -->
               <div class="aa-search-box">
-                <form action="<c:url value='ProductSearch'/>"  method="get" >
+                <form action="<c:url value='/ProductSearch'/>"  method="get" >
                   <input type="text"  name="search"  placeholder="請輸入商品名稱，例如. 洗髮乳 ">
                   <button type="submit"><span class="fa fa-search"></span></button>
                 </form>
@@ -326,19 +326,6 @@
   </div>
   </section>
   <script>
-	//會員通知-點擊後顯示通知列表與導頁功能
-	 $(document).on("click","#UserNotificationBox",function(e){
-			 console.log('#UserNotificationBox clicked');
-			  //e.preventDefault();
-			  //alert('clicked.');
-			  
-		  });
-			 
-		  $(document).on("click",".ll-mn-span",function(e){
-			  e.preventDefault();
-			  let url = $(this).data("url");
-			  console.log('.ll-mn-span clicked: ' + url);
-			  window.location.href = url;
-		  });
+	
   </script>
   <!-- / menu -->

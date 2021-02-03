@@ -100,7 +100,7 @@ public class PayPalPaymentServices {
 		item.setPrice(orderDetail.getSubtotal());
 		item.setTax(orderDetail.getTax());
 		item.setQuantity("1");
-		
+		System.out.print("滿幣儲值 - Product Name:" + orderDetail.getProductName() + ", Total:" + orderDetail.getSubtotal());
 		items.add(item);
 		itemList.setItems(items);
 		transaction.setItemList(itemList);
