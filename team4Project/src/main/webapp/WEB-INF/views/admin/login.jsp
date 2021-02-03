@@ -478,7 +478,7 @@ input {
 			
 
 			e.preventDefault();
-			checkPassword();
+			//checkPassword();
 		});
    		
    		

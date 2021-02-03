@@ -11,7 +11,11 @@ import java.net.http.HttpRequest;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -203,11 +207,17 @@ public class MemberController {
 	// 我的錢包
 	// ==========================================================================
 	@GetMapping("/getMCoinTopUpDetailList")
-	public @ResponseBody Set<MCoinTopUpDetail> getMCoinTopUpDetailList(HttpSession session) throws Exception {
+	public @ResponseBody List<MCoinTopUpDetail> getMCoinTopUpDetailList(HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-		Set<MCoinTopUpDetail> memberCreditCardList = currentUser.getmCoinTopupDetailList();
-
-		return memberCreditCardList;
+		//Set<MCoinTopUpDetail> memberCreditCardList = currentUser.getmCoinTopupDetailList();
+		
+		ArrayList<MCoinTopUpDetail> sortedlist = null;
+		if ( currentUser != null) {
+			sortedlist = new ArrayList<MCoinTopUpDetail>(currentUser.getmCoinTopupDetailList());
+		}
+		Collections.sort(sortedlist, Comparator.comparing(MCoinTopUpDetail::getId));
+		
+		return sortedlist;
 	}
 
 	// 會員儲值M幣點數
@@ -284,6 +294,10 @@ public class MemberController {
 
 			}
 			accountService.mCoinTopUp(currentUser, mCoinTopUpDetail);
+			if(currentUser.getmCoinTopupDetailList() == null) {
+				Set<MCoinTopUpDetail> mCoinTopupDetailList = new HashSet<MCoinTopUpDetail>();
+				currentUser.setmCoinTopupDetailList(mCoinTopupDetailList);
+			}
 			currentUser.getmCoinTopupDetailList().add(mCoinTopUpDetail);
 			accountService.update(currentUser);
 			session.setAttribute("currentUser", currentUser);
@@ -302,12 +316,15 @@ public class MemberController {
 	// 會員信用卡一覽
 	// ==========================================================================
 	@GetMapping("/getMemberCreditCards")
-	public @ResponseBody Set<MemberCreditCard> getMemberCreditCards(HttpSession session) throws Exception {
+	public @ResponseBody List<MemberCreditCard> getMemberCreditCards(HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
 		Hibernate.initialize(currentUser.getMemberCreditCardList());
 		Set<MemberCreditCard> memberCreditCardList = currentUser.getMemberCreditCardList();
 
-		return memberCreditCardList;
+		ArrayList<MemberCreditCard> sortedlist = new ArrayList<MemberCreditCard>(memberCreditCardList);
+		Collections.sort(sortedlist, Comparator.comparing(MemberCreditCard::getId));
+		
+		return sortedlist;
 	}
 
 	// 會員信用卡新增
@@ -316,10 +333,16 @@ public class MemberController {
 			HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
 		memberCreditCard.setMember(currentUser);
+		if(currentUser.getMemberCreditCardList() == null) {
+			Set<MemberCreditCard> getMemberCreditCardList = new HashSet<MemberCreditCard>();
+			currentUser.setMemberCreditCardList(getMemberCreditCardList);
+		}
+		memberCreditCard.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		currentUser.getMemberCreditCardList().add(memberCreditCard);
 
 		try {
-			accountService.insert(memberCreditCard);
+			//accountService.insert(memberCreditCard);
+			accountService.update(currentUser);
 			session.setAttribute("currentUser", currentUser);
 			model.addAttribute("verified", true);
 			model.addAttribute("msg", "信用卡新增成功");
@@ -463,9 +486,14 @@ public class MemberController {
 	// 會員通知
 	// ==========================================================================
 	@GetMapping("/getMemberNotifications")
-	public @ResponseBody Set<MemberNotification> getMemberNotifications(HttpSession session) throws Exception {
+	public @ResponseBody List<MemberNotification> getMemberNotifications(HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-		return (currentUser != null) ? accountService.getMemberNotificationList(currentUser.getId()) : null;
+		ArrayList<MemberNotification> sortedlist = null;
+		if ( currentUser != null) {
+			sortedlist = new ArrayList<MemberNotification>(accountService.getMemberNotificationList(currentUser.getId()));
+		}
+		Collections.sort(sortedlist, Comparator.comparing(MemberNotification::getId).reversed());
+		return sortedlist;
 	}
 	
 	@PostMapping("/updateMemberNotificationIsRead")
