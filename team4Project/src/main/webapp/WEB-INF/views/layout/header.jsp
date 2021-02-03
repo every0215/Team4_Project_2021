@@ -304,10 +304,11 @@
           
           <form class="aa-login-form" action="<c:url value='/company/CompanyLogin' />" method="post">
             <label for="">帳號(或Email)<span>*</span></label>
-            <input type="text" name="account" placeholder="Username (or email)" value="familymart">
+            <input id="logacc" type="text" name="account" placeholder="Username (or email)" value="familymart">
             <label for="">密碼<span>*</span></label>
-            <input type="password" name="password" placeholder="Password" value="123">
+            <input  id="logpas" type="password" name="password" placeholder="Password" value="123">
             <button class="aa-browse-btn" type="submit" name="enter" >登入</button>
+            
             <label for="rememberme" class="rememberme">
 <!--             <input type="checkbox" id="rememberme"> -->
              <br>
@@ -320,12 +321,16 @@
               <a href="<c:url value='/company/CmpRegi' />">企業註冊</a>
             </div>
           </form>
+          
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div>
   </section>
   <script>
+
+		
+
 	//會員通知-點擊後顯示通知列表與導頁功能
 	 $(document).on("click","#UserNotificationBox",function(e){
 			 console.log('#UserNotificationBox clicked');

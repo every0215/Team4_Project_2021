@@ -19,5 +19,24 @@ public class StoreService {
 	@Column(name= "ServiceId")
 	Integer ServiceId;
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getStoreId() {
+		return StoreId;
+	}
+	public void setStoreId(Integer storeId) {
+		StoreId = storeId;
+	}
+	public Integer getServiceId() {
+		return ServiceId;
+	}
+	public void setServiceId(Integer serviceId) {
+		ServiceId = serviceId;
+	}
+	
 	}
 

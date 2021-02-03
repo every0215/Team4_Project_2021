@@ -50,6 +50,7 @@
         </div>
     </div>
   </section>
+  
   <!-- / slider -->
   <!-- Start Promo section -->
 	<div class="indexclass">

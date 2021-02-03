@@ -34,6 +34,8 @@ public interface CompanyDao {
 	/////////////////////後台功能////////////////////////
 	//修改企業資訊,更改上下架狀態,改驗證碼,新增簡介 By id或name
 	boolean update(Company cmp);
+	//修改企業資料(沒有付新圖)
+	boolean updateWithoutLogo(Company cmp);
 	//刪除企業資料
 	boolean delete(Company cmp);
 	//顯示合作企業
