@@ -214,8 +214,9 @@ public class MemberController {
 		ArrayList<MCoinTopUpDetail> sortedlist = null;
 		if ( currentUser != null) {
 			sortedlist = new ArrayList<MCoinTopUpDetail>(currentUser.getmCoinTopupDetailList());
+			Collections.sort(sortedlist, Comparator.comparing(MCoinTopUpDetail::getId));
 		}
-		Collections.sort(sortedlist, Comparator.comparing(MCoinTopUpDetail::getId));
+		
 		
 		return sortedlist;
 	}
@@ -491,8 +492,9 @@ public class MemberController {
 		ArrayList<MemberNotification> sortedlist = null;
 		if ( currentUser != null) {
 			sortedlist = new ArrayList<MemberNotification>(accountService.getMemberNotificationList(currentUser.getId()));
+			Collections.sort(sortedlist, Comparator.comparing(MemberNotification::getId).reversed());
 		}
-		Collections.sort(sortedlist, Comparator.comparing(MemberNotification::getId).reversed());
+		
 		return sortedlist;
 	}
 	
