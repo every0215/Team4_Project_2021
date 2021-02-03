@@ -277,7 +277,8 @@ public class CompanyController {
 			@RequestParam String password,
 			Model model,
 			///////////////////
-			HttpSession session
+			HttpSession session,
+			RedirectAttributes redirectAttributes
 			///////////////////
 			
 			) {
@@ -297,6 +298,7 @@ public class CompanyController {
 			
 			return "redirect:/reportin";
 		}else {
+			redirectAttributes.addFlashAttribute("loginFail", true);
 			return "redirect:/";
 		}	
 	}

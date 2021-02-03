@@ -1769,6 +1769,10 @@
 
 
 
-
+	<c:if test="${!empty loginFail}">
+		<script>
+			alert("登入失敗");
+		</script>
+	</c:if>
   </body>
 </html>

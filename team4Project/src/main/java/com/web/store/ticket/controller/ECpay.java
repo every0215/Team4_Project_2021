@@ -323,7 +323,7 @@ public class ECpay {
 		@RequestParam(value="TradeAmt",required=false) String tradeAmt,
 		@RequestParam(value="TradeDate",required=false) String tradeDate,
 		@RequestParam(value="TradeNo",required=false) String tradeNo
-	) throws IOException {
+	) throws Exception {
 		
 		System.out.println("支付成功 merchantTradeNo: "+merchantTradeNo);
 		System.out.println(customField1+customField2+customField3+customField4+merchantID+merchantTradeNo+paymentDate+paymentType+paymentTypeChargeFee+rtnCode+rtnMsg+simulatePaid+storeID+tradeAmt+tradeDate+tradeNo);
@@ -387,7 +387,7 @@ public class ECpay {
 		
 		model.addAttribute("dPriceList", dPriceList);
 		model.addAttribute("discount", discount);
-		
+		backendService.ticketOrderNotice(merchantTradeNo);
 		return "account/ticketOrderDetail";
 	}
 	
@@ -414,7 +414,7 @@ public class ECpay {
 		obj.setItemName(itemName);
 		obj.setClientBackURL("http://localhost:8080/proj/showOrderDetail/"+merchantTradeNo);
 		//ngrok連線需要定時更新
-		obj.setReturnURL("https://915b159d21b6.ngrok.io/proj/ecpay/response");
+		obj.setReturnURL("https://26241fabe2f8.ngrok.io/proj/ecpay/response");
 		obj.setNeedExtraPaidInfo("Y");
 		String form = all.aioCheckOut(obj, null);
 		return form;
