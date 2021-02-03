@@ -253,6 +253,7 @@ input {
 	               				<c:if test="${discount==0}">
 	               					
 	               					<a href="<c:url value='/buyByMCoinSucc/${ticketOrder.id}'/>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">滿幣支付</a>
+	               					<br/><br/>
 	               				</c:if>
 	               					<form action="<c:url value='../ecpay'/>" method="post">
                   						<input type="hidden" id="order" name="order" value="${ticketOrder.id}"/>

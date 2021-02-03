@@ -331,7 +331,7 @@ input:focus {
 																</td>
 																<td>${order.validTime.toString().substring(0,19)}</td>
 																<td id="opener">
-																	<button class="btn btn-outline-warning" onclick="location.href = '<c:url value="/showOrderDetail/${order.id}" />'">詳細明細</button>	
+																	<button class="btn btn-outline-warning" onclick="location.href = '<c:url value="/showTicketOrderDetail/${order.id}" />'">詳細明細</button>	
 																</td>
 															</tr>
 														
