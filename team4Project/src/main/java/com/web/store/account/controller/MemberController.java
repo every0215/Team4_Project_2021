@@ -225,7 +225,7 @@ public class MemberController {
 			}
 			// Paypal支付
 			else {
-				PayPalOrderDetail orderDetail = new PayPalOrderDetail("購買M幣",
+				PayPalOrderDetail orderDetail = new PayPalOrderDetail("購買滿滿大平台M幣",
 						String.valueOf(mCoinTopUpDetail.getTopUpAmount()), "0", "0",
 						String.valueOf(mCoinTopUpDetail.getTopUpAmount()));
 				PayPalPaymentServices paymentServices = new PayPalPaymentServices();
@@ -466,6 +466,12 @@ public class MemberController {
 	public @ResponseBody Set<MemberNotification> getMemberNotifications(HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
 		return (currentUser != null) ? accountService.getMemberNotificationList(currentUser.getId()) : null;
+	}
+	
+	@PostMapping("/updateMemberNotificationIsRead")
+	public @ResponseBody Boolean updateMemberNotificationIsRead( @RequestParam("mnId") int mnId, HttpSession session) throws Exception {
+		accountService.updateMemberNotificationIsRead(mnId);
+		return true;
 	}
 
 	// ==========================================================================
