@@ -62,9 +62,9 @@ body{
               <td>${Sto.storeAddress}</td>
               <td>
               <c:choose>
-              <c:when test="${Sto.status==true}">上架
+              <c:when test="${Sto.status==true}">營業中
               </c:when>
-              <c:otherwise>下架</c:otherwise>
+              <c:otherwise>整修/關店</c:otherwise>
               </c:choose>
               
               </td>

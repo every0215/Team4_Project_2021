@@ -65,6 +65,12 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		return cmpDao.update(cmp);
 	}
+	//更新企業(不附圖)
+	@Override
+	public boolean updateCompanyWithoutLogo(Company cmp) {
+		
+		return cmpDao.updateWithoutLogo(cmp);
+	}
 
 	@Override
 	public Company getCompanyById(Integer id) {

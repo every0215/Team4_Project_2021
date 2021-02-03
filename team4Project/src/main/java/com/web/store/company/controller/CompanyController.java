@@ -150,8 +150,21 @@ public class CompanyController {
 			) throws IOException {
 		Company company=(Company)session.getAttribute("company");
 		String cmpACC = company.getAccount();
-		
-		
+		String pro = company.getProfiles();
+		////////////////////////////////////////////////////
+//		if(logo==null||busRC==null) {
+//			System.out.println("==============================企業資料更新(不附圖)");
+//			session.removeAttribute("company");
+//			Company cmp = new Company(id,companyName,uniformNumbers,categories,cmpACC,password,email,phone,pro);
+//			cmpService.updateCompanyWithoutLogo(cmp);
+//			System.out.println("更新成功");
+//			model.addAttribute("company", cmp);
+//			session.setAttribute("company", cmp);
+//			session.setMaxInactiveInterval(60 * 60 * 24* 3);
+//			return "redirect:/reportin";
+//		}
+		////////////////////////////////////////////////////
+//		else {
 		session.removeAttribute("company");
 		
 		System.out.println("更新企業資料");
@@ -170,7 +183,7 @@ public class CompanyController {
 			String busRCName = busRC.getOriginalFilename();
 			//得到的參數塞到建構子                     Blob物件  Filename
 			System.out.println("更新企業資料 加入Bean");
-			Company cmp = new Company(id,companyName,logoblob,logoName,uniformNumbers,categories,cmpACC,password,email,phone,busRCblob,busRCName);
+			Company cmp = new Company(id,companyName,logoblob,logoName,uniformNumbers,categories,cmpACC,password,email,phone,busRCblob,busRCName,pro);
 			//呼叫Service更新資料庫
 //			System.out.println(cmp);
 			cmpService.updateCompany(cmp);
@@ -190,8 +203,8 @@ public class CompanyController {
 		/////////////////存圖片轉成Byte陣列////////////////////
 		
 		return "redirect:/reportin";
-		
-	}
+		}
+//	}
 	
 
 	//取企業圖片(V)
@@ -277,7 +290,9 @@ public class CompanyController {
 			@RequestParam String password,
 			Model model,
 			///////////////////
-			HttpSession session
+			
+			HttpSession session,
+			RedirectAttributes redirectAttributes
 			///////////////////
 			
 			) {
@@ -297,6 +312,8 @@ public class CompanyController {
 			
 			return "redirect:/reportin";
 		}else {
+			model.addAttribute("msg", "輸入帳號或密碼資訊有誤");
+			redirectAttributes.addFlashAttribute("loginFail", true);
 			return "redirect:/";
 		}	
 	}
@@ -688,7 +705,16 @@ public class CompanyController {
 		//依名字找門市
 		List<Store> storeByName = stoService.getStoreByName(cmpid,stoName);
 		System.out.println("================================="+storeByName);
-		return storeByName;
+		//判斷若門市為下架狀態則不讓地圖顯示
+		List<Store> newsto = new ArrayList<>();
+		for(Store temp : storeByName) {
+			if(temp.getStatus()) {
+				newsto.add(temp);
+			}
+		}
+		
+		
+		return newsto;
 	}
 	
 	//服務搜尋(V)
@@ -709,8 +735,16 @@ public class CompanyController {
 			System.out.println(s.getId());
 		}
 		
+		//判斷若門市為下架狀態則不讓地圖顯示
+				List<Store> newsto = new ArrayList<>();
+				for(Store temp : stoByService) {
+					if(temp.getStatus()) {
+						newsto.add(temp);
+					}
+				}
+		
 		//要寫好SERVICE
-		return stoByService;
+		return newsto;
 		
 		
 		
@@ -729,7 +763,16 @@ public class CompanyController {
 		
 		List<Store> storeByArea = stoService.getStoreByArea(cmpid,area);
 		
-		return storeByArea;
+		//判斷若門市為下架狀態則不讓地圖顯示
+		List<Store> newsto = new ArrayList<>();
+		for(Store temp : storeByArea) {
+			if(temp.getStatus()) {
+				newsto.add(temp);
+			}
+		}
+		
+		
+		return newsto;
 	}
 	
 	//按企業丟回服務(V)
