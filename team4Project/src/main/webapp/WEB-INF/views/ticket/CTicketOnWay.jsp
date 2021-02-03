@@ -127,7 +127,7 @@
                   <p id="ticketOrderDetailList" style="text-align:left;font-size:20px;">票券明細:</p>
 
 
-                  <a id="payByMCoin" href="#" class="btn btn-primary btn-lg" role="button">滿幣支付</a>
+                  <a id="payByMCoin" href="#" class="btn btn-primary btn-lg" role="button">滿幣支付</a><br/><br/>
                   <form action="<c:url value='../ecpay'/>" method="post">
                   		<input type="hidden" id="order" name="order"/>
                   		<input type="hidden" id="orderName" name="orderName"/>
@@ -158,29 +158,29 @@
 
 
         <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="<c:url value='/js/bootstrap.js' />"></script>
-        <!-- SmartMenus jQuery plugin -->
-        <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.js' />"></script>
-        <!-- SmartMenus jQuery Bootstrap Addon -->
-        <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.bootstrap.js' />"></script>
-        <!-- To Slider JS -->
-        <script src="<c:url value='/js/sequence.js' />"></script>
-        <script src="<c:url value='/js/sequence-theme.modern-slide-in.js' />"></script>
-        <!-- Product view slider -->
-        <script type="text/javascript" src="<c:url value='/js/jquery.simpleGallery.js' />"></script>
-        <script type="text/javascript" src="<c:url value='/js/jquery.simpleLens.js' />"></script>
-        <!-- slick slider -->
-        <script type="text/javascript" src="<c:url value='/js/slick.js' />"></script>
-        <!-- Price picker slider -->
-        <script type="text/javascript" src="<c:url value='/js/nouislider.js' />"></script>
-        <!-- Custom js -->
-        <script src="<c:url value='/js/custom.js' />"></script>
+<!--         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+<!--         Include all compiled plugins (below), or include individual files as needed -->
+<%--         <script src="<c:url value='/js/bootstrap.js' />"></script> --%>
+<!--         SmartMenus jQuery plugin -->
+<%--         <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.js' />"></script> --%>
+<!--         SmartMenus jQuery Bootstrap Addon -->
+<%--         <script type="text/javascript" src="<c:url value='/js/jquery.smartmenus.bootstrap.js' />"></script> --%>
+<!--         To Slider JS -->
+<%--         <script src="<c:url value='/js/sequence.js' />"></script> --%>
+<%--         <script src="<c:url value='/js/sequence-theme.modern-slide-in.js' />"></script> --%>
+<!--         Product view slider -->
+<%--         <script type="text/javascript" src="<c:url value='/js/jquery.simpleGallery.js' />"></script> --%>
+<%--         <script type="text/javascript" src="<c:url value='/js/jquery.simpleLens.js' />"></script> --%>
+<!--         slick slider -->
+<%--         <script type="text/javascript" src="<c:url value='/js/slick.js' />"></script> --%>
+<!--         Price picker slider -->
+<%--         <script type="text/javascript" src="<c:url value='/js/nouislider.js' />"></script> --%>
+<!--         Custom js -->
+<%--         <script src="<c:url value='/js/custom.js' />"></script> --%>
 
-        <script src="<c:url value='/js/luke_js.js' />"></script>
-        <!-- script src="https://code.jquery.com/jquery-3.5.1.min.js"></script-->
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<%--         <script src="<c:url value='/js/luke_js.js' />"></script> --%>
+<!--         script src="https://code.jquery.com/jquery-3.5.1.min.js"></script -->
+<!--         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
 
         <script>
 
