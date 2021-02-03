@@ -794,12 +794,12 @@ button {
 	    checkPassword();
 
 	    
-	    $("#fullname").change(checkName);
-	    $("#nickname").change(checkNickname);
-	    $("#qid").change(checkQid);
-	    $("#email").change(checkEmail);
-	    $("#password").change(checkPassword);
-	    $("#password2").change(checkPassword);
+	    $("#fullname").on('input', checkName);
+	    $("#nickname").on('input', checkNickname);
+	    $("#qid").on('input', checkQid);
+	    $("#email").on('input', checkEmail);
+	    $("#password").on('input', checkPassword);
+	    $("#password2").on('input', checkPassword);
 	    //document.querySelector('#pwd').oninput = checkPwd;
 	    //document.querySelector('#date1').oninput = checkDate1;
 	    //document.querySelector('#name').onchange = submitCheck;
