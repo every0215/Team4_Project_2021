@@ -290,7 +290,7 @@ public class CompanyController {
 			@RequestParam String password,
 			Model model,
 			///////////////////
-			HttpSession session
+			
 			HttpSession session,
 			RedirectAttributes redirectAttributes
 			///////////////////
