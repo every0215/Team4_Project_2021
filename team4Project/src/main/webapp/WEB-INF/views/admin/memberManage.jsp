@@ -461,10 +461,10 @@ a.sort-by-active-bottom:after {
 					<li><a href="<c:url value='/admin/memberManage' />"> <i
 							class="fa fa-th"></i> <span>會員管理</span>
 					</a></li>
-					<li class="treeview"><a
-						href="<c:url value='/admin/companyManage' />"> <i
-							class="fa fa-check-square-o"></i> <span>廠商管理</span>
-					</a></li>
+<!-- 					<li class="treeview"><a -->
+<%-- 						href="<c:url value='/admin/companyManage' />"> <i --%>
+<!-- 							class="fa fa-check-square-o"></i> <span>廠商管理</span> -->
+<!-- 					</a></li> -->
 
 				</ul>
 			</section>

@@ -438,8 +438,6 @@ h3{
 	    		    	checkCreditCardFlag = true;
 	    		    }
 	    		    
-	    		   
-	    		    
 	    		    if(!checkCreditCardFlag )
 	    		    {
 	    		    	errorMSG += "<li>請選擇信用卡</li>";
@@ -450,8 +448,19 @@ h3{
     		    }
     		    
     		    if(paymentMethodRB.val()=='2'){
-    		    	checkCreditCardFlag = true;
+    		    	if($("#topUpAmount").val()!=""){
+	    		    	checkCreditCardFlag = true;
+	    		    }
+	    		    
+	    		    if(!checkCreditCardFlag )
+	    		    {
+	    		    	errorMSG += "<li>請輸入儲值金額</li>";
+	    		    }
+	    		    else{
+	    		    	msgDiv.hide();
+	    		    }
     		    }
+    		    
     		    
     		    if (checkCreditCardFlag ) {
     		        $("#Form").submit();

@@ -17,15 +17,17 @@ $(document).ready(function() {
 
 	let mouseentered = false;
 	$("#UserNotificationBox").mouseenter(function() {
-		mouseentered = true;
+		//mouseentered = true;
 		console.log('mouse enter: ' + mouseentered);
 	});
 
 	$("#UserNotificationBox").mouseleave(function() {
 		console.log('mouse out');
-		if (mouseentered)
-			$(this).hide();
+		//if (mouseentered)
+			//$(this).hide();
 	});
+	
+	
 
 	//會員通知
 	setInterval(getMemberNotifications,5000); //間隔讀取通知
@@ -45,7 +47,7 @@ $(document).ready(function() {
 				let htmlstr = '';
 				for (let i = 0; i < data.length; i++) {
 					console.log("(notification title: " + data[i].title);
-					htmlstr += '<input class="checkbox" type="checkbox" id="size_' + data[i].id + '" value="small" checked /><label class="ll-notification new" for="size_' + data[i].id + '"><span class="ll-mn-span" data-url="' + data[i].url + '" >';
+					htmlstr += '<input class="checkbox" type="checkbox" id="mn_' + data[i].id + '" value="small" checked /><label class="ll-notification new" for="mn_' + data[i].id + '"><span class="ll-mn-span" data-url="' + data[i].url + '" data-id="' + data[i].id + '" >';
 					htmlstr += '<em>' + data[i].title + '</em> <br>' + data[i].description + '</span><i class="material-icons dp48 right">clear</i></label>';
 				}
 				mNotificationDiv.append(htmlstr);
@@ -68,8 +70,26 @@ $(document).ready(function() {
 		  $(document).on("click",".ll-mn-span",function(e){
 			  e.preventDefault();
 			  let url = $(this).data("url");
-			  console.log('.ll-mn-span clicked: ' + url);
-			  window.location.href = url;
+			  let mn_id = $(this).data("id");
+			  console.log('.ll-mn-span clicked: ' + url + ', mn_id:' + mn_id);
+			  
+			  //設定通知為已讀
+			  $.ajax({
+					type: "POST",
+					url: "/proj//member/updateMemberNotificationIsRead",
+					data: { mnId: mn_id },
+					success: function(data) {
+		
+						console.log("會員通知已成功更新為已讀 (mnId=" + mn_id + ")");
+						window.location.href = url;
+					},
+					error: function(xhr, status, error) {
+						var errorMessage = "[Error(更新會員通知為已讀失敗)-" + xhr.status + "]\r\n" + xhr.statusText + ': ' + xhr.responseText
+						console.log(errorMessage);
+					}
+				});
+		
+			  
 		  });
 		  
 		  
@@ -85,7 +105,17 @@ $(document).ready(function() {
     console.log('accountMenu...');
     console.log($('#menu-content>li'));
     
-    
+//	  force reloading a page when using browser back button
+//    window.addEventListener( "pageshow", function ( event ) {
+//	  var historyTraversal = event.persisted || 
+//	                         ( typeof window.performance != "undefined" && 
+//	                              window.performance.navigation.type === 2 );
+//	  if ( historyTraversal ) {
+//	    // Handle page restore.
+//	    window.location.reload();
+//	  }
+//	});
+
 });
 
 
