@@ -16,15 +16,19 @@
 /* 	height:calc(50vh); */
 	top:500px;
 /* 	margin:auto; */
-	margin:0px 0px 0px 100px;
+	margin:0px 0px 0px 150px;
 	bottom:500px;
 }
 /* 搜尋列 */
 .map_left {
-	border: solid 2px gray;
+	border: solid 2px white;
 	width: 250px;
 	height: 500px;
 	margin:15px 5px 0px 0px;
+	padding:10px;
+	background-color:#FFD382;
+	color:#194866;
+	border-radius: 20px;
 }
 /* 顯示地圖 */
 .map_show {
@@ -52,6 +56,10 @@ ul {
 	margin-top:15px;
 	display:block;
 }
+.title-bar {
+          clear: both;
+          padding: 10px;
+        }
 </style>
 </head>
  <c:import url="/layout/head" />
@@ -60,13 +68,20 @@ ul {
 	<script src="https://code.jquery.com/jquery-3.3.1.js"
 		data-integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		data-crossorigin="anonymous"></script>
+		<div class="title-bar">
+            <div class="title-bar" style="text-align: center;line-height:60px;height:60px;background-color:#FFD382;width:300px;padding:10px;margin:5px auto;border-radius:30px" >
+                <h2 style="color: #194866;font-weight:bolder">門市查詢</h2>
+            </div>
+
+        </div>
 	<div class="mapall">
+	<div>
 		<table>
 			<td>
 				<!-- 左測搜尋欄 -->
-				<div class="map_left">
-					<div>
-						企業 <select id="cmpChange">
+				<div class="map_left" style="margin-bottom: 50px">
+					<div style="margin-bottom: 10px">
+						企業&nbsp;&nbsp;&nbsp; <select id="cmpChange" style="color:#003D79;">
 							<option value="0" selected = "selected">請挑選</option>
 							<option value="1">全家</option>
 							<option value="2">萊爾富</option>
@@ -74,12 +89,13 @@ ul {
 							<option value="4">全聯福利中心</option>
 						</select>
 					</div>
-					<div>
-						店名 <input type="text" id="stoName">
-						<button id="stoSearch">搜尋</button>
+					
+					<div style="margin-bottom: 80px">
+						店名 &nbsp;&nbsp;&nbsp;<input type="text" id="stoName" style="color:#003D79;">
+						<button id="stoSearch" class="btn btn-primary" style="float:right;margin-top:5px">搜尋</button>
 					</div>
-					<div>
-						地區 <select id="areaChange">
+					<div style="margin-bottom: 10px">
+						地區&nbsp;&nbsp;&nbsp; <select id="areaChange" style="color:#003D79;">
 							<option value="0" selected = "selected">請挑選</option>
 							<option value="北區">北區</option>
 							<option value="中區">中區</option>
@@ -109,13 +125,13 @@ ul {
 			<!-- 右側地圖部分 -->
 
 			<td class="cmpleft">
-				<div id="map" class="map_show">
+				<div id="map" class="map_show" style="margin:10px 0px 10px 30px;border-radius: 5px">
 					<iframe
 						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28918.428460427356!2d121.53965200064644!3d25.040739817517917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823c1920a1b7f%3A0x6502863b00922978!2zVGliYU1lIOaZuuaFp0FQUOaVtOWQiOmWi-eZvOmkiuaIkOePrSjlj7DljJcp!5e0!3m2!1szh-TW!2stw!4v1611813135444!5m2!1szh-TW!2stw"
-						width="450" height="390" frameborder="0" style="border: 0;"
+						width="450" height="390" frameborder="0" style="border: 0px;"
 						allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 				</div>
-				<div class="map_info" style="overflow: scroll;">
+				<div class="map_info" style="overflow: scroll;margin:10px 0px 50px 30px;border-radius: 5px">
 <!-- 					統一超商 7-11 大安店(顯示門市資訊)<br> <span><img height="20px" -->
 <!-- 						width="20px" src="" /></span> <span><img height="20px" -->
 <!-- 						width="20px" src="" /></span> <span><img height="20px" -->
@@ -127,6 +143,7 @@ ul {
 			</td>
 
 		</table>
+	</div>
 	</div>
 	<script>
 	//=====================================================================================
@@ -314,7 +331,8 @@ ul {
                 		`)
                     }
                     $(".sevicelist").append(`
-                    		<button class="svidSearch">搜尋</button>
+
+                    		<button id="svidSearch" class="btn btn-primary" style="float:right;margin-top:5px">搜尋</button>
                     `)
                     console.log(data);
                 }
@@ -341,7 +359,7 @@ ul {
 
         });
       //服務搜尋(id查詢)
-        $(".sevicelist").on("click",".svidSearch",function () {
+        $(".sevicelist").on("click","#svidSearch",function () {
 			
             alert($("#cmpChange").val());
             var svId = [];
