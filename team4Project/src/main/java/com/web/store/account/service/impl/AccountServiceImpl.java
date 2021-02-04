@@ -192,6 +192,33 @@ public class AccountServiceImpl implements AccountService {
 		update(member);
 	}
 	
+	@Override
+	public Boolean mCoinSpend(MemberBean member, BigDecimal spendAmount ) throws Exception {
+		Boolean result = false;
+		if (member.getmCoin() != null) {
+			MCoinTopUpDetail mCoinSpendDetail = new MCoinTopUpDetail();
+			mCoinSpendDetail.setMember(member);
+			mCoinSpendDetail.setTopUpAmount(spendAmount);
+			mCoinSpendDetail.setPaymentAmount(spendAmount);
+			mCoinSpendDetail.setCreditCardId(0);
+			mCoinSpendDetail.setTopupDate(new Timestamp(System.currentTimeMillis()));
+			mCoinSpendDetail.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+			
+			if(member.getmCoin().getBalance().intValue() >= -(spendAmount.intValue())) {
+				
+				member.getmCoin().setBalance(member.getmCoin().getBalance().add(mCoinSpendDetail.getTopUpAmount()));
+				member.getmCoinTopupDetailList().add(mCoinSpendDetail);
+				update(member);
+				result = true;
+			}
+			
+		}
+		
+		System.out.println("mCoinSpend(Result="+result+"): memberId="+ member.getId() + ", spendAmount= " + spendAmount.intValue());
+		
+		return result;
+	}
+	
 	//
 	// 會員通知
 	//

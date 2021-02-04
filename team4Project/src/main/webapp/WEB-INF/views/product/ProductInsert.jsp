@@ -37,6 +37,16 @@
 			return;
 		}
 	}
+	
+	$("#oneclickbutton").click(function(e){
+		$("input[name='productName']").val("蔥燒牛肉麵");
+		$("input[name='productStuck']").val("100");
+		$("input[name='productPrice']").val("100");
+		$("input[name='productDescript']").val("好吃的蔥燒牛肉麵");
+		$("input[name='productPrice']").val("100");
+		
+	)}
+	
 </script>
 <style>
 .rep_reportarea {
@@ -95,6 +105,7 @@
 		<br>
 		<br> <input type="submit" name="submit"><input
 			type="reset" name="reset" id="s1">
+			<button  id="oneclickbutton"  ><b>一鍵輸入</b></button>
 	</form>
 	<a href="<c:url value="/ProductIndex"/>">回商品瀏覽</a>
 	</div>
