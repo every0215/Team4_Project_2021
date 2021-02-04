@@ -948,16 +948,23 @@ employeeList = [{ id: 1, name: 'e1' },
 						msgDiv.html("更新會員帳號狀態成功");
 				    	msgDiv.removeClass().addClass("alert alert-info").show();
 				    	// 若原本為已啟用變為停用
-				    	if(clickedBtn.html() == '啟用'){
-				    		clickedBtn.removeClass('ll-primary-btn').addClass('ll-danger-btn');
-				    		clickedBtn.html('停用');
-				    		console.log(clickedBtn.closest('tr'));
-				    		clickedBtn.closest('tr').find("td:contains('已停用')").show(1000).html('已啟用').show(1000);
-				    	}
-				    	else{
+				    	if(clickedBtn.html().indexOf('啟')){
+
 				    		clickedBtn.removeClass('ll-danger-btn').addClass('ll-primary-btn');
 				    		clickedBtn.html('啟用');
-				    		clickedBtn.closest('tr').find("td:contains('已啟用')").show(1000).html('已停用').show(1000);
+				    		console.log('停用->啟用');
+				    		console.log(clickedBtn.closest('tr'));
+				    		console.log(clickedBtn.closest('tr').find("td:contains('已啟用')"));
+				    		clickedBtn.closest('tr').find("td:contains('已啟用')").html('已停用').show(1000);
+				    	}
+				    	else{
+				    		clickedBtn.html('停用');
+				    		clickedBtn.removeClass('ll-primary-btn').addClass('ll-danger-btn');
+				    		
+				    		console.log('啟用->停用');
+				    		console.log(clickedBtn.closest('tr'));
+				    		console.log(clickedBtn.closest('tr').find("td:contains('已停用')"));
+				    		clickedBtn.closest('tr').find("td:contains('已停用')").html('已啟用').show(1000);
 				    	}
 					},
 					error: function(xhr, status, error){
