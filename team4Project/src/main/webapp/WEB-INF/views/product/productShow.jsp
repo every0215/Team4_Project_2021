@@ -33,9 +33,9 @@
 <!-- Price picker slider -->
 <script type="text/javascript" src="<c:url value='/js/nouislider.js' />"></script>
 <!-- Custom js -->
-<script src="<c:url value='/js/custom.js' />"></script>
+<%-- <script src="<c:url value='/js/custom.js' />"></script> --%>
 
-<script src="<c:url value='/js/luke_js.js' />"></script>
+<%-- <script src="<c:url value='/js/luke_js.js' />"></script> --%>
 <!-- script src="https://code.jquery.com/jquery-3.5.1.min.js"></script-->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script
