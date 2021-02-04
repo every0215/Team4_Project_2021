@@ -37,6 +37,7 @@
 			return;
 		}
 	}
+	
 	$("#oneclickbutton").click(function(e){
 		$("input[name='productName']").val("蔥燒牛肉麵");
 		$("input[name='productStuck']").val("100");
@@ -45,6 +46,7 @@
 		$("input[name='productPrice']").val("100");
 		
 	)}
+	
 </script>
 <style>
 .rep_reportarea {
