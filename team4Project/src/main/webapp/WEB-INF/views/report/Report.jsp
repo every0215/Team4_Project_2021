@@ -34,11 +34,22 @@ div.dt-buttons {
 }
 
 @media ( max-width : 767px) .main-sidebar , . left-side {
-	-ms-transform:unset	
-	-o-transform:unset;
+	-ms-transform
+	
+	
+	:unset
+	
+		
+	
+	
+	-o-transform
+	
+	
+	:unset
+	
+	
+	;
 }
-
-
 </style>
 <!-- li的藍色標籤 -->
 <script>
@@ -93,10 +104,10 @@ div.dt-buttons {
 
 					<div class="col-lg-3 col-xs-6">
 						<!-- small box -->
-						<div class="small-box bg-green">
+						<div class="small-box bg-green" style="height: 100px;">
 							<div class="inner">
-								<h3>${singlesales}</h3>
-								<p>年度累計銷售金額</p>
+									<h3>${singlesales}</h3>
+									<p>年度累計銷售金額</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-stats-bars"></i>
@@ -242,10 +253,10 @@ div.dt-buttons {
 							<!-- /.box-body -->
 							<!-- ↑資料表區截止 -->
 
+						</div>
+						<!-- /.box -->
 					</div>
-					<!-- /.box -->
-				</div>
-				<!-- /.col -->
+					<!-- /.col -->
 			</section>
 			<!-- /.content -->
 		</div>
@@ -257,36 +268,35 @@ div.dt-buttons {
 	<script src="js/Report_Js.js"></script>
 
 	<script type="text/javascript">
-// 	function myFunc(){
-// 		console.log('123123');
-// 		setTimeout(function(){
-// // 			$("body").html($('#tabs_1').html())
-// 			$('#tabs_1 > table').DataTable({
-// 				scrollY: 20,
-// 				"dom": "Bftlp",
-// 				buttons: [
-// 			        'copy'
-// 			    ]
-//	 			buttons: [
-//	            {
-//	                 extend:'excelHtml5',
-//	                 title: 'Data export',
-//	                 bom:true,
-//	             },
-//	             {
-//	                 extend:'csvHtml5',
-//	                 title: 'Data export',
-//	                 bom:true,
-//	             },
-	            
-//	 				'copy'
-	            
-//	             ]
-// 			});
-// 		},2000);
-		
-		
-// 	}
+		// 	function myFunc(){
+		// 		console.log('123123');
+		// 		setTimeout(function(){
+		// // 			$("body").html($('#tabs_1').html())
+		// 			$('#tabs_1 > table').DataTable({
+		// 				scrollY: 20,
+		// 				"dom": "Bftlp",
+		// 				buttons: [
+		// 			        'copy'
+		// 			    ]
+		//	 			buttons: [
+		//	            {
+		//	                 extend:'excelHtml5',
+		//	                 title: 'Data export',
+		//	                 bom:true,
+		//	             },
+		//	             {
+		//	                 extend:'csvHtml5',
+		//	                 title: 'Data export',
+		//	                 bom:true,
+		//	             },
+
+		//	 				'copy'
+
+		//	             ]
+		// 			});
+		// 		},2000);
+
+		// 	}
 		// 		$(function() {
 		// 			$("#rep_adv").click(function() {
 		// 				console.log("rep_adv")

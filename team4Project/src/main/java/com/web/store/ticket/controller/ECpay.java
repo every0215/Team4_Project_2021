@@ -414,7 +414,7 @@ public class ECpay {
 		obj.setItemName(itemName);
 		obj.setClientBackURL("http://localhost:8080/proj/showOrderDetail/"+merchantTradeNo);
 		//ngrok連線需要定時更新
-		obj.setReturnURL("https://26241fabe2f8.ngrok.io/proj/ecpay/response");
+		obj.setReturnURL("https://f58e219b12b3.ngrok.io/proj/ecpay/response");
 		obj.setNeedExtraPaidInfo("Y");
 		String form = all.aioCheckOut(obj, null);
 		return form;
