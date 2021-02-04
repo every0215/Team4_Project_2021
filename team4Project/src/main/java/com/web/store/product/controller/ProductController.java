@@ -268,6 +268,7 @@ public class ProductController {
 			return "redirect:/account/login";
 		}
 		System.out.println("member="+member.getId());
+		model.addAttribute("Member", member);  
 		Cart cart = (Cart) model.getAttribute("Cart");
 		if (cart == null) {
 			// 就新建ShoppingCart物件
@@ -285,6 +286,7 @@ public class ProductController {
 					null,
 					bean.getproductId(),
 					bean.getdiscount());
+			
 			cart.addToCart(productId, oib);
 			
 			System.out.println("cart"+cart);

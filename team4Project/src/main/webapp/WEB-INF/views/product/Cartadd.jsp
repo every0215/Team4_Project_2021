@@ -91,7 +91,7 @@
 			<div class="ticket-info">
 			 	
 				<div class="panel-body">
-				member123=${member.memberId}
+			
 					<div style="float: left" >
 					<table id="mytable" class="display" style="width: 1000px">
 			<thead>
@@ -121,7 +121,7 @@
 						<td width="100">${product.productType}</td>
 						<td width="100">${product.productPrice}</td>
 						<td width="100">${product.discount}</td>
-						<td width="100">數量*總價</td>
+						<td width="100">${product.discount*product.productPrice*product.productStuck}</td>
 						
 						
 					</tr>

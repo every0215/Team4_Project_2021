@@ -96,7 +96,7 @@
 					</tr>
 					<tr>
 						<td>
-							<button type="submit" class="btn btn-primary">前往購物車</button> <br>
+							<button type="submit" class="btn btn-primary">加入購物車</button> <br>
 						</td>
 					</tr>
 				</table>
