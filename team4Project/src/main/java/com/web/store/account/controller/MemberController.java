@@ -213,8 +213,10 @@ public class MemberController {
 		
 		ArrayList<MCoinTopUpDetail> sortedlist = null;
 		if ( currentUser != null) {
-			sortedlist = new ArrayList<MCoinTopUpDetail>(currentUser.getmCoinTopupDetailList());
-			Collections.sort(sortedlist, Comparator.comparing(MCoinTopUpDetail::getId));
+			if (currentUser.getmCoinTopupDetailList()!= null) {
+				sortedlist = new ArrayList<MCoinTopUpDetail>(currentUser.getmCoinTopupDetailList());
+				Collections.sort(sortedlist, Comparator.comparing(MCoinTopUpDetail::getId));
+			}
 		}
 		
 		
@@ -319,12 +321,13 @@ public class MemberController {
 	@GetMapping("/getMemberCreditCards")
 	public @ResponseBody List<MemberCreditCard> getMemberCreditCards(HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-		Hibernate.initialize(currentUser.getMemberCreditCardList());
-		Set<MemberCreditCard> memberCreditCardList = currentUser.getMemberCreditCardList();
-
-		ArrayList<MemberCreditCard> sortedlist = new ArrayList<MemberCreditCard>(memberCreditCardList);
-		Collections.sort(sortedlist, Comparator.comparing(MemberCreditCard::getId));
-		
+		ArrayList<MemberCreditCard> sortedlist = null;
+		if((currentUser!= null)&& (currentUser.getMemberCreditCardList()!= null)){
+			Set<MemberCreditCard> memberCreditCardList = currentUser.getMemberCreditCardList();
+	
+			sortedlist = new ArrayList<MemberCreditCard>(memberCreditCardList);
+			Collections.sort(sortedlist, Comparator.comparing(MemberCreditCard::getId));
+		}
 		return sortedlist;
 	}
 

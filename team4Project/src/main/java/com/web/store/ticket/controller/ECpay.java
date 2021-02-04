@@ -334,15 +334,15 @@ public class ECpay {
 		String shortId = merchantTradeNo.substring(0, 8)+"-"+merchantTradeNo.substring(8, 12)+"-"+merchantTradeNo.substring(12, 16)+"-"+merchantTradeNo.substring(16, 19);
 		System.out.println(shortId);
 		TicketOrder ticketOrder = backendService.queryTicketOnWayByTicketOrder(shortId);
-		System.out.println("====================================="+ticketOrder.getId());
+		
 		Timestamp validTime = getValidTime();
-		System.out.println("====================================="+ticketOrder.getId());
+		
 		ticketOrder.setValidTime(validTime);
-		System.out.println("====================================="+ticketOrder.getId());
+		
 		ticketOrder.setStatus(1);
-		System.out.println("====================================="+ticketOrder.getId());
+		
 		backendService.updateTicketOrder(ticketOrder);
-		System.out.println("====================================="+ticketOrder.getId());
+		
 		//把onWay刪掉
 		TicketOrder ticketOrderN = backendService.queryTicketOnWayByTicketOrder(ticketOrder);
 		Set<TicketOnWay> ticketOnWays = ticketOrderN.getTicketOnWays();

@@ -290,7 +290,7 @@ h3{
 										    <div class="pricetabmid">
 										      <h1> M幣餘額 </h1>
 										      <div class="pricemid"> 
-										        <h2 style="margin-top: 40px; margin-bottom: 10px;"> ${sessionScope.currentUser.mCoin.balance} </h2> 
+										        <h2 style="margin-top: 40px; margin-bottom: 10px;"> ${(sessionScope.currentUser.mCoin.balance != null)? sessionScope.currentUser.mCoin.balance : 0} </h2> 
 										      </div>
 										      <div class="infos">
 										        <h3></h3>
