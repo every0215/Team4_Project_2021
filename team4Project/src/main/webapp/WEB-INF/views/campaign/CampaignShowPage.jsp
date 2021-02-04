@@ -211,9 +211,9 @@ tr>td>button {
 					</c:if>				
 					<td style="max-width:250px">${camp.description}</td>
 					<td style="text-align:left;min-width:180px">
+						<button style="float:left" class="btn btn-self" onclick="window.open('<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>',)">編輯</button>
 						<c:if test="${!(camp.status && !camp.expired)}">
-							<div>
-								<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>',)">編輯</button>						
+							<div>						
 								<c:if test="${camp.discountParams.type==1}">
 									<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/loading/${camp.id}"/>')">商品</button>
 								</c:if>
