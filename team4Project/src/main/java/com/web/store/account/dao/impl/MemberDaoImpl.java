@@ -328,8 +328,6 @@ public class MemberDaoImpl implements MemberDao {
 	public void delete(MemberSubscription memberSubscription) {
 		Session session = factory.getCurrentSession();
 		session.delete(memberSubscription);
-			
-
 	}
 	
 	@SuppressWarnings("unchecked")

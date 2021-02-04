@@ -297,7 +297,7 @@ h3{
 										      </div>
 										      <div class="pricefootermid">
 										        <div class="buttonmid">
-										          <a href="#"> 儲值明細 </a>
+<!-- 										          <a href="#"> 交易明細 </a> -->
 										        </div>
 										      </div>
 										    </div>
@@ -516,9 +516,22 @@ h3{
     						// ....
     						let htmlstr = '';
     	 					for(let i = 0; i<data.length;i++){
-    	 			        	console.log("MCoin TopUp Detail: " + data[i].paymentAmount + '('+data[i].createdDate+')');
-    	 			        	htmlstr += '<div class="row" style="margin-top: 5px; background-color: #005dd0; border: solid 1px #207df0; padding: 15px; color: #fff; ">';
-    	 			        	htmlstr += '<div class="col-xs-12"><div id="input--cc" class="creditcard-icon">'+( new Date(data[i].createdDate)).format('yyyy/MM/dd hh:mm:ss')+' 購買M幣: <i class="fa fa-money"></i><span style="margin: 3px; font-size: 16px;"><b>' + data[i].paymentAmount + '</b></span></div></div></div>';
+    	 						let txt;
+    	 						let bgColor;
+    	 						let borderColor;
+    	 						if(data[i].paymentAmount >= 0){
+    	 							txt = "購買M幣";
+    	 							bgColor = "#005dd0";
+    	 							borderColor = "#207df0";
+    	 						}
+    	 						else{
+    	 							txt = "花費M幣";
+    	 							bgColor = "#c842ff";
+    	 							borderColor = "#da20f0";
+    	 						}
+    	 			        	console.log("MCoin TopUp/Spend Detail: " + data[i].paymentAmount + '('+data[i].createdDate+')');
+    	 			        	htmlstr += '<div class="row" style="margin-top: 5px; background-color: '+bgColor+'; border: solid 1px ' + borderColor + '; padding: 15px; color: #fff; ">';
+    	 			        	htmlstr += '<div class="col-xs-12"><div id="input--cc" class="creditcard-icon">'+( new Date(data[i].createdDate)).format('yyyy/MM/dd hh:mm:ss')+ txt +' : <i class="fa fa-money"></i><span style="margin: 3px; font-size: 16px;"><b>' + data[i].paymentAmount + '</b></span></div></div></div>';
 									
     	 			        }
     						mcclistDiv.append(htmlstr);
