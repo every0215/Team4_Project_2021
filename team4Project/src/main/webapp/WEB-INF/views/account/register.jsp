@@ -251,7 +251,8 @@ button {
 					<hr style="border-bottom: 1px solid #ccc; height:3px;" />
 					<div class="form-group">
 						<button type="submit" id="RegisterSubmit" class="aa-browse-btn">送出</button>
-						<button type="reset" id="reset" class="aa-browse-btn">清除</button><br/><br/>
+						<button type="reset" id="reset" class="aa-browse-btn">清除</button>
+						<button type="submit" id="oneclickbutton" class="ll-default-btn" style="float:right"><b>一鍵輸入</b></button><br/><br/>
                    	</div>  
                    	<div class="form-group">
 	               		<div id="RegisterMsgDiv" class="alert alert-danger"><strong>註冊失敗</strong><br><span id="RegisterMsg"></span></div>
@@ -779,7 +780,7 @@ button {
 		var checkQidFlag;
 		var checkEmailFlag;
 		var checkPwdFlag;
-		oneClickSetValues();
+		//oneClickSetValues();
 		
 	    $(".CheckStatus").hide();
 	    $("#RegisterSubmit").attr("disabled", false);
@@ -787,11 +788,11 @@ button {
 	    let registerMsg = $("#RegisterMsg");
 	    registerMsgDiv.hide();
 	    
-	    checkName();
-	    checkNickname();
-	    checkQid();
-	    checkEmail();
-	    checkPassword();
+// 	    checkName();
+// 	    checkNickname();
+// 	    checkQid();
+// 	    checkEmail();
+// 	    checkPassword();
 
 	    
 	    $("#fullname").on('input', checkName);
@@ -812,19 +813,19 @@ button {
 	    //=============================================================================
 	    //================================  FUNCTIONS  ================================
 	    //=============================================================================
-	    function oneClickSetValues(){
-	    	$("#fullname").val("林林林");
-	    	$("#nickname").val("Nickname 1");
-	    	$("#qid").val("A111122222");
-	    	$("#email").val("test@gmail.com");
-	    	$("#password").val("123456!q");
-	    	$("#password2").val("123456!q");
-	    	checkFullnameFlag=true;
-			checkNicknameFlag=true;
-			checkQidFlag=true;
-			checkEmailFlag=true;
-			checkPwdFlag=true;
-	    }
+// 	    function oneClickSetValues(){
+// 	    	$("#fullname").val("林林林");
+// 	    	$("#nickname").val("Nickname 1");
+// 	    	$("#qid").val("A111122222");
+// 	    	$("#email").val("test@gmail.com");
+// 	    	$("#password").val("123456!q");
+// 	    	$("#password2").val("123456!q");
+// 	    	checkFullnameFlag=true;
+// 			checkNicknameFlag=true;
+// 			checkQidFlag=true;
+// 			checkEmailFlag=true;
+// 			checkPwdFlag=true;
+// 	    }
 	    	
 	
 	    //1. 檢查姓名
@@ -1198,6 +1199,25 @@ button {
 			$("[data-modal='trigger-1']").removeClass('open');
 		});
 		
+		//一鍵登入
+  		$("#oneclickbutton").click(function(e){
+  			e.preventDefault();
+
+  			$("#fullname").val("陳大大");
+	    	$("#nickname").val("Java is awesome");
+	    	$("#qid").val("A111122222");
+	    	$("#email").val("javatest1010@gmail.com");
+	    	$("#password").val("Pass1234~");
+	    	$("#password2").val("Pass1234~");
+
+		    checkName();
+		    checkNickname();
+		    checkQid();
+		    checkEmail();
+		    checkPassword();
+		    checkPassword();
+			checkPassword();
+		});
 		
 	});
 	
