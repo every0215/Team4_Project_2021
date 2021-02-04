@@ -1,5 +1,6 @@
 package com.web.store.account.service;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
@@ -68,6 +69,8 @@ public interface AccountService {
 	void updateMemberNotificationIsRead(int mNotificationId) throws SQLException;
 
 	Set<MemberSubscription> getMemberSubscriptionList(int memberId) throws SQLException;
+
+	Boolean mCoinSpend(MemberBean member, BigDecimal spendAmount ) throws Exception;
 	
 	
 }

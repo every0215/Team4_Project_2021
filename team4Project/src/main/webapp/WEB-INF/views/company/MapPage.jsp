@@ -314,7 +314,7 @@ ul {
 
 		//企業變更搜尋服務and全部store
         $("#cmpChange").on("change", function () {
-            alert($("#cmpChange").val());
+            
             var area = $("#areaChange").val();
             var v = $("#cmpChange").val();
             $.ajax({
@@ -365,7 +365,7 @@ ul {
       //服務搜尋(id查詢)
         $(".sevicelist").on("click","#svidSearch",function () {
 			
-            alert($("#cmpChange").val());
+            
             var svId = [];
             $("input[name='service']:checked").each(function (i) {
                 svId[i] = $(this).val();
@@ -393,7 +393,7 @@ ul {
         //服務搜尋(id查詢)
 //         $(".svidSearch").click(function () {
 // 			console.log("服務搜尋")
-//             alert($("#cmpChange").val());
+
 //             var svId = [];
 //             $("input[name='checkbox']:checked").each(function (i) {
 //                 svId[i] = $(this).val();
