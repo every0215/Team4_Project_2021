@@ -15,33 +15,26 @@ import com.web.store.customerService.model.Customer;
 import com.web.store.customerService.model.User;
 
 
-/**
- * websocket的链接建立是基于http握手协议，我们可以添加一个拦截器处理握手之前和握手之后过程
- * @author BoBo
- *
- */
+
 @Component
 public class ChatHandshakeInterceptor implements HandshakeInterceptor{
 
-	/**
-     * 握手之前，若返回false，则不建立链接
-     */
+	//握手之前
 	@Override
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
 			Map<String, Object> attributes) throws Exception {
 		if (request instanceof ServletServerHttpRequest) {
 			ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
 			HttpSession session = servletRequest.getServletRequest().getSession(false);
-			//如果用户已经登录，允许聊天
+			//如果用戶登录，就允许聊天
 			if(session.getAttribute("customer")!=null){
-				//获取登录的用户
+				//獲取登陸的用戶
 				Customer customer=(Customer)session.getAttribute("customer") ;
 				//将用户放入socket处理器的会话(WebSocketSession)中
 				attributes.put("customer", customer);
 				System.out.println("Websocket:用户[ID:" + (customer.getId() + ",Name:"+customer.getNickName()+"]要建立连接"));
 			}else{
-				//用户没有登录，拒绝聊天
-				//握手失败！
+
 				System.out.println("--------------握手已失败...");
 				return false;
 			}
@@ -50,9 +43,8 @@ public class ChatHandshakeInterceptor implements HandshakeInterceptor{
 		return true;
 	}
 
-	/**
-     * 握手之后
-     */
+	
+	//握手之後
 	@Override
 	public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
 			Exception exception) {

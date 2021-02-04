@@ -8,9 +8,14 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.net.http.HttpRequest;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -81,7 +86,13 @@ public class MemberController {
 	}
 
 	@RequestMapping("/myWallet")
-	public String myWallet() {
+	public String myWallet(HttpSession session) {
+		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
+		if(currentUser== null) {
+			return "redirect:/";
+			
+		}
+		
 		return "account/myWallet";
 	}
 
@@ -100,6 +111,12 @@ public class MemberController {
 	public String notification() throws Exception {
 
 		return "account/notification";
+	}
+
+	@RequestMapping("/forgotPassword")
+	public String forgotPassword() throws Exception {
+
+		return "account/forgotPassword";
 	}
 
 	@GetMapping("/list")
@@ -190,11 +207,18 @@ public class MemberController {
 	// 我的錢包
 	// ==========================================================================
 	@GetMapping("/getMCoinTopUpDetailList")
-	public @ResponseBody Set<MCoinTopUpDetail> getMCoinTopUpDetailList(HttpSession session) throws Exception {
+	public @ResponseBody List<MCoinTopUpDetail> getMCoinTopUpDetailList(HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-		Set<MCoinTopUpDetail> memberCreditCardList = currentUser.getmCoinTopupDetailList();
-
-		return memberCreditCardList;
+		//Set<MCoinTopUpDetail> memberCreditCardList = currentUser.getmCoinTopupDetailList();
+		
+		ArrayList<MCoinTopUpDetail> sortedlist = null;
+		if ( currentUser != null) {
+			sortedlist = new ArrayList<MCoinTopUpDetail>(currentUser.getmCoinTopupDetailList());
+			Collections.sort(sortedlist, Comparator.comparing(MCoinTopUpDetail::getId));
+		}
+		
+		
+		return sortedlist;
 	}
 
 	// 會員儲值M幣點數
@@ -212,7 +236,7 @@ public class MemberController {
 			}
 			// Paypal支付
 			else {
-				PayPalOrderDetail orderDetail = new PayPalOrderDetail("購買M幣",
+				PayPalOrderDetail orderDetail = new PayPalOrderDetail("購買滿滿大平台M幣",
 						String.valueOf(mCoinTopUpDetail.getTopUpAmount()), "0", "0",
 						String.valueOf(mCoinTopUpDetail.getTopUpAmount()));
 				PayPalPaymentServices paymentServices = new PayPalPaymentServices();
@@ -271,6 +295,10 @@ public class MemberController {
 
 			}
 			accountService.mCoinTopUp(currentUser, mCoinTopUpDetail);
+			if(currentUser.getmCoinTopupDetailList() == null) {
+				Set<MCoinTopUpDetail> mCoinTopupDetailList = new HashSet<MCoinTopUpDetail>();
+				currentUser.setmCoinTopupDetailList(mCoinTopupDetailList);
+			}
 			currentUser.getmCoinTopupDetailList().add(mCoinTopUpDetail);
 			accountService.update(currentUser);
 			session.setAttribute("currentUser", currentUser);
@@ -289,12 +317,15 @@ public class MemberController {
 	// 會員信用卡一覽
 	// ==========================================================================
 	@GetMapping("/getMemberCreditCards")
-	public @ResponseBody Set<MemberCreditCard> getMemberCreditCards(HttpSession session) throws Exception {
+	public @ResponseBody List<MemberCreditCard> getMemberCreditCards(HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
 		Hibernate.initialize(currentUser.getMemberCreditCardList());
 		Set<MemberCreditCard> memberCreditCardList = currentUser.getMemberCreditCardList();
 
-		return memberCreditCardList;
+		ArrayList<MemberCreditCard> sortedlist = new ArrayList<MemberCreditCard>(memberCreditCardList);
+		Collections.sort(sortedlist, Comparator.comparing(MemberCreditCard::getId));
+		
+		return sortedlist;
 	}
 
 	// 會員信用卡新增
@@ -303,10 +334,16 @@ public class MemberController {
 			HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
 		memberCreditCard.setMember(currentUser);
+		if(currentUser.getMemberCreditCardList() == null) {
+			Set<MemberCreditCard> getMemberCreditCardList = new HashSet<MemberCreditCard>();
+			currentUser.setMemberCreditCardList(getMemberCreditCardList);
+		}
+		memberCreditCard.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		currentUser.getMemberCreditCardList().add(memberCreditCard);
 
 		try {
-			accountService.insert(memberCreditCard);
+			//accountService.insert(memberCreditCard);
+			accountService.update(currentUser);
 			session.setAttribute("currentUser", currentUser);
 			model.addAttribute("verified", true);
 			model.addAttribute("msg", "信用卡新增成功");
@@ -344,19 +381,22 @@ public class MemberController {
 
 		return companyList;
 	}
-
+	
+	//////////////////////////
+	////// 會員訂閱資料取得
+	//////////////////////////
 	@GetMapping(value = "/getMemberSubscriptions", produces = "application/json")
 	public @ResponseBody int[] getMemberSubscriptions(HttpSession session) throws Exception {
 
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-
-		if (currentUser.getMemberSubscriptionList() == null) {
+		Set<MemberSubscription> memberSubscriptionList = accountService.getMemberSubscriptionList(currentUser.getId());
+		if (memberSubscriptionList == null) {
 			currentUser.setMemberSubscriptionList(new LinkedHashSet<MemberSubscription>());
 		}
 
-		int[] subscribedCompanyIds = new int[currentUser.getMemberSubscriptionList().size()];
+		int[] subscribedCompanyIds = new int[memberSubscriptionList.size()];
 		int i = 0;
-		for (MemberSubscription memberSubscription : currentUser.getMemberSubscriptionList()) {
+		for (MemberSubscription memberSubscription : memberSubscriptionList) {
 			subscribedCompanyIds[i] = memberSubscription.getCompany().getId();
 			i++;
 		}
@@ -368,36 +408,38 @@ public class MemberController {
 	public String updateMemberSubscriptions(@RequestParam("subscribeCompany") String subscribeCompany, Model model,
 			HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-
-		Set<MemberSubscription> memberSubscriptionList = new LinkedHashSet<MemberSubscription>();
+		Set<MemberSubscription> memberSubscriptionList = accountService.getMemberSubscriptionList(currentUser.getId());
+		
 		String[] subscribeCompanyIds = subscribeCompany.split(",");
 		for (Company company : companyService.getAllCompany()) {
 			// 需要訂閱此公司
 			if (Arrays.asList(subscribeCompanyIds).contains(String.valueOf(company.getId()))) {
 				// 此公司尚未訂閱
-				if (!currentUser.getMemberSubscriptionList().stream()
+				if (!memberSubscriptionList.stream()
 						.anyMatch(obj -> obj.getCompany().getId() == company.getId())) {
 					MemberSubscription memberSubscription = new MemberSubscription();
 					memberSubscription.setMember(currentUser);
 					memberSubscription.setCompany(company);
-					currentUser.getMemberSubscriptionList().add(memberSubscription);
+					memberSubscriptionList.add(memberSubscription);
 				}
 
 			}
 			// 沒有要訂閱此公司
 			else {
-				if (currentUser.getMemberSubscriptionList() != null
-						&& currentUser.getMemberSubscriptionList().size() > 0) {
-					Optional<MemberSubscription> mSubscription = currentUser.getMemberSubscriptionList().stream()
+				if (memberSubscriptionList != null && memberSubscriptionList.size() > 0) {
+					
+					//找出是否已訂閱此公司(需要做移除)
+					Optional<MemberSubscription> mSubscription = memberSubscriptionList.stream()
 							.filter(obj -> obj.getCompany().getId() == company.getId()).findFirst();
 					if (!mSubscription.isEmpty()) {
-						currentUser.getMemberSubscriptionList().remove(mSubscription.get());
+						memberSubscriptionList.remove(mSubscription.get());
 						accountService.delete(mSubscription.get());
 
 					}
 				}
 			}
 		}
+		currentUser.setMemberSubscriptionList(memberSubscriptionList);
 
 		try {
 			accountService.update(currentUser);
@@ -411,34 +453,6 @@ public class MemberController {
 		}
 
 		return "account/subscription";
-	}
-
-	// ==========================================================================
-	// 會員忘記密碼
-	// ==========================================================================
-	@GetMapping("/forgotPassword")
-	public String forgotPassword() {
-		return "account/forgotPassword";
-	}
-
-	@PostMapping("/forgotPassword")
-	public String forgotPassword(@ModelAttribute("member") MemberBean member, Model model, HttpSession session)
-			throws Exception {
-		byte[] encryptedNewPwd = Utility.encryptUsingSHA512(member.getOrigpwd());
-
-		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-		if (Arrays.equals(currentUser.getPassword(), encryptedNewPwd)) {
-			currentUser.setPassword(Utility.encryptUsingSHA512(member.getPwd()));
-			accountService.updatePassword(currentUser);
-			model.addAttribute("verified", true);
-			model.addAttribute("msg", "密碼變更成功");
-			session.setAttribute("currentUser", currentUser);
-
-		} else {
-			model.addAttribute("verified", false);
-			model.addAttribute("msg", "會員密碼輸入錯誤");
-		}
-		return "account/changePassword";
 	}
 
 	// ==========================================================================
@@ -473,20 +487,54 @@ public class MemberController {
 	// 會員通知
 	// ==========================================================================
 	@GetMapping("/getMemberNotifications")
-	public @ResponseBody Set<MemberNotification> getMemberNotifications(HttpSession session) throws Exception {
-		
+	public @ResponseBody List<MemberNotification> getMemberNotifications(HttpSession session) throws Exception {
 		MemberBean currentUser = (MemberBean) session.getAttribute("currentUser");
-		
-		if (currentUser==null) {
-			return null;
+		ArrayList<MemberNotification> sortedlist = null;
+		if ( currentUser != null) {
+			sortedlist = new ArrayList<MemberNotification>(accountService.getMemberNotificationList(currentUser.getId()));
+			Collections.sort(sortedlist, Comparator.comparing(MemberNotification::getId).reversed());
 		}
 		
-		String id = String.valueOf(currentUser.getId());
-		MemberBean updatedUser = accountService.selectWithNotificationById(id);
-		currentUser.setMemberNotificationList(updatedUser.getMemberNotificationList());
-		session.setAttribute("currentUser", currentUser);
-		
-		return (currentUser.getMemberNotificationList() != null) ? currentUser.getMemberNotificationList() : null;
+		return sortedlist;
+	}
+	
+	@PostMapping("/updateMemberNotificationIsRead")
+	public @ResponseBody Boolean updateMemberNotificationIsRead( @RequestParam("mnId") int mnId, HttpSession session) throws Exception {
+		accountService.updateMemberNotificationIsRead(mnId);
+		return true;
+	}
+
+	// ==========================================================================
+	// 會員忘記密碼
+	// ==========================================================================
+	@SuppressWarnings("unused")
+	@PostMapping("/forgotPassword")
+	public String forgotPassword(@RequestParam("qid") String qid, @RequestParam("email") String email, @RequestParam("pwd") String pwd, Model model,
+			HttpSession session) throws Exception {
+
+		// 先用qid,email去找會員
+		MemberBean member = accountService.selectByQidEmail(qid, email);
+
+		//
+		//String code = "forgotPasswordCode";
+		byte[] newpwd = Utility.encryptUsingSHA512(pwd);
+		member.setPassword(newpwd);
+		//
+
+		// 發送Email信件
+
+		//
+		if (member != null) {
+			accountService.updatePassword(member);
+			model.addAttribute("verified", true);
+			model.addAttribute("msg", "已成功變更密碼");
+
+		} else {
+			model.addAttribute("verified", false);
+			model.addAttribute("msg", "資料輸入錯誤");
+		}
+
+		return "account/forgotPassword";
 	}
 
 }

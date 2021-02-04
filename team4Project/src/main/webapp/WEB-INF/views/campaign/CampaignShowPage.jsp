@@ -16,10 +16,15 @@
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script> -->
 
+<head>
 <title>活動查詢</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js"></script>
+    
 <style>
 body{
-	background-color:#f3f3f3;
+	background-color:#ECF0F5;
 }
 .title {
 	text-align: center;
@@ -188,7 +193,7 @@ tr>td>button {
 			
 			<c:forEach items="${page.content}" var="camp">
 				<tr>
-					<td><a target="_blank" href="<c:url value='/campaign/boDetail/'/>${camp.id}">${camp.name}</a></td>
+					<td style="max-width:250px"><a target="_blank" href="<c:url value='/campaign/boDetail/'/>${camp.id}">${camp.name}</a></td>
 					<td>
 						<c:choose>
 							<c:when test="${camp.discountParams.type==0}">未指定</c:when>
@@ -204,20 +209,24 @@ tr>td>button {
 						<c:if test="${camp.launchStatus}"><td>上架</td></c:if>
 						<c:if test="${!camp.launchStatus}"><td>下架</td></c:if>
 					</c:if>				
-					<td>${camp.description}</td>
-					<td style="">
+					<td style="max-width:250px">${camp.description}</td>
+					<td style="text-align:left;min-width:180px">
 						<c:if test="${!(camp.status && !camp.expired)}">
-							<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>',)">編輯</button>						
-							<c:if test="${camp.discountParams.type==1}">
-								<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/loading/${camp.id}"/>')">商品</button>
-							</c:if>		
+							<div>
+								<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/ShowUpdatePage/${camp.id}"/>',)">編輯</button>						
+								<c:if test="${camp.discountParams.type==1}">
+									<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/loading/${camp.id}"/>')">商品</button>
+								</c:if>
+							</div>	
 						</c:if>
 						<c:if test="${camp.status && !camp.expired}">
-							<span style="color:red">活動進行中</span>
+							<span style="color:red;float:right">活動進行中</span>
+							<div style="float:left">
 							<button data-id="${camp.id}" class="btn btn-self push-btn">推送</button>
 							<c:if test="${camp.discountParams.type==1}">
 								<button class="btn btn-self" onclick="window.open('<c:url value="/campaign/loading/${camp.id}"/>')">商品</button>
-							</c:if>	
+							</c:if>
+							</div>
 						</c:if>			
 					</td>
 				</tr>
@@ -240,14 +249,15 @@ tr>td>button {
 				<li class="page-item"><a id="nextBtn"class="page-link" href="#">下一頁</a></li>
 			</ul>
 		</div>
-		<div class="pageTotalShow">共${page.totalResultCount}筆資料</div>
+		<div class="pageTotalShow" style="font-size:20px">共<span style="color:red">${page.totalResultCount}</span>筆資料</div>
 		
 	</div>
 </div>
 </div>
 
 	<script>
-	
+		
+		
 		
 		
 		$(function(){
@@ -379,15 +389,27 @@ tr>td>button {
 					success:function(data){
 						if(data=="success"){
 							$(".loading-bg").css("display","none");
-							alert("推送成功")
+							swal({
+								title:"成功推送",
+								type:"success",
+								confirmButtonText:"確認"
+							})
 						}else{
 							$(".loading-bg").css("display","none");
-							alert("推送失敗")
-						}
+							swal({
+								title:"推送失敗",
+								type:"error",
+								confirmButtonText:"確認"
+							})
+						}	
 					},
 					error:function (jqXHR, textStatus, errorThrown) {
 						$(".loading-bg").css("display","none");
-						alert("推送失敗");
+						swal({
+							title:"推送失敗",
+							type:"error",
+							confirmButtonText:"確認"
+						})
 						console.log("status:"+jqXHR.status+",statusText"+jqXHR.statusText)
 			        }
 				})

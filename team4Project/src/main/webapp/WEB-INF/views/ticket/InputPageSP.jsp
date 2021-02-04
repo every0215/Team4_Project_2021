@@ -1,3 +1,4 @@
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>展覽</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -20,6 +21,24 @@
 <script src="../ticketjs/checkDateTime.js"></script>
 
 <style>
+th{
+text-align:center;
+}
+body{
+				background-color: #ECF0F5;
+			}
+				
+				.main-header .navbar-custom-menu, .main-header .navbar-right {
+				height:500px;
+				}
+				.ticket_area{
+				background-color: transparent;
+				position: absolute;
+				width: calc(100vw);
+				height: calc(100vh - 80px);
+				bottom: 0px;
+				right: 0px;
+				}
 .t1 {
 	width: 150px;
 	float: left;
@@ -43,41 +62,48 @@ select option[value="0"] {
 </style>
 </head>
 <body>
-	<div class="jumbotron text-center">
-		<h1>E-Ticket票券系統</h1>
-	</div>
+	<div class="ticket_area">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper" style="min-height:204px">
+			<!-- Content Header (Page header) -->
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
-	<a href="InputPageEX">展覽</a>
-	<a href="InputPageAT">樂園與景點</a>
-	<a href="InputPageSP">運動賽事</a>
-
-	<h3>Event Input Page-運動賽事</h3>
+		<br/>
+		<div>
+			<a href="InputPageEX" role="button" class="btn btn-success">展覽</a>
+			<a href="InputPageAT" role="button" class="btn btn-success">樂園與景點</a>
+			<a href="InputPageSP" role="button" class="btn btn-success">運動賽事</a>		
+		</div>
+		<div style="margin:10px auto;padding:10px;border-radius:20px;width:900px;background-color:#FDFFFF;box-shadow:3px 3px 9px #C4E1FF;">
+			<h1 style="text-align:center;margin-top:10px;font-weight:bolder;color:	#003D79">運動賽事新增</h1>
+	
 	<form name="myForm" action="<c:url value='/ticket/InputPageSP'/>" method="post" enctype="multipart/form-data">
 		<hr />
 			<input type="hidden" name="typeId" value="3" />
 		<label class="t1" for="">賽事名稱:</label>
-			<input type="text" name="eventName" required="required"><br> <br>
+			<input type="text" id="eventName" name="eventName" required="required"><br> <br>
 		<label class="t1" for="">賽事地點:</label>
-			<input type="text" name="eventLocation" required="required"><br> <br>
+			<input type="text" id="eventLocation" name="eventLocation" required="required"><br> <br>
 			
 		<label class="t1" for="">賽事宣傳圖片:</label>
-			<input id="image_input" type="file" name="eventImage"><br><br>
+		<input id="image_input" type="file" name="eventImage"><br>
+		<img id="picPreview" style="width:400px;height:200px;display:block; margin:auto;" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
+		<br/>
 		<input type="hidden" name="status" value="1" />
 		<%-- 以上為eventBean 以下為exhibitionBean --%>
 
 		<label class="t1" for="">起始售票時間:</label>
-			<input type="text" id="dateTime1" name="onSaleDate" placeholder="ex:2021-01-01 9:00:01" required="required">
+			<input type="text" id="dateTime1" name="onSaleDate" placeholder="ex:2021-01-01 09:00:01" required="required">
 				<span id="datetimesp1"></span><br><br>
-				<span>時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
+				<span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
 		<label class="t1" for="">結束售票時間:</label>
 			<input type="text" id="dateTime2" name="offSaleDate" placeholder="ex:2021-01-31 21:00:01" required="required">
 				<span id="datetimesp2"></span><br><br>
-				<span>時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
+				<span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
 		
 		<label class="t1" for="">描述:</label>
-			<textarea style="resize: none; width: 600px; height: 200px;" name="description"></textarea><br><br>
+			<textarea style="resize: none; width: 600px; height: 200px;" id="description" name="description"></textarea><br><br>
 
 		<label class="t1" for="">優惠銀行:</label>
 		<select name="bankId" id="bank" onChange="renew(this.selectedIndex)" required>
@@ -93,7 +119,77 @@ select option[value="0"] {
 		</select><br> <br> <label class="t1" for="">信用卡優惠折扣:</label> <input
 			type="text" name="discountRatio" required="required" placeholder="ex 0.8 表8折"><br> <br>
 
-<script>
+		<%-- 以上為exhibitionBean 以下為priceBean --%>
+		<label class="t1" for="">票價與座位表:</label>
+		<table style="margin:auto;width: 800px;border:3px #cccccc solid;text-align:center;" cellpadding="10" border='1'>
+			<thead>
+				<tr><th rowspan="2"><th colspan="2">內野區</th><th colspan="2">外野區</th></tr>
+				<tr><th>A區</th><th>B區</th><th>A區</th><th>B區</th></tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>票價</td>
+				<td><input type="hidden" name="priceName" value="內野A區票" /><input type="text" id="priceCost1" name="priceCost" required="required"></td>
+				<td><input type="hidden" name="priceName" value="內野B區票" /><input type="text" id="priceCost2" name="priceCost" required="required"></td>
+				<td><input type="hidden" name="priceName" value="外野A區票" /><input type="text" id="priceCost3" name="priceCost" required="required"></td>
+				<td><input type="hidden" name="priceName" value="外野B區票" /><input type="text" id="priceCost4" name="priceCost" required="required"></td>
+			</tr>
+			<tr>
+				<td>座位數</td>
+				<td><input type="text" id="seatNo1" name="seatNo" required="required"></td>
+				<td><input type="text" id="seatNo2" name="seatNo" required="required"></td>
+				<td><input type="text" id="seatNo3" name="seatNo" required="required"></td>
+				<td><input type="text" id="seatNo4" name="seatNo" required="required"></td>
+			</tr>
+			</tbody>
+		</table>
+		<br/><br/>
+		<%-- 以上為priceBean 以下為sessionBean --%>
+		<div id="sportSession">
+			<div>
+			<label class="t1" for="">開賽時間:</label>
+			<input type="text" name="kickOfTime" placeholder="ex:2021-01-01 09:00" required="required"><br>
+				<span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm</span><br><br>
+			</div>
+		</div>
+		<div style="margin:10px auto;width:320px">
+		<input id="Button1" type="button" value="新增場次" class="btn btn-primary btn-sm"/>
+		<input type="submit" name="sumbmit" id="submitButton" class="btn btn-warning">
+		<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+		<input id="autoInput" class="btn btn-primary btn-sm" type="button" value="一鍵輸入" />
+		</div> 
+		<script>
+		$("#autoInput").click(function () {
+            $("#eventName").val("富邦悍將");
+            $("#eventLocation").val("新北市立新莊棒球場");
+            $("#dateTime1").val("2021-03-01 09:00:01");
+            $("#dateTime2").val("2021-03-22 18:00:01");
+            $("#seatNo1").val("3000");
+            $("#seatNo2").val("3000");
+            $("#seatNo3").val("3000");
+            $("#seatNo4").val("3000");
+            $("#priceCost1").val("400");
+            $("#priceCost2").val("400");
+            $("#priceCost3").val("350");
+            $("#priceCost4").val("350");
+            
+            $("#description").val("富邦悍將英文隊名 Guardians 有守護之意，如同富邦金控守護著每一位客戶、員工及社會的企業精神，而守護者具備的強悍能力，也代表富邦同仁們驍勇善戰，攻無不克的團隊文化。");
+        });
+		
+		
+		$("#image_input").change(function(){
+            readURL(this); 
+          });
+		
+		function readURL(input){
+   	  if(input.files && input.files[0]){
+   	    var reader = new FileReader();
+   	    reader.onload = function (e) {
+   	       $("#picPreview").attr('src', e.target.result);
+   	    }
+   	    reader.readAsDataURL(input.files[0]);
+   	  }
+   }
 		
 		$(function(){	
 			$.ajax({
@@ -120,50 +216,15 @@ select option[value="0"] {
 		  document.myForm.cardId.length = creditCardInfo.length // 刪除多餘的選項
 
 		 }
-	</script>
-
-		<%-- 以上為exhibitionBean 以下為priceBean --%>
-		<label class="t1" for="">票價與座位表:</label>
-		<table style="width: 800px;border:3px #cccccc solid;text-align:center; " cellpadding="10" border='1'>
-			<thead>
-				<tr><th rowspan="2"><th colspan="2">內野區</th><th colspan="2">外野區</th></tr>
-				<tr><th>A區</th><th>B區</th><th>A區</th><th>B區</th></tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td>票價</td>
-				<td><input type="hidden" name="priceName" value="內野A區票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="內野B區票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="外野A區票" /><input type="text" name="priceCost" required="required"></td>
-				<td><input type="hidden" name="priceName" value="外野B區票" /><input type="text" name="priceCost" required="required"></td>
-			</tr>
-			<tr>
-				<td>座位數</td>
-				<td><input type="text" name="seatNo" required="required"></td>
-				<td><input type="text" name="seatNo" required="required"></td>
-				<td><input type="text" name="seatNo" required="required"></td>
-				<td><input type="text" name="seatNo" required="required"></td>
-			</tr>
-			</tbody>
-		</table>
-		<br/><br/>
-		<%-- 以上為priceBean 以下為sessionBean --%>
-		<div id="sportSession">
-			<div>
-			<label class="t1" for="">開賽時間:</label>
-			<input type="text" name="kickOfTime" placeholder="ex:2021-01-01 09:00" required="required"><br>
-				<span>時間格式:yyyy-MM-dd HH:mm</span><br><br>
-			</div>
-		</div>
 		
-		<input id="Button1" type="button" value="新增場次" />
-		<script>
+		
 		$("#Button1").click(function addSession(){
 			
 			ele = $('<div />').html('<div>'+
 					'<label class="t1" for="">開賽時間:</label>'+
 					'<input type="text" name="kickOfTime" placeholder="ex:2021-01-01 09:00" required="required"><br>'+
-					' <span>時間格式:yyyy-MM-dd HH:mm</span>&nbsp;&nbsp;&nbsp;'+
+					' <span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+					'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
 					'<span><a href="#" class="btn btn-danger">刪除</a></span><br><br><br>');
 			
 			$("#sportSession").append(ele);
@@ -254,8 +315,11 @@ select option[value="0"] {
 
 		
 		
-		<input type="submit" name="sumbmit" id="submitButton"> 
+		
 	</form>
-	<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+	</div>
+	</div>
+	</div>
+	
 </body>
 </html>

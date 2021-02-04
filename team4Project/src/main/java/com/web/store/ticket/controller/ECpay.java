@@ -1,17 +1,40 @@
-package com.web.store.report.controller;
+package com.web.store.ticket.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.web.store.account.javabean.MemberBean;
+import com.web.store.ticket.model.Event;
+import com.web.store.ticket.model.Exhibition;
+import com.web.store.ticket.model.Price;
+import com.web.store.ticket.model.Sport;
+import com.web.store.ticket.model.TicketOnWay;
+import com.web.store.ticket.model.TicketOrder;
+import com.web.store.ticket.model.TicketOrderDetail;
+import com.web.store.ticket.service.BackendService;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
@@ -31,8 +54,8 @@ import ecpay.payment.integration.domain.QueryTradeInfoObj;
 import ecpay.payment.integration.domain.QueryTradeObj;
 import ecpay.payment.integration.domain.TradeNoAioObj;
 
-@RestController
-public class ReportDownload {
+@Controller
+public class ECpay {
 	public static AllInOne all;
 // @GetMapping(value="reportdow")
 // public HttpEntity<byte[]> reportdow(HttpServletResponse response) {
@@ -42,11 +65,12 @@ public class ReportDownload {
 //     response.setHeader("Content-Disposition", "attachment; filename=my-data.json");
 //     return new HttpEntity<byte[]>(data.getBytes(), headers);
 // }
+	
+	@Autowired
+	BackendService backendService;
 
 	@GetMapping(value = "ecpayTest")
 	public String ecpayTest(HttpServletResponse response) {
-//		String data = "[{\"Id\":15243,\"ShopId\":2,\"ShopName\":\"全聯線上購\",\"ShopCategoryId\":269,\"CategoryId\":269,\"CategoryName\":\"豬肉類\",\"CategoryLevelName\":{\"Level1_ShopCategory_Id\":241,\"Level1_ShopCategory_Name\":\"海鮮肉品\",\"Level2_ShopCategory_Id\":269,\"Level2_ShopCategory_Name\":\"豬肉類\",\"Level3_ShopCategory_Id\":null,\"Level3_ShopCategory_Name\":null,\"ShopCategory_ShowId\":269,\"ShopCategory_ShowName\":\"海鮮肉品 > 豬肉類\"},\"SubTitle\":\"\",\"Title\":\"【分批取貨】黑豬梅花火鍋片 (約200g/盒)\",\"ShortDescription\":\"<ul><li>●商品製造日期、有效期限、商品成份與相關注意事項皆標示於商品外包裝或商品上，相關說明皆以實際商品所示資訊為主</li><li>●商品因拍攝之圖檔顯示上可能略有差異，以實際商品為主</li><li>●商品文案若有變動以實際商品為準</li><li>使用台灣本地黑豬肉，肉質柔軟、鮮嫩多汁。</li></ul>\",\"SubDescript\":\"<ul><li>84020005</li></ul>\",\"SuggestPrice\":324,\"Price\":265,\"MinSuggestPrice\":324,\"MinPrice\":265,\"MaxSuggestPrice\":324,\"MaxPrice\":265,\"SellingStartDateTime\":\"2021-01-08T00:00:00\",\"ListingStartDateTime\":\"2021-01-08T00:00:00\",\"CreateDateTime\":\"2021-01-23T18:22:30.0427601\",\"ImageCount\":1,\"ImageList\":[{\"Index\":0,\"Type\":\"SalePage\",\"Id\":15243,\"Seq\":0,\"Url\":\"SalePage/15243/0\",\"PicUrl\":\"//img.cdn.px.91app.tw/webapi/imagesV3/Original/SalePage/15243/0/637456343643970000?v=1\",\"SKUPropertyNameSet\":null,\"UpdatedDateTime\":\"2021-01-07T16:39:24.397\"}],\"MainImageVideo\":null,\"HasSKU\":false,\"StatusDef\":\"Normal\",\"SaleProductSKUIdList\":[27208],\"SKUPropertySetList\":[{\"GoodsSKUId\":0,\"PropertySet\":\"-1:-1\",\"SaleProductSKUId\":27208,\"SellingQty\":0,\"OnceQty\":0,\"PropertyNameSet\":\"-1:-1:-1:-1\",\"IsShow\":true,\"Price\":265,\"SuggestPrice\":324,\"CartonQty\":3}],\"PointsPayPairsList\":[],\"IsLimit\":false,\"IsShareToBuy\":false,\"IsAPPOnly\":false,\"MajorList\":[{\"Title\":\"【分批取貨】黑豬梅花火鍋片 (約200g/盒)\",\"Price\":265,\"SKUList\":[{\"Title\":\"-1\",\"PropertyList\":[{\"Name\":\"-1\",\"PropertySet\":\"-1:-1\",\"PropertyNameSet\":\"-1:-1:-1:-1\"}],\"DisplayPropertyName\":\"-1\"}],\"ShippingTypeDef\":8,\"ShippingTypeDefDesc\":null,\"ShippingDate\":null,\"ShippingWaitingDays\":null,\"SaleProductId\":15243,\"ShippingEndDate\":null,\"TemperatureTypeDef\":\"Normal\",\"Length\":null,\"Width\":null,\"Height\":null,\"Weight\":null,\"OrderFrequencySelectionDesc\":\"\",\"PickupPeriodDays\":90}],\"SalePageGiftList\":[],\"UpdatedDateTime\":\"2021-01-07T16:39:24.397\",\"PayProfileTypeDefList\":[\"PXPay\",\"CathayPay\"],\"PayProfileTypeList\":[{\"PayProfileTypeDef\":\"PXPay\",\"DisplayString\":\"PX Pay\",\"LimitedBanks\":[]},{\"PayProfileTypeDef\":\"CathayPay\",\"DisplayString\":\"信用卡付款\",\"LimitedBanks\":[\"國泰世華商業銀行\",\"彰化商業銀行\",\"花旗銀行\",\"中國信託商業銀行\",\"玉山商業銀行\",\"第一商業銀行\",\"凱基商業銀行\",\"臺灣新光商業銀行\",\"永豐商業銀行\",\"台北富邦商業銀行\",\"台新國際商業銀行\",\"聯邦商業銀行\"]}],\"ShippingTypeList\":[{\"Id\":23,\"FeeTypeDef\":\"Free\",\"FeeTypeDefDesc\":\"免運費\",\"OverPrice\":0,\"TypeName\":\"付款後門市分批取貨\",\"Fee\":0,\"SupplierId\":2,\"ShopId\":2,\"IsEnabled\":true,\"IsDefault\":false,\"ShippingTypeDef\":\"PartialPickup\",\"TemperatureTypeDef\":\"Normal\",\"ShippingProfileTypeDef\":\"PartialPickup\",\"DisplayString\":\"付款後門市分批取貨，免運費\"}],\"InstallmentList\":[],\"SalePageShowShippingTypeLists\":{\"PartialPickup\":\"付款後門市分批取貨，免運費\"},\"IsShowSoldQty\":false,\"SoldQty\":83,\"IsShowStockQty\":false,\"StockQty\":0,\"IsShowTradesOrderList\":false,\"TradesOrderListUri\":{\"Domain\":\"tw.91app.com\",\"Path\":\"/SalePage/TradesOrderList/15243\"},\"IsExcludeECouponDiscount\":false,\"IsDisplayExcludeECouponDiscount\":false,\"Promotions\":[],\"ECoupons\":[{\"ShopId\":2,\"ShopName\":\"全聯線上購\",\"ECouponList\":[]}],\"Description\":null,\"FreeShippingTypeTag\":{\"HasFreeShippingTypeTag\":true,\"BestFreeShippingTypeTag\":\"分批取貨免運費\"},\"IsSalePageFeaturesCollapse\":false,\"PurchaseExtraAmountThreshold\":0,\"IsPurchaseExtra\":false,\"SalePageKindDef\":\"Normal\",\"CanOverseaShipping\":false,\"SalePageDisplayTagList\":null,\"IsAPPOnlyPromotion\":false,\"TagIds\":null,\"HiddenCodeOrSalePageId\":\"15243\",\"IsEnableBookingPickupDate\":false,\"PrepareDays\":0,\"AvailablePickupDays\":0,\"AvailablePickupStartDateTime\":null,\"AvailablePickupEndDateTime\":null,\"LocationId\":0}]";
-//		AllInOne all = new AllInOne("");
 		
 		initial();
 		System.out.println("compare CheckMacValue method testing result: " + cmprChkMacValue());
@@ -278,4 +302,134 @@ public class ReportDownload {
 		String form = all.aioCheckOut(obj, null);
 		return form;
 	}
+	
+
+	@PostMapping(value="/ecpay/response")
+	public String ecPay(
+		Model model, HttpSession session,
+		@RequestParam(value="CustomField1",required=false) String customField1,
+		@RequestParam(value="CustomField2",required=false) String customField2,
+		@RequestParam(value="CustomField3",required=false) String customField3,
+		@RequestParam(value="CustomField4",required=false) String customField4,
+		@RequestParam(value="MerchantID",required=false) String merchantID,
+		@RequestParam(value="MerchantTradeNo",required=false) String merchantTradeNo,
+		@RequestParam(value="PaymentDate",required=false) String paymentDate,
+		@RequestParam(value="PaymentType",required=false) String paymentType,
+		@RequestParam(value="PaymentTypeChargeFee",required=false) String paymentTypeChargeFee,
+		@RequestParam(value="RtnCode",required=false) String rtnCode,
+		@RequestParam(value="RtnMsg",required=false) String rtnMsg,
+		@RequestParam(value="SimulatePaid",required=false) String simulatePaid,
+		@RequestParam(value="StoreID",required=false) String storeID,
+		@RequestParam(value="TradeAmt",required=false) String tradeAmt,
+		@RequestParam(value="TradeDate",required=false) String tradeDate,
+		@RequestParam(value="TradeNo",required=false) String tradeNo
+	) throws Exception {
+		
+		System.out.println("支付成功 merchantTradeNo: "+merchantTradeNo);
+		System.out.println(customField1+customField2+customField3+customField4+merchantID+merchantTradeNo+paymentDate+paymentType+paymentTypeChargeFee+rtnCode+rtnMsg+simulatePaid+storeID+tradeAmt+tradeDate+tradeNo);
+		//開始調整資料
+		Double discountRatio;
+		ArrayList<Double> dPriceList = new ArrayList<>();
+		//搜尋ORDERID對應的訂單
+		String shortId = merchantTradeNo.substring(0, 8)+"-"+merchantTradeNo.substring(8, 12)+"-"+merchantTradeNo.substring(12, 16)+"-"+merchantTradeNo.substring(16, 19);
+		System.out.println(shortId);
+		TicketOrder ticketOrder = backendService.queryTicketOnWayByTicketOrder(shortId);
+		System.out.println("====================================="+ticketOrder.getId());
+		Timestamp validTime = getValidTime();
+		System.out.println("====================================="+ticketOrder.getId());
+		ticketOrder.setValidTime(validTime);
+		System.out.println("====================================="+ticketOrder.getId());
+		ticketOrder.setStatus(1);
+		System.out.println("====================================="+ticketOrder.getId());
+		backendService.updateTicketOrder(ticketOrder);
+		System.out.println("====================================="+ticketOrder.getId());
+		//把onWay刪掉
+		TicketOrder ticketOrderN = backendService.queryTicketOnWayByTicketOrder(ticketOrder);
+		Set<TicketOnWay> ticketOnWays = ticketOrderN.getTicketOnWays();
+		for(TicketOnWay ticketOnWay: ticketOnWays) {
+			Integer id = ticketOnWay.getId();
+			backendService.deleteTicketOnWay(id);
+		}
+		//尋找ORDER DETAIL
+		TicketOrder ticketOrderF = backendService.queryTicketOrderDetailByTicketOrder(ticketOrder);
+		Set<TicketOrderDetail> ticketOrderDetails = ticketOrderF.getTicketOrderDetails();
+		
+		List<TicketOrderDetail> list = new ArrayList<TicketOrderDetail>(ticketOrderDetails);
+		Event event = backendService.queryOneEvent(list.get(0).getEventId());
+		List<Price> priceList = backendService.selectPriceList(event.getId());
+		
+		Integer discount = list.get(0).getDiscount();
+		if(discount==1) {
+			List<Price> oPriceList = backendService.selectPriceList(event.getId());
+			if(event.getTypeId()==1) {
+				Exhibition exhibition = backendService.selectExhibitionByEvent(event.getId());
+				discountRatio = exhibition.getDiscountRatio();
+				
+				}else {
+				Sport sport = backendService.selectSportByEvent(event.getId());
+				discountRatio = sport.getDiscountRatio();
+			}
+			for(Price price:oPriceList) {
+				Double dCost = price.getCost().doubleValue();
+				double nCost = discountRatio*dCost;
+				dPriceList.add(nCost);
+			}
+			
+		}else {
+			priceList = backendService.selectPriceList(event.getId());
+		}
+		
+		
+		model.addAttribute("ticketOrder", ticketOrderF);
+		model.addAttribute("event", event);
+		model.addAttribute("TicketOrderDetails", list);
+		model.addAttribute("priceList", priceList);
+		
+		model.addAttribute("dPriceList", dPriceList);
+		model.addAttribute("discount", discount);
+		backendService.ticketOrderNotice(merchantTradeNo);
+		return "account/ticketOrderDetail";
+	}
+	
+	@PostMapping(value="/ecpay", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String ecPay(
+		@RequestParam(value="order") String merchantTradeNo, 
+		@RequestParam(value="orderName") String itemName, 
+		@RequestParam(value="orderCost") String amount, 
+		@RequestParam(value="tradeDesc") String tradeDesc
+	) throws IOException {
+		AllInOne all = new AllInOne("");
+		AioCheckOutALL obj = new AioCheckOutALL();
+		
+		System.out.println(merchantTradeNo.replaceAll("-", "").substring(0, 19));
+		obj.setMerchantTradeNo(merchantTradeNo.replaceAll("-", "").substring(0, 19));
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date current = new Date(System.currentTimeMillis());
+		
+		System.out.println(sdFormat.format(current));
+		obj.setMerchantTradeDate(sdFormat.format(current));
+		obj.setTotalAmount(amount);
+		obj.setTradeDesc(java.net.URLEncoder.encode(tradeDesc, "UTF-8"));
+		obj.setItemName(itemName);
+		obj.setClientBackURL("http://localhost:8080/proj/showOrderDetail/"+merchantTradeNo);
+		//ngrok連線需要定時更新
+		obj.setReturnURL("https://26241fabe2f8.ngrok.io/proj/ecpay/response");
+		obj.setNeedExtraPaidInfo("Y");
+		String form = all.aioCheckOut(obj, null);
+		return form;
+	}
+
+	public Timestamp getValidTime() {
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date now = new Date();
+		Timestamp validTime = new Timestamp(now.getTime());
+		return validTime;
+	}
+	
+	
+	
+	
+	
+	
 }

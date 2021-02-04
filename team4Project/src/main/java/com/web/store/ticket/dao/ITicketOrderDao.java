@@ -16,5 +16,7 @@ public interface ITicketOrderDao {
 	
 	TicketOrder queryTicketOrderbyId(String ticketOrderId);
 	
+	TicketOrder queryTicketOrderbyshortId(String shortId);
+	
 	
 }

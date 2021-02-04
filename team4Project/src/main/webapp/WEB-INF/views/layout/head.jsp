@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>滿滿大平台</title>
-	
+	<link rel="shortcut icon" type="image/jpg" href="<c:url value='/img/favicon.ico' />"/>
     <!-- Font awesome -->
     <link href="<c:url value='/css/font-awesome.css' />" rel="stylesheet">
     <!-- Bootstrap -->
@@ -15,7 +15,7 @@
     <!-- SmartMenus jQuery Bootstrap Addon CSS -->
     <link href="<c:url value='/css/jquery.smartmenus.bootstrap.css' />" rel="stylesheet">
     <!-- Product view slider -->
-    <link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery.simpleLens.cs' />s">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery.simpleLens.css' />">
     <!-- slick slider -->
     <link rel="stylesheet" type="text/css" href="<c:url value='/css/slick.css' />">
     <!-- price picker slider -->
@@ -55,6 +55,44 @@
 	.ll-notification-container { -ms-overflow-style: none; }
 	
 	.ll-notification-container { overflow: -moz-scrollbars-none; }
+	
+	/*會員帳號管理Header呈現*/
+	#aa-catg-head-banner .aa-catg-head-banner-area {
+    	background-color: rgba(0, 0, 0, 0.4);
+	}
+	
+	#aa-catg-head-banner .aa-catg-head-banner-area .aa-catg-head-banner-content {
+    	display: inline-block;
+	    float: left;
+	    padding: 5% 0;
+	    text-align: center;
+	    width: 100%;
+	}
+
+	#aa-catg-head-banner {
+		height:200px;
+		overflow: hidden; 
+	}
+	
+	#aa-catg-head-banner img{
+		
+		
+	}
+	
+
+	
+	/* Header Search Box*/
+	#aa-header .aa-header-bottom .aa-header-bottom-area .aa-search-box {
+	    float: right;
+	    margin-right: 15%;
+	    margin-top: 13px;
+	    position: relative;
+	    width: 500px;
+	}
+	
+	#aa-header .aa-header-top {
+/* 		margin-top: 6px; */
+	}
 	
   </style>
   

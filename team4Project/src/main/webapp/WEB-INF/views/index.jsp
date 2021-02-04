@@ -50,6 +50,7 @@
         </div>
     </div>
   </section>
+  
   <!-- / slider -->
   <!-- Start Promo section -->
 	<div class="indexclass">
@@ -197,7 +198,7 @@
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="#">必安住水性噴霧殺蟲劑(600ml)</a></h4>
-                              <span class="aa-product-price">$200.00</span><span class="aa-product-price"><del>$220.00</del></span>
+                              <span class="aa-product-price">$200</span><span class="aa-product-price"><del>$250</del></span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -215,7 +216,7 @@
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="#">依必朗 防霉抗菌洗衣精補充包 加州橘子 (2000g/瓶)x8包</a></h4>
-                              <span class="aa-product-price">$41.00</span>
+                              <span class="aa-product-price">$41</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -233,7 +234,7 @@
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="#">白蘭 新動力配方洗碗精 清新檸檬 (2.8kg/瓶)x4瓶</a></h4>
-                              <span class="aa-product-price">$582.00</span><span class="aa-product-price"><del>$650.50</del></span>
+                              <span class="aa-product-price">$582</span><span class="aa-product-price"><del>$650</del></span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -249,7 +250,7 @@
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="#">高露潔抗敏感長效防護牙膏-琺瑯質照護120gx2入</a></h4>
-                              <span class="aa-product-price">$238.00</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <span class="aa-product-price">$238</span><span class="aa-product-price"><del>$500</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -267,7 +268,7 @@
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="#">毛寶熱水瓶開飲機洗淨劑(25gx3入)x12盒</a></h4>
-                              <span class="aa-product-price">$666.00</span>
+                              <span class="aa-product-price">$666</span>
                             </figcaption>
                           </figure>
                          
@@ -284,7 +285,7 @@
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="#">飛柔薄荷水涼洗髮乳1000ml</a></h4>
-                              <span class="aa-product-price">$249.50</span><span class="aa-product-price"><del>$265.50</del></span>
+                              <span class="aa-product-price">$249</span><span class="aa-product-price"><del>$265</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -300,7 +301,7 @@
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="#">蜂膠草本抗菌皂-清新花果香(100gx4入)</a></h4>
-                              <span class="aa-product-price">$333.00</span><span class="aa-product-price"><del>$333.50</del></span>
+                              <span class="aa-product-price">$333</span><span class="aa-product-price"><del>$350</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -318,7 +319,7 @@
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="#">落建頭皮洗髮露 (400ml/瓶)x6瓶</a></h4>
-                              <span class="aa-product-price">$171.00</span>
+                              <span class="aa-product-price">$171</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -336,7 +337,7 @@
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="#">澎澎香浴乳-亮澤滋潤型850g</a></h4>
-                              <span class="aa-product-price">$140.0</span>
+                              <span class="aa-product-price">$140</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -351,7 +352,7 @@
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="#">黑人深潔倍護牙刷(纖柔+圓磨軟毛)9入</a></h4>
-                              <span class="aa-product-price">$351.00</span>
+                              <span class="aa-product-price">$351</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -361,7 +362,8 @@
                           </div>
                         </li>
                       </ul>
-                      <a class="aa-browse-btn" href="#">所有商品 <span class="fa fa-long-arrow-right"></span></a>
+                      <a class="aa-browse-btn" href="<c:url value="/productShow/all"/>">所有商品 <span class="fa fa-long-arrow-right"></span></a>
+                  
                     </div>
                      							
 
@@ -381,15 +383,22 @@
                         <!-- 全家 -->
                         <!-- 全家 -->
                     <div class="tab-pane fade" id="women">
-                      <ul class="aa-product-catg">
+                           <ul class="aa-product-catg">
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-1.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/50" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">雙響炮</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">必安住水性噴霧殺蟲劑(600ml)</a></h4>
+                              <span class="aa-product-price">$200</span><span class="aa-product-price"><del>$250</del></span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -403,11 +412,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-2.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/41" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">依必朗 防霉抗菌洗衣精補充包 加州橘子 (2000g/瓶)x8包</a></h4>
+                              <span class="aa-product-price">$41</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -421,11 +430,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-3.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/42" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">白蘭 新動力配方洗碗精 清新檸檬 (2.8kg/瓶)x4瓶</a></h4>
+                              <span class="aa-product-price">$582</span><span class="aa-product-price"><del>$650</del></span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -437,11 +446,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-4.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/43" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">高露潔抗敏感長效防護牙膏-琺瑯質照護120gx2入</a></h4>
+                              <span class="aa-product-price">$238</span><span class="aa-product-price"><del>$500</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -455,11 +464,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-5.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/49" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">毛寶熱水瓶開飲機洗淨劑(25gx3入)x12盒</a></h4>
+                              <span class="aa-product-price">$666</span>
                             </figcaption>
                           </figure>
                          
@@ -472,11 +481,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-6.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/44" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">飛柔薄荷水涼洗髮乳1000ml</a></h4>
+                              <span class="aa-product-price">$249</span><span class="aa-product-price"><del>$265</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -488,11 +497,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-7.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/45" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">蜂膠草本抗菌皂-清新花果香(100gx4入)</a></h4>
+                              <span class="aa-product-price">$333</span><span class="aa-product-price"><del>$350</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -506,11 +515,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-1.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/46" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">落建頭皮洗髮露 (400ml/瓶)x6瓶</a></h4>
+                              <span class="aa-product-price">$171</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -524,11 +533,11 @@
                         
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-5.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/47" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">澎澎香浴乳-亮澤滋潤型850g</a></h4>
+                              <span class="aa-product-price">$140</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -539,11 +548,11 @@
                         </li>
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-5.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/48" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">黑人深潔倍護牙刷(纖柔+圓磨軟毛)9入</a></h4>
+                              <span class="aa-product-price">$351</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -553,7 +562,8 @@
                           </div>
                         </li>
                       </ul>
-                      <a class="aa-browse-btn" href="#">所有商品 <span class="fa fa-long-arrow-right"></span></a>
+                      <a class="aa-browse-btn" href="<c:url value="/productShow/all"/>">所有商品 <span class="fa fa-long-arrow-right"></span></a>
+                  
                     </div>
                         <!-- 全家 -->
                         <!-- 全家 -->
@@ -571,198 +581,22 @@
                         <!-- 萊爾富 -->
                         <!-- 萊爾富 -->
                         <div class="tab-pane fade" style="padding-bottom:35px" id="sports">
-                          <ul class="aa-product-catg">
-                            <!-- start single product item -->
-                            <li>
-                              <figure>
-                                <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-1.png" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                                <figcaption>
-                                  <h4 class="aa-product-title"><a href="#">雙響炮</a></h4>
-                                  <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                                </figcaption>
-                              </figure>                         
-                              <div class="aa-product-hvr-content ii">
-                                <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                
-                                <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
-                              </div>
-                              <!-- product badge -->
-                              <span class="aa-badge aa-sale" href="#">優惠中!</span>
-                            </li>
-                            <!-- start single product item -->
-                            <li>
-                              <figure>
-                                <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-2.png" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                                <figcaption>
-                                  <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                                  <span class="aa-product-price">$45.50</span>
-                                </figcaption>
-                              </figure>                         
-                              <div class="aa-product-hvr-content ii">
-                                <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                
-                                <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                              </div>
-                              <!-- product badge -->
-                               <span class="aa-badge aa-hot" href="#">熱銷</span>
-                            </li>
-                            <!-- start single product item -->
-                            <li>
-                              <figure>
-                                <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-3.png" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                                <figcaption>
-                                  <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                                  <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                                </figcaption>
-                              </figure>                         
-                              <div class="aa-product-hvr-content ii">
-                                <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                
-                                <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                              </div>
-                            </li>
-                            <!-- start single product item -->
-                            <li>
-                              <figure>
-                                <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-4.png" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                                <figcaption>
-                                  <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                                  <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                                </figcaption>
-                              </figure>                          
-                              <div class="aa-product-hvr-content ii">
-                                <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                
-                                <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                              </div>
-                              <!-- product badge -->
-                              <span class="aa-badge aa-sold-out" href="#">售完</span>
-                            </li>
-                            <!-- start single product item -->
-                            <li>
-                              <figure>
-                                <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-5.png" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                                <figcaption>
-                                  <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                                  <span class="aa-product-price">$45.50</span>
-                                </figcaption>
-                              </figure>
-                             
-                              <div class="aa-product-hvr-content ii">
-                               <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                
-                                <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                              </div>
-                            </li>
-                            <!-- start single product item -->
-                            <li>
-                              <figure>
-                                <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-6.png" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                                <figcaption>
-                                  <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                                  <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                                </figcaption>
-                              </figure>                          
-                              <div class="aa-product-hvr-content ii">
-                                <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                
-                                <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                              </div>
-                            </li>
-                            <!-- start single product item -->
-                            <li>
-                              <figure>
-                                <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-7.png" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                                <figcaption>
-                                  <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                                  <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                                </figcaption>
-                              </figure>                          
-                              <div class="aa-product-hvr-content ii">
-                                <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                
-                               <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                              </div>
-                              <!-- product badge -->
-                              <span class="aa-badge aa-sale" href="#">優惠中!</span>
-                            </li>
-                            <!-- start single product item -->
-                            <li>
-                              <figure>
-                                <a class="aa-product-img" href="#"><img class="imga" src="img/women/girl-1.png" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                                <figcaption>
-                                  <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                                  <span class="aa-product-price">$45.50</span>
-                                </figcaption>
-                              </figure>                         
-                              <div class="aa-product-hvr-content ii">
-                                <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                
-                                <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                              </div>
-                              <!-- product badge -->
-                               <span class="aa-badge aa-sold-out" href="#">售完</span>
-                            </li>    
-                            
-                            <li>
-                              <figure>
-                                <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-5.png" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                                <figcaption>
-                                  <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                                  <span class="aa-product-price">$45.50</span>
-                                </figcaption>
-                              </figure>                         
-                              <div class="aa-product-hvr-content ii">
-                               <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                
-                                <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                              </div>
-                            </li>
-                            <li>
-                              <figure>
-                                <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-5.png" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
-                                <figcaption>
-                                  <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                                  <span class="aa-product-price">$45.50</span>
-                                </figcaption>
-                              </figure>                         
-                              <div class="aa-product-hvr-content ii">
-                               <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                
-                                <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                              </div>
-                            </li>
-                          </ul>
-                          <a class="aa-browse-btn" href="#" style="margin-left: 520px;">所有商品 <span class="fa fa-long-arrow-right"></span></a>
-                        </div>
-                        <!-- 萊爾富 -->
-                        <!-- 萊爾富 -->
-                        <!-- 萊爾富 -->
-                        <!-- 萊爾富 -->
-                        <!-- 萊爾富 -->
-                        <!-- 萊爾富 -->
-                    <!-- / sports product category -->
-                    <!-- start electronic product category -->
-                    <div class="tab-pane fade" id="electronics">
-                       <ul class="aa-product-catg">
+                               <ul class="aa-product-catg">
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-1.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/50" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">雙響炮</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">必安住水性噴霧殺蟲劑(600ml)</a></h4>
+                              <span class="aa-product-price">$200</span><span class="aa-product-price"><del>$250</del></span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -776,11 +610,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-2.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/41" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">依必朗 防霉抗菌洗衣精補充包 加州橘子 (2000g/瓶)x8包</a></h4>
+                              <span class="aa-product-price">$41</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -789,18 +623,18 @@
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
                           <!-- product badge -->
-                           <span class="aa-badge aa-sold-out" href="#">售完</span>
+                           <span class="aa-badge aa-hot" href="#">熱銷</span>
                         </li>
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-3.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/42" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">白蘭 新動力配方洗碗精 清新檸檬 (2.8kg/瓶)x4瓶</a></h4>
+                              <span class="aa-product-price">$582</span><span class="aa-product-price"><del>$650</del></span>
                             </figcaption>
-                          </figure>                          
+                          </figure>                         
                           <div class="aa-product-hvr-content ii">
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                             
@@ -810,11 +644,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-4.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/43" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">高露潔抗敏感長效防護牙膏-琺瑯質照護120gx2入</a></h4>
+                              <span class="aa-product-price">$238</span><span class="aa-product-price"><del>$500</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -823,18 +657,19 @@
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
                           <!-- product badge -->
-                          <span class="aa-badge aa-hot" href="#">熱銷</span>
+                          <span class="aa-badge aa-sold-out" href="#">售完</span>
                         </li>
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-5.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/49" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">毛寶熱水瓶開飲機洗淨劑(25gx3入)x12盒</a></h4>
+                              <span class="aa-product-price">$666</span>
                             </figcaption>
-                          </figure>                         
+                          </figure>
+                         
                           <div class="aa-product-hvr-content ii">
                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                             
@@ -844,13 +679,13 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-6.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/44" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">飛柔薄荷水涼洗髮乳1000ml</a></h4>
+                              <span class="aa-product-price">$249</span><span class="aa-product-price"><del>$265</del></span>
                             </figcaption>
-                          </figure>                         
+                          </figure>                          
                           <div class="aa-product-hvr-content ii">
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                             
@@ -860,11 +695,11 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-7.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/45" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#">蜂膠草本抗菌皂-清新花果香(100gx4入)</a></h4>
+                              <span class="aa-product-price">$333</span><span class="aa-product-price"><del>$350</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -878,11 +713,133 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-8.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/46" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">落建頭皮洗髮露 (400ml/瓶)x6瓶</a></h4>
+                              <span class="aa-product-price">$171</span>
+                            </figcaption>
+                          </figure>                         
+                          <div class="aa-product-hvr-content ii">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                          </div>
+                          <!-- product badge -->
+                           <span class="aa-badge aa-sold-out" href="#">售完</span>
+                        </li>    
+                        
+                        <li>
+                          <figure>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/47" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">澎澎香浴乳-亮澤滋潤型850g</a></h4>
+                              <span class="aa-product-price">$140</span>
+                            </figcaption>
+                          </figure>                         
+                          <div class="aa-product-hvr-content ii">
+                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                          </div>
+                        </li>
+                        <li>
+                          <figure>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/48" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">黑人深潔倍護牙刷(纖柔+圓磨軟毛)9入</a></h4>
+                              <span class="aa-product-price">$351</span>
+                            </figcaption>
+                          </figure>                         
+                          <div class="aa-product-hvr-content ii">
+                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                          </div>
+                        </li>
+                      </ul>
+                      <a class="aa-browse-btn" href="<c:url value="/productShow/all"/>">所有商品 <span class="fa fa-long-arrow-right"></span></a>
+                  
+                    </div>
+                        <!-- 萊爾富 -->
+                        <!-- 萊爾富 -->
+                        <!-- 萊爾富 -->
+                        <!-- 萊爾富 -->
+                        <!-- 萊爾富 -->
+                        <!-- 萊爾富 -->
+                    <!-- / sports product category -->
+                    <!-- start electronic product category -->
+                    <div class="tab-pane fade" id="electronics">
+                          <ul class="aa-product-catg">
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- 小七 -->
+                        <!-- start single product item -->
+                        <li>
+                          <figure>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/50" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">必安住水性噴霧殺蟲劑(600ml)</a></h4>
+                              <span class="aa-product-price">$200</span><span class="aa-product-price"><del>$250</del></span>
+                            </figcaption>
+                          </figure>                         
+                          <div class="aa-product-hvr-content ii">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                          </div>
+                          <!-- product badge -->
+                          <span class="aa-badge aa-sale" href="#">優惠中!</span>
+                        </li>
+                        <!-- start single product item -->
+                        <li>
+                          <figure>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/41" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">依必朗 防霉抗菌洗衣精補充包 加州橘子 (2000g/瓶)x8包</a></h4>
+                              <span class="aa-product-price">$41</span>
+                            </figcaption>
+                          </figure>                         
+                          <div class="aa-product-hvr-content ii">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                          </div>
+                          <!-- product badge -->
+                           <span class="aa-badge aa-hot" href="#">熱銷</span>
+                        </li>
+                        <!-- start single product item -->
+                        <li>
+                          <figure>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/42" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">白蘭 新動力配方洗碗精 清新檸檬 (2.8kg/瓶)x4瓶</a></h4>
+                              <span class="aa-product-price">$582</span><span class="aa-product-price"><del>$650</del></span>
+                            </figcaption>
+                          </figure>                         
+                          <div class="aa-product-hvr-content ii">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                          </div>
+                        </li>
+                        <!-- start single product item -->
+                        <li>
+                          <figure>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/43" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">高露潔抗敏感長效防護牙膏-琺瑯質照護120gx2入</a></h4>
+                              <span class="aa-product-price">$238</span><span class="aa-product-price"><del>$500</del></span>
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content ii">
@@ -891,15 +848,85 @@
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
                           <!-- product badge -->
+                          <span class="aa-badge aa-sold-out" href="#">售完</span>
+                        </li>
+                        <!-- start single product item -->
+                        <li>
+                          <figure>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/49" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">毛寶熱水瓶開飲機洗淨劑(25gx3入)x12盒</a></h4>
+                              <span class="aa-product-price">$666</span>
+                            </figcaption>
+                          </figure>
+                         
+                          <div class="aa-product-hvr-content ii">
+                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                          </div>
+                        </li>
+                        <!-- start single product item -->
+                        <li>
+                          <figure>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/44" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">飛柔薄荷水涼洗髮乳1000ml</a></h4>
+                              <span class="aa-product-price">$249</span><span class="aa-product-price"><del>$265</del></span>
+                            </figcaption>
+                          </figure>                          
+                          <div class="aa-product-hvr-content ii">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                          </div>
+                        </li>
+                        <!-- start single product item -->
+                        <li>
+                          <figure>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/45" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">蜂膠草本抗菌皂-清新花果香(100gx4入)</a></h4>
+                              <span class="aa-product-price">$333</span><span class="aa-product-price"><del>$350</del></span>
+                            </figcaption>
+                          </figure>                          
+                          <div class="aa-product-hvr-content ii">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            
+                           <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                          </div>
+                          <!-- product badge -->
+                          <span class="aa-badge aa-sale" href="#">優惠中!</span>
+                        </li>
+                        <!-- start single product item -->
+                        <li>
+                          <figure>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/46" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
+                            <figcaption>
+                              <h4 class="aa-product-title"><a href="#">落建頭皮洗髮露 (400ml/瓶)x6瓶</a></h4>
+                              <span class="aa-product-price">$171</span>
+                            </figcaption>
+                          </figure>                         
+                          <div class="aa-product-hvr-content ii">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                          </div>
+                          <!-- product badge -->
                            <span class="aa-badge aa-sold-out" href="#">售完</span>
-                        </li> 
+                        </li>    
+                        
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-5.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/47" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">澎澎香浴乳-亮澤滋潤型850g</a></h4>
+                              <span class="aa-product-price">$140</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -907,14 +934,14 @@
                             
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
-                        </li>  
+                        </li>
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img class="imga" src="img/electronics/electronic-5.png" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img class="imga" src="getproductimage/48" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn cc"href="#"><span class="fa fa-shopping-cart cc"></span>加入購物車</a>
                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">台酒花雕雞</a></h4>
-                              <span class="aa-product-price">$45.50</span>
+                              <h4 class="aa-product-title"><a href="#">黑人深潔倍護牙刷(纖柔+圓磨軟毛)9入</a></h4>
+                              <span class="aa-product-price">$351</span>
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content ii">
@@ -922,30 +949,11 @@
                             
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
-                        </li>                     
+                        </li>
                       </ul>
-                      <a class="aa-browse-btn" href="#">所有商品 <span class="fa fa-long-arrow-right"></span></a>
+                      <a class="aa-browse-btn" href="<c:url value="/productShow/all"/>">所有商品 <span class="fa fa-long-arrow-right"></span></a>
+                  
                     </div>
-                    <!-- / electronic product category -->
-                  </div>
-                  <!-- quick view modal -->                  
-                  <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">                      
-                        <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <div class="row">
-                            <!-- Modal view slider -->
-                            <div class="col-md-6 col-sm-6 col-xs-12">                              
-                              <div class="aa-product-view-slider">                                
-                                <div class="simpleLens-gallery-container" id="demo-1">
-                                  <div class="simpleLens-container">
-                                      <div class="simpleLens-big-image-container">
-                                          <a class="simpleLens-lens-image" data-lens-image="img/view-slider/large/polo-shirt-1.png">
-                                              <img class="imga" src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
-                                          </a>
-                                      </div>
-                                  </div>
                                   <!-- 商品詳情小預覽圖 -->
                                   <!-- <div class="simpleLens-thumbnails-container">
                                       <a href="#" class="simpleLens-thumbnail-wrapper"
@@ -969,41 +977,41 @@
                               </div>
                             </div>
                             <!-- Modal view content -->
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <div class="aa-product-view-content">
-                                <h3>排骨雞麵</h3>
-                                <div class="aa-price-block">
-                                  <span class="aa-product-view-price">$34.99</span>
-                                  <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
-                                </div>
-                                <p>湯頭最純、最香濃的經典口味，超過30年長青品牌，歷久彌新，是許多人念念不忘的好滋味！有四大天王中的味味A排骨雞，也有深受年輕消費者喜愛的冬菜鴨肉冬粉…沒吃過味味A的話，那你就別說自己有吃過速食麵！</p>
-                                <!-- <h4>Size</h4>
-                                <div class="aa-prod-view-size">
-                                  <a href="#">S</a>
-                                  <a href="#">M</a>
-                                  <a href="#">L</a>
-                                  <a href="#">XL</a> -->
-                                </div>
-                                <div class="aa-prod-quantity">
-                                  <form action="">
-                                    <select name="" id="">
-                                      <option value="0" selected="1">1</option>
-                                      <option value="1">2</option>
-                                      <option value="2">3</option>
-                                      <option value="3">4</option>
-                                      <option value="4">5</option>
-                                      <option value="5">6</option>
-                                    </select>
-                                  </form>
-                                  <p class="aa-prod-category">
-                                    Category: <a href="#">泡麵</a>
-                                  </p>
-                                </div>
-                                <div class="aa-prod-view-bottom">
-                                  <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>加入購物車</a>
-                                  <a href="#" class="aa-add-to-cart-btn">View Details</a>
-                                </div>
-                              </div>
+<!--                             <div class="col-md-6 col-sm-6 col-xs-12"> -->
+<!--                               <div class="aa-product-view-content"> -->
+<!--                                 <h3>排骨雞麵</h3> -->
+<!--                                 <div class="aa-price-block"> -->
+<!--                                   <span class="aa-product-view-price">$34.99</span> -->
+<!--                                   <p class="aa-product-avilability">Avilability: <span>In stock</span></p> -->
+<!--                                 </div> -->
+<!--                                 <p>湯頭最純、最香濃的經典口味，超過30年長青品牌，歷久彌新，是許多人念念不忘的好滋味！有四大天王中的味味A排骨雞，也有深受年輕消費者喜愛的冬菜鴨肉冬粉…沒吃過味味A的話，那你就別說自己有吃過速食麵！</p> -->
+<!--                                 <h4>Size</h4>
+<!--                                 <div class="aa-prod-view-size"> -->
+<!--                                   <a href="#">S</a> -->
+<!--                                   <a href="#">M</a> -->
+<!--                                   <a href="#">L</a> -->
+<!--                                   <a href="#">XL</a> -->
+<!--                                 </div> -->
+<!--                                 <div class="aa-prod-quantity"> -->
+<!--                                   <form action=""> -->
+<!--                                     <select name="" id=""> -->
+<!--                                       <option value="0" selected="1">1</option> -->
+<!--                                       <option value="1">2</option> -->
+<!--                                       <option value="2">3</option> -->
+<!--                                       <option value="3">4</option> -->
+<!--                                       <option value="4">5</option> -->
+<!--                                       <option value="5">6</option> -->
+<!--                                     </select> -->
+<!--                                   </form> -->
+<!--                                   <p class="aa-prod-category"> -->
+<!--                                     Category: <a href="#">泡麵</a> -->
+<!--                                   </p> -->
+<!--                                 </div> -->
+<!--                                 <div class="aa-prod-view-bottom"> -->
+<!--                                   <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>加入購物車</a> -->
+<!--                                   <a href="#" class="aa-add-to-cart-btn">View Details</a> -->
+<!--                                 </div> -->
+<!--                               </div> -->
                             </div>
                           </div>
                         </div>                        
@@ -1762,6 +1770,10 @@
 
 
 
-
+	<c:if test="${!empty loginFail}">
+		<script>
+			alert("登入失敗");
+		</script>
+	</c:if>
   </body>
 </html>

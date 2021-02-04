@@ -15,26 +15,35 @@
 	width: 730px;
 /* 	height:calc(50vh); */
 	top:500px;
-	margin:auto;
+/* 	margin:auto; */
+	margin:0px 0px 0px 150px;
 	bottom:500px;
 }
 /* 搜尋列 */
 .map_left {
-	border: solid 2px gray;
+	border: solid 2px white;
 	width: 250px;
-	height: 530px;
+	height: 500px;
+	margin:15px 5px 0px 0px;
+	padding-top:20px;
+	padding-left:10px;
+	padding-right:10px;
+	background-color:#FFD382;
+	color:#194866;
+	border-radius: 20px;
 }
 /* 顯示地圖 */
 .map_show {
 	/* border:solid 2px gray; */
-	width: 450px;
-	height: 390px;
+	width: 850px;
+	height: 350px;
 }
 /* 點擊地圖標記檢視門市資訊 */
 .map_info {
-	border: solid 2px gray;
-	width: 450px;
-	height: 150px;
+	border: solid 2px #C0C0C0;
+	width: 850px;
+	height: 145px;
+	margin-top:5px;
 }
 /* 服務顯示依照企業Id */
 ul li {
@@ -45,6 +54,14 @@ ul li {
 ul {
 	padding: 0px;
 }
+.cmpleft{
+	margin-top:15px;
+	display:block;
+}
+.title-bar {
+          clear: both;
+          padding: 10px;
+        }
 </style>
 </head>
  <c:import url="/layout/head" />
@@ -53,13 +70,20 @@ ul {
 	<script src="https://code.jquery.com/jquery-3.3.1.js"
 		data-integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		data-crossorigin="anonymous"></script>
+		<div class="title-bar">
+            <div class="title-bar" style="text-align: center;line-height:60px;height:60px;background-color:#FFD382;width:300px;padding:10px;margin:5px auto;border-radius:30px" >
+                <h2 style="color: #194866;font-weight:bolder">門市查詢</h2>
+            </div>
+
+        </div>
 	<div class="mapall">
+	<div>
 		<table>
 			<td>
 				<!-- 左測搜尋欄 -->
-				<div class="map_left">
-					<div>
-						企業 <select id="cmpChange">
+				<div class="map_left" style="margin-bottom: 50px">
+					<div style="margin-bottom: 20px">
+						企業&nbsp;&nbsp;&nbsp; <select id="cmpChange" style="color:#003D79;width:150px">
 							<option value="0" selected = "selected">請挑選</option>
 							<option value="1">全家</option>
 							<option value="2">萊爾富</option>
@@ -67,18 +91,19 @@ ul {
 							<option value="4">全聯福利中心</option>
 						</select>
 					</div>
-					<div>
-						店名 <input type="text" id="stoName">
-						<button id="stoSearch">搜尋</button>
-					</div>
-					<div>
-						地區 <select id="areaChange">
+					<div style="margin-bottom: 20px">
+						地區&nbsp;&nbsp;&nbsp; <select id="areaChange" style="color:#003D79;width:150px">
 							<option value="0" selected = "selected">請挑選</option>
 							<option value="北區">北區</option>
 							<option value="中區">中區</option>
 							<option value="南區">南區</option>
 
 						</select>
+					</div>
+					
+					<div style="margin-bottom: 20px">
+						店名 &nbsp;&nbsp;&nbsp;<input type="text" id="stoName" style="color:#003D79;height:30px;width:120px">
+						<button id="stoSearch" class="btn btn-primary" style="float:right">搜尋</button>
 					</div>
 					<div>
 						服務
@@ -90,7 +115,7 @@ ul {
 <!-- 										height="20px" width="20px" src="" /></span> ATM</li> -->
 <!-- 								<li><input type="checkbox" name="" id=""> <span><img -->
 <!-- 										height="20px" width="20px" src="" /></span> 停車場</li> -->
-<!-- 								<button id="svSearch">搜尋</button> -->
+<!-- 								<button id="svidSearch">搜尋</button> -->
 							</ul>
 
 						</div>
@@ -101,14 +126,14 @@ ul {
 			</td>
 			<!-- 右側地圖部分 -->
 
-			<td>
-				<div id="map" class="map_show">
+			<td class="cmpleft">
+				<div id="map" class="map_show" style="margin:10px 0px 10px 30px;border-radius: 5px">
 					<iframe
 						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28918.428460427356!2d121.53965200064644!3d25.040739817517917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823c1920a1b7f%3A0x6502863b00922978!2zVGliYU1lIOaZuuaFp0FQUOaVtOWQiOmWi-eZvOmkiuaIkOePrSjlj7DljJcp!5e0!3m2!1szh-TW!2stw!4v1611813135444!5m2!1szh-TW!2stw"
-						width="450" height="390" frameborder="0" style="border: 0;"
+						width="450" height="390" frameborder="0" style="border: 0px;"
 						allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 				</div>
-				<div class="map_info" style="overflow: scroll;">
+				<div class="map_info" style="overflow: scroll;margin:10px 0px 50px 30px;border-radius: 5px">
 <!-- 					統一超商 7-11 大安店(顯示門市資訊)<br> <span><img height="20px" -->
 <!-- 						width="20px" src="" /></span> <span><img height="20px" -->
 <!-- 						width="20px" src="" /></span> <span><img height="20px" -->
@@ -120,6 +145,7 @@ ul {
 			</td>
 
 		</table>
+	</div>
 	</div>
 	<script>
 	//=====================================================================================
@@ -169,10 +195,11 @@ ul {
 
                             //顯示marker查出來的企業資訊
                             $(".map_info").append(` ` + data.storeName + `<br>
-                            <span><img height="20px" width="20px" src="" /></span>
-                            <span><img height="20px" width="20px" src="" /></span>
-                            <span><img height="20px" width="20px" src="" /></span>(服務)<br>
+                            
                             電話:`+data.phone+`<br>
+                            
+                           
+                            
                             地址:`+data.storeAddress+`<br>
                             門店簡介:<br>
                             <div>
@@ -248,7 +275,7 @@ ul {
         $("#stoSearch").click(function () {
             var stoName = $("#stoName").val();
             var cmpid = $("#cmpChange").val();
-            console.log(stoName)
+            console.log(stoName);
             $.ajax({
                 type: "GET",
                 url: "<c:url value='/company/mapGetStoreByName/" + cmpid + "/" + stoName + "' />",
@@ -265,33 +292,6 @@ ul {
             });
         });
 
-        //服務搜尋(id查詢)
-        $("#svSearch").click(function () {
-            alert($("#cmpChange").val());
-			console.log("服務搜尋")
-            var svId = [];
-            $("input[name='checkbox']:checked").each(function (i) {
-                svId[i] = $(this).val();
-            });
-
-            $.ajax(
-                {
-                    data: { 'svId': svId },
-                    dataType: 'text',
-                    success: function (data) {
-                        //設置Marker參數
-                        position = data;
-                        map.setCenter({lat:Averagelat(),lng:Averagelng()});
-                        go();
-                    },
-                    type: 'post',
-                    url: "<c:url value='/company/mapGetStoreByService' />",
-                    traditional: true
-                }
-            );
-
-
-        });
         //按區域搜尋(後端if(cmpid == 0){查全部})
         $("#areaChange").on("change", function () {
             var area = $("#areaChange").val();
@@ -304,16 +304,17 @@ ul {
                     //設置Marker參數
                     position = data;
                     map.setCenter({lat:Averagelat(),lng:Averagelng()});
+
                     go();
 
-                    console.log(data)
+                    console.log(data);
                 }
             });
         });
 
 		//企業變更搜尋服務and全部store
         $("#cmpChange").on("change", function () {
-            alert($("#cmpChange").val());
+            
             var area = $("#areaChange").val();
             var v = $("#cmpChange").val();
             $.ajax({
@@ -326,7 +327,7 @@ ul {
                     for (var i = 0; i < data.length; i++) {
                         $(".sevicelist").append(`
                 				<li>
-                                <input type="checkbox" name="" id="`+ data[i].id + `" >
+                                <input type="checkbox" name="service" value="`+ data[i].id + `" >
                                 <span><img height="20px" width="20px" src="<c:url value='/company/getCompanyServiceImage/`+ data[i].id + `' />" /></span>
                                 `+ data[i].spService + `
                             	</li>
@@ -334,9 +335,10 @@ ul {
                 		`)
                     }
                     $(".sevicelist").append(`
-                    		<button id="svSearch">搜尋</button>
+
+                    		<button id="svidSearch" class="btn btn-primary" style="float:right;margin-top:5px">搜尋</button>
                     `)
-                    console.log(data)
+                    console.log(data);
                 }
             });
 
@@ -353,14 +355,68 @@ ul {
                     console.log(Averagelat(),Averagelng())
                     go();
 
-                    console.log(data)
+                    console.log(data);
                 }
             });
 
 
 
         });
+      //服務搜尋(id查詢)
+        $(".sevicelist").on("click","#svidSearch",function () {
+			
+            
+            var svId = [];
+            $("input[name='service']:checked").each(function (i) {
+                svId[i] = $(this).val();
+            });
+			console.log("服務查詢"+svId);
+            $.ajax(
+                {
+                    data: { 'svId': svId },
+                    dataType: 'json',
+                    success: function (data) {
+                        //設置Marker參數
+                        position = data;
+                        map.setCenter({lat:Averagelat(),lng:Averagelng()});
+                        go();
+                    },
+                    type: 'post',
+                    url: "<c:url value='/company/mapGetStoreByService' />",
+                    traditional: true
+                }
+            );
 
+
+        })
+        
+        //服務搜尋(id查詢)
+//         $(".svidSearch").click(function () {
+// 			console.log("服務搜尋")
+
+//             var svId = [];
+//             $("input[name='checkbox']:checked").each(function (i) {
+//                 svId[i] = $(this).val();
+//             });
+
+//             $.ajax(
+//                 {
+//                     data: { 'svId': svId },
+//                     dataType: 'text',
+//                     success: function (data) {
+//                         //設置Marker參數
+//                         position = data;
+//                         map.setCenter({lat:Averagelat(),lng:Averagelng()});
+//                         go();
+//                     },
+//                     type: 'post',
+//                     url: "<c:url value='/company/mapGetStoreByService' />",
+//                     traditional: true
+//                 }
+//             );
+
+
+//         });
 //不用加了
 // 	$(document).ready(function() {
 

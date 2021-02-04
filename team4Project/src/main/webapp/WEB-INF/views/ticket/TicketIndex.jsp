@@ -1,3 +1,4 @@
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,13 +7,13 @@
 
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" -->
+<!-- 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" -->
+<!-- 	crossorigin="anonymous"> -->
 <title>票券主頁</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -20,7 +21,39 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!--   =============TSET============= -->
+<style>
 
+body{
+	background-color: #ECF0F5;
+	}
+/* 				預設為500px 但是會擋住我的search功能 */
+.main-header .navbar-custom-menu, .main-header .navbar-right {
+	height:50px;
+	}
+.ticket_area{
+	background-color: transparent;
+	position: absolute;
+	width: calc(100vw);
+	height: calc(100vh - 80px);
+	bottom: 0px;
+	right: 0px;
+	}
+	table tr th{
+	text-align:center;
+	}
+	
+	tr th{
+	background-color:#003D79;
+	color:white;
+	}
+	
+	tr:nth-child(odd) td{
+	background-color:#ECF5FF;
+	}
+	
+
+
+</style>
 
 
 
@@ -28,9 +61,10 @@
 
 
 <body>
-	<div class="jumbotron text-center">
-		<h1>E-Ticket票券系統</h1>
-	</div>
+	<div class="ticket_area">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper" style="min-height:204px">
+			<!-- Content Header (Page header) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
@@ -50,26 +84,28 @@
 	<script
 		src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 		
-	<div style="width: 1000px; margin: 0 auto">
+	<div style="width: 1100px; margin: 10px auto">
 	<a href='<c:url value="ticket/InputPageEX" />' class="btn btn-success" role="button">新增票券</a>
 	<br/><br/>
 		<table id="myTable"
-			style="margin: auto; width: 900px; border: 3px #cccccc solid;"
+			style="margin: auto; width: 1000px; border: 3px #cccccc solid;"
 			cellpadding="10" border='1'>
 			<thead>
 				<tr>
 					<th colspan='6' style="text-align: center;">票券一覽表</th>
 				</tr>
 				<tr>
-<!-- 					<th nowrap="nowrap">序號</th> -->
-					<th nowrap="nowrap"><svg xmlns="http://www.w3.org/2000/svg"
-							width="16" height="16" fill="currentColor"
+
+					<th style="width:80px">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 							class="bi bi-ui-checks-grid" viewBox="0 0 16 16">
                 <path
 								d="M2 10h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1zm9-9h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm0 9a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-3zm0-10a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-3zM2 9a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H2zm7 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-3zM0 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.354.854a.5.5 0 1 0-.708-.708L3 3.793l-.646-.647a.5.5 0 1 0-.708.708l1 1a.5.5 0 0 0 .708 0l2-2z" />
-              </svg> 票券類別</th>
-					<th nowrap="nowrap">名稱</th>
-					<th nowrap="nowrap"><svg width="1em" height="1em"
+              </svg> 
+				類別
+				</th>
+					<th>名稱</th>
+					<th><svg width="1em" height="1em"
 							viewBox="0 0 16 16" class="bi bi-geo-alt" fill="currentColor"
 							xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"
@@ -77,8 +113,8 @@
                 <path fill-rule="evenodd"
 								d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
               </svg> 地點</th>
-              <th>狀態</th>
-					<th nowrap="nowrap"><svg xmlns="http://www.w3.org/2000/svg"
+              <th style="width:60px">狀態</th>
+					<th><svg xmlns="http://www.w3.org/2000/svg"
 							width="16" height="16" fill="currentColor"
 							class="bi bi-card-image" viewBox="0 0 16 16">
                 <path
@@ -128,11 +164,25 @@
         </tbody>
       </table>
       </div>
+      </div>
+      </div>
 
 	<script>
 		$(document).ready(function() {
 			$('#myTable').DataTable({
-				"lengthMenu": [4, 8]
+				"lengthMenu": [4, 8],
+				"language" :{
+					"search" : "查詢: ",
+					"info" : "顯示第 _START_ - _END_ 筆記錄，共 _TOTAL_ 筆",
+					"sLengthMenu" : "顯示 _MENU_筆記錄",
+                    "zeroRecords" : "沒有符合條件的記錄",
+                    "infoEmpty": "沒有符合條件的記錄",
+                    "emptyTable" : "沒有符合條件的記錄",
+					"paginate" : {
+                        sFirst : " 首頁", sLast : "末頁 ", sPrevious : " 上一頁 ", sNext : " 下一頁"
+                        
+                     }
+				}
 			});
 
 			

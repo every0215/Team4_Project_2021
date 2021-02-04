@@ -53,6 +53,10 @@
         #container .row{
             word-wrap: break-word;
         }
+        
+        #container h3{
+        	color:white;
+        }
 
         .row{
            padding:20px;

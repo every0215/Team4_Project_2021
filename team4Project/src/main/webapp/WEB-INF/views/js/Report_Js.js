@@ -17,121 +17,121 @@ $(function() {
 	// 		    });
 	// 		});
 
-	
 
-// Tab1-年度各區業績
-$("#queryAreaSales").ready(function() {
-	console.log("queryAreaSales");
-	$.ajax({
-		url: "/proj/queryAreaSales",
-		type: 'GET',
-		dataType: "json",
-		success: function(rep1) {
-			setDataTable1(rep1);
-		}
+
+	// Tab1-年度各區業績
+	$("#queryAreaSales").ready(function() {
+		console.log("queryAreaSales");
+		$.ajax({
+			url: "/proj/queryAreaSales",
+			type: 'GET',
+			dataType: "json",
+			success: function(rep1) {
+				setDataTable1(rep1);
+			}
+		});
 	});
+
+	$("#queryAreaSales").click(function() {
+		console.log("queryAreaSales");
+		$.ajax({
+			url: "/proj/queryAreaSales",
+			type: 'GET',
+			dataType: "json",
+			success: function(rep1) {
+				setDataTable1(rep1);
+				console.log(rep1);
+			}
+		});
+	});
+
+	// Tab2-年度品類銷售
+	$("#queryProdustClass").click(function() {
+		console.log("queryProdustClass");
+		$.ajax({
+			url: "/proj/queryProdustClass",
+			type: 'GET',
+			dataType: "json",
+			success: function(rep2) {
+				setDataTable2(rep2);
+				console.log(rep2);
+			}
+		});
+	});
+
+	// Tab3-年度活動銷售
+	$("#queryActiveSales").click(function() {
+		console.log("queryActiveSales");
+		$.ajax({
+			url: "/proj/queryActiveSales",
+			type: 'GET',
+			dataType: "json",
+			success: function(rep3) {
+				setDataTable3(rep3);
+				console.log(rep3);
+			}
+		});
+	});
+
+	// Tab4-各店年度業績/折扣/會員數
+	$("#queryAllStoreSales").click(function() {
+		console.log("queryAllStoreSales");
+		$.ajax({
+			url: "/proj/queryAllStoreSales",
+			type: 'GET',
+			dataType: "json",
+			success: function(rep4) {
+				setDataTable4(rep4);
+				console.log(rep4);
+			}
+		});
+	});
+
+	// Tab5-各店活動業績
+	$("#queryAllActiveSales").click(function() {
+		console.log("queryAllActiveSales");
+		$.ajax({
+			url: "/proj/queryAllActiveSales",
+			type: 'GET',
+			dataType: "json",
+			success: function(rep5) {
+				setDataTable5(rep5);
+				console.log(rep5);
+			}
+		});
+	});
+
+	// Tab6-各店付款方式
+	$("#queryAllStorePayment").click(function() {
+		console.log("queryAllStorePayment");
+		$.ajax({
+			url: "/proj/queryAllStorePayment",
+			type: 'GET',
+			dataType: "json",
+			success: function(rep6) {
+				setDataTable6(rep6);
+				console.log(rep6);
+
+			}
+		});
+	});
+
+	// Tab7-各店無庫存項數
+	$("#queryAllStoreStock").click(function() {
+		console.log("queryAllStoreStock");
+		$.ajax({
+			url: "/proj/queryAllStoreStock",
+			type: 'GET',
+			dataType: "json",
+			success: function(rep7) {
+				setDataTable7(rep7);
+				console.log(rep7);
+			}
+		});
+	});
+
+
 });
-
-$("#queryAreaSales").click(function() {
-	console.log("queryAreaSales");
-	$.ajax({
-		url: "/proj/queryAreaSales",
-		type: 'GET',
-		dataType: "json",
-		success: function(rep1) {
-			setDataTable1(rep1);
-			console.log(rep1);
-		}
-	});
-});
-
-// Tab2-年度品類銷售
-$("#queryProdustClass").click(function() {
-	console.log("queryProdustClass");
-	$.ajax({
-		url: "/proj/queryProdustClass",
-		type: 'GET',
-		dataType: "json",
-		success: function(rep2) {
-			setDataTable2(rep2);
-			console.log(rep2);
-		}
-	});
-});
-
-// Tab3-年度活動銷售
-$("#queryActiveSales").click(function() {
-	console.log("queryActiveSales");
-	$.ajax({
-		url: "/proj/queryActiveSales",
-		type: 'GET',
-		dataType: "json",
-		success: function(rep3) {
-			setDataTable3(rep3);
-			console.log(rep3);
-		}
-	});
-});
-
-// Tab4-各店年度業績/折扣/會員數
-$("#queryAllStoreSales").click(function() {
-	console.log("queryAllStoreSales");
-	$.ajax({
-		url: "/proj/queryAllStoreSales",
-		type: 'GET',
-		dataType: "json",
-		success: function(rep4) {
-			setDataTable4(rep4);
-			console.log(rep4);
-		}
-	});
-});
-
-// Tab5-各店活動業績
-$("#queryAllActiveSales").click(function() {
-	console.log("queryAllActiveSales");
-	$.ajax({
-		url: "/proj/queryAllActiveSales",
-		type: 'GET',
-		dataType: "json",
-		success: function(rep5) {
-			setDataTable5(rep5);
-			console.log(rep5);
-		}
-	});
-});
-
-// Tab6-各店付款方式
-$("#queryAllStorePayment").click(function() {
-	console.log("queryAllStorePayment");
-	$.ajax({
-		url: "/proj/queryAllStorePayment",
-		type: 'GET',
-		dataType: "json",
-		success: function(rep6) {
-			setDataTable6(rep6);
-			console.log(rep6);
-
-		}
-	});
-});
-
-// Tab7-各店無庫存項數
-$("#queryAllStoreStock").click(function() {
-	console.log("queryAllStoreStock");
-	$.ajax({
-		url: "/proj/queryAllStoreStock",
-		type: 'GET',
-		dataType: "json",
-		success: function(rep7) {
-			setDataTable7(rep7);
-			console.log(rep7);
-		}
-	});
-});
-			
-
-	});
 
 //顏色表1(10種)
 let coloarArr1 = [
@@ -232,6 +232,19 @@ function setDataTable1(datas) {
 			, 'copy'
 
 		],
+		'language': {
+			'processing': '查詢中...',
+			'search': '搜尋:',
+			'zeroRecords': '没有數據',
+			'lengthMenu': '每頁 _MENU_ 筆',
+			'paginate': {
+				'first': '第一頁',
+				'last': '最後一頁',
+				'next': '下一頁',
+				'previous': '前一頁'
+			},
+			'info': '第 _PAGE_ 頁 / 共 _PAGES_ 頁',
+		}
 	});
 	//Tab1-年度各區業績(圖)	
 	$("#rep_tab_2").html('<canvas id="myChart_2" width="200px" height="50%"></canvas>');
@@ -299,6 +312,19 @@ function setDataTable2(datas) {
 			, 'copy'
 
 		],
+		'language': {
+			'processing': '查詢中...',
+			'search': '搜尋:',
+			'zeroRecords': '没有數據',
+			'lengthMenu': '每頁 _MENU_ 筆',
+			'paginate': {
+				'first': '第一頁',
+				'last': '最後一頁',
+				'next': '下一頁',
+				'previous': '前一頁'
+			},
+			'info': '第 _PAGE_ 頁 / 共 _PAGES_ 頁',
+		}
 	});
 
 
@@ -386,6 +412,19 @@ function setDataTable3(datas) {
 			, 'copy'
 
 		],
+		'language': {
+			'processing': '查詢中...',
+			'search': '搜尋:',
+			'zeroRecords': '没有數據',
+			'lengthMenu': '每頁 _MENU_ 筆',
+			'paginate': {
+				'first': '第一頁',
+				'last': '最後一頁',
+				'next': '下一頁',
+				'previous': '前一頁'
+			},
+			'info': '第 _PAGE_ 頁 / 共 _PAGES_ 頁',
+		}
 	});
 
 	// Tab3-年度活動銷售(圖)	
@@ -470,6 +509,19 @@ function setDataTable4(datas) {
 			, 'copy'
 
 		],
+		'language': {
+			'processing': '查詢中...',
+			'search': '搜尋:',
+			'zeroRecords': '没有數據',
+			'lengthMenu': '每頁 _MENU_ 筆',
+			'paginate': {
+				'first': '第一頁',
+				'last': '最後一頁',
+				'next': '下一頁',
+				'previous': '前一頁'
+			},
+			'info': '第 _PAGE_ 頁 / 共 _PAGES_ 頁',
+		}
 	});
 
 	// Tab4-各店年度業績/折扣(圖)	
@@ -584,6 +636,19 @@ function setDataTable5(datas) {
 				, 'copy'
 
 			],
+			'language': {
+			'processing': '查詢中...',
+			'search': '搜尋:',
+			'zeroRecords': '没有數據',
+			'lengthMenu': '每頁 _MENU_ 筆',
+			'paginate': {
+				'first': '第一頁',
+				'last': '最後一頁',
+				'next': '下一頁',
+				'previous': '前一頁'
+			},
+			'info': '第 _PAGE_ 頁 / 共 _PAGES_ 頁',
+		}
 		});
 
 		$("#myChart_5").html('<canvas width="200px" height="50%"></canvas>')
@@ -704,6 +769,19 @@ function setDataTable6(datas) {
 				, 'copy'
 
 			],
+			'language': {
+			'processing': '查詢中...',
+			'search': '搜尋:',
+			'zeroRecords': '没有數據',
+			'lengthMenu': '每頁 _MENU_ 筆',
+			'paginate': {
+				'first': '第一頁',
+				'last': '最後一頁',
+				'next': '下一頁',
+				'previous': '前一頁'
+			},
+			'info': '第 _PAGE_ 頁 / 共 _PAGES_ 頁',
+		}
 		});
 
 		$("#myChart_6").html('<canvas width="200px" height="50%"></canvas>')
@@ -792,6 +870,19 @@ function setDataTable7(datas) {
 			, 'copy'
 
 		],
+		'language': {
+			'processing': '查詢中...',
+			'search': '搜尋:',
+			'zeroRecords': '没有數據',
+			'lengthMenu': '每頁 _MENU_ 筆',
+			'paginate': {
+				'first': '第一頁',
+				'last': '最後一頁',
+				'next': '下一頁',
+				'previous': '前一頁'
+			},
+			'info': '第 _PAGE_ 頁 / 共 _PAGES_ 頁',
+		}
 	});
 
 	// Tab7-各店無庫存項數(圖)	

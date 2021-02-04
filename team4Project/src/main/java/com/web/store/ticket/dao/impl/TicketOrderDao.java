@@ -1,6 +1,7 @@
 package com.web.store.ticket.dao.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -31,6 +32,10 @@ public class TicketOrderDao implements ITicketOrderDao {
 	@Override
 	public TicketOrder updateTicketOrder(TicketOrder ticketOrder) {
 		Session session = factory.getCurrentSession();
+		System.out.println("updateTicketOrder");
+		System.out.println(ticketOrder.getId());
+		System.out.println(ticketOrder.getValidTime());
+		System.out.println(ticketOrder.getStatus());
 		session.update(ticketOrder);
 		return ticketOrder;
 	}
@@ -57,6 +62,17 @@ public class TicketOrderDao implements ITicketOrderDao {
 	public TicketOrder queryTicketOrderbyId(String ticketOrderId) {
 		Session session = factory.getCurrentSession();
 		TicketOrder ticketOrder = session.get(TicketOrder.class, ticketOrderId);
+		return ticketOrder;
+	}
+
+	@Override
+	public TicketOrder queryTicketOrderbyshortId(String shortId) {
+		Session session = factory.getCurrentSession();
+		String hqlstr = "from TicketOrder T where T.status=0 and T.id like :shortId";
+		Query<TicketOrder> queryObj = session.createQuery(hqlstr,TicketOrder.class);
+		queryObj.setParameter("shortId", '%'+shortId+'%');		
+		List<TicketOrder> ticketOrders = queryObj.list();
+		TicketOrder ticketOrder = ticketOrders.get(0);
 		return ticketOrder;
 	}
 

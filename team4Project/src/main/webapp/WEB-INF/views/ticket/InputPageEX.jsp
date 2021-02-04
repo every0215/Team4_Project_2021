@@ -1,3 +1,4 @@
+<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>展覽</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -20,6 +21,21 @@
 <script src="../ticketjs/checkDateTime.js"></script>
 
 <style>
+body{
+				background-color: #ECF0F5;
+			}
+				
+				.main-header .navbar-custom-menu, .main-header .navbar-right {
+				height:500px;
+				}
+				.ticket_area{
+				background-color: transparent;
+				position: absolute;
+				width: calc(100vw);
+				height: calc(100vh - 80px);
+				bottom: 0px;
+				right: 0px;
+				}
 .t1 {
 	width: 150px;
 	float: left;
@@ -42,49 +58,57 @@ select option[value="0"] {
 </style>
 </head>
 <body>
-	<div class="jumbotron text-center">
-		<h1>E-Ticket票券系統</h1>
-	</div>
+<div class="ticket_area">
+		<!-- Right side column. Contains the navbar and content of the page -->
+		<div class="content-wrapper" style="min-height:204px">
+			<!-- Content Header (Page header) -->
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
-	<a href="InputPageEX">展覽</a>
-	<a href="InputPageAT">樂園與景點</a>
-	<a href="InputPageSP">運動賽事</a>
+		<br/>
+			<div>
+			<a href="InputPageEX" role="button" class="btn btn-success">展覽</a>
+			<a href="InputPageAT" role="button" class="btn btn-success">樂園與景點</a>
+			<a href="InputPageSP" role="button" class="btn btn-success">運動賽事</a>		
+		</div>
+		<div style="margin:10px auto;padding:10px;border-radius:20px;width:900px;background-color:#FDFFFF;box-shadow:3px 3px 9px #C4E1FF;">
 
-	<h3>Event Input Page-展覽</h3>
+	<h1 style="text-align:center;margin-top:10px;font-weight:bolder;color:#003D79">展覽新增</h1>
 	<form name="myForm" action="<c:url value='/ticket/InputPageEX'/>" method="post" enctype="multipart/form-data">
 		<hr />
 			<input type="hidden" name="typeId" value="1" />
 		<label class="t1" for="">展覽名稱:</label>
-			<input type="text" name="eventName" required="required"><br><br>
+			<input type="text" id="eventName" name="eventName" required="required"><br><br>
 		<label class="t1" for="">展覽地點:</label>
-			<input type="text" name="eventLocation" required="required"><br><br>
+			<input type="text" id="eventLocation" name="eventLocation" required="required"><br><br>
 			
 
 		<label class="t1" for="">展覽宣傳圖片:</label>
-			<input id="image_input" type="file" name="eventImage"><br><br>
+		<input id="image_input" type="file" name="eventImage"><br>
+		
+		<img id="picPreview" style="width:400px;height:200px;display:block; margin:auto;" src="https://fakeimg.pl/650x300/282828/EAE0D0/?text=preview"/><br>
+		
 		<input type="hidden" name="status" value="1" />
 		<%-- 以上為eventBean 以下為exhibitionBean --%>
 
 		<label class="t1" for="">起始售票時間:</label>
 			<input type="text" id="dateTime1" name="onSaleDate" placeholder="ex:2021-01-01 9:00:01" required="required">
 				<span id="datetimesp1"></span><br><br>
-				<span>時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
+				<span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
 		<label class="t1" for="">結束售票時間:</label>
 			<input type="text" id="dateTime2" name="offSaleDate" placeholder="ex:2021-01-31 21:00:01" required="required">
 				<span id="datetimesp2"></span><br><br>
-				<span>時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
+				<span style="margin-left:90px">時間格式:yyyy-MM-dd HH:mm:ss</span><br><br>
 		<label class="t1" for="">展覽起始日:</label>
 			<input type="text" id="date1" name="commDate" placeholder="ex:2021-01-01" required="required">
 				<span id="datesp1"></span><br><br>
-				<span>時間格式:yyyy-MM-dd</span><br><br>
+				<span style="margin-left:90px">時間格式:yyyy-MM-dd</span><br><br>
 		<label class="t1" for="">展覽終止日:</label>
 			<input type="text" id="date2" name="dueDate" placeholder="ex:2021-01-31" required="required">
 				<span id="datesp2"></span><br><br>
-				<span>時間格式:yyyy-MM-dd</span><br><br>
+				<span style="margin-left:90px">時間格式:yyyy-MM-dd</span><br><br>
 		<label class="t1" for="">描述:</label>
-			<textarea style="resize: none; width: 600px; height: 200px;" name="description"></textarea>
+			<textarea style="resize: none; width: 600px; height: 200px;" id="description" name="description"></textarea>
 		<br> <br>
 
 		<label class="t1" for="">優惠銀行:</label>
@@ -104,6 +128,19 @@ select option[value="0"] {
 			<input type="text" name="discountRatio" required="required" placeholder="ex 0.8 表8折"><br><br>
 
 		<script>
+		$("#image_input").change(function(){
+            readURL(this); 
+          });
+		
+		function readURL(input){
+   	  if(input.files && input.files[0]){
+   	    var reader = new FileReader();
+   	    reader.onload = function (e) {
+   	       $("#picPreview").attr('src', e.target.result);
+   	    }
+   	    reader.readAsDataURL(input.files[0]);
+   	  }
+   }
 		
 		$(function(){	
 			$.ajax({
@@ -141,9 +178,24 @@ select option[value="0"] {
 					<input type="text" name="priceCost" required="required"><br> <br> <br>
 			</div>
 		</div>
-
-		<input id="Button1" type="button" value="新增價位與名稱" />
+		<div style="margin:10px auto;width:320px">
+		<input id="Button1" type="button" class="btn btn-primary btn-sm" value="新增價位與名稱" />
+		<input type="submit" name="sumbmit" id="submitButton" class="btn btn-warning">
+		<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+		<input id="autoInput" class="btn btn-primary btn-sm" type="button" value="一鍵輸入" />
+		</div> 
 		<script>
+		$("#autoInput").click(function () {
+            $("#eventName").val("Keigo展-我的生活不可能那麼壞");
+            $("#eventLocation").val("華山紅磚六合院");
+            $("#dateTime1").val("2021-03-01 09:00:01");
+            $("#dateTime2").val("2021-04-05 18:00:01");
+            $("#date1").val("2021-03-10");
+            $("#date2").val("2021-04-10");
+            $("#description").val("《我的生活不可能那麼壞》作者-日本超人氣厭世插畫家Keigo首度來台<br/>經典畫作、百張手稿以及展覽限定台灣特色新作品！<br/>快來一睹keigo特別的手繪風格，並親臨現場感受讓全球超過百萬人看懂的幽默正面力量！");
+        });
+		
+		
 		$("#Button1").click(function addPrice(){
 			console.log($("#price").html());
 			
@@ -303,8 +355,12 @@ select option[value="0"] {
 
 
 		
-		<input type="submit" name="sumbmit" id="submitButton"> 
+		
 	</form>
-	<a href="<c:url value='/TicketIndex'/>" class="btn btn-info" role="button">回主頁</a>
+	</div>
+	
+	</div>
+	</div>
+	
 </body>
 </html>

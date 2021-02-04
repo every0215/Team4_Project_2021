@@ -17,15 +17,24 @@
 	right: 0px;
 	font-family:微軟正黑體;
 	font-weight:900;
+	font-size:18px;
+	
+	
 }
+.main-header .navbar-custom-menu, .main-header .navbar-right {
+	height:500px;
+	}
+body{
+	background-color: #ECF0F5;
+	}
 </style>
 </head>
 <body>
 <div class="rep_reportarea">
 		<!-- Right side column. Contains the navbar and content of the page -->
-		<div class="content-wrapper">
+		<div class="content-wrapper" align="center">
 <fieldset>
-	<legend >門市簡介</legend> 
+	<legend ><h1>門市簡介</h1></legend> 
 	
 		<form action="<c:url value='/company/updateStoreProfiles'/>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="cmpid" value="${sessionScope.company.id}">
@@ -36,7 +45,7 @@
 
 			<div style="padding:5px">
 			門市簡介:<br/>
-			<textarea rows="4" cols="50" placeholder="請輸入簡介(不輸入預設企業簡介)" name="profiles"></textarea>
+			<textarea id="tex" rows="10" cols="80" placeholder="請輸入簡介(不輸入預設企業簡介)" name="profiles"></textarea>
 			</div>
 
 	
@@ -45,13 +54,21 @@
 	</tr>
 </table>
 				<hr/>
-			<input type="submit" value="send"/>
-			<input type="reset" value="delete"/>
+			<input type="submit" value="送出"/>
+			<input type="reset" value="重新編輯"/>
 	
 			</form>
 </fieldset>
-<a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a>
+<%-- <a href="<c:url value='/company/ShowStore'/> " >回門市管理頁</a> --%>
+<button id="insert">一鍵輸入</button>
 </div>
 </div>
+<script>
+$("#insert").click(function(){
+	$("#tex").val("梨山店是由蚨盈企業與和平區農會合作加盟，地點就在和平區農會梨山信用分部旁，外觀與一旁的梨山賓館都是宮殿式建築，古色古香，極有特色。")
+	
+})
+
+</script>
 </body>
 </html>

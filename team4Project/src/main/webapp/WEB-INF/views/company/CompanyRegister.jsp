@@ -1,56 +1,98 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<style>
-select option[value="-1"] {
- display: none;
-}
-.rep_reportarea {
-	background-color: transparent;
-	position: absolute;
-	width: calc(100vw - 15px);
-	height: calc(100vh - 80px);
-	bottom: 0px;
-	right: 0px;
-	font-family:微軟正黑體;
-	font-weight:900;
-}
-</style>
-<title>企業註冊</title>
-</head>
-<body>
-<c:choose>
+<html lang="en">
+      <c:import url="/layout/head" />
 
-	<c:when test="${empty company}">
-	
-	
-	
-	
+
+<style>
+        .more-link{
+          padding-right:15px;
+        }
+        
+        .input-group {
+          margin: 10px;
+          display: inline;
+        }
+
+        .sub-title {
+          position: relative;
+          text-align: center;
+          font-size: 14px;
+          color: #999;
+          overflow: hidden;
+          padding: 1.2em 0;
+          /**把高度撐起來**/
+        }
+
+        .ticket-content {
+          display: flex;
+        }
+
+        .inner {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          white-space: nowrap;
+          line-height: 1px;
+          border-left: 9999px solid #ccc;
+          border-right: 9999px solid #ccc;
+          padding: 0 10px;
+        }
+        .title-bar {
+          clear: both;
+          padding: 10px;
+        }
+      </style>
+
+      <body>
+      <!-- wpf loader Two -->
+        <div id="wpf-loader-two">
+          <div class="wpf-loader-two-inner">
+            <span>Loading</span>
+          </div>
+        </div>
+        <!-- / wpf loader Two -->
+       	 <!-- SCROLL TOP BUTTON -->
+        <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
+        <!-- END SCROLL TOP BUTTON -->
+       	
+
+        <c:import url="/layout/header" />
+<!--     <section> -->
+        <div class="title-bar">
+            <div class="title-bar" style="text-align: center;line-height:60px;height:60px;background-color:#FFD382;width:300px;padding:10px;margin:5px auto;border-radius:30px" >
+                <h2 style="color: #194866;font-weight:bolder">企業註冊</h2>
+            </div>
+
+        </div>
+<!--     </section> -->
+    
+<!--     Logo圖 名字 分類 簡介 -->
+<!--     <hr style="height:1px;border:none;color:#333;background-color:#333;"> -->
+<section class="container" style="margin:10px auto">
+<div align="center">
 		<fieldset>
-	<legend >註冊企業資料</legend> 
+	
 	
 		<form action="<c:url value='/company/CompanyRegister'/>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="status" value="true">
-	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
+	<table style="padding:10px;font-size:18px;">
 	<tr>
 		<td >
 <!-- 			企業編號:<input type="text" name="companyId" /><br/> -->
 <!-- 			<!-- 	設流水號 -->
-			<div style="padding:5px">
-			企業名稱:<input type="text" name="companyName"  autocomplete="off" required="required" value="歐虧"/><br/>
+			<div style="padding:5px;margin-right:20px;margin-left:10px;margin-bottom:20px;">
+			企業名稱:<input id="cmpname" type="text" name="companyName"  autocomplete="off" required="required" value=""/><br/>
 			</div>
 			<!-- 	驗證 -->
-			<div style="padding:5px">
-			統一編號:<input type="text" name="uniformNumbers" required="required" value="52211110"/><br/>
+			<div style="padding:5px;margin-right:20px;margin-left:10px;margin-bottom:20px;">
+			統一編號:<input id="uni" type="text" name="uniformNumbers" required="required" value=""/><br/>
 			</div>
 			<!-- 	驗證 -->
-			<div style="padding:5px">
-			行業類別:<select class="form-control" name="categories" required="required">
+			<div style="padding:5px;margin-right:20px;margin-left:10px;margin-bottom:20px;">
+			行業類別:<select id="cat"class="form-control" name="categories" required="required">
 				<option value="-1" selected>請挑選</option>
 				<option value="1">一般服務業</option>
 				<option value="2">批發/零售</option>
@@ -61,25 +103,25 @@ select option[value="-1"] {
 			
 			</div>
 			<!-- 	radio用選的 -->
-			<div style="padding:5px">
-			&emsp;&emsp;帳號:<input type="text" name="account" autocomplete="off" required="required" value="aaa"/><br/>
+			<div style="padding:5px;margin-right:20px;margin-left:10px;margin-bottom:20px;">
+			&emsp;&emsp;帳號:<input id="acc" type="text" name="account" autocomplete="off" required="required" value=""/><br/>
 			</div>
 			<!-- 	驗證 -->
-			<div style="padding:5px">
-			&emsp;&emsp;密碼:<input type="password" name="password" autocomplete="off" required="required" value="aaa"/><br/>
+			<div style="padding:5px;margin-right:20px;margin-left:10px;margin-bottom:20px;">
+			&emsp;&emsp;密碼:<input id="pas" type="password" name="password" autocomplete="off" required="required" value=""/><br/>
 			</div>
 			<!-- 	驗證 -->
-			<div style="padding:5px">
-			&emsp;&emsp;信箱:<input type="text" name="email" autocomplete="off" required="required" value="aaa@yahoo.com"/><br/>
+			<div style="padding:5px;margin-right:20px;margin-left:10px;margin-bottom:20px;">
+			&emsp;&emsp;信箱:<input id="e" type="text" name="email" autocomplete="off" required="required" value=""/><br/>
 			</div>
 			<!-- 	驗證 -->
-			<div style="padding:5px">
-			公司電話:<input type="text" name="phone" required="required" value="0229983849"/><br/>
+			<div style="padding:5px;margin-right:20px;margin-left:10px;margin-bottom:20px;">
+			公司電話:<input id="pho" type="text" name="phone" required="required" value=""/><br/>
 			</div>
 			<!-- 	驗證 -->
 	
 		</td>
-		<td style="border:1px solid #64A600;border-radius:10px;padding:10px">
+		<td style="padding:5px;margin-right:20px;margin-left:10px;margin-bottom:20px;">
 	
 			品牌圖示:	<input type="file" name="brand" value=""/><br>
 			<!-- 	上傳檔案 -->
@@ -91,113 +133,31 @@ select option[value="-1"] {
 	</tr>
 </table>
 				<hr/>
-			<input type="submit" value="send"/>
-			<input type="reset" value="delete"/>
+			<input type="submit" value="送出"/>
+			<input type="reset" value="重新輸入"/>
 	
 			</form>
 </fieldset>
 <br>
-<a href="<c:url value='/'/> " >回主頁</a>
+<%-- <a href="<c:url value='/'/> " >回主頁</a> --%>
+<button id="insert">一鍵輸入</button>
+</div>
+</section>
+
+ <c:import url="/layout/footer" />
+<script>
+$("#insert").click(function(){
+	$("#cmpname").val("OK便利商店")
+	$("#uni").val("22853565")
+	$("#cat").val("1")
+	$("#acc").val("OKmarket")
+	$("#pas").val("P@ssw0rd")
+	$("#e").val("OKmarket@gmail.com")
+	$("#pho").val("0266174185")
 	
-	
-	
-    </c:when>
+})
 
+</script>
 
-	<c:otherwise>
-	
-	
-	
-<jsp:include page="../crm/backOffice.jsp" flush="true"></jsp:include>	
-	<div class="rep_reportarea">
-		<!-- Right side column. Contains the navbar and content of the page -->
-		<div class="content-wrapper">
-		<fieldset>
-	<legend >企業資料</legend> 
-	
-		<form action="<c:url value='/company/updateCompany'/>" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="status" value="true">
-		<input type="hidden" name="id" value="${sessionScope.company.id}">
-	<table style="border:1px solid #64A600;border-radius:10px;padding:10px">
-	<tr>
-		<td >
-		
-<!-- 			企業編號:<input type="text" name="companyId" /><br/> -->
-<!-- 			<!-- 	設流水號 -->
-			<div style="padding:5px">
-			企業名稱:<input type="text" name="companyName"  autocomplete="off" required="required" value="${sessionScope.company.companyName}"/><br/>
-			</div>
-			<!-- 	驗證 -->
-			<div style="padding:5px">
-			統一編號:<input type="text" name="uniformNumbers" required="required" value="${sessionScope.company.uniformNumbers}"/><br/>
-			</div>
-			<!-- 	驗證 -->
-			<div style="padding:5px">
-			行業類別:<select class="form-control" name="categories" required="required">
-				<option value="-1" selected>${sessionScope.company.categories}</option>
-				<option value="1">一般服務業</option>
-				<option value="2">批發/零售</option>
-				<option value="3">餐飲服務</option>
-				<option value="4">旅遊休閒運動</option>
-				<option value="5">大眾傳播</option>
-			</select>
-			
-			</div>
-			<!-- 	radio用選的 -->
-			<div style="padding:5px">
-			&emsp;&emsp;帳號:<input type="text" name="account" autocomplete="off" required="required" value="${sessionScope.company.account}"/><br/>
-			</div>
-			<!-- 	驗證 -->
-			<div style="padding:5px">
-			&emsp;&emsp;密碼:<input type="password" name="password" autocomplete="off" required="required" value="${sessionScope.company.password}"/><br/>
-			</div>
-			<!-- 	驗證 -->
-			<div style="padding:5px">
-			&emsp;&emsp;信箱:<input type="text" name="email" autocomplete="off" required="required" value="${sessionScope.company.email}"/><br/>
-			</div>
-			<!-- 	驗證 -->
-			<div style="padding:5px">
-			公司電話:<input type="text" name="phone" required="required" value="${sessionScope.company.phone}"/><br/>
-			</div>
-			<!-- 	驗證 -->
-	
-		</td>
-		<td style="border:1px solid #64A600;border-radius:10px;padding:10px">
-<!-- 			放圖片 -->
-
-			品牌圖示:	
-			<input type="file" name="logoA" /><br>
-			<!-- 	上傳檔案 -->
-<!-- 			放圖片 -->
-			營業登記證:<input type="file" name="busRCA" /><br>
-			<!-- 	上傳檔案 -->
-			<hr/>
-		</td>
-	</tr>
-</table>
-				<hr/>
-			<input type="submit" value="修改"/>
-			<input type="reset" value="delete"/>
-	
-			</form>
-</fieldset>
-
-
-	</div>
-	</div>
-    </c:otherwise>
-</c:choose>
-
-
-
-
-
-
-
-
-
-
-<%-- <a href="<c:url value='/views/index'/>" >測試圖片顯示</a> --%>
-
-</body>
+      </body>
 </html>

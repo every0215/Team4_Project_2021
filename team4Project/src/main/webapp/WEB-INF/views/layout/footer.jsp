@@ -39,7 +39,7 @@
               <div class="col-md-3 col-sm-6" style="width:25%">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
-                    <h3>customer</h3>
+                    <h3>Customer</h3>
                     <ul class="aa-footer-nav">
                       <li><a href="#">我的帳號</a></li>
                       <li><a href="#">通知</a></li>
@@ -53,7 +53,7 @@
               <div class="col-md-3 col-sm-6" style="width:25%">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
-                    <h3>About us</h3>
+                    <h3>About Us</h3>
                     <ul class="aa-footer-nav">
                       <li><a href="#">平台資訊</a></li>
                       <li><a href="#">聯絡我們</a></li>
@@ -117,3 +117,9 @@
 <!--   自定義js -->
   <script type="text/javascript" src="<c:url value='/js/Carousel.js' />"></script>
   <script src="<c:url value='/js/luke_js.js' />"></script> 
+  
+  <script>
+   
+
+  
+  </script>

@@ -32,7 +32,6 @@ public class MyWebSocketHandler extends AbstractWebSocketHandler  {
             throws Exception {
     	
         String clientMessage = (String) message.getPayload();//取得客戶信息
-        System.out.println("客戶消息: "+clientMessage);
         String userId = (String)session.getAttributes().get(USER_ID);
        
         for(String userIdInSession:userWebsocketSessionMap.keySet()) {
@@ -58,9 +57,6 @@ public class MyWebSocketHandler extends AbstractWebSocketHandler  {
         session.sendMessage(new TextMessage(jsonMessage));
         Company company = (Company)session.getAttributes().get(USER_ID);
         session.sendMessage(new TextMessage("你好 ! "+company.getCompanyName()));
-        //这块会实现自己业务，比如，当用户登录后，会把离线消息推送给用户
-        //TextMessage returnMessage = new TextMessage("成功建立socket连接，你将收到的离线");
-        //session.sendMessage(returnMessage);
     }
     
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {

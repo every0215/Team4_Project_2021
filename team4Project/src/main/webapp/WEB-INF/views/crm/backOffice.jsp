@@ -55,45 +55,45 @@
                     <ul class="nav navbar-nav">
                         <!-- Notifications: style can be found in dropdown.less -->
                         <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="height:80px;margin:0px;padding:30px 20px">
-                                <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning" style="background:red">10</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 10 notifications</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-users text-red"></i> 5 new members joined
-                                            </a>
-                                        </li>
+<!--                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="height:80px;margin:0px;padding:30px 20px"> -->
+<!--                                 <i class="fa fa-bell-o"></i> -->
+<!--                                 <span class="label label-warning" style="background:red">10</span> -->
+<!--                             </a> -->
+<!--                             <ul class="dropdown-menu"> -->
+<!--                                 <li class="header">You have 10 notifications</li> -->
+<!--                                 <li> -->
+<!--                                     inner menu: contains the actual data -->
+<!--                                     <ul class="menu"> -->
+<!--                                         <li> -->
+<!--                                             <a href="#"> -->
+<!--                                                 <i class="fa fa-users text-aqua"></i> 5 new members joined today -->
+<!--                                             </a> -->
+<!--                                         </li> -->
+<!--                                         <li> -->
+<!--                                             <a href="#"> -->
+<!--                                                 <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems -->
+<!--                                             </a> -->
+<!--                                         </li> -->
+<!--                                         <li> -->
+<!--                                             <a href="#"> -->
+<!--                                                 <i class="fa fa-users text-red"></i> 5 new members joined -->
+<!--                                             </a> -->
+<!--                                         </li> -->
 
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-user text-red"></i> You changed your username
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">View all</a></li>
-                            </ul>
+<!--                                         <li> -->
+<!--                                             <a href="#"> -->
+<!--                                                 <i class="fa fa-shopping-cart text-green"></i> 25 sales made -->
+<!--                                             </a> -->
+<!--                                         </li> -->
+<!--                                         <li> -->
+<!--                                             <a href="#"> -->
+<!--                                                 <i class="fa fa-user text-red"></i> You changed your username -->
+<!--                                             </a> -->
+<!--                                         </li> -->
+<!--                                     </ul> -->
+<!--                                 </li> -->
+<!--                                 <li class="footer"><a href="#">View all</a></li> -->
+<!--                             </ul> -->
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
 
@@ -102,14 +102,14 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="<c:url value='/company/getCompanyimage/${sessionScope.company.id}'/>" alt="demo demo" title="demo" id="user-profile" class="img-circle" height="45" /> &nbsp;&nbsp;${sessionScope.company.companyName} <i class="fa fa-caret-down fa-fw"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="<c:url value='/company/CmpRegi' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>修改企業資訊</a></li>
+                                <li><a href="<c:url value='/company/Cmpupdate' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>修改企業資訊</a></li>
                                 <li><a href="<c:url value='/company/CompanyProfiles' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>新增企業簡介</a></li>
                                 <li><a href="<c:url value='/company/CompanyServiceRegister' />"><i class="fa fa-book fa-fw" aria-hidden="true"></i>新增企業服務</a></li>
                                 <li role="separator" class="divider"></li>
 
                                 <li class="dropdown-header">Help</li>
 
-                                <li><a href="#" target="_blank"><i class="fa fa-long-arrow-left fa-fw" aria-hidden="true"></i>聯絡我們</a></li>
+<!--                                 <li><a href="#" target="_blank"><i class="fa fa-long-arrow-left fa-fw" aria-hidden="true"></i>聯絡我們</a></li> -->
                             </ul>
                         </li>
                         <li><a href="<c:url value='/company/Logout' />"><i class="fa fa-sign-out fa-3x"></i></a></li>
@@ -129,11 +129,6 @@
                     <li>
                         <a href="<c:url value='/ProductIndex' />">
                             <i class="fa fa-th"></i> <span>商品管理</span>
-                        </a>
-                    </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-check-square-o"></i> <span>訂單管理</span>
                         </a>
                     </li>
                     <li class="treeview">
@@ -166,7 +161,7 @@
                     <li class="treeview">
                         <a href="<c:url value='/cs/loginpage' />">
                         
-                            <i class="fa fa-files-o"></i>
+                            <i class="fa fa-check-square-o"></i>
                             <span>客服系統</span>
                         </a>
                     </li>

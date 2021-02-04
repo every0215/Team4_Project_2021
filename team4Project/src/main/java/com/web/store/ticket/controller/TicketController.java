@@ -86,10 +86,8 @@ public class TicketController {
 				return "account/ticketOrder";
 			}
 	
-	
-	
-	@GetMapping("/showOrderDetail/{TicketOrderId}")
-	public String showOrderDetail(
+	@GetMapping("/showTicketOrderDetail/{TicketOrderId}")
+	public String showTicketOrderDetail(
 			Model model, HttpSession session,
 			@PathVariable String TicketOrderId 
 			) {
@@ -97,7 +95,6 @@ public class TicketController {
 		Double discountRatio;
 		ArrayList<Double> dPriceList = new ArrayList<>();
 		TicketOrder ticketOrder = backendService.queryTicketOrderbyId(TicketOrderId);
-		
 		TicketOrder ticketOrderF = backendService.queryTicketOrderDetailByTicketOrder(ticketOrder);
 		Set<TicketOrderDetail> ticketOrderDetails = ticketOrderF.getTicketOrderDetails();
 		
@@ -132,7 +129,70 @@ public class TicketController {
 		model.addAttribute("dPriceList", dPriceList);
 		model.addAttribute("discount", discount);
 		
+		
 		return "account/ticketOrderDetail";
+		
+	}
+	
+	@GetMapping("/showOrderDetail/{TicketOrderId}")
+	public String showOrderDetail(
+			Model model, HttpSession session,
+			@PathVariable String TicketOrderId 
+			) throws Exception {
+		
+		String s="";
+		MemberBean member = (MemberBean) session.getAttribute("currentUser");
+		BigDecimal userBalance = member.getmCoin().getBalance();
+		TicketOrder ticketOrder = backendService.queryTicketOrderbyId(TicketOrderId);
+		BigDecimal btotalCost = new BigDecimal(ticketOrder.getTotalCost());
+		
+		int result = userBalance.compareTo(btotalCost);
+		
+		List<Price> priceList = new ArrayList<>();
+		Double discountRatio;
+		ArrayList<Double> dPriceList = new ArrayList<>();
+		
+		if(result==-1) {
+			s="account/myWallet";
+		}else {
+		TicketOrder ticketOrderF = backendService.queryTicketOrderDetailByTicketOrder(ticketOrder);
+		Set<TicketOrderDetail> ticketOrderDetails = ticketOrderF.getTicketOrderDetails();
+		
+		List<TicketOrderDetail> list = new ArrayList<TicketOrderDetail>(ticketOrderDetails);
+		Event event = backendService.queryOneEvent(list.get(0).getEventId());
+		Integer discount = list.get(0).getDiscount();
+		if(discount==1) {
+			List<Price> oPriceList = backendService.selectPriceList(event.getId());
+			priceList = backendService.selectPriceList(event.getId());
+			if(event.getTypeId()==1) {
+				Exhibition exhibition = backendService.selectExhibitionByEvent(event.getId());
+				discountRatio = exhibition.getDiscountRatio();
+				
+				}else {
+				Sport sport = backendService.selectSportByEvent(event.getId());
+				discountRatio = sport.getDiscountRatio();
+			}
+			for(Price price:oPriceList) {
+				Double dCost = price.getCost().doubleValue();
+				double nCost = discountRatio*dCost;
+				dPriceList.add(nCost);
+			}
+			
+		}else {
+			priceList = backendService.selectPriceList(event.getId());
+		}
+
+		model.addAttribute("ticketOrder", ticketOrderF);
+		model.addAttribute("event", event);
+		model.addAttribute("TicketOrderDetails", list);
+		model.addAttribute("priceList", priceList);
+		model.addAttribute("dPriceList", dPriceList);
+		model.addAttribute("discount", discount);
+		backendService.ticketOrderNotice(TicketOrderId);
+		s = "account/ticketOrderDetail";
+		}
+		return s;
+		
 		
 	}
 	
@@ -211,7 +271,9 @@ public class TicketController {
 			
 			model.addAttribute("dPriceList", dPriceList);
 			model.addAttribute("discount", discount);
+			
 			s="account/ticketOrderDetail";
+			backendService.ticketOrderNotice(TicketOrderId);
 		}
 
 		return s;

@@ -3,9 +3,11 @@
 /*CSS reset*/
 html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,input,button,fieldset, legend,img { margin:0; padding:0; }
 h1,h2,h3{ font-size:14px;}
-body{ font-size:12px; font-family:Arial, Helvetica, sans-serif;}
+body{ background-color:#f3f3f3;font-size:12px; font-family:Arial, Helvetica, sans-serif;}
 li{ list-style:none;}
 a{ text-decoration:none;}
+
+
 .top{
 	background:#055c92;
 	}
@@ -29,8 +31,8 @@ a{ text-decoration:none;}
 .inTop strong{ margin-left:20px;}
 
 .header{
-	height:59px;
-	background:url(../images/header_bg.gif) repeat-x;
+	height:40px;
+	background:linear-gradient(178deg, rgb(88 85 132) 0%, rgba(0,237,255,1) 100%);
 	border-bottom:#184878 solid 3px;
 	overflow:hidden;
 	}

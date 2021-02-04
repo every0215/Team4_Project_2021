@@ -5,16 +5,6 @@
 <div class="menu-list">
 
 	<ul id="menu-content" class="menu-content">
-		<li>
-			<a href="#">
-				<i class="fa fa-dashboard fa-lg"></i> <b>Dashboard</b>
-			</a>
-		</li>
-		<li data-toggle="collapse" data-target="#myProfile" class="collapsed active">
-			<a href="<c:url value='/member/myProfile' />">
-				<i class="fa fa-gift fa-lg"></i><b>個人資料</b>
-			</a>
-		</li>
 		<li data-toggle="collapse" data-target="#myWallet" class="collapsed">
 			<a href="<c:url value='/member/myWallet' />">
 				<i class="fa fa-gift fa-lg"></i><b>我的錢包</b>
@@ -38,7 +28,19 @@
 				<i class="fa fa-car fa-lg"></i><b>信用卡管理</b>
 			</a>
 		</li>
-		<li data-toggle="collapse" data-target="#creditCard" class="collapsed">
+		<li data-toggle="collapse" data-target="#myProfile" class="collapsed">
+			<a href="<c:url value='/member/myProfile' />">
+				<i class="fa fa-gift fa-lg"></i><b>個人資料</b>
+			</a>
+		</li>
+		<li data-toggle="collapse" data-target="#showOrder" class="collapsed">
+			<a href="<c:url value='/member/showOrder' />" ><i class="fa fa-globe fa-lg"></i><b>票券訂單</b></a>
+		</li>
+		
+		<li data-toggle="collapse" data-target="#XXXXXXXXXX" class="collapsed">
+			<a href="<c:url value='/XXXXXXXXXX' />" ><i class="fa fa-globe fa-lg"></i><b>商品訂單</b></a>
+		</li>
+		<li data-toggle="collapse" data-target="#subscription" class="collapsed">
 			<a href="<c:url value='/member/subscription' />">
 				<i class="fa fa-car fa-lg"></i><b>訂閱管理</b>
 			</a>
@@ -50,29 +52,6 @@
 			</a>
 		</li>
 		
-		<li data-toggle="collapse" data-target="#changePassword" class="collapsed">
-			<a href="<c:url value='/member/showOrder' />" ><i class="fa fa-globe fa-lg"></i><b>票券訂單</b></a>
-		</li>
-		
-		<li data-toggle="collapse" data-target="#changePassword" class="collapsed">
-			<a href="<c:url value='/XXXXXXXXXX' />" ><i class="fa fa-globe fa-lg"></i><b>商品訂單</b></a>
-		</li>
-
-		<li>
-			<a href="<c:url value='/data/CreateMember' />">
-				<i class="fa fa-user fa-lg"></i><b>Gen會員資料</b>
-			</a>
-		</li>
-		<li>
-			<a href="<c:url value='/member/ticketOrder' />">
-				<i class="fa fa-user fa-lg"></i><b>票券訂單</b>
-			</a>
-		</li>
-		<li>
-			<a href="<c:url value='/' />">
-				<i class="fa fa-user fa-lg"></i><b>商品訂單</b>
-			</a>
-		</li>
 
 	</ul>
 	<a href="<c:url value='/admin/memberManage' />" style="color: #fff;">

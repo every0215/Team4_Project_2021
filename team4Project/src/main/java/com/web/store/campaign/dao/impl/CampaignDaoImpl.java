@@ -276,8 +276,9 @@ public class CampaignDaoImpl implements CampaignDao {
 	public Page<Campaign> getActiveCampaignPageByCompany(Page<Campaign> page, int companyId) {
 		String hql = "From Campaign Where status=true "
 				+ "and expired=false "
-				+ "and companyId=:companyId";
+				+ "and companyId=:companyId ";
 		String hql2 = "SELECT COUNT(*) " + hql;
+		hql += "ORDER BY startDateTime DESC";
 		Session session = sessionFactory.getCurrentSession();
 		int pageSize = page.getPageSize();
 		int currentPage = page.getCurrentPage();

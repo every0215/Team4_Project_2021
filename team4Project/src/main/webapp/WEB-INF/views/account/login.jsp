@@ -20,20 +20,9 @@
 	<c:import url="/layout/header" />
 
   <!-- catg header banner section -->
-  <section id="aa-catg-head-banner">
-    <img src="<c:url value='/img/fashion/fashion-header-bg-8.jpg' />" alt="fashion img">
-    <div class="aa-catg-head-banner-area">
-     <div class="container">
-      <div class="aa-catg-head-banner-content">
-        <h2>Account Page</h2>
-        <ol class="breadcrumb">
-          <li><a href="index.html">Home</a></li>                   
-          <li class="active">Account</li>
-        </ol>
-      </div>
-     </div>
-   </div>
-  </section>
+
+  <c:import url="/layout/accountHeader" />
+  
   <!-- / catg header banner section -->
 
  <!-- Cart view section -->
@@ -67,7 +56,8 @@
                     </div>
                     <hr style="border-bottom: 1px solid #ccc; height:3px;" />
                     <div class="form-group">
-                    	<button type="submit" id="LoginSubmit" class="aa-browse-btn">登入</button><label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme">記住我</label><br><br>
+                    	<button type="submit" id="LoginSubmit" class="aa-browse-btn">登入</button><label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme">記住我</label>
+                    	<button type="submit" id="oneclickbutton" class="ll-default-btn" style="float:right"><b>一鍵輸入</b></button><br><br>
                     </div>
                     <div class="form-group">
 	               		<div id="LoginMsgDiv" class="alert alert-danger"><strong>登入失敗</strong><br><span id="LoginMsg">
@@ -75,7 +65,7 @@
 					</div>
                     <div class="form-group">
 						<hr style="border-bottom: 1px solid #ccc; height:3px;margin-top:50px;" />
-						<p><a href="#">會員註冊</a>&nbsp;<a href="#">忘記密碼</a></p> 
+						<p><a href="<c:url value='/account/register' />">會員註冊</a>&nbsp;<a href="<c:url value='/member/forgotPassword' />">忘記密碼</a></p> 
 					</div>
                       
 <!--                   </form> -->
@@ -391,6 +381,16 @@
 		    }
 		       
 		});
+  		
+  		//一鍵登入
+  		$("#oneclickbutton").click(function(e){
+			$("input[name='email']").val("java20201019@gmail.com");
+			$("input[name='pwd']").val("Pass1234~");
+
+			e.preventDefault();
+			//checkPassword();
+		});
+  		
   	});
   	
   	function setRememberMe(){

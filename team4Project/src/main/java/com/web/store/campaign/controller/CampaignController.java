@@ -47,6 +47,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.web.store.campaign.dao.CampaignDao;
 import com.web.store.campaign.model.ApplyBean;
 import com.web.store.campaign.model.Campaign;
 import com.web.store.campaign.model.DiscountParams;
@@ -465,6 +466,7 @@ public class CampaignController {
 	public String ComapnyCampaignFP(@PathVariable int companyId,
 			Model model) {
 		Page<Campaign> page = new Page<Campaign>();
+		page.setPageSize(6);
 		page.setCurrentPage(1);
 		campService.getActiveCampaignPageByCompany(page,companyId);
 		model.addAttribute("page", page);
@@ -522,6 +524,7 @@ public class CampaignController {
 	public String applyCampaignPage(Model model, @PathVariable int campaignId) {
 		
 		Company company = (Company)model.getAttribute("company");
+		Campaign camp = campService.getCampaignById(campaignId);
 		
 		if(company == null) {
 			return "redirect:/";
@@ -532,6 +535,7 @@ public class CampaignController {
 		model.addAttribute("productsInCamp", classify.get("productsInCamp"));
 		model.addAttribute("productsNotInCamp", classify.get("productsNotInCamp"));
 		model.addAttribute("campaignId", campaignId);
+		model.addAttribute("discountParam", camp.getDiscountParams().getOffParam());
 		return "campaign/CampaignApplyPage";
 	}
 	

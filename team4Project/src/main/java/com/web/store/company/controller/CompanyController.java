@@ -124,6 +124,7 @@ public class CompanyController {
 		/////////////////存圖片轉成Byte陣列////////////////////
 		//密碼洩漏問題
 		sessionStatus.setComplete();
+		System.out.println("新增成功");
 		return "redirect:/index";
 		
 		
@@ -135,7 +136,7 @@ public class CompanyController {
 			@RequestParam String companyName,
 			@RequestParam String uniformNumbers,
 			@RequestParam Integer categories,
-			@RequestParam String account,
+			//@RequestParam String account,
 			@RequestParam String password,
 			@RequestParam String phone,
 			@RequestParam String email,
@@ -147,8 +148,23 @@ public class CompanyController {
 			HttpSession session,
 			Model model
 			) throws IOException {
-		
-//		sessionStatus.setComplete();
+		Company company=(Company)session.getAttribute("company");
+		String cmpACC = company.getAccount();
+		String pro = company.getProfiles();
+		////////////////////////////////////////////////////
+//		if(logo==null||busRC==null) {
+//			System.out.println("==============================企業資料更新(不附圖)");
+//			session.removeAttribute("company");
+//			Company cmp = new Company(id,companyName,uniformNumbers,categories,cmpACC,password,email,phone,pro);
+//			cmpService.updateCompanyWithoutLogo(cmp);
+//			System.out.println("更新成功");
+//			model.addAttribute("company", cmp);
+//			session.setAttribute("company", cmp);
+//			session.setMaxInactiveInterval(60 * 60 * 24* 3);
+//			return "redirect:/reportin";
+//		}
+		////////////////////////////////////////////////////
+//		else {
 		session.removeAttribute("company");
 		
 		System.out.println("更新企業資料");
@@ -167,7 +183,7 @@ public class CompanyController {
 			String busRCName = busRC.getOriginalFilename();
 			//得到的參數塞到建構子                     Blob物件  Filename
 			System.out.println("更新企業資料 加入Bean");
-			Company cmp = new Company(id,companyName,logoblob,logoName,uniformNumbers,categories,account,password,email,phone,busRCblob,busRCName);
+			Company cmp = new Company(id,companyName,logoblob,logoName,uniformNumbers,categories,cmpACC,password,email,phone,busRCblob,busRCName,pro);
 			//呼叫Service更新資料庫
 //			System.out.println(cmp);
 			cmpService.updateCompany(cmp);
@@ -187,8 +203,8 @@ public class CompanyController {
 		/////////////////存圖片轉成Byte陣列////////////////////
 		
 		return "redirect:/reportin";
-		
-	}
+		}
+//	}
 	
 
 	//取企業圖片(V)
@@ -274,7 +290,9 @@ public class CompanyController {
 			@RequestParam String password,
 			Model model,
 			///////////////////
-			HttpSession session
+			
+			HttpSession session,
+			RedirectAttributes redirectAttributes
 			///////////////////
 			
 			) {
@@ -294,6 +312,8 @@ public class CompanyController {
 			
 			return "redirect:/reportin";
 		}else {
+			model.addAttribute("msg", "輸入帳號或密碼資訊有誤");
+			redirectAttributes.addFlashAttribute("loginFail", true);
 			return "redirect:/";
 		}	
 	}
@@ -430,7 +450,17 @@ public class CompanyController {
 		int companyId = company.getId();
 		System.out.println("companyId:"+companyId);
 		List<Store> sto = stoService.getAllStoreByCompanyId(companyId);
+//		List<String> stoStatus = new ArrayList<>();
+//		for(Store eachsto :sto) {
+//			if(eachsto.getStatus()) {
+//				stoStatus.add("上架");
+//			}else {
+//				stoStatus.add("下架");
+//			}
+//		}
 		
+		
+//		model.addAttribute("statusList", stoStatus);
 		model.addAttribute("storeList", sto);
 		return "/company/ShowStore";
 	}
@@ -606,7 +636,7 @@ public class CompanyController {
 		session.removeAttribute("tempStoreId");
 
 
-		return "redirect:/company/storeRegister";
+		return "redirect:/company/ShowStore";
 		
 		
 	}
@@ -625,6 +655,7 @@ public class CompanyController {
 		Store sto = stoService.getStoreById(id);
 		
 		model.addAttribute("storeBean", sto);
+		
 		return "/company/StoreUpdate";
 	}
 	//門市修改
@@ -651,10 +682,12 @@ public class CompanyController {
 		
 //		stoService.addStore(sto);
 		/////////////////////////////////
-		ra.addFlashAttribute("storeBean", sto);
-		
+		session.setAttribute("tempStoreId", sto.getId());
+		//ra.addFlashAttribute("storeBean", sto);
+		System.out.println("門市更新有拿到");
+		System.out.println("stoid"+sto.getId());
 		/////////////////////////////////
-		return "/company/StoreRegister_Service";
+		return "redirect:/company/StoreRegister_Service";
 	}
 	
 	
@@ -672,21 +705,46 @@ public class CompanyController {
 		//依名字找門市
 		List<Store> storeByName = stoService.getStoreByName(cmpid,stoName);
 		System.out.println("================================="+storeByName);
-		return storeByName;
+		//判斷若門市為下架狀態則不讓地圖顯示
+		List<Store> newsto = new ArrayList<>();
+		for(Store temp : storeByName) {
+			if(temp.getStatus()) {
+				newsto.add(temp);
+			}
+		}
+		
+		
+		return newsto;
 	}
 	
-	//服務搜尋(未完成)
-	@PostMapping(value="/company/mapGetStoreByService ",produces = "application/json; charset=UTF-8")
+	//服務搜尋(V)
+	@PostMapping(value="/company/mapGetStoreByService",produces = "application/json; charset=UTF-8")
 	public @ResponseBody List<Store> mapGetStoreByService(
-			@RequestParam(value="service") String[] id,
+			@RequestParam(value="svId") String[] id,
 			HttpSession session,
 			Model model
 			) throws IOException {
 		System.out.println("Ajax接收資料 地圖服務搜尋");
+		System.out.println("Ajax接收資料 服務");
+//		for(String a:id) {
+//			System.out.println(a);
+//		}
 		
 		List<Store> stoByService= stoService.getStoreByService(id);
+		for(Store s:stoByService) {
+			System.out.println(s.getId());
+		}
+		
+		//判斷若門市為下架狀態則不讓地圖顯示
+				List<Store> newsto = new ArrayList<>();
+				for(Store temp : stoByService) {
+					if(temp.getStatus()) {
+						newsto.add(temp);
+					}
+				}
+		
 		//要寫好SERVICE
-		return stoByService;
+		return newsto;
 		
 		
 		
@@ -705,7 +763,16 @@ public class CompanyController {
 		
 		List<Store> storeByArea = stoService.getStoreByArea(cmpid,area);
 		
-		return storeByArea;
+		//判斷若門市為下架狀態則不讓地圖顯示
+		List<Store> newsto = new ArrayList<>();
+		for(Store temp : storeByArea) {
+			if(temp.getStatus()) {
+				newsto.add(temp);
+			}
+		}
+		
+		
+		return newsto;
 	}
 	
 	//按企業丟回服務(V)
@@ -731,8 +798,13 @@ public class CompanyController {
 			) {
 		System.out.println("Ajax接收資料 座標搜尋門市 ");
 		Store sto = stoService.getStoreByMarker(lat,lng);
-		
-		System.out.println(sto);
+		////////////////////////////////////////////////////
+		//在store裡加一個List<Integer> 以StoreService找到svid set進去
+		List<Integer> svid = cmpsvService.getCmpsvBystoId(sto.getId());
+		System.out.println("=====================================拿到門市服務的id");
+		sto.setSvid(svid);
+		////////////////////////////////////////////////////
+		//System.out.println(sto);
 		return sto;
 	}
 }

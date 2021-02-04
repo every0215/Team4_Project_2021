@@ -16,4 +16,6 @@ public interface CmpServiceService {
 	CmpService getCmpsvById(Integer id,Integer cmpId);
 	
 	CmpService getCmpsvBysvId(Integer id);
+	
+	List<Integer> getCmpsvBystoId(Integer stoid);
 }
