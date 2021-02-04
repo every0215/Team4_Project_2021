@@ -525,13 +525,13 @@ h3{
     	 							borderColor = "#207df0";
     	 						}
     	 						else{
-    	 							txt = "花費M幣";
+    	 							txt = "消費M幣";
     	 							bgColor = "#c842ff";
     	 							borderColor = "#da20f0";
     	 						}
     	 			        	console.log("MCoin TopUp/Spend Detail: " + data[i].paymentAmount + '('+data[i].createdDate+')');
     	 			        	htmlstr += '<div class="row" style="margin-top: 5px; background-color: '+bgColor+'; border: solid 1px ' + borderColor + '; padding: 15px; color: #fff; ">';
-    	 			        	htmlstr += '<div class="col-xs-12"><div id="input--cc" class="creditcard-icon">'+( new Date(data[i].createdDate)).format('yyyy/MM/dd hh:mm:ss')+ txt +' : <i class="fa fa-money"></i><span style="margin: 3px; font-size: 16px;"><b>' + data[i].paymentAmount + '</b></span></div></div></div>';
+    	 			        	htmlstr += '<div class="col-xs-12"><div id="input--cc" class="creditcard-icon">'+( new Date(data[i].createdDate)).format('yyyy/MM/dd hh:mm:ss') + '&nbsp;'+ txt +' : <i class="fa fa-money"></i><span style="margin: 3px; font-size: 16px;"><b>' + data[i].paymentAmount + '</b></span></div></div></div>';
 									
     	 			        }
     						mcclistDiv.append(htmlstr);
