@@ -14,6 +14,7 @@ import com.web.store.company.dao.CmpServiceDao;
 
 import com.web.store.company.model.CmpService;
 import com.web.store.company.model.Company;
+import com.web.store.company.model.StoreService;
 @Repository
 public class CmpServiceDaoImpl implements CmpServiceDao {
 
@@ -84,6 +85,18 @@ public class CmpServiceDaoImpl implements CmpServiceDao {
 		CmpService cmpsv = queryObj.uniqueResult();
 		
 		return cmpsv;
+		
+	}
+	@Override
+	public List<Integer> getCmpsvBystoId(Integer stoid){
+		Session session = sessionFactory.getCurrentSession();
+		
+		String hqlstr ="select serviceid from StoreService where storeid = "+stoid+"";
+
+		List<Integer> queryObj = session.createSQLQuery(hqlstr).getResultList();
+
+		return queryObj;
+
 		
 	}
 

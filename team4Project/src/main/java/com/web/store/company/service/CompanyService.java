@@ -17,6 +17,8 @@ public interface CompanyService {
 	Company verifyLogin(String account, String password);
 	//更新企業資料
 	boolean updateCompany(Company cmp);
+	//更新企業資料(不附圖)
+	boolean updateCompanyWithoutLogo(Company cmp);
 	
 	Company getCompanyById(Integer id);
 	

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.web.store.company.model.CmpService;
 import com.web.store.company.model.Company;
+import com.web.store.company.model.StoreService;
 
 public interface CmpServiceDao {
 
@@ -17,4 +18,6 @@ public interface CmpServiceDao {
 	CmpService getCmpsvById(Integer id,Integer cmpId);
 	
 	CmpService getCmpsvBysvId(Integer id);
+	
+	List<Integer> getCmpsvBystoId(Integer stoid);
 }

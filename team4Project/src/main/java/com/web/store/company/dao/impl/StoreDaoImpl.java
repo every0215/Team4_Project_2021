@@ -238,6 +238,7 @@ public class StoreDaoImpl implements StoreDao {
 		return queryObj.list();	
 	}
 	//, COUNT(*) as cnt
+	
 	@Override
 	public List<Integer> getStoreByService(List<Integer> intList) {
 		Session session = sessionFactory.getCurrentSession();

@@ -25,7 +25,9 @@
 	width: 250px;
 	height: 500px;
 	margin:15px 5px 0px 0px;
-	padding:10px;
+	padding-top:20px;
+	padding-left:10px;
+	padding-right:10px;
 	background-color:#FFD382;
 	color:#194866;
 	border-radius: 20px;
@@ -38,7 +40,7 @@
 }
 /* 點擊地圖標記檢視門市資訊 */
 .map_info {
-	border: solid 2px gray;
+	border: solid 2px #C0C0C0;
 	width: 850px;
 	height: 145px;
 	margin-top:5px;
@@ -80,8 +82,8 @@ ul {
 			<td>
 				<!-- 左測搜尋欄 -->
 				<div class="map_left" style="margin-bottom: 50px">
-					<div style="margin-bottom: 10px">
-						企業&nbsp;&nbsp;&nbsp; <select id="cmpChange" style="color:#003D79;">
+					<div style="margin-bottom: 20px">
+						企業&nbsp;&nbsp;&nbsp; <select id="cmpChange" style="color:#003D79;width:150px">
 							<option value="0" selected = "selected">請挑選</option>
 							<option value="1">全家</option>
 							<option value="2">萊爾富</option>
@@ -89,19 +91,19 @@ ul {
 							<option value="4">全聯福利中心</option>
 						</select>
 					</div>
-					
-					<div style="margin-bottom: 80px">
-						店名 &nbsp;&nbsp;&nbsp;<input type="text" id="stoName" style="color:#003D79;">
-						<button id="stoSearch" class="btn btn-primary" style="float:right;margin-top:5px">搜尋</button>
-					</div>
-					<div style="margin-bottom: 10px">
-						地區&nbsp;&nbsp;&nbsp; <select id="areaChange" style="color:#003D79;">
+					<div style="margin-bottom: 20px">
+						地區&nbsp;&nbsp;&nbsp; <select id="areaChange" style="color:#003D79;width:150px">
 							<option value="0" selected = "selected">請挑選</option>
 							<option value="北區">北區</option>
 							<option value="中區">中區</option>
 							<option value="南區">南區</option>
 
 						</select>
+					</div>
+					
+					<div style="margin-bottom: 20px">
+						店名 &nbsp;&nbsp;&nbsp;<input type="text" id="stoName" style="color:#003D79;height:30px;width:120px">
+						<button id="stoSearch" class="btn btn-primary" style="float:right">搜尋</button>
 					</div>
 					<div>
 						服務
@@ -195,6 +197,8 @@ ul {
                             $(".map_info").append(` ` + data.storeName + `<br>
                             
                             電話:`+data.phone+`<br>
+                            
+                           
                             
                             地址:`+data.storeAddress+`<br>
                             門店簡介:<br>

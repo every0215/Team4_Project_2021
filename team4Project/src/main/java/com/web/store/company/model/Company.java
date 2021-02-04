@@ -114,6 +114,25 @@ public class Company  {
 	}
 	
 	public Company( Integer id,String companyName, Blob logo, String logoName, String uniformNumbers, Integer categories,
+			String account, String password, String email, String phone, Blob busRC, String busRCName,String profiles
+			) {
+		super();
+		this.id = id;
+		this.companyName = companyName;
+		this.logo = logo;
+		this.logoName = logoName;
+		this.uniformNumbers = uniformNumbers;
+		this.categories = categories;
+		this.account = account;
+		this.password = password;
+		this.email = email;
+		this.phone = phone;
+		this.busRC = busRC;
+		this.busRCName = busRCName;
+		this.profiles = profiles;
+		
+	}
+	public Company( Integer id,String companyName, Blob logo, String logoName, String uniformNumbers, Integer categories,
 			String account, String password, String email, String phone, Blob busRC, String busRCName
 			) {
 		super();
@@ -129,6 +148,23 @@ public class Company  {
 		this.phone = phone;
 		this.busRC = busRC;
 		this.busRCName = busRCName;
+		
+	}
+	//不更新圖片的建構子
+	public Company( Integer id,String companyName, String uniformNumbers, Integer categories,
+			String account, String password, String email, String phone
+			) {
+		super();
+		this.id = id;
+		this.companyName = companyName;
+		
+		this.uniformNumbers = uniformNumbers;
+		this.categories = categories;
+		this.account = account;
+		this.password = password;
+		this.email = email;
+		this.phone = phone;
+		
 		
 	}
 	public Company( String companyName, Blob logo, String logoName, String uniformNumbers, Integer categories,

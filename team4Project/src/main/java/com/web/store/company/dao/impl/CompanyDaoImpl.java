@@ -94,7 +94,7 @@ public class CompanyDaoImpl implements CompanyDao {
 //		String hqlstr = "UPDATE Company SET id = :newId , companyName = :newName , logo = :newLogo , logoName = :newLogoName , uniformNumbers = :newUniformNum ,categories = :newCategories , email = :newEmail ,phone = :newPhone ,busRC = :newBusRC ,busRCName = :newBusRCName WHERE id = :Cid";
 		
 		
-		Query queryObj = session.createQuery("UPDATE Company SET  companyName = :newName , logo = :newLogo , logoName = :newLogoName , uniformNumbers = :newUniformNum ,categories = :newCategories , email = :newEmail ,phone = :newPhone ,busRC = :newBusRC ,busRCName = :newBusRCName WHERE id = :Cid")
+		Query queryObj = session.createQuery("UPDATE Company SET  companyName = :newName , logo = :newLogo , logoName = :newLogoName , uniformNumbers = :newUniformNum ,categories = :newCategories , email = :newEmail ,phone = :newPhone ,busRC = :newBusRC ,busRCName = :newBusRCName ,profiles = :newpro WHERE id = :Cid")
 		.setParameter("Cid", cmp.getId())
 		.setParameter("newName", cmp.getCompanyName())
 		.setParameter("newLogo", cmp.getLogo())
@@ -104,26 +104,32 @@ public class CompanyDaoImpl implements CompanyDao {
 		.setParameter("newEmail", cmp.getEmail())
 		.setParameter("newPhone", cmp.getPhone())
 		.setParameter("newBusRC", cmp.getBusRC())
-		.setParameter("newBusRCName", cmp.getBusRCName());
+		.setParameter("newBusRCName", cmp.getBusRCName())
+		.setParameter("newpro", cmp.getProfiles());
+		
+		queryObj.executeUpdate();
+		return true;
+
+	}
+	//更新企業資訊(不更新圖片的狀況)(X)
+	@Override
+	public boolean updateWithoutLogo(Company cmp) {
+		
+		Session session = sessionFactory.getCurrentSession();
+
+		Query queryObj = session.createQuery("UPDATE Company SET  companyName = :newName , uniformNumbers = :newUniformNum ,categories = :newCategories , email = :newEmail ,phone = :newPhone WHERE id = :Cid")
+				.setParameter("Cid", cmp.getId())
+				.setParameter("newName", cmp.getCompanyName())
+
+				.setParameter("newUniformNum", cmp.getUniformNumbers())
+				.setParameter("newCategories", cmp.getCategories())
+				.setParameter("newEmail", cmp.getEmail())
+				.setParameter("newPhone", cmp.getPhone());
+		
 		
 		queryObj.executeUpdate();
 		return true;
 		
-		
-		////////////////////////////////////////////////////////
-//		Company comp = session.get(Company.class, cmp.getId());
-//		System.out.println(cmp.getId());
-//		
-//		
-//		if(comp!=null) {
-//			System.out.println("近來沒update");
-//			session.update(cmp);
-//			System.out.println("update success");
-//			return true;
-//		}else {
-//			System.out.println("No data can be update");
-//			return false;
-//		}
 	}
 
 	//刪除企業資料

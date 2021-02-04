@@ -3,6 +3,7 @@ package com.web.store.company.model;
 import java.sql.Blob;
 import java.sql.Time;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -49,12 +50,7 @@ public class Store {
 		@Column(name= "Closehour")
 		private String closehour;
 		//get的時候會用到
-		//////////////////////////////
-//		@Transient
-//		@Column(name= "CompanyId")
-//		private Integer companyId;
-		//////////////////////////////
-		
+
 //		@Transient
 		@JoinColumn(name = "CompanyId")
 		@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -80,6 +76,9 @@ public class Store {
 		
 		@Column(name= "Lng")
 		private Double lng;
+	/////////////////////////////////////////////////	
+		@Transient
+		private List<Integer> svid;
 		
 		
 		
@@ -281,5 +280,11 @@ public class Store {
 
 		public void setLng(Double lng) {
 			this.lng = lng;
+		}
+		public List<Integer> getSvid() {
+			return svid;
+		}
+		public void setSvid(List<Integer> svid) {
+			this.svid = svid;
 		}
 }

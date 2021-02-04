@@ -1,5 +1,6 @@
 package com.web.store.company.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.web.store.company.dao.CmpServiceDao;
 import com.web.store.company.model.CmpService;
 import com.web.store.company.model.Company;
+import com.web.store.company.model.StoreService;
 import com.web.store.company.service.CmpServiceService;
 
 
@@ -48,6 +50,22 @@ public class CmpServiceServiceImpl implements CmpServiceService {
 	public CmpService getCmpsvBysvId(Integer id) {
 		
 		return cmpsvDao.getCmpsvBysvId(id);
+	}
+	@Override
+	public List<Integer> getCmpsvBystoId(Integer stoid){
+		List<Integer> stosv = cmpsvDao.getCmpsvBystoId(stoid);
+		//List<Integer> svidlist = new ArrayList<>();
+		
+//		System.out.println("stosv有資料"+stosv);
+//		System.out.println("轉型前");
+//		for(StoreService stos :stosv) {
+//			Integer svid = stos.getServiceId();
+//			System.out.println("1==========="+stos.getServiceId());
+//			System.out.println("2==========="+svid);
+//			svidlist.add(svid);
+//		}
+		return stosv;
+		
 	}
 
 }
