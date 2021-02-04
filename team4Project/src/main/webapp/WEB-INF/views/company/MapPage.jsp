@@ -196,11 +196,34 @@ ul {
                             //顯示marker查出來的企業資訊
                             $(".map_info").append(` ` + data.storeName + `<br>
                             
-                            電話:`+data.phone+`<br>
+                            電話:`+data.phone+`<br>`)
+                            
+                            for (var i = 0; i < data.svid.length; i++) {
+                        $(".map_info").append(`
+                        		<span><img height="20px" width="20px" src="<c:url value='/company/getCompanyServiceImage/`+data.svid[i]+`' />" /></span>
+                            	
+                		`)
+                    }
+                            
+                            
+                            if(data.businessHour){
+                            	$(".map_info").append(`
+                                		<br>營業時間:24hr
+                                    	
+                        		`)
+                            }else{
+                            	$(".map_info").append(`
+                                		<br>營業時間:`+data.openhour+`~`+data.closehour+`
+                                    	
+                        		`)
+                            }
+                            
+                            
+                            
                             
                            
                             
-                            地址:`+data.storeAddress+`<br>
+                            $(".map_info").append(`<br>地址:`+data.storeAddress+`<br>
                             門店簡介:<br>
                             <div>
                                 `+ data.profiles + `
@@ -365,7 +388,7 @@ ul {
       //服務搜尋(id查詢)
         $(".sevicelist").on("click","#svidSearch",function () {
 			
-            
+           
             var svId = [];
             $("input[name='service']:checked").each(function (i) {
                 svId[i] = $(this).val();
@@ -393,7 +416,7 @@ ul {
         //服務搜尋(id查詢)
 //         $(".svidSearch").click(function () {
 // 			console.log("服務搜尋")
-
+//            
 //             var svId = [];
 //             $("input[name='checkbox']:checked").each(function (i) {
 //                 svId[i] = $(this).val();
